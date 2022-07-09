@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import {Routes, Route, Navigate, Router} from 'react-router-dom'
 import { Context } from '../index';
 import { authRoutes, publicRoutes } from '../routes';
-import { MAIN_ROUTE } from '../utils/consts';
+import { LOGIN_ROUTE, MAIN_ROUTE } from '../utils/consts';
 
 const AppRouter = () => {
     const {user} = useContext(Context)
@@ -19,7 +19,7 @@ const AppRouter = () => {
         )}
          <Route
         path="*"
-        element={<Navigate to={MAIN_ROUTE} replace />}
+        element={<Navigate to={LOGIN_ROUTE} replace />}
     />
     </Routes>
    
