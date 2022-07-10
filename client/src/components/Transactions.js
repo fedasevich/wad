@@ -9,6 +9,7 @@ const Categories = observer(() => {
   return (
    
    <Container>
+    <h2>Transactions:</h2>
 {category.transactions.map(transactionsMap=>
   <Row>
     <Col md="12" className="d-inline-flex justify-content-between">
