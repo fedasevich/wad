@@ -5,13 +5,12 @@ import Transactions from '../components/Transactions'
 
 const Category = () => {
   return (
-    <Container>
+   
       <Row>
         
-        <Categories/>
-        <Transactions/>
+        
       </Row>
-    </Container>
+    
   )
 }
 

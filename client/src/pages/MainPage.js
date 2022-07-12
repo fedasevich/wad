@@ -1,8 +1,18 @@
 import React from 'react'
+import { Container } from 'react-bootstrap'
+import Categories from '../components/Categories'
+import Transactions from '../components/Transactions'
+import Wallets from '../components/Wallets'
 
 const MainPage = () => {
   return (
-    <div>MainPage</div>
+    <>
+    <Container>
+    <Categories/>
+    <Wallets/>
+    <Transactions/>
+    </Container>
+    </>
   )
 }
 

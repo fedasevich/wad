@@ -15,9 +15,9 @@ export default class CategoryStore {
             {id: 4, categoryName: 'Oil', sum: 10,categoryId:2},
             {id: 5, categoryName: 'Oil', sum: 100,categoryId:2},
             {id: 6, categoryName: 'Oil', sum: 500,categoryId:2},
-            {id: 4, categoryName: 'Health', sum: 10,categoryId:3},
-            {id: 5, categoryName: 'Health', sum: 100,categoryId:3},
-            {id: 6, categoryName: 'Health', sum: 500,categoryId:3}
+            {id: 7, categoryName: 'Health', sum: 10,categoryId:3},
+            {id: 8, categoryName: 'Health', sum: 100,categoryId:3},
+            {id: 9, categoryName: 'Health', sum: 500,categoryId:3}
         ]
         this._selectedCategory = {}
         makeAutoObservable(this)

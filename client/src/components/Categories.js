@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import {observer} from 'mobx-react-lite'
-import { Card, Col } from 'react-bootstrap';
+import { Card, Col, Row } from 'react-bootstrap';
 import { Context } from '../index';
 
 
@@ -11,6 +11,7 @@ const Categories = observer(() => {
   return (
    
     <>
+    <Row>
        <h2>Categories:</h2>
    {category.categories.map(categoryMap =>
     <Col md="4" >
@@ -26,8 +27,8 @@ const Categories = observer(() => {
     </Col>
     
     )}
-</>
-
+</Row>
+    </>
   );
 });
 

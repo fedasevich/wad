@@ -12,7 +12,7 @@ const Categories = observer(() => {
     <h2>Transactions:</h2>
 {category.transactions.map(transactionsMap=>
   <Row>
-    <Col md="12" className="d-inline-flex justify-content-between">
+    <Col key={transactionsMap.id} md="12" className="d-inline-flex justify-content-between">
   <h2>{transactionsMap.categoryName}</h2>
  <h4>{transactionsMap.sum}</h4>
  </Col>
