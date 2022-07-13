@@ -20,7 +20,7 @@ const Wallets = observer(() => {
          key={walletsMap.id}>
            
             <h1>{walletsMap.name}</h1>
-            <h4>{walletsMap.balance} </h4>
+            <h4>{walletsMap.balance} {walletsMap.currency}</h4>
         </div>
         </Col>
         

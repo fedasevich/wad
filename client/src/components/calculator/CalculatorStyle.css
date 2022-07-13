@@ -1,0 +1,15 @@
+
+
+.wrapper {
+    position:fixed;
+    bottom:0;
+    background-color: black;
+    color: white;
+    width:100%;
+    left:0
+}
+
+.calculator {
+    display: grid;
+ 
+}
