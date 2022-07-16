@@ -1,7 +1,7 @@
 import React, { useState, useRef, useReducer } from 'react'
 import { useOnClickOutside } from './Hooks/useOnClickOutisde';
 import "./CalculatorStyle.css"
-import { ACTIONS, DIVIDE_SYMBOL, MULTIPLY_SYMBOL, SUBMIT_SYMBOL } from '../utils/consts';
+import { ACTIONS, BACK_SYMBOL, DIVIDE_SYMBOL, EVALUATE_SYMBOL, INTEGER_FORMATTER, MULTIPLY_SYMBOL, SUBMIT_SYMBOL } from '../utils/consts';
 import DigitButton from './DigitButtons';
 import OperationButton from './OperationDigit';
 
@@ -10,21 +10,35 @@ import OperationButton from './OperationDigit';
 function reducer(state, {type, payload}) {
   switch (type) {
     case ACTIONS.ADD_DIGIT:
+      if(state.overwrite) {
+        return {
+          ...state,
+          currentOperand: payload.digit,
+          overwrite: false
+        }
+      }
       if(payload.digit === "0" && state.currentOperand === "0") return state
-      if(payload.digit === "," && state.currentOperand?.includes(",")) return state
+      if(state.currentOperand === "0" && payload.digit !== ".") 
+      {
+      return {
+        ...state,
+        currentOperand:`${payload.digit}`
+      }
+    }
+      if(payload.digit === "." && state.currentOperand?.includes(".")) return state
       return {
         ...state,
         currentOperand:`${state.currentOperand || ""}${payload.digit}`
       }
       case ACTIONS.CHOOSE_OPERATION:
-        if (state.currentOperand == null && state.previousiousOperand === null) {
+        if (state.currentOperand == null && state.previousOperand === null) {
           return state
         }
-        if (state.previousiousOperand == null) {
+        if (state.previousOperand == null) {
           return {
             ...state,
             operation: payload.operation,
-            previousiousOperand: state.currentOperand,
+            previousOperand: state.currentOperand,
             currentOperand: null
           }
         }
@@ -36,16 +50,57 @@ function reducer(state, {type, payload}) {
         }
         return {
           ...state,
-          previousiousOperand: evaluate(state),
+          previousOperand: evaluate(state),
           operation: payload.operation,
           currentOperand: null
         }
-       
+       case ACTIONS.EVALUATE: 
+       if( state.operation ==  null || state.operation == null || state.previousOperand == null) {
+        return state
+       }
+       return {
+        ...state,
+        overwrite: true,
+        previousOperand: null,
+        operation: null,
+        currentOperand: evaluate(state)
+       }
+       case ACTIONS.DELETE_DIGIT:
+        if (state.overwrite) {
+          return {
+            ...state,
+            overwrite:false,
+            currentOperand:null
+          }
+        }
+        if (state.currentOperand == null || state.currentOperand === "0") return state
+        if ( state.currentOperand.length === 1  ) {
+          return {
+            ...state,
+            currentOperand: '0'
+          }
+        }
+        return {
+          ...state,
+          currentOperand: state.currentOperand.slice(0,-1)
+        }
       }
   }
   
-  function evaluate({currentOperand, previousiousOperand, operation}) {
-    const previous = parseFloat(previousiousOperand)
+
+
+
+function formatOperand(operand) {
+  if ( operand == null ) return
+  const [integer, decimal] = operand.split('.')
+  if (decimal == null) {
+    return INTEGER_FORMATTER.format(integer)
+  }
+  return `${INTEGER_FORMATTER.format(integer)}.${decimal}`
+}
+
+  function evaluate({currentOperand, previousOperand, operation}) {
+    const previous = parseFloat(previousOperand)
     const current = parseFloat(currentOperand)
     if( isNaN(previous) || isNaN(current)) {
       return ""
@@ -72,8 +127,8 @@ function reducer(state, {type, payload}) {
 
 const Calculator = () => {
     const [isOpen, setIsOpen] = useState(true);
-    const [{currentOperand, previousiousOperand, operation}, dispatch] = useReducer(reducer, {})
-   
+    const [{currentOperand='0', previousOperand, operation}, dispatch] = useReducer(reducer, {})
+
     const calculatorRef = useRef(); 
 
    
@@ -90,14 +145,14 @@ const Calculator = () => {
     <div className="item category">cat</div>
     <div className="item sum">
       <h6>Sum</h6>
-      <p>{previousiousOperand} {operation} {currentOperand}</p>
+      <p>{formatOperand(previousOperand)} {operation} {formatOperand(currentOperand)}</p>
       <input type="text" placeholder="Description" />
       </div>
     <OperationButton operation={DIVIDE_SYMBOL} dispatch={dispatch}/>
     <DigitButton digit="7" dispatch={dispatch}/>
     <DigitButton digit="8" dispatch={dispatch}/>
     <DigitButton digit="9" dispatch={dispatch}/>
-    <div className="item back">⌫</div>
+    <div className="item back" onClick={()=> dispatch({type: ACTIONS.DELETE_DIGIT})}>{BACK_SYMBOL}</div>
     <OperationButton operation={MULTIPLY_SYMBOL} dispatch={dispatch}/>
     <DigitButton digit="4" dispatch={dispatch}/>
     <DigitButton digit="5" dispatch={dispatch}/>
@@ -106,10 +161,13 @@ const Calculator = () => {
     <DigitButton digit="1" dispatch={dispatch}/>
     <DigitButton digit="2" dispatch={dispatch}/>
     <DigitButton digit="3" dispatch={dispatch}/>
-    <div className="item submit">{SUBMIT_SYMBOL}</div>
+    {operation ? <div className="item submit" onClick={()=> dispatch({type: ACTIONS.EVALUATE})}>{EVALUATE_SYMBOL}</div>
+    :  
+    <div className="item submit" onClick={()=> alert(currentOperand)} >{SUBMIT_SYMBOL}</div>}
+    
     <OperationButton operation="+" dispatch={dispatch}/>
     <DigitButton className="zero" digit="0" dispatch={dispatch}/>
-    <DigitButton digit="," dispatch={dispatch}/>
+    <DigitButton digit="." dispatch={dispatch}/>
     
 
     </div>
