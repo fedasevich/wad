@@ -1,9 +1,10 @@
-import React, { useState, useRef, useReducer } from 'react'
+import React, { useState, useRef, useReducer, useContext } from 'react'
 import { useOnClickOutside } from './Hooks/useOnClickOutisde';
 import "./CalculatorStyle.css"
 import { ACTIONS, BACK_SYMBOL, DIVIDE_SYMBOL, EVALUATE_SYMBOL, INTEGER_FORMATTER, MULTIPLY_SYMBOL, SUBMIT_SYMBOL } from '../utils/consts';
 import DigitButton from './DigitButtons';
 import OperationButton from './OperationDigit';
+import { Context } from '../..';
 
 
 
@@ -130,7 +131,7 @@ const Calculator = ({active,setActive,category}) => {
 
     const calculatorRef = useRef(); 
 
-   
+   const {wallet} = useContext(Context)
 
   
 
@@ -140,8 +141,12 @@ const Calculator = ({active,setActive,category}) => {
     <div ref={calculatorRef} className="wrapper" style={{ display: active ? "block":"none"}} >
    
     <div className="calculator">
-    <div className="item wallet">wallet</div>
-    <div className="item category">{category.name}</div>
+    <div className="item wallet">
+      <h4> {wallet.selectedWallet.name}</h4>
+      {'\n'}
+     <h5>{wallet.selectedWallet.balance} {wallet.selectedWallet.currency}</h5>
+      </div>
+    <div className="item category"><h4>{category.name}</h4></div>
     <div className="item sum">
       <h6>Sum</h6>
       <p>{formatOperand(previousOperand)} {operation} {formatOperand(currentOperand)}</p>

@@ -8,7 +8,7 @@ export default class WalletStore {
             {id: 3, name: 'Crypto', balance: 10000, currency: "USDT"}
         ]
         
-        this._selectedWallet = {}
+        this._selectedWallet = this._wallets[0]
         makeAutoObservable(this)
     }
 

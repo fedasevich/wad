@@ -9,7 +9,7 @@ const MainPage = () => {
   return (
     <> 
     <Container>
-     
+
     <Categories/>
     <Wallets/>
     <Transactions/>
