@@ -6,12 +6,14 @@
     background-color: rgb(124, 124, 124);
     color: white;
     width:100%;
-    left:0
+    left:0;
+   
 }
 
 .calculator {
     display: grid;
     gap: 2px;
+    height:50vh;
  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 }
 

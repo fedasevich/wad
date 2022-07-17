@@ -125,8 +125,7 @@ function formatOperand(operand) {
  
   
 
-const Calculator = () => {
-    const [isOpen, setIsOpen] = useState(true);
+const Calculator = ({active,setActive,category}) => {
     const [{currentOperand='0', previousOperand, operation}, dispatch] = useReducer(reducer, {})
 
     const calculatorRef = useRef(); 
@@ -135,14 +134,14 @@ const Calculator = () => {
 
   
 
-    useOnClickOutside(calculatorRef, () => setIsOpen(false));
+    useOnClickOutside(calculatorRef, () => setActive(false));
   return (
     <>
-    <div ref={calculatorRef} className="wrapper" style={{ display: isOpen ? "block":"none"}} >
+    <div ref={calculatorRef} className="wrapper" style={{ display: active ? "block":"none"}} >
    
     <div className="calculator">
     <div className="item wallet">wallet</div>
-    <div className="item category">cat</div>
+    <div className="item category">{category.name}</div>
     <div className="item sum">
       <h6>Sum</h6>
       <p>{formatOperand(previousOperand)} {operation} {formatOperand(currentOperand)}</p>
@@ -173,7 +172,6 @@ const Calculator = () => {
     </div>
 
     </div>
-    <h2 onClick={()=> setIsOpen(!isOpen)}>click</h2>
     </>
     )
 }
