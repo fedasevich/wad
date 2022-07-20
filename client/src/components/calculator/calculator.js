@@ -1,10 +1,12 @@
-import React, { useState, useRef, useReducer, useContext } from 'react'
+import React, { useState, useRef, useReducer, useContext, useEffect } from 'react'
 import { useOnClickOutside } from './Hooks/useOnClickOutisde';
 import "./CalculatorStyle.css"
-import { ACTIONS, BACK_SYMBOL, DIVIDE_SYMBOL, EVALUATE_SYMBOL, INTEGER_FORMATTER, MULTIPLY_SYMBOL, SUBMIT_SYMBOL } from '../utils/consts';
+import { ACTIONS, BACK_SYMBOL, DIVIDE_SYMBOL, EVALUATE_SYMBOL, INTEGER_FORMATTER, MULTIPLY_SYMBOL, SUBMIT_SYMBOL } from './utils/consts';
 import DigitButton from './DigitButtons';
 import OperationButton from './OperationDigit';
 import { Context } from '../..';
+import { Col } from 'react-bootstrap';
+import Modal from '../modal/modal';
 
 
 
@@ -127,11 +129,12 @@ function formatOperand(operand) {
   
 
 const Calculator = ({active,setActive,category}) => {
+    const [modalActive, setModalActive] = useState(true)
     const [{currentOperand='0', previousOperand, operation}, dispatch] = useReducer(reducer, {})
 
     const calculatorRef = useRef(); 
 
-   const {wallet} = useContext(Context)
+    const {wallet} = useContext(Context)
 
   
 
@@ -141,7 +144,7 @@ const Calculator = ({active,setActive,category}) => {
     <div ref={calculatorRef} className="wrapper" style={{ display: active ? "block":"none"}} >
    
     <div className="calculator">
-    <div className="item wallet">
+    <div className="item wallet" onClick={()=> setModalActive(true)}>
       <h4> {wallet.selectedWallet.name}</h4>
       {'\n'}
      <h5>{wallet.selectedWallet.balance} {wallet.selectedWallet.currency}</h5>
@@ -176,7 +179,29 @@ const Calculator = ({active,setActive,category}) => {
 
     </div>
 
+    
     </div>
+    <Modal active={modalActive} setActive={setModalActive}>
+    {wallet.wallets.map(walletsMap =>
+       
+          <div className="p-4 mb-2 " 
+        style={{ cursor: "pointer", color:"black", borderRadius: "400px",backgroundColor: "lightblue",textAlign:"center" ,
+        border:walletsMap.id === wallet.selectedWallet.id ? '3px solid red' : '3px solid black'}}
+        onClick={()=> {wallet.setSelectedWallet(walletsMap) 
+        setModalActive(false)
+      } }  
+         key={walletsMap.id}>
+           
+            <h1>{walletsMap.name}</h1>
+            <h4>{walletsMap.balance} {walletsMap.currency}</h4>
+        </div>
+        
+        )}
+   
+    </Modal>
+  
+
+   
     </>
     )
 }

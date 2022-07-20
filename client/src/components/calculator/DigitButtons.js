@@ -1,4 +1,4 @@
-import { ACTIONS } from "../utils/consts";
+import { ACTIONS } from "./utils/consts";
 
 export default function DigitButton({dispatch,digit}) {
     if(digit === "0") {
