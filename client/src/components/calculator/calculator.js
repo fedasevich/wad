@@ -5,7 +5,6 @@ import { ACTIONS, BACK_SYMBOL, DIVIDE_SYMBOL, EVALUATE_SYMBOL, INTEGER_FORMATTER
 import DigitButton from './DigitButtons';
 import OperationButton from './OperationDigit';
 import { Context } from '../..';
-import { Col } from 'react-bootstrap';
 import Modal from '../modal/modal';
 
 
@@ -102,7 +101,7 @@ function formatOperand(operand) {
   return `${INTEGER_FORMATTER.format(integer)}.${decimal}`
 }
 
-  function evaluate({currentOperand, previousOperand, operation}) {
+function evaluate({currentOperand, previousOperand, operation}) {
     const previous = parseFloat(previousOperand)
     const current = parseFloat(currentOperand)
     if( isNaN(previous) || isNaN(current)) {
@@ -129,7 +128,8 @@ function formatOperand(operand) {
   
 
 const Calculator = ({active,setActive,category}) => {
-    const [modalActive, setModalActive] = useState(true)
+    const [walletModalActive, setWalletModalActive] = useState(false)
+    const [categoryModalActive, setCategoryModalActive] = useState(false)
     const [{currentOperand='0', previousOperand, operation}, dispatch] = useReducer(reducer, {})
 
     const calculatorRef = useRef(); 
@@ -144,12 +144,12 @@ const Calculator = ({active,setActive,category}) => {
     <div ref={calculatorRef} className="wrapper" style={{ display: active ? "block":"none"}} >
    
     <div className="calculator">
-    <div className="item wallet" onClick={()=> setModalActive(true)}>
+    <div className="item wallet" onClick={()=> setWalletModalActive(true)}>
       <h4> {wallet.selectedWallet.name}</h4>
       {'\n'}
      <h5>{wallet.selectedWallet.balance} {wallet.selectedWallet.currency}</h5>
       </div>
-    <div className="item category"><h4>{category.name}</h4></div>
+    <div className="item category" onClick={()=> setCategoryModalActive(true)}><h4>{category.selectedCategory.name}</h4></div>
     <div className="item sum">
       <h6>Sum</h6>
       <p>{formatOperand(previousOperand)} {operation} {formatOperand(currentOperand)}</p>
@@ -179,16 +179,14 @@ const Calculator = ({active,setActive,category}) => {
 
     </div>
 
-    
-    </div>
-    <Modal active={modalActive} setActive={setModalActive}>
+    <Modal active={walletModalActive} setActive={setWalletModalActive}>
     {wallet.wallets.map(walletsMap =>
        
           <div className="p-4 mb-2 " 
         style={{ cursor: "pointer", color:"black", borderRadius: "400px",backgroundColor: "lightblue",textAlign:"center" ,
         border:walletsMap.id === wallet.selectedWallet.id ? '3px solid red' : '3px solid black'}}
         onClick={()=> {wallet.setSelectedWallet(walletsMap) 
-        setModalActive(false)
+        setWalletModalActive(false)
       } }  
          key={walletsMap.id}>
            
@@ -199,8 +197,30 @@ const Calculator = ({active,setActive,category}) => {
         )}
    
     </Modal>
-  
 
+    <Modal active={categoryModalActive} setActive={setCategoryModalActive}>
+  {category.categories.map(categoryMap =>
+    
+     
+    <div className="p-4 mb-2 " 
+    style={{ cursor: "pointer",color:"black", borderRadius: "400px",backgroundColor: "lightblue",textAlign:"center" ,border:categoryMap.id === category.selectedCategory.id ? '3px solid red' : '3px solid black'}}
+      onClick={()=> {category.setSelectedCategory(categoryMap)
+        setCategoryModalActive(false)
+      } }  
+     key={categoryMap.id}>
+      
+        <h1>{categoryMap.name}</h1>
+        <h4>{categoryMap.spent}</h4>
+    </div>
+    
+    
+    )}
+   
+    </Modal>
+    </div>
+   
+  
+    
    
     </>
     )

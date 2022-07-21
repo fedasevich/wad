@@ -31,7 +31,7 @@ const Categories = observer(() => {
     
     )}
 </Row>
-<Calculator active={calcActive} setActive={setCalcActive} category={category.selectedCategory}/>
+<Calculator active={calcActive} setActive={setCalcActive} category={category}/>
     </>
   );
 });
