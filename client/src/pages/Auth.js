@@ -1,21 +1,36 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 
 import {Button, Card, Container, Form, Row} from "react-bootstrap"
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { login, registration } from '../http/userApi';
-import { LOGIN_ROUTE, REGESTRATION_ROUTE } from '../utils/consts';
+import { Context } from '../index';
+import { LOGIN_ROUTE, MAIN_ROUTE, REGESTRATION_ROUTE } from '../utils/consts';
 const Auth = () => {
+  const {user} = useContext(Context)
   const location = useLocation()
+  const navigate = useNavigate()
   const isLogin = location.pathname === LOGIN_ROUTE
   const [email, setEmail] = useState('')
   const [password, setPassword] =  useState('')
+
 const submit = async () => {
-if(isLogin) {
-const response = await login()
-} else {
-  const response = await registration(email,password);
-  console.log(response)
-}
+  try {
+    let data;
+    if(isLogin) {
+    data = await login(email,password)
+    console.log(data);
+    } else {
+      data = await registration(email,password);
+    }
+    
+user.setUser(user)
+user.setIsAuth(true)
+console.log(user.isAuth)
+navigate(MAIN_ROUTE)
+  } catch(e) {
+    alert(e.response.data.massage)
+  }
+
 
 
 }

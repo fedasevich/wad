@@ -1,10 +1,16 @@
-import React from 'react'
+import { observer } from 'mobx-react-lite';
+import React, { useContext, useEffect, useState } from 'react'
 import { BrowserRouter } from 'react-router-dom';
 import AppRouter from './components/AppRouter';
 import './style.css';
 
-function App() {
-  console.log(process.env.REACT_APP_API_URL)
+const App = observer(()=> {
+  // useEffect(()=>{
+  //   const {user} = useContext(Context)
+  //   const [loading,setLoading] = useState(true)
+  //   console.log(process.env.REACT_APP_API_URL)
+  // },[])
+
   return (
 
     <BrowserRouter>
@@ -12,6 +18,6 @@ function App() {
      </BrowserRouter>
    
   );
-}
+})
 
 export default App;
