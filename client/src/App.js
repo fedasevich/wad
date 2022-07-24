@@ -5,6 +5,7 @@ import { Context } from './index';
 import { check } from './http/userApi';
 import AppRouter from './components/AppRouter';
 import './style.css';
+import { Spinner } from 'react-bootstrap';
 
 const App = observer(()=> {
   const {user} = useContext(Context)
@@ -12,10 +13,14 @@ const App = observer(()=> {
  
   useEffect(() => {
     check().then(data => {
-        user.setUser(true)
+        user.setUser(data)
         user.setIsAuth(true)
     }).finally(() => setLoading(false))
 }, [])
+
+if (loading) {
+  return <h2>loading</h2>
+}
 
   return (
 

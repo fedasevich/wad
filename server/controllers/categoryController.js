@@ -15,6 +15,7 @@ class CategoryController {
     
     async get(req,res,next) {
         const {userId} = req.body
+        
         if(!userId || req.user.id !== userId){
             return next(ApiError.badRequest('Wrong data'))
         }

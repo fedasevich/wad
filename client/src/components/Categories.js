@@ -1,16 +1,23 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import {observer} from 'mobx-react-lite'
 import { Button, Card, Col, Row } from 'react-bootstrap';
 import { Context } from '../index';
 import Calculator from './calculator/calculator';
-import { Navigate } from 'react-router-dom';
+import { Navigate} from 'react-router-dom';
 import { MAIN_ROUTE } from '../utils/consts';
+import { fetchCategory } from '../http/categoryApi';
 
 
 const Categories = observer(() => {
     const {category,user} = useContext(Context) 
     const [calcActive, setCalcActive] = useState(false)
+    
+  useEffect(()=>{
+   let data = fetchCategory(user.user.id).then(data=> console.log(data))
+   
+  },[])
 
+  console.log(user.user.id)
   const logOut= () => {
     user.setUser({})
     user.setIsAuth(false)
@@ -21,7 +28,7 @@ const Categories = observer(() => {
     <>
     <Row>
        <h2>Categories:</h2>
-   {category.categories.map(categoryMap =>
+   {/* {category.categories.map(categoryMap =>
     <Col md="4" >
      
     <div className="p-4 mb-2 " 
@@ -36,7 +43,7 @@ const Categories = observer(() => {
     </div>
     </Col>
     
-    )}
+    )} */}
 </Row>
 <Calculator active={calcActive} setActive={setCalcActive} category={category}/>
 <Button 

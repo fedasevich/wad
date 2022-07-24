@@ -3,10 +3,7 @@ import {makeAutoObservable} from "mobx";
 export default class CategoryStore {
     constructor() {
         this._categories = [
-            {id: 1, name: 'Groceries', spent: 610},
-            {id: 2, name: 'Oil', spent: 610},
-            {id: 3, name: 'Health', spent: 610},
-            {id: 4, name: 'Leisure', spent: 610}
+
         ]
         this._transactions = [
             {id: 1, categoryName: 'Groceries', sum: 10,categoryId:1},
