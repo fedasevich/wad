@@ -16,10 +16,11 @@ class WalletController {
     
     
     async get(req,res,next) {
-        const {userId} = req.body
-        if(!userId || req.user.id !== userId){
+        
+        if(!req.user.id ){
             return next(ApiError.badRequest('Wrong data'))
         }
+        const userId = req.user.id
         const wallet = await Wallet.findAll({where:{userId}})
         return res.json(wallet)
     }

@@ -14,11 +14,11 @@ class CategoryController {
     }
     
     async get(req,res,next) {
-        const {userId} = req.body
-        
-        if(!userId || req.user.id !== userId){
+       
+        if( !req.user.id ){
             return next(ApiError.badRequest('Wrong data'))
         }
+        const userId = req.user.id
         const category = await Category.findAll({where:{userId}})
         return res.json(category)
     }

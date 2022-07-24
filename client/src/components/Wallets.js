@@ -1,10 +1,18 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import {observer} from 'mobx-react-lite'
 import { Card, Col, Row } from 'react-bootstrap';
 import { Context } from '../index';
+import { fetchWallet } from '../http/walletApi';
 
 const Wallets = observer(() => {
     const {wallet} = useContext(Context) 
+    useEffect(()=>{
+        try {
+          fetchWallet().then(data=> wallet.setWallet(data))
+        } catch(e) {
+          alert(e.response.data.message);
+        }
+      },[])
     return (
    
         <>

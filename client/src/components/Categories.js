@@ -4,7 +4,7 @@ import { Button, Card, Col, Row } from 'react-bootstrap';
 import { Context } from '../index';
 import Calculator from './calculator/calculator';
 import { Navigate} from 'react-router-dom';
-import { MAIN_ROUTE } from '../utils/consts';
+import { LOGIN_ROUTE } from '../utils/consts';
 import { fetchCategory } from '../http/categoryApi';
 
 
@@ -13,11 +13,15 @@ const Categories = observer(() => {
     const [calcActive, setCalcActive] = useState(false)
     
   useEffect(()=>{
-   let data = fetchCategory(user.user.id).then(data=> console.log(data))
+    try {
+      fetchCategory().then(data=> category.setCategories(data))
+    } catch(e) {
+      alert(e.response.data.message);
+    }
+ 
    
   },[])
 
-  console.log(user.user.id)
   const logOut= () => {
     user.setUser({})
     user.setIsAuth(false)
@@ -28,7 +32,7 @@ const Categories = observer(() => {
     <>
     <Row>
        <h2>Categories:</h2>
-   {/* {category.categories.map(categoryMap =>
+   {category.categories.map(categoryMap =>
     <Col md="4" >
      
     <div className="p-4 mb-2 " 
@@ -43,13 +47,13 @@ const Categories = observer(() => {
     </div>
     </Col>
     
-    )} */}
+    )}
 </Row>
 <Calculator active={calcActive} setActive={setCalcActive} category={category}/>
 <Button 
     
     onClick={()=> {logOut()
-      Navigate(MAIN_ROUTE)
+      Navigate(LOGIN_ROUTE)
     }}>Log out</Button>
     </>
   );

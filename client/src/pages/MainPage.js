@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { Container } from 'react-bootstrap'
 import Categories from '../components/Categories'
@@ -5,7 +6,8 @@ import Transactions from '../components/Transactions'
 import Wallets from '../components/Wallets'
 
 
-const MainPage = () => {
+const MainPage = observer(() => {
+
   return (
     <> 
     <Container>
@@ -15,6 +17,6 @@ const MainPage = () => {
     </Container>
     </>
   )
-}
+})
 
 export default MainPage

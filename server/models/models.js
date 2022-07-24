@@ -14,11 +14,10 @@ const Category = sequelize.define('category',{
 })
 
 const Transaction = sequelize.define('transaction',{
-    categoryName: {type: DataTypes.STRING,allowNull: false},
-    sum: {type: DataTypes.DOUBLE,defaultValue:0}
-
-
-    //walletId: {type: DataTypes.INTEGER,defaultValue:0} -- to change
+    description: {type: DataTypes.STRING,allowNull: false},
+    sum: {type: DataTypes.DOUBLE,defaultValue:0},
+    walletId: {type: DataTypes.INTEGER,allowNull: false},
+    userId: {type: DataTypes.INTEGER,allowNull: false}
 })
 
 

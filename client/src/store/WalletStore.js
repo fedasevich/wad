@@ -2,17 +2,13 @@ import {makeAutoObservable} from "mobx";
 
 export default class WalletStore {
     constructor() {
-        this._wallets = [
-            {id: 1, name: 'Card', balance: 10000, currency: "USD"},
-            {id: 2, name: 'Cash', balance: 10000, currency: "USD"},
-            {id: 3, name: 'Crypto', balance: 10000, currency: "USDT"}
-        ]
+        this._wallets = []
         
-        this._selectedWallet = this._wallets[0]
+        this._selectedWallet = {}
         makeAutoObservable(this)
     }
 
-    setWallets(wallets) {
+    setWallet(wallets) {
         this._wallets = wallets
     }
 

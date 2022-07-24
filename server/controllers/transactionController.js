@@ -8,32 +8,33 @@ const { Transaction, Category, Wallet} = require('../models/models')
 
 class TransactionController {
     async create(req,res,next) {
-    const {categoryName,sum,userId,categoryId,walletId} = req.body 
-    if(!categoryName || !sum || !userId || !categoryId ||!walletId || req.user.id !==userId) {
+    const {description,sum,categoryId,walletId} = req.body 
+    const userId = req.user.id
+    if(!description || !sum || !userId || !categoryId ||!walletId) {
         return next(ApiError.badRequest('Wrong data')) 
     }
     
     try {
     await sequelize.transaction(async (SequelizeTransaction)=>{
 //category find and update
-const category = await Category.findOne({where:{name:categoryName,id:categoryId}}, { transaction: SequelizeTransaction })
+const category = await Category.findOne({where:{id:categoryId}}, { transaction: SequelizeTransaction })
        
 const categoryUpdate = {
     spent:category.spent + sum
 }
-const updatedCategory = await Category.update(categoryUpdate,{where:{name:categoryName,id:categoryId,userId},transaction: SequelizeTransaction })
+const updatedCategory = await Category.update(categoryUpdate,{where:{id:categoryId,userId},transaction: SequelizeTransaction })
 
 
 // wallet find and update
 const wallet = await Wallet.findOne({where:{userId,id:walletId}},{transaction:  SequelizeTransaction })
-const walletSpent = wallet.balance + sum;
+const walletSpent = wallet.balance - sum;
 const walletUpdate = {
 balance:walletSpent
 }
 const updatedWallet = await Wallet.update(walletUpdate,{where:{userId,id:walletId}, transaction: SequelizeTransaction })
 
 // transaction create
-const newTransaction = await Transaction.create({categoryName,sum,categoryId},  {transaction: SequelizeTransaction })
+const newTransaction = await Transaction.create({description,sum,categoryId,walletId,userId},  {transaction: SequelizeTransaction })
 
 
 return res.json(newTransaction)
@@ -43,38 +44,59 @@ return res.json(newTransaction)
 
   }catch(e){
         
-            return next(ApiError.badRequest('Wrong data'))
+            return next(ApiError.badRequest(e))
       
        
     }
     }
     
     async get(req, res) {
-      const {
-         categoryName,
-         userId,
-         categoryId
-      } = req.body
-      let {
-         page,
-         limit
-      } = req.body
-      if (!categoryName || !categoryId || !userId || req.user.id !== userId) {
-         return next(ApiError.badRequest('Wrong data'))
-      }
+      let {categoryId,walletId,page,limit} = req.query
       page = page || 1
       limit = limit || 9
       let offset = page * limit - limit
+      const userId = req.user.id
+      if(!categoryId && !walletId) {     
       const transactions = await Transaction.findAndCountAll({
          where: {
-            categoryName,
-            categoryId
+            userId
          },
          limit,
          offset
       })
       return res.json(transactions)
+      }    
+      if(categoryId && !walletId) 
+  {   
+    const transactions = await Transaction.findAndCountAll({
+        where: {
+           categoryId,userId
+        },
+        limit,
+        offset
+     })
+    }
+     if(!categoryId && walletId) {
+      const transactions = await Transaction.findAndCountAll({
+        where: {
+           walletId,userId
+        },
+        limit,
+        offset
+     })
+     }
+     if(categoryId && walletId) {
+      const transactions = await Transaction.findAndCountAll({
+        where: {
+           walletId,categoryId,userId
+        },
+        limit,
+        offset
+     })
+     }
+      return res.json(transactions)
    }
+   
 
    async change(req, res,next) {
   

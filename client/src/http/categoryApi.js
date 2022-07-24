@@ -7,9 +7,9 @@ export const createCategory = async (email,password) => {
     return data
 }
 
-export const fetchCategory = async (userId) => {
-    console.log({userId})
-    const {data} = await $authHost.get('api/category',{userId})
+export const fetchCategory = async () => {
+   
+    const {data} = await $authHost.get('api/category')
    
     return data
 }
