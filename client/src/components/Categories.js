@@ -1,13 +1,20 @@
 import React, { useContext, useState } from 'react'
 import {observer} from 'mobx-react-lite'
-import { Card, Col, Row } from 'react-bootstrap';
+import { Button, Card, Col, Row } from 'react-bootstrap';
 import { Context } from '../index';
 import Calculator from './calculator/calculator';
+import { Navigate } from 'react-router-dom';
+import { MAIN_ROUTE } from '../utils/consts';
 
 
 const Categories = observer(() => {
-    const {category} = useContext(Context) 
+    const {category,user} = useContext(Context) 
     const [calcActive, setCalcActive] = useState(false)
+
+  const logOut= () => {
+    user.setUser({})
+    user.setIsAuth(false)
+  }
 
   return (
    
@@ -32,6 +39,11 @@ const Categories = observer(() => {
     )}
 </Row>
 <Calculator active={calcActive} setActive={setCalcActive} category={category}/>
+<Button 
+    
+    onClick={()=> {logOut()
+      Navigate(MAIN_ROUTE)
+    }}>Log out</Button>
     </>
   );
 });

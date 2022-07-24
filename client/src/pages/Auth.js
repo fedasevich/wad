@@ -28,7 +28,7 @@ user.setIsAuth(true)
 console.log(user.isAuth)
 navigate(MAIN_ROUTE)
   } catch(e) {
-    alert(e.response.data.massage)
+   alert(e.response.data.message);
   }
 
 
@@ -38,7 +38,7 @@ navigate(MAIN_ROUTE)
   return (
     <Container className="d-flex justify-content-center align-items-center">
       <Row>
-    <Card style={{width:600}} className="p-5">
+    <Card  className="p-5 col-md-12">
       <h2 className="m-auto">{isLogin ? 'Authorization' : 'Registration'}</h2>
       <Form className="d-flex flex-column">
         <Form.Control 
