@@ -17,7 +17,7 @@ class TransactionController {
     try {
     await sequelize.transaction(async (SequelizeTransaction)=>{
 //category find and update
-const category = await Category.findOne({where:{id:categoryId}}, { transaction: SequelizeTransaction })
+const category = await Category.findOne({where:{id:categoryId,userId}}, { transaction: SequelizeTransaction })
        
 const categoryUpdate = {
     spent:category.spent + sum
@@ -44,7 +44,7 @@ return res.json(newTransaction)
 
   }catch(e){
         
-            return next(ApiError.badRequest(e))
+            return next(ApiError.badRequest("Wrong data"))
       
        
     }
