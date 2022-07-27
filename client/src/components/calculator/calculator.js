@@ -6,6 +6,7 @@ import DigitButton from './DigitButtons';
 import OperationButton from './OperationDigit';
 import { Context } from '../..';
 import Modal from '../modal/modal';
+import { createTransaction } from '../../http/transactionApi';
 
 
 
@@ -131,7 +132,7 @@ const Calculator = ({active,setActive,category}) => {
     const [walletModalActive, setWalletModalActive] = useState(false)
     const [categoryModalActive, setCategoryModalActive] = useState(false)
     const [{currentOperand='0', previousOperand, operation}, dispatch] = useReducer(reducer, {})
-
+    const [description, setDescription] = useState('test')
     const calculatorRef = useRef(); 
 
     const {wallet} = useContext(Context)
@@ -153,7 +154,7 @@ const Calculator = ({active,setActive,category}) => {
     <div className="item sum">
       <h6>Sum</h6>
       <p>{formatOperand(previousOperand)} {operation} {formatOperand(currentOperand)}</p>
-      <input type="text" placeholder="Description" />
+      <input type="text" name="description" placeholder="Description" onChange={e => setDescription(e.target.value)}/>
       </div>
     <OperationButton operation={DIVIDE_SYMBOL} dispatch={dispatch}/>
     <DigitButton digit="7" dispatch={dispatch}/>
@@ -170,7 +171,28 @@ const Calculator = ({active,setActive,category}) => {
     <DigitButton digit="3" dispatch={dispatch}/>
     {operation ? <div className="item submit" onClick={()=> dispatch({type: ACTIONS.EVALUATE})}>{EVALUATE_SYMBOL}</div>
     :  
-    <div className="item submit" onClick={()=> alert(currentOperand)} >{SUBMIT_SYMBOL}</div>}
+    <div className="item submit" onClick={()=> {
+
+
+      try {
+        createTransaction(category.selectedCategory.id,wallet.selectedWallet.id, description, parseFloat(currentOperand)).
+        then(data=> {category.transactions.push(data)
+      const findTest = (e) => e.id === wallet.selectedWallet.id
+      const walletIndex = wallet.wallets.findIndex(findTest)
+      wallet.wallets[walletIndex].balance -= parseFloat(currentOperand)
+      category.selectedCategory.spent += parseFloat(currentOperand)
+          console.log(data)
+        })
+      } catch(e) {
+        alert(e.response.data.message);
+      }
+  
+     
+
+      
+      // category.transactions.push(res)
+    
+    }} >{SUBMIT_SYMBOL}</div>}
     
     <OperationButton operation="+" dispatch={dispatch}/>
     <DigitButton className="zero" digit="0" dispatch={dispatch}/>

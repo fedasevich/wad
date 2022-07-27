@@ -8,7 +8,9 @@ const Wallets = observer(() => {
     const {wallet} = useContext(Context) 
     useEffect(()=>{
         try {
-          fetchWallet().then(data=> wallet.setWallet(data))
+          fetchWallet().then(data=> {wallet.setWallet(data) 
+          wallet.setSelectedWallet(data[0])
+          })
         } catch(e) {
           alert(e.response.data.message);
         }

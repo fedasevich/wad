@@ -5,13 +5,15 @@ import { Context } from '../index';
 import { fetchTransaction } from '../http/transactionApi';
 
 
-const Categories = observer(() => {
+const Transactions = observer(() => {
   const {category} = useContext(Context) 
   useEffect(()=>{
     try {
-      fetchTransaction().then(data=> category.setTransactions(data.rows.sort(function(a,b){
+      fetchTransaction().then(data=> {category.setTransactions(data.rows.sort(function(a,b){
         return b.createdAt.localeCompare(a.createdAt);
-      })))
+      }))
+    
+    })
     } catch(e) {
       alert(e.response.data.message);
     }
@@ -67,4 +69,4 @@ const data = category.transactions
 
 });
 
-export default Categories
+export default Transactions
