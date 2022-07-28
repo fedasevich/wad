@@ -87,6 +87,8 @@ function reducer(state, {type, payload}) {
           ...state,
           currentOperand: state.currentOperand.slice(0,-1)
         }
+        case ACTIONS.CLEAR:
+          return {}
       }
   }
   
@@ -176,11 +178,14 @@ const Calculator = ({active,setActive,category}) => {
 
       try {
         createTransaction(category.selectedCategory.id,wallet.selectedWallet.id, description, parseFloat(currentOperand)).
-        then(data=> {category.transactions.push(data)
+        then(data=> {category.transactions.unshift(data)
       const findTest = (e) => e.id === wallet.selectedWallet.id
       const walletIndex = wallet.wallets.findIndex(findTest)
       wallet.wallets[walletIndex].balance -= parseFloat(currentOperand)
       category.selectedCategory.spent += parseFloat(currentOperand)
+      setDescription(null)
+      dispatch({type: ACTIONS.CLEAR})
+      setActive(false)
           console.log(data)
         })
       } catch(e) {

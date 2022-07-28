@@ -53,7 +53,9 @@ return res.json(newTransaction)
     async get(req, res) {
       let {categoryId,walletId,page,limit} = req.query
       page = page || 1
+      
       limit = limit || 9
+    
       let offset = page * limit - limit
       const userId = req.user.id
       if(!categoryId && !walletId) {     

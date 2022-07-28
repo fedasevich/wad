@@ -11,16 +11,26 @@ import { fetchCategory } from '../http/categoryApi';
 const Categories = observer(() => {
     const {category,user} = useContext(Context) 
     const [calcActive, setCalcActive] = useState(false)
-    
+    const [loading,setLoading] = useState(true)
   useEffect(()=>{
     try {
-      fetchCategory().then(data=> category.setCategories(data))
+      fetchCategory().then(data=> category.setCategories(data)).finally(() => setLoading(false))
     } catch(e) {
       alert(e.response.data.message);
     }
  
    
   },[])
+
+
+  if (loading) {
+    return (<h2>loading</h2>)
+  }
+  
+
+
+
+
 
   const logOut= () => {
     user.setUser({})

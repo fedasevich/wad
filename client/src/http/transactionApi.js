@@ -3,14 +3,14 @@ import jwt_decode from "jwt-decode"
 
 
 export const createTransaction = async (categoryId,walletId,description,sum) => { 
-    const limit = 3
-    const page = 2
-    const{data} = await $authHost.post('api/transaction',{categoryId,walletId,description,sum,limit,page})
+    const{data} = await $authHost.post('api/transaction',{categoryId,walletId,description,sum})
     return data
 }
 
 export const fetchTransaction = async () => {
-    const {data} = await $authHost.get('api/transaction')
+    const {data} = await $authHost.get('api/transaction',{params: {
+        limit:100
+    }})
     return data
 }
 
