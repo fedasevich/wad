@@ -21,7 +21,7 @@
     background-color: rgb(85, 81, 81);
     margin-top: 101vh;
     position:relative;
-  
+    overflow: auto;
    height: 85vh;
    border-top-left-radius: 2rem;
    border-top-right-radius: 2rem;

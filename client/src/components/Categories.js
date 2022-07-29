@@ -5,13 +5,16 @@ import { Context } from '../index';
 import Calculator from './calculator/calculator';
 import { Navigate} from 'react-router-dom';
 import { LOGIN_ROUTE } from '../utils/consts';
-import { fetchCategory } from '../http/categoryApi';
+import { createCategory, fetchCategory } from '../http/categoryApi';
+import Modal from './modal/modal';
 
 
 const Categories = observer(() => {
     const {category,user} = useContext(Context) 
     const [calcActive, setCalcActive] = useState(false)
+    const [createCategoryModal, setCreateCategoryModal] = useState(false)
     const [loading,setLoading] = useState(true)
+    const [newCategoryName,setNewCategoryName] = useState('')
   useEffect(()=>{
     try {
       fetchCategory().then(data=> category.setCategories(data)).finally(() => setLoading(false))
@@ -58,6 +61,18 @@ const Categories = observer(() => {
     </Col>
     
     )}
+
+<Col md="4" >
+     
+     <div className="p-4 mb-2 " 
+     style={{ cursor: "pointer", borderRadius: "400px",backgroundColor: "lightblue",textAlign:"center" ,border: '3px solid green'}}
+       onClick={()=> {
+          setCreateCategoryModal(true);
+       } }  
+   >
+<h1>+</h1>
+     </div>
+     </Col>
 </Row>
 <Calculator active={calcActive} setActive={setCalcActive} category={category}/>
 <Button 
@@ -65,6 +80,31 @@ const Categories = observer(() => {
     onClick={()=> {logOut()
       Navigate(LOGIN_ROUTE)
     }}>Log out</Button>
+
+    <Modal  active={createCategoryModal} setActive={setCreateCategoryModal}>
+    <div className="d-flex justify-content-center align-items-center flex-column h-100 " >
+    <input  className="mb-2"type="text" name="categoryName" placeholder="Category name..." onChange={e => setNewCategoryName(e.target.value)}/>
+    <Button onClick={()=> {
+      if(!newCategoryName) {
+        return alert("name can't be empty")
+      }
+    
+      
+
+
+      try {
+        createCategory(newCategoryName).
+        then(data=> {
+          category.categories.push(data)
+          setCreateCategoryModal(false)
+        })
+      } catch(e) {
+        alert(e.response.data.message);
+      }
+    }}>
+      Create category</Button>
+      </div>
+    </Modal>
     </>
   );
 });

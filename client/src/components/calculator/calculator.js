@@ -34,10 +34,17 @@ function reducer(state, {type, payload}) {
         currentOperand:`${state.currentOperand || ""}${payload.digit}`
       }
       case ACTIONS.CHOOSE_OPERATION:
-        if (state.currentOperand == null && state.previousOperand === null) {
+        if (state.currentOperand == null && state.previousOperand === null || state.currentOperand === '0') {
+          console.log("log")
           return state
         }
-        if (state.previousOperand == null) {
+
+        if(state.currentOperand == '0') {
+          console.log("rusni pizda")
+          return state
+        }
+        if (state.previousOperand == null ) {
+          console.log("log2")
           return {
             ...state,
             operation: payload.operation,
@@ -46,11 +53,13 @@ function reducer(state, {type, payload}) {
           }
         }
         if (state.currentOperand == null) {
+          console.log("log3")
           return {
             ...state,
             operation: payload.operation
           }
         }
+
         return {
           ...state,
           previousOperand: evaluate(state),
@@ -76,7 +85,7 @@ function reducer(state, {type, payload}) {
             currentOperand:null
           }
         }
-        if (state.currentOperand == null || state.currentOperand === "0") return state
+        if (state.currentOperand == null || state.currentOperand == "0") return state
         if ( state.currentOperand.length === 1  ) {
           return {
             ...state,
@@ -174,13 +183,15 @@ const Calculator = ({active,setActive,category}) => {
     {operation ? <div className="item submit" onClick={()=> dispatch({type: ACTIONS.EVALUATE})}>{EVALUATE_SYMBOL}</div>
     :  
     <div className="item submit" onClick={()=> {
-
+if(currentOperand === '0') {
+  return alert("sum cant be 0")
+}
 
       try {
         createTransaction(category.selectedCategory.id,wallet.selectedWallet.id, description, parseFloat(currentOperand)).
         then(data=> {category.transactions.unshift(data)
-      const findTest = (e) => e.id === wallet.selectedWallet.id
-      const walletIndex = wallet.wallets.findIndex(findTest)
+      const findWalletIndex = (e) => e.id === wallet.selectedWallet.id
+      const walletIndex = wallet.wallets.findIndex(findWalletIndex)
       wallet.wallets[walletIndex].balance -= parseFloat(currentOperand)
       category.selectedCategory.spent += parseFloat(currentOperand)
       setDescription(null)
@@ -191,11 +202,7 @@ const Calculator = ({active,setActive,category}) => {
       } catch(e) {
         alert(e.response.data.message);
       }
-  
-     
 
-      
-      // category.transactions.push(res)
     
     }} >{SUBMIT_SYMBOL}</div>}
     

@@ -1,8 +1,8 @@
 import {$authHost, $host} from "./index"
 import jwt_decode from "jwt-decode"
 
-export const createWallet = async (email,password) => {
-    const{data} = await $host.post('api/user/registration',{email,password})
+export const createWallet = async (name,currency) => {
+    const {data} = await $authHost.post('api/wallet',{name,currency})
     return data
 }
 

@@ -1,9 +1,9 @@
 import {$authHost, $host} from "./index"
 import jwt_decode from "jwt-decode"
 
-export const createCategory = async (email,password) => {
+export const createCategory = async (name) => {
    
-    const{data} = await $host.post('api/user/registration',{email,password})
+    const {data} = await $authHost.post('api/category',{name})
     return data
 }
 

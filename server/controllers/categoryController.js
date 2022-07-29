@@ -5,8 +5,9 @@ const {Category} = require('../models/models')
 
 class CategoryController {
     async create(req,res,next) {
-    const {name,userId} = req.body
-    if(!name||!userId|| req.user.id !== userId){
+    const {name} = req.body
+    const userId = req.user.id
+    if(!name){
         return next(ApiError.badRequest('Wrong data'))
     }
     const category = await Category.create({name,userId})

@@ -6,8 +6,9 @@ const { Wallet} = require('../models/models')
 class WalletController {
     
     async create(req,res,next) {
-    const {name,userId,currency}=req.body
-    if(!name||!userId||!currency){
+    const {name,currency}=req.body
+    const userId = req.user.id
+    if(!name||!currency){
     next(ApiError.badRequest('Wrong data'))
     }
     const wallet = await Wallet.create({name,userId,currency})
