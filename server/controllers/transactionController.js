@@ -63,6 +63,9 @@ return res.json(newTransaction)
          where: {
             userId
          },
+         order: [
+          ['id', 'DESC']
+        ],
          limit,
          offset
       })
@@ -74,6 +77,9 @@ return res.json(newTransaction)
         where: {
            categoryId,userId
         },
+        order: [
+          ['id', 'DESC']
+        ],
         limit,
         offset
      })
@@ -83,6 +89,9 @@ return res.json(newTransaction)
         where: {
            walletId,userId
         },
+        order: [
+          ['id', 'DESC']
+        ],
         limit,
         offset
      })
@@ -92,6 +101,9 @@ return res.json(newTransaction)
         where: {
            walletId,categoryId,userId
         },
+        order: [
+          ['id', 'DESC']
+        ],
         limit,
         offset
      })
