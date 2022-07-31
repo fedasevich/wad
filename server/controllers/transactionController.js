@@ -51,9 +51,9 @@ return res.json(newTransaction)
     }
     
     async get(req, res) {
-      let {categoryId,walletId,page,limit} = req.query
+      let {categoryId,walletId,page,limit,sort} = req.query
       page = page || 1
-      
+      sort = sort || 'DESC'
       limit = limit || 9
     
       let offset = page * limit - limit
@@ -64,7 +64,7 @@ return res.json(newTransaction)
             userId
          },
          order: [
-          ['id', 'DESC']
+          ['id', sort]
         ],
          limit,
          offset
@@ -78,7 +78,7 @@ return res.json(newTransaction)
            categoryId,userId
         },
         order: [
-          ['id', 'DESC']
+          ['id', sort]
         ],
         limit,
         offset
@@ -90,7 +90,7 @@ return res.json(newTransaction)
            walletId,userId
         },
         order: [
-          ['id', 'DESC']
+          ['id', sort]
         ],
         limit,
         offset
@@ -102,7 +102,7 @@ return res.json(newTransaction)
            walletId,categoryId,userId
         },
         order: [
-          ['id', 'DESC']
+          ['id', sort]
         ],
         limit,
         offset

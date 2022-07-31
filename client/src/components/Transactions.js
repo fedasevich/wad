@@ -8,9 +8,10 @@ import { fetchTransaction } from '../http/transactionApi';
 const Transactions = observer(() => {
   const {category} = useContext(Context) 
   const [buttonVisible,setButtonVisible] = useState(true)
+  const [transactionsSort,setTransactionsSort] = useState("DESC")
   useEffect(()=>{
     try {
-      fetchTransaction(category.transactionsPage,category.transactionsLimit).then(data=> {category.setTransactions(data.rows)
+      fetchTransaction(category.transactionsPage,category.transactionsLimit,transactionsSort).then(data=> {category.setTransactions(data.rows)
     
     })
     } catch(e) {
@@ -18,7 +19,7 @@ const Transactions = observer(() => {
     }
    
 
-  },[category.transactionsLimit])
+  },[category.transactionsLimit,transactionsSort])
 
 
  
@@ -48,7 +49,11 @@ const data = category.transactions
    <Container> 
     <h2>Transactions:</h2>
  
-
+<Button onClick={()=> {
+setTransactionsSort(transactionsSort==="DESC" ? "ASC" : "DESC" )
+category.setTransactionsPage(1)
+setButtonVisible(true)
+}}>sort</Button>
 <ButtonToolbar className="justify-content-end"aria-label="Toolbar with button groups">
       <ButtonGroup className="me-2" aria-label="First group">
       <Button onClick={()=>{
@@ -99,12 +104,15 @@ const data = category.transactions
       category.setTransactionsPage(category.transactionsPage+1);  
       console.log(category.transactionsPage)
       try {
-        fetchTransaction(category.transactionsPage,category.transactionsLimit).then(data=> 
+        fetchTransaction(category.transactionsPage,category.transactionsLimit,transactionsSort).then(data=> 
           {
             if(!data.rows.length) {
               setButtonVisible(false)
             }
+        
             category.transactions.push(...data.rows)
+        
+
           })
       } catch(e) {
         alert(e.response.data.message);

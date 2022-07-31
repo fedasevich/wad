@@ -7,9 +7,9 @@ export const createTransaction = async (categoryId,walletId,description,sum) => 
     return data
 }
 
-export const fetchTransaction = async (page,limit) => {
+export const fetchTransaction = async (page,limit,sort) => {
     const {data} = await $authHost.get('api/transaction',{params: {
-        limit,page
+        limit,page,sort
     }})
     return data
 }
