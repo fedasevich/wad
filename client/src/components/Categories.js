@@ -5,7 +5,7 @@ import { Context } from '../index';
 import Calculator from './calculator/calculator';
 import { Navigate} from 'react-router-dom';
 import { LOGIN_ROUTE } from '../utils/consts';
-import { createCategory, fetchCategory } from '../http/categoryApi';
+import { createCategory, fetchCategory, resetAllCategories } from '../http/categoryApi';
 import Modal from './modal/modal';
 
 
@@ -15,13 +15,16 @@ const Categories = observer(() => {
     const [createCategoryModal, setCreateCategoryModal] = useState(false)
     const [loading,setLoading] = useState(true)
     const [newCategoryName,setNewCategoryName] = useState('')
+    const [resetCategoriesModal, setResetCategoriesModal] = useState(false)
   useEffect(()=>{
+    const date = new Date()
+   
     try {
       fetchCategory().then(data=> category.setCategories(data)).finally(() => setLoading(false))
     } catch(e) {
       alert(e.response.data.message);
     }
- 
+   setResetCategoriesModal(date.getDate() === 1 ? true : false)
    
   },[])
 
@@ -105,6 +108,24 @@ const Categories = observer(() => {
       Create category</Button>
       </div>
     </Modal>
+    
+ {resetCategoriesModal ? <Modal active={resetCategoriesModal} setActive={setResetCategoriesModal}>
+      <div className='d-flex justify-content-center align-items-center flex-column'> <h2 className='mb-2'>It's first day of month do you want to reset all categories?</h2>
+      
+      
+      <Button onClick={()=>{ 
+
+      resetAllCategories().
+        then(data=> {
+          category.setCategories(data)
+          setResetCategoriesModal(false)
+        })
+      }}>Reset categories</Button></div>
+     
+    </Modal>
+    :
+    null
+    }
     </>
   );
 });

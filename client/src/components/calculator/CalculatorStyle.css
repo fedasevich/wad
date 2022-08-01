@@ -3,6 +3,7 @@
 .wrapper {
     position:fixed;
     bottom:0;
+    z-index: 2;
     background-color: rgb(124, 124, 124);
     color: white;
     width:100%;

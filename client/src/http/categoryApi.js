@@ -19,3 +19,10 @@ export const changeCategory = async () => {
     localStorage.setItem('token',data.token)
     return jwt_decode(data.token)
 }
+
+
+export const resetAllCategories = async () => {
+    const newSpent = 0
+    const {data} = await $authHost.put('api/category',{newSpent})
+    return data
+}
