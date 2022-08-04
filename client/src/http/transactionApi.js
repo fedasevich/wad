@@ -16,6 +16,11 @@ export const fetchTransaction = async (page,limit,sort) => {
 
 export const changeTransaction = async () => {
     const {data} = await $authHost.get('api/transaction')
-    localStorage.setItem('token',data.token)
-    return jwt_decode(data.token)
+    return data
+}
+
+
+export const deleteTransaction = async (transactionId) => {
+    const {data} = await $authHost.delete('api/transaction', {data: { transactionId} })
+   return data
 }

@@ -2,11 +2,11 @@ import React, { useContext, useEffect, useState } from 'react'
 import {observer} from 'mobx-react-lite'
 import { Button, ButtonGroup, ButtonToolbar, Col, Container, Row } from 'react-bootstrap';
 import { Context } from '../index';
-import { fetchTransaction } from '../http/transactionApi';
+import { deleteTransaction, fetchTransaction } from '../http/transactionApi';
 
 
 const Transactions = observer(() => {
-  const {category} = useContext(Context) 
+  const {category,wallet} = useContext(Context) 
   const [buttonVisible,setButtonVisible] = useState(true)
   const [transactionsSort,setTransactionsSort] = useState("DESC")
   useEffect(()=>{
@@ -83,22 +83,44 @@ setButtonVisible(true)
 
 
 {transactionArrays.map(transactionsMap=>
-
+ 
   <Row>
     
      
      <h2>{transactionsMap.date}</h2> 
    {transactionsMap.trs.map(transactions=>
+
        <Col key={transactions.id} md="12" className="d-inline-flex justify-content-between">
        <h2>{transactions.description}</h2>
+    <div className="d-flex flex-direction-row">  
       <h4>{transactions.sum}</h4>
+       <Button className="ml-2 btn-danger" onClick={()=>{
+          
+        
+       try {
+        deleteTransaction(transactions.id).
+        then(()=> {
+          const transactionIndex =  category.transactions.findIndex(transaction => transaction.id === transactions.id)
+          const walletIndex = wallet.wallets.findIndex(wallet => wallet.id === transactions.walletId)
+          const categoryIndex = category.categories.findIndex(category =>category.id === transactions.categoryId)
+          wallet.wallets[walletIndex].balance += parseFloat(category.transactions[transactionIndex].sum)
+          category.categories[categoryIndex].spent -= parseFloat(category.transactions[transactionIndex].sum)
+       
+       category.transactions.splice(transactionIndex, 1)
+        })
+      } catch(e) {
+        alert(e.response.data.message);
+      }
+      }}> Delete</Button>
+       {/* <Button onClick={()=>{alert(transactions.id)}}>Change</Button> */}
+       </div> 
       </Col>
-      
+     
      )}
      </Row>
- 
-      
+    
     )}
+  
 { buttonVisible ?    
     <Button className={"d-flex justify-content-center mb-5"} onClick={()=> {
       category.setTransactionsPage(category.transactionsPage+1);  

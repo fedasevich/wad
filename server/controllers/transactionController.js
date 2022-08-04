@@ -160,26 +160,29 @@ return res.json(newTransaction)
 
 async delete(req,res,next) {
  
-  const {userId,walletId,transactionId} = req.body 
-  if( !userId ||!walletId || req.user.id !==userId||!transactionId) {
+  const {transactionId} = req.body 
+  if( !transactionId) {
       return next(ApiError.badRequest('Wrong data')) 
   }
+  const userId = req.user.id
   try {
     await sequelize.transaction(async (SequelizeTransaction)=>{
 
-  const oldTransaction = await Transaction.findOne({where:{id:transactionId}}, { SequelizeTransaction })
-  const categoryName = oldTransaction.categoryName
+  const oldTransaction = await Transaction.findOne({where:{id:transactionId,userId}}, { SequelizeTransaction })
   const categoryId = oldTransaction.categoryId
   const oldSum = oldTransaction.sum
+  const walletId = oldTransaction.walletId
  
-      const category = await Category.findOne({where:{name:categoryName,id:categoryId}}, { SequelizeTransaction })
+      const category = await Category.findOne({where:{id:categoryId,userId}}, { SequelizeTransaction })
      const categoryNewSum = (category.spent - oldSum)
       const categoryUpdate = {
           spent: categoryNewSum
       }
+   
     await Category.update(categoryUpdate,{where:{id:categoryId,userId},  transaction:SequelizeTransaction })
     const wallet = await Wallet.findOne({where:{userId,id:walletId}})
-      const walletSpent = (wallet.balance - oldSum)
+      const walletSpent = parseFloat(wallet.balance) + parseFloat(oldSum)
+  
     const walletUpdate = {
       balance:walletSpent
   }
