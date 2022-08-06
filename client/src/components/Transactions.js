@@ -178,19 +178,20 @@ if(!newSum && !newDescription) {
         then(()=> {
           runInAction(() =>
           { 
+            const transactionIndex =  category.transactions.findIndex(transaction => transaction.id === category.selectedTransaction.id)
+
             if(newSum) {
-           const transactionIndex =  category.transactions.findIndex(transaction => transaction.id === category.selectedTransaction.id)
-           console.log(transactionIndex)
+           
            const walletIndex = wallet.wallets.findIndex(wallet => wallet.id === category.selectedTransaction.walletId)
            const categoryIndex = category.categories.findIndex(categoryIndex => categoryIndex.id === category.selectedTransaction.categoryId)
            wallet.wallets[walletIndex].balance = (parseFloat(wallet.wallets[walletIndex].balance) + parseFloat(category.selectedTransaction.sum)) - parseFloat(newSum)
            category.categories[categoryIndex].spent = (parseFloat(category.categories[categoryIndex].spent) - parseFloat(category.selectedTransaction.sum)) + parseFloat(newSum)
            category.transactions[transactionIndex].sum = newSum
-           if(newDescription) {
-            category.transactions[transactionIndex].description = newDescription
-          }
-            }
           
+            }
+            if(newDescription) {
+              category.transactions[transactionIndex].description = newDescription
+            }
         
          })
          setChangeTransactionModal(false)
