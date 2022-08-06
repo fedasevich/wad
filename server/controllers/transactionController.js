@@ -114,40 +114,66 @@ return res.json(newTransaction)
 
    async change(req, res,next) {
   
-    const {newSum,userId,walletId,transactionId} = req.body 
-    if( !newSum || !userId ||!walletId || req.user.id !==userId||!transactionId) {
+    const {newSum,newDescription,transactionId} = req.body 
+    if( !newSum && !newDescription ||!transactionId) {
         return next(ApiError.badRequest('Wrong data')) 
     }
-
-    
-
+    const userId = req.user.id
+  
    
     try {
       await sequelize.transaction(async (SequelizeTransaction)=>{
 
-    const oldTransaction = await Transaction.findOne({where:{id:transactionId}}, { SequelizeTransaction })
-    const categoryName = oldTransaction.categoryName
+    const oldTransaction = await Transaction.findOne({where:{id:transactionId,userId}}, { SequelizeTransaction })
+    const walletId = oldTransaction.walletId
+    const description = oldTransaction.description
     const categoryId = oldTransaction.categoryId
     const oldSum = oldTransaction.sum
-    const update = {
+         
+   
+    let update
+    if(newSum && newDescription) {
+     update = {
       sum:newSum,
-      
-  }
-        const updatedTransaction = await Transaction.update(update,{where:{id:transactionId},transaction:SequelizeTransaction })
+      description:newDescription
+    }
+    }
+    
+    if(!newSum && newDescription) {
+      update = {
+      description:newDescription
+    }
+    const updatedTransaction = await Transaction.update(update,{where:{id:transactionId,userId},transaction:SequelizeTransaction })
+    return res.json(updatedTransaction)
+    }
+    
+    if(newSum && !newDescription) {
+       update = {
+      sum:newSum
+    }
+    }
 
-        const category = await Category.findOne({where:{name:categoryName,id:categoryId}}, { SequelizeTransaction })
-       const categoryNewSum = (category.spent - oldSum)+ newSum
+        const updatedTransaction = await Transaction.update(update,{where:{id:transactionId,userId},transaction:SequelizeTransaction })
+   
+        const category = await Category.findOne({where:{id:categoryId,userId}}, { SequelizeTransaction })
+       
+        const categoryNewSum = (category.spent - oldSum)+ newSum
         const categoryUpdate = {
             spent: categoryNewSum
         }
-      await Category.update(categoryUpdate,{where:{id:categoryId,userId},  transaction:SequelizeTransaction })
+      await Category.update(categoryUpdate,{where:{id:categoryId,userId,userId},  transaction:SequelizeTransaction })
+
+
       const wallet = await Wallet.findOne({where:{userId,id:walletId}})
-        const walletSpent = (wallet.balance - oldSum)+ newSum;
-      const walletUpdate = {
-        balance:walletSpent
-    }
-      await Wallet.update(walletUpdate,{where:{userId,id:walletId},  transaction:SequelizeTransaction })
-        return res.json(updatedTransaction)
+     
+      const walletSpent = (parseFloat(wallet.balance) + parseFloat(oldSum)) - parseFloat(newSum)
+    
+    const walletUpdate = {
+      balance:walletSpent
+  }
+    await Wallet.update(walletUpdate,{where:{userId,id:walletId},  transaction:SequelizeTransaction })
+      return res.json(updatedTransaction)
+      
   })
   }catch(e){
        

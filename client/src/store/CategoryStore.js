@@ -12,6 +12,7 @@ export default class CategoryStore {
         this._transactionsPage = 1
 
         this._selectedCategory = {}
+        this._selectedTransaction = {}
         makeAutoObservable(this)
     }
 
@@ -27,6 +28,10 @@ export default class CategoryStore {
         this._selectedCategory = category
     }
 
+    setSelectedTransaction(transaction) {
+        this._selectedTransaction = transaction
+    }
+
     setTransactionsLimit(limit) {
         this._transactionsLimit = limit
     }
@@ -39,6 +44,9 @@ export default class CategoryStore {
         return this._categories
     }
 
+    get selectedTransaction() {
+        return this._selectedTransaction
+    }
     get transactions() {
         return this._transactions
     }

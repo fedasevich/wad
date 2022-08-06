@@ -14,8 +14,8 @@ export const fetchTransaction = async (page,limit,sort) => {
     return data
 }
 
-export const changeTransaction = async () => {
-    const {data} = await $authHost.get('api/transaction')
+export const changeTransaction = async (transactionId,newSum,newDescription) => {
+    const {data} = await $authHost.put('api/transaction',{transactionId,newSum,newDescription})
     return data
 }
 

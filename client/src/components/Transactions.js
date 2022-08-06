@@ -2,12 +2,18 @@ import React, { useContext, useEffect, useState } from 'react'
 import {observer} from 'mobx-react-lite'
 import { Button, ButtonGroup, ButtonToolbar, Col, Container, Row } from 'react-bootstrap';
 import { Context } from '../index';
-import { deleteTransaction, fetchTransaction } from '../http/transactionApi';
+import { changeTransaction, deleteTransaction, fetchTransaction } from '../http/transactionApi';
+import Modal from './modal/modal';
+import { action, runInAction } from 'mobx';
+
 
 
 const Transactions = observer(() => {
   const {category,wallet} = useContext(Context) 
   const [buttonVisible,setButtonVisible] = useState(true)
+  const [changeTransactionModal,setChangeTransactionModal] = useState(false)
+  const [newSum,setNewSum] = useState('')
+  const [newDescription,setNewDescription] = useState('')
   const [transactionsSort,setTransactionsSort] = useState("DESC")
   useEffect(()=>{
     try {
@@ -112,7 +118,11 @@ setButtonVisible(true)
         alert(e.response.data.message);
       }
       }}> Delete</Button>
-       {/* <Button onClick={()=>{alert(transactions.id)}}>Change</Button> */}
+       <Button onClick={()=>{
+        category.setSelectedTransaction(transactions)
+        console.log(category.selectedTransaction.categoryId)
+        setChangeTransactionModal(true)
+       }}>Change</Button>
        </div> 
       </Col>
      
@@ -144,6 +154,56 @@ setButtonVisible(true)
       <h2 className="text-center">There is nothing to load...</h2>
       }
          </Container>
+
+         <Modal  active={changeTransactionModal} setActive={setChangeTransactionModal}>
+          <h2>{transactions.description}</h2>
+          <h2>{transactions.id}</h2>
+          <h2>{transactions.sum}</h2>
+          <div className="d-flex align-items-center flex-column ">
+          <input  className="mb-2" type="text" name="newSum" placeholder="New sum..." value={newSum}
+         onChange={e => setNewSum(e.target.value)}/>
+
+        <input  className="mb-2" type="text" name="newDescription" placeholder="New description..." value={newDescription}
+         onChange={e => setNewDescription(e.target.value)}/>
+    
+
+         <Button onClick={()=>{
+if(!newSum && !newDescription) {
+  return alert(`Not enough data`)
+}
+
+
+       try {
+        changeTransaction(category.selectedTransaction.id,newSum ? newSum:null,newDescription?newDescription:null).
+        then(()=> {
+          runInAction(() =>
+          { 
+            if(newSum) {
+           const transactionIndex =  category.transactions.findIndex(transaction => transaction.id === category.selectedTransaction.id)
+           console.log(transactionIndex)
+           const walletIndex = wallet.wallets.findIndex(wallet => wallet.id === category.selectedTransaction.walletId)
+           const categoryIndex = category.categories.findIndex(categoryIndex => categoryIndex.id === category.selectedTransaction.categoryId)
+           wallet.wallets[walletIndex].balance = (parseFloat(wallet.wallets[walletIndex].balance) + parseFloat(category.selectedTransaction.sum)) - parseFloat(newSum)
+           category.categories[categoryIndex].spent = (parseFloat(category.categories[categoryIndex].spent) - parseFloat(category.selectedTransaction.sum)) + parseFloat(newSum)
+           category.transactions[transactionIndex].sum = newSum
+           if(newDescription) {
+            category.transactions[transactionIndex].description = newDescription
+          }
+            }
+          
+        
+         })
+         setChangeTransactionModal(false)
+        })
+      } catch(e) {
+        alert(e.response.data.message);
+      }
+
+       }}>Save</Button>
+          
+      </div>
+        
+    </Modal>
       </>
   );
 
