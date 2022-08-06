@@ -35,16 +35,16 @@ function reducer(state, {type, payload}) {
       }
       case ACTIONS.CHOOSE_OPERATION:
         if (state.currentOperand == null && state.previousOperand === null || state.currentOperand === '0') {
-          console.log("log")
+  
           return state
         }
 
         if(state.currentOperand == '0') {
-          console.log("rusni pizda")
+         
           return state
         }
         if (state.previousOperand == null ) {
-          console.log("log2")
+         
           return {
             ...state,
             operation: payload.operation,
@@ -53,7 +53,7 @@ function reducer(state, {type, payload}) {
           }
         }
         if (state.currentOperand == null) {
-          console.log("log3")
+   
           return {
             ...state,
             operation: payload.operation
@@ -143,7 +143,7 @@ const Calculator = ({active,setActive,category}) => {
     const [walletModalActive, setWalletModalActive] = useState(false)
     const [categoryModalActive, setCategoryModalActive] = useState(false)
     const [{currentOperand='0', previousOperand, operation}, dispatch] = useReducer(reducer, {})
-    const [description, setDescription] = useState('test')
+    const [description, setDescription] = useState(null)
     const calculatorRef = useRef(); 
 
     const {wallet} = useContext(Context)
@@ -165,7 +165,7 @@ const Calculator = ({active,setActive,category}) => {
     <div className="item sum">
       <h6>Sum</h6>
       <p>{formatOperand(previousOperand)} {operation} {formatOperand(currentOperand)}</p>
-      <input type="text" name="description" placeholder="Description" onChange={e => setDescription(e.target.value)}/>
+      <input type="text" name="description" placeholder="Description" onChange={e => setDescription(e.target.value)} value={description}/>
       </div>
     <OperationButton operation={DIVIDE_SYMBOL} dispatch={dispatch}/>
     <DigitButton digit="7" dispatch={dispatch}/>
@@ -188,13 +188,14 @@ if(currentOperand === '0') {
 }
 
       try {
-        createTransaction(category.selectedCategory.id,wallet.selectedWallet.id, description, parseFloat(currentOperand)).
+ 
+        createTransaction(category.selectedCategory.id,wallet.selectedWallet.id, description ?  description:category.selectedCategory.name , parseFloat(currentOperand)).
         then(data=> {category.transactions.unshift(data)
       const findWalletIndex = (e) => e.id === wallet.selectedWallet.id
       const walletIndex = wallet.wallets.findIndex(findWalletIndex)
       wallet.wallets[walletIndex].balance -= parseFloat(currentOperand)
       category.selectedCategory.spent += parseFloat(currentOperand)
-      setDescription(null)
+      setDescription('')
       dispatch({type: ACTIONS.CLEAR})
       setActive(false)
           console.log(data)
