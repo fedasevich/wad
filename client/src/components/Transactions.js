@@ -4,7 +4,7 @@ import { Button, ButtonGroup, ButtonToolbar, Col, Container, Row } from 'react-b
 import { Context } from '../index';
 import { changeTransaction, deleteTransaction, fetchTransaction } from '../http/transactionApi';
 import Modal from './modal/modal';
-import { action, runInAction } from 'mobx';
+import { runInAction } from 'mobx';
 
 
 
