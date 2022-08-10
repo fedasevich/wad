@@ -51,8 +51,9 @@ class CategoryController {
         let transaction
         try {
         transaction = await sequelize.transaction()
-           const category = await Category.update(update,{where:{categoryId,userId},  transaction })
-           const updatedCategory = await Category.findOne({where:{categoryId,userId},  transaction })
+           const category = await Category.update(update,{where:{id:categoryId,userId},  transaction })
+          
+           const updatedCategory = await Category.findOne({where:{id:categoryId,userId},  transaction })
   
         await transaction.commit()
         
