@@ -156,9 +156,12 @@ setButtonVisible(true)
          </Container>
 
          <Modal  active={changeTransactionModal} setActive={setChangeTransactionModal}>
-          <h2>{transactions.description}</h2>
-          <h2>{transactions.id}</h2>
-          <h2>{transactions.sum}</h2>
+          <div className='d-flex flex-row justify-content-between'>
+          <h2>{category.selectedTransaction.description}</h2>
+          <h2>{category.selectedTransaction.id}</h2>
+          <h2>{category.selectedTransaction.sum}</h2>
+          </div>
+        
           <div className="d-flex align-items-center flex-column ">
           <input  className="mb-2" type="text" name="newSum" placeholder="New sum..." value={newSum}
          onChange={e => setNewSum(e.target.value)}/>
@@ -174,7 +177,7 @@ if(!newSum && !newDescription) {
 
 
        try {
-        changeTransaction(category.selectedTransaction.id,newSum ? newSum:null,newDescription?newDescription:null).
+        changeTransaction(category.selectedTransaction.id,newSum ? parseFloat(newSum):null,newDescription?newDescription:null).
         then(()=> {
           runInAction(() =>
           { 

@@ -25,41 +25,35 @@ class CategoryController {
     }
     
     async change(req,res,next) {
-        const {name,newName,newSpent} = req.body
-        if(newSpent==null){
+        const {categoryId,newName,newSpent} = req.body
+        if(!newSpent && !newName ){
             return next(ApiError.badRequest('Not enough data'))
         }
         const userId = req.user.id
-
-        const update = newName ? {
-            name:newName,
-            spent:newSpent
-        } :
-        {
-            spent:newSpent
+        let update
+        if(newName && newSpent) {
+            update = {
+                name:newName,
+                spent:newSpent
+            } 
+        }
+        if(!newName && newSpent) {
+            update = {
+                spent:newSpent
+            } 
+        }
+        if(newName && !newSpent) {
+            update = {
+                name:newName
+            } 
         }
   
         let transaction
         try {
         transaction = await sequelize.transaction()
-        let category
-        let updatedCategory
-            if(newName && newSpent) {
-           category = await Category.update(update,{where:{name,userId},  transaction })
-           
-             updatedCategory = await Category.findOne({where:{name:newName},  transaction })
-        }
-
-        if(!newName && newSpent != null ) {
-             category = await Category.update(update,{where:{userId},  transaction })
-       
-           updatedCategory = await Category.findAll({where:{userId},  transaction })
-           
-        }
-       
-        if (category == 0 || !updatedCategory) {
-            throw next(ApiError.badRequest('Wrong data'))
-        }
+           const category = await Category.update(update,{where:{categoryId,userId},  transaction })
+           const updatedCategory = await Category.findOne({where:{categoryId,userId},  transaction })
+  
         await transaction.commit()
         
         return res.json(updatedCategory)

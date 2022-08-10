@@ -14,10 +14,9 @@ export const fetchCategory = async () => {
     return data
 }
 
-export const changeCategory = async () => {
-    const {data} = await $authHost.get('api/user/auth')
-    localStorage.setItem('token',data.token)
-    return jwt_decode(data.token)
+export const changeCategory = async (categoryId,newSpent,newName) => {
+    const {data} = await $authHost.put('api/category',{categoryId,newName,newSpent})
+    return data
 }
 
 
