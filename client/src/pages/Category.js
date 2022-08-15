@@ -39,7 +39,7 @@ const Category = observer(() => {
     return (<h2>loading</h2>)
   }
   
-  function handleClickOnCategoryToChange(category) {
+  const handleClickOnCategoryToChange = (category) => {
 setSelectedCategory(category)
 setChangeCategoryModal(true)
   }

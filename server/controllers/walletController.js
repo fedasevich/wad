@@ -27,17 +27,19 @@ class WalletController {
     }
     
     async change(req,res,next) {
-    const {userId ,walletId, currency, name, balance} = req.body
-    if(!userId || !walletId ||!balance || req.user.id !== walletId) {
+    let {walletId, newCurrency, newName, newBalance} = req.body
+    if( !walletId || !newBalance && newCurrency && newName  ) {
         return next(ApiError.badRequest('Wrong data'))
     }
+    const userId = req.user.id
     let SequelizeTransaction
     try {
     SequelizeTransaction = await sequelize.transaction()
 const oldWallet = await Wallet.findOne({where:{id:walletId, userId}}, { SequelizeTransaction })
-const newBalance = balance || oldWallet.balance
-const newCurrency = currency || oldWallet.currency
-const newName = name || oldWallet.name
+
+ newBalance = newBalance || oldWallet.balance
+ newCurrency = newCurrency || oldWallet.currency
+newName = newName || oldWallet.name
 
         const update = {
             balance: newBalance,
@@ -48,6 +50,7 @@ const newName = name || oldWallet.name
         const updatedWallet = await Wallet.update(update,{where:{id:walletId,userId}}, { SequelizeTransaction })
        
             const wallet =  await Wallet.findOne({where:{id:walletId, userId}}, { SequelizeTransaction })
+            await SequelizeTransaction.commit()
             return res.json(wallet)
 
     
@@ -55,20 +58,31 @@ const newName = name || oldWallet.name
         if(SequelizeTransaction){
             await SequelizeTransaction.rollback()
         }
-        return next(ApiError.badRequest(e))
+        return next(ApiError.badRequest('Wrong data'))
        
     }
     }
 
 async delete(req,res,next) {
-    const {userId,walletId} = req.body
-if(!userId || !walletId || req.user.id !== userId) {
+    const {walletId} = req.body
+if(!walletId ) {
     return next(ApiError.badRequest('Wrong data'))
 }
+const userId = req.user.id
+let SequelizeTransaction
+    try {
+    SequelizeTransaction = await sequelize.transaction()
 const deletedWallet = await Wallet.destroy({where:{userId,id:walletId}})
+await SequelizeTransaction.commit()
 res.json(deletedWallet)
+}catch(e){
+    if(SequelizeTransaction){
+        await SequelizeTransaction.rollback()
+    }
+    return next(ApiError.badRequest("Wrong data"))
+   
 }
-
+}
 
 
 }

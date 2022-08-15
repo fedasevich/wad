@@ -1,5 +1,4 @@
 import {$authHost, $host} from "./index"
-import jwt_decode from "jwt-decode"
 
 export const createWallet = async (name,currency) => {
     const {data} = await $authHost.post('api/wallet',{name,currency})
@@ -11,8 +10,12 @@ export const fetchWallet = async () => {
     return data
 }
 
-export const changeWallet = async () => {
-    const {data} = await $authHost.get('api/user/auth')
-    localStorage.setItem('token',data.token)
-    return jwt_decode(data.token)
+export const changeWallet = async (walletId,newName,newBalance,newCurrency) => {
+    const {data} = await $authHost.put('api/wallet',{walletId,newName,newBalance,newCurrency})
+    return data
+}
+
+export const deleteWallet = async (walletId) => {
+    const {data} = await $authHost.delete('api/wallet',{data: { walletId}})
+    return data
 }

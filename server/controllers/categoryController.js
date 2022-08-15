@@ -26,7 +26,7 @@ class CategoryController {
     
     async change(req,res,next) {
         const {categoryId,newName,newSpent} = req.body
-        if(!newSpent && !newName ){
+        if(!newSpent && !newName || !categoryId){
             return next(ApiError.badRequest('Not enough data'))
         }
         const userId = req.user.id

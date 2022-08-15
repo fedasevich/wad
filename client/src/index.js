@@ -14,9 +14,9 @@ root.render(
     category: new CategoryStore(),
     wallet: new WalletStore()
   }}>
-  <React.StrictMode>
+
     <App />
-  </React.StrictMode>
+
   </Context.Provider>
 );
 
