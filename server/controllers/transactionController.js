@@ -1,6 +1,6 @@
 const sequelize = require('../db')
 const ApiError = require('../error/ApiError')
-
+const { Op } = require("sequelize");
 const { Transaction, Category, Wallet} = require('../models/models')
 
 
@@ -51,13 +51,27 @@ return res.json(newTransaction)
     }
     
     async get(req, res) {
-      let {categoryId,walletId,page,limit,sort} = req.query
+      let {categoryId,walletId,page,limit,sort,fromDate,toDate} = req.query
       page = page || 1
       sort = sort || 'DESC'
       limit = limit || 9
     
       let offset = page * limit - limit
       const userId = req.user.id
+      if(fromDate && toDate) {
+        const transactions = await Transaction.findAndCountAll({
+          where: {
+             userId,createdAt: {
+              [Op.between]: [fromDate, toDate]
+            }
+          },
+          order: [
+           ['id', sort]
+         ]
+       })
+       return res.json(transactions)
+      }
+
       if(!categoryId && !walletId) {     
       const transactions = await Transaction.findAndCountAll({
          where: {

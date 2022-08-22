@@ -1,5 +1,5 @@
-import {$authHost, $host} from "./index"
-import jwt_decode from "jwt-decode"
+import {$authHost} from "./index"
+
 
 export const createCategory = async (name) => {
    
@@ -11,6 +11,14 @@ export const fetchCategory = async () => {
    
     const {data} = await $authHost.get('api/category')
    
+    return data
+}
+
+
+export const fetchCategoryPeriod = async (fromDate,toDate) => {
+    const {data} = await $authHost.get('api/transaction',{params: {
+        fromDate,toDate
+    }})
     return data
 }
 
