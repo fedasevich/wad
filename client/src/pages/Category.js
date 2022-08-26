@@ -8,16 +8,21 @@ import { changeCategory, createCategory, fetchCategory } from '../http/categoryA
 import Modal from '../components/modal/modal'
 import { observer } from 'mobx-react-lite'
 import { runInAction } from 'mobx'
+import { AllIcons, Icons } from '../components/Icons/CategoryIcons'
 
 const Category = observer(() => {
   const {category} = useContext(Context) 
   const [loading,setLoading] = useState(true)
+  //create category
   const [createCategoryModal, setCreateCategoryModal] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState({})
   const [newCategoryName,setNewCategoryName] = useState('')
+  const [newCategorySelectedIcon, setNewCategorySelectedIcon] = useState([])
+  //change category
   const [changeCategoryModal,setChangeCategoryModal] = useState(false)
   const [newSpent,setNewSpent] = useState('')
   const [newName,setNewName] = useState('')
+  const [newSelectedIcon, setNewSelectedIcon] = useState([])
 
 
   useEffect(()=>{
@@ -60,7 +65,7 @@ setChangeCategoryModal(true)
     console.log(categoryMap.id)
       } }  
      key={categoryMap.id}>
-      
+      <Icons iconId={categoryMap.iconId}></Icons>
         <h1>{categoryMap.name}</h1>
         <h4>{categoryMap.spent}</h4>
     </div>
@@ -85,12 +90,14 @@ setChangeCategoryModal(true)
 
         <input  className="mb-2" type="text" name="newName" placeholder="New name..." value={newName}
          onChange={e => setNewName(e.target.value)}/>
+
+<AllIcons selectedIcon={newSelectedIcon} setSelectedIcon={setNewSelectedIcon}></AllIcons>
          <Button className='mb-2' onClick={()=> { 
-          if(!newSpent && !newName) {
+          if(!newSpent && !newName && !newSelectedIcon) {
             return alert(`Not enough data`)
           }
           try {
-            changeCategory(selectedCategory.id,newSpent ? parseFloat(newSpent):null,newName?newName:null).
+            changeCategory(selectedCategory.id,newSpent ? parseFloat(newSpent):null,newName?newName:null,newSelectedIcon.id).
             then(()=> {
               runInAction(() =>
               { 
@@ -119,16 +126,21 @@ setChangeCategoryModal(true)
  <Modal  active={createCategoryModal} setActive={setCreateCategoryModal}>
     <div className="d-flex justify-content-center align-items-center flex-column h-100 " >
     <input  className="mb-2"type="text" name="categoryName" placeholder="Category name..." onChange={e => setNewCategoryName(e.target.value)}/>
+    <AllIcons selectedIcon={newCategorySelectedIcon} setSelectedIcon={setNewCategorySelectedIcon}></AllIcons>
     <Button onClick={()=> {
-      if(!newCategoryName) {
+      if(!newCategoryName ) {
         return alert("name can't be empty")
+      }
+      if(!newCategorySelectedIcon) {
+        return alert("please select icon")
       }
     
       
 
 
       try {
-        createCategory(newCategoryName).then(data=> {
+        createCategory(newCategoryName,newCategorySelectedIcon.id).
+        then(data=> {
           category.categories.push(data)
           setCreateCategoryModal(false)
         })
@@ -138,6 +150,7 @@ setChangeCategoryModal(true)
     }}>
       Create category</Button>
       </div>
+     
     </Modal>
    </Container>
   </>

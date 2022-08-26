@@ -5,12 +5,12 @@ const {Category} = require('../models/models')
 
 class CategoryController {
     async create(req,res,next) {
-    const {name} = req.body
+    const {name,iconId} = req.body
     const userId = req.user.id
-    if(!name){
+    if(!name || !iconId){
         return next(ApiError.badRequest('Wrong data'))
     }
-    const category = await Category.create({name,userId})
+    const category = await Category.create({name,userId,iconId})
     return res.json(category)
     }
     
@@ -20,33 +20,25 @@ class CategoryController {
             return next(ApiError.badRequest('Wrong data'))
         }
         const userId = req.user.id
-        const category = await Category.findAll({where:{userId}})
+        const category = await Category.findAll({where:{userId},
+            order: [
+             ['id', "ASC"]
+           ]})
         return res.json(category)
     }
     
     async change(req,res,next) {
-        const {categoryId,newName,newSpent} = req.body
-        if(!newSpent && !newName || !categoryId){
+        const {categoryId,newName,newSpent,newIconId} = req.body
+        if(newSpent !== null  && !newName && !newIconId|| !categoryId){
             return next(ApiError.badRequest('Not enough data'))
         }
         const userId = req.user.id
-        let update
-        if(newName && newSpent) {
-            update = {
-                name:newName,
-                spent:newSpent
-            } 
-        }
-        if(!newName && newSpent) {
-            update = {
-                spent:newSpent
-            } 
-        }
-        if(newName && !newSpent) {
-            update = {
-                name:newName
-            } 
-        }
+        
+        let update= {}
+        if(newName) update["name"] = newName
+        if(newSpent!== null) update["spent"] = newSpent
+        if(newIconId) update["iconId"] = newIconId
+    
   
         let transaction
         try {

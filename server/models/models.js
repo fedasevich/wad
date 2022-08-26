@@ -10,7 +10,8 @@ const User = sequelize.define('user',{
 
 const Category = sequelize.define('category',{
     name: {type: DataTypes.STRING,allowNull: false},
-    spent: {type: DataTypes.INTEGER,defaultValue:0}
+    spent: {type: DataTypes.INTEGER,defaultValue:0},
+    iconId: {type: DataTypes.INTEGER,defaultValue:0}
 })
 
 const Transaction = sequelize.define('transaction',{

@@ -14,6 +14,7 @@ import { DateRangePicker } from "react-date-range";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import { runInAction } from 'mobx';
+import {AllIcons, Icons} from './Icons/CategoryIcons'
 
 const Categories = observer(() => {
     const {category,user} = useContext(Context) 
@@ -23,6 +24,7 @@ const Categories = observer(() => {
     const [newCategoryName,setNewCategoryName] = useState('')
     const [resetCategoriesModal, setResetCategoriesModal] = useState(false)
     const [datePickerModal, setDatePickerModal] = useState(false)
+    const [selectedIcon, setSelectedIcon] = useState([])
     const [dateRange, setDateRange] = useState([
       {
         startDate: new Date(),
@@ -62,6 +64,7 @@ const Categories = observer(() => {
   return (
    
     <>
+        
     <Row>
        <h2>Categories:</h2>
        <Button onClick={()=> {
@@ -77,7 +80,9 @@ const Categories = observer(() => {
       setCalcActive(true)
       } }  
      key={categoryMap.id}>
-      
+<Icons iconId={categoryMap.iconId}></Icons>
+
+
         <h1>{categoryMap.name}</h1>
         <h4>{categoryMap.spent}</h4>
     </div>
@@ -107,16 +112,20 @@ const Categories = observer(() => {
     <Modal  active={createCategoryModal} setActive={setCreateCategoryModal}>
     <div className="d-flex justify-content-center align-items-center flex-column h-100 " >
     <input  className="mb-2"type="text" name="categoryName" placeholder="Category name..." onChange={e => setNewCategoryName(e.target.value)}/>
+    <AllIcons selectedIcon={selectedIcon} setSelectedIcon={setSelectedIcon}></AllIcons>
     <Button onClick={()=> {
-      if(!newCategoryName) {
+      if(!newCategoryName ) {
         return alert("name can't be empty")
+      }
+      if(!selectedIcon) {
+        return alert("please select icon")
       }
     
       
 
 
       try {
-        createCategory(newCategoryName).
+        createCategory(newCategoryName,selectedIcon.id).
         then(data=> {
           category.categories.push(data)
           setCreateCategoryModal(false)
@@ -127,8 +136,11 @@ const Categories = observer(() => {
     }}>
       Create category</Button>
       </div>
+     
     </Modal>
     
+
+
  {resetCategoriesModal ? <Modal active={resetCategoriesModal} setActive={setResetCategoriesModal}>
       <div className='d-flex justify-content-center align-items-center flex-column'> <h2 className='mb-2'>It's first day of month do you want to reset all categories?</h2>
       

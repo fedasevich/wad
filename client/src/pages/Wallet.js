@@ -19,7 +19,9 @@ const Wallet = observer (() => {
   const [newCurrency, setNewCurrency] = useState('')
   const [newName, setNewName] = useState('')
   useEffect(()=>{
-
+    if(wallet.wallets.length !== 0) { 
+      setLoading(false)
+     }
     if(wallet.wallets.length === 0) {  
       try {
       fetchWallet().then(data=> {wallet.setWallet(data) 
@@ -30,11 +32,11 @@ const Wallet = observer (() => {
         alert(e.response.data.message);
       }
   
-  if(wallet.wallets.length !== 0) { 
-    setLoading(false)
-   }
+ 
   }
     },[])
+
+
 
     if (loading) {
       return (<h2>loading</h2>)

@@ -140,9 +140,12 @@ setButtonVisible(true)
           {
             if(!data.rows.length) {
               setButtonVisible(false)
-            }
+            };
+        runInAction(()=> {
+          category.transactions.push(...data.rows)
+        }) 
+          
         
-            category.transactions.push(...data.rows)
         
 
           })
