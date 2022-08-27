@@ -1,6 +1,6 @@
 const ApiError = require('../error/ApiError')
 const sequelize = require('../db')
-const { Wallet} = require('../models/models')
+const { Wallet, Transaction} = require('../models/models')
 
 
 class WalletController {
@@ -69,16 +69,20 @@ if(!walletId ) {
     return next(ApiError.badRequest('Wrong data'))
 }
 const userId = req.user.id
-let SequelizeTransaction
+const update = {
+    walletId: -1
+}
+
     try {
-    SequelizeTransaction = await sequelize.transaction()
-const deletedWallet = await Wallet.destroy({where:{userId,id:walletId}})
-await SequelizeTransaction.commit()
-res.json(deletedWallet)
+        await sequelize.transaction(async (SequelizeTransaction)=>{
+ const deletedWallet = await Wallet.destroy({where:{userId,id:walletId},transaction:SequelizeTransaction })
+
+await Transaction.update(update,{where:{walletId,userId} ,SequelizeTransaction })
+
+ res.json("test")
+})
 }catch(e){
-    if(SequelizeTransaction){
-        await SequelizeTransaction.rollback()
-    }
+
     return next(ApiError.badRequest("Wrong data"))
    
 }

@@ -15,14 +15,14 @@ const Category = observer(() => {
   const [loading,setLoading] = useState(true)
   //create category
   const [createCategoryModal, setCreateCategoryModal] = useState(false)
-  const [selectedCategory, setSelectedCategory] = useState({})
   const [newCategoryName,setNewCategoryName] = useState('')
   const [newCategorySelectedIcon, setNewCategorySelectedIcon] = useState([])
   //change category
+  const [selectedCategory, setSelectedCategory] = useState({})
   const [changeCategoryModal,setChangeCategoryModal] = useState(false)
   const [newSpent,setNewSpent] = useState('')
   const [newName,setNewName] = useState('')
-  const [newSelectedIcon, setNewSelectedIcon] = useState([])
+  const [newSelectedIcon, setNewSelectedIcon] = useState({})
 
 
   useEffect(()=>{
@@ -97,7 +97,7 @@ setChangeCategoryModal(true)
             return alert(`Not enough data`)
           }
           try {
-            changeCategory(selectedCategory.id,newSpent ? parseFloat(newSpent):null,newName?newName:null,newSelectedIcon.id).
+            changeCategory(selectedCategory.id,newSpent ? parseFloat(newSpent):null,newName?newName:null,newSelectedIcon.id?newSelectedIcon.id:null).
             then(()=> {
               runInAction(() =>
               { 
@@ -108,7 +108,12 @@ setChangeCategoryModal(true)
                 if(newSpent) {
                   category.categories[categoryIndex].spent = newSpent 
                 }
-            
+                if(newSelectedIcon.id) {
+                  category.categories[categoryIndex].iconId =  newSelectedIcon.id
+                }
+            setNewSelectedIcon({})
+            setNewSpent('')
+            setNewName('')
              })
              setChangeCategoryModal(false)
             })

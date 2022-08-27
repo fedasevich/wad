@@ -107,9 +107,13 @@ setButtonVisible(true)
         deleteTransaction(transactions.id).
         then(()=> {
           const transactionIndex =  category.transactions.findIndex(transaction => transaction.id === transactions.id)
-          const walletIndex = wallet.wallets.findIndex(wallet => wallet.id === transactions.walletId)
+        
           const categoryIndex = category.categories.findIndex(category =>category.id === transactions.categoryId)
+          if(transactions.walletId !== -1) 
+         {
+           const walletIndex = wallet.wallets.findIndex(wallet => wallet.id === transactions.walletId)
           wallet.wallets[walletIndex].balance += parseFloat(category.transactions[transactionIndex].sum)
+        }
           category.categories[categoryIndex].spent -= parseFloat(category.transactions[transactionIndex].sum)
        
        category.transactions.splice(transactionIndex, 1)
@@ -188,9 +192,13 @@ if(!newSum && !newDescription) {
 
             if(newSum) {
            
-           const walletIndex = wallet.wallets.findIndex(wallet => wallet.id === category.selectedTransaction.walletId)
+           
            const categoryIndex = category.categories.findIndex(categoryIndex => categoryIndex.id === category.selectedTransaction.categoryId)
+           if(category.selectedTransaction.walletId !== -1) 
+          {
+           const walletIndex = wallet.wallets.findIndex(wallet => wallet.id === category.selectedTransaction.walletId)
            wallet.wallets[walletIndex].balance = (parseFloat(wallet.wallets[walletIndex].balance) + parseFloat(category.selectedTransaction.sum)) - parseFloat(newSum)
+          }
            category.categories[categoryIndex].spent = (parseFloat(category.categories[categoryIndex].spent) - parseFloat(category.selectedTransaction.sum)) + parseFloat(newSum)
            category.transactions[transactionIndex].sum = newSum
           

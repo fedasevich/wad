@@ -177,15 +177,15 @@ return res.json(newTransaction)
         }
       await Category.update(categoryUpdate,{where:{id:categoryId,userId,userId},  transaction:SequelizeTransaction })
 
-
-      const wallet = await Wallet.findOne({where:{userId,id:walletId}})
-     
+        if(walletId !== -1) 
+      {
+        const wallet = await Wallet.findOne({where:{userId,id:walletId}})
       const walletSpent = (parseFloat(wallet.balance) + parseFloat(oldSum)) - parseFloat(newSum)
-    
     const walletUpdate = {
       balance:walletSpent
   }
     await Wallet.update(walletUpdate,{where:{userId,id:walletId},  transaction:SequelizeTransaction })
+  }
       return res.json(updatedTransaction)
       
   })
@@ -220,13 +220,16 @@ async delete(req,res,next) {
       }
    
     await Category.update(categoryUpdate,{where:{id:categoryId,userId},  transaction:SequelizeTransaction })
+    if(walletId !== -1) {
     const wallet = await Wallet.findOne({where:{userId,id:walletId}})
       const walletSpent = parseFloat(wallet.balance) + parseFloat(oldSum)
   
     const walletUpdate = {
       balance:walletSpent
   }
+
     await Wallet.update(walletUpdate,{where:{userId,id:walletId},  transaction:SequelizeTransaction })
+  }
     const deletedTransaction = await Transaction.destroy({where:{id:transactionId,categoryId}})
       return res.json(deletedTransaction)
 })
