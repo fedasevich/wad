@@ -79,7 +79,7 @@ const update = {
 
 await Transaction.update(update,{where:{walletId,userId} ,SequelizeTransaction })
 
- res.json("test")
+ res.json(deletedWallet)
 })
 }catch(e){
 

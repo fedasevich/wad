@@ -214,12 +214,14 @@ async delete(req,res,next) {
   const walletId = oldTransaction.walletId
  
       const category = await Category.findOne({where:{id:categoryId,userId}}, { SequelizeTransaction })
+      if(category) { 
      const categoryNewSum = (category.spent - oldSum)
       const categoryUpdate = {
           spent: categoryNewSum
       }
    
     await Category.update(categoryUpdate,{where:{id:categoryId,userId},  transaction:SequelizeTransaction })
+   }
     if(walletId !== -1) {
     const wallet = await Wallet.findOne({where:{userId,id:walletId}})
       const walletSpent = parseFloat(wallet.balance) + parseFloat(oldSum)

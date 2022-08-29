@@ -33,3 +33,8 @@ export const resetAllCategories = async () => {
     const {data} = await $authHost.put('api/category',{newSpent})
     return data
 }
+
+export const deleteCategory = async (categoryId) => {
+    const {data} = await $authHost.delete('api/category',{data: { categoryId}})
+    return data
+}

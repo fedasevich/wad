@@ -1,7 +1,7 @@
 const sequelize=require('../db')
 const ApiError = require('../error/ApiError')
 
-const {Category} = require('../models/models')
+const {Category, Transaction} = require('../models/models')
 
 class CategoryController {
     async create(req,res,next) {
@@ -61,12 +61,32 @@ class CategoryController {
     }
     
     async delete(req,res,next) {
-        const {userId,categoryId} = req.body
-    if(!userId || !categoryId || req.user.id !== userId) {
+        const {categoryId} = req.body
+     
+    if(!categoryId ) {
         return next(ApiError.badRequest('Wrong data'))
     }
-    const deletedCategory = await Category.destroy({where:{userId,id:categoryId}})
-    res.json(deletedCategory)
+    const update = {
+        categoryId: -1
+    }
+    const userId = req.user.id
+
+    await Transaction.update(update,{where:{categoryId,userId}})
+    
+    return res.json("test")
+    try {
+        await sequelize.transaction(async (SequelizeTransaction)=>{
+
+    // const deletedCategory = await Category.destroy({where:{userId,id:categoryId}})
+   
+ 
+   
+})
+}catch(e){
+
+    return next(ApiError.badRequest(e))
+   
+}
     }
 
     }

@@ -4,7 +4,7 @@ import { Context } from '../index'
 import Categories from '../components/Categories'
 import NavBar from '../components/NavBar'
 import Transactions from '../components/Transactions'
-import { changeCategory, createCategory, fetchCategory } from '../http/categoryApi'
+import { changeCategory, createCategory, deleteCategory, fetchCategory } from '../http/categoryApi'
 import Modal from '../components/modal/modal'
 import { observer } from 'mobx-react-lite'
 import { runInAction } from 'mobx'
@@ -123,7 +123,21 @@ setChangeCategoryModal(true)
 
 }
          }>Apply changes</Button>
-         <Button className="btn-danger">Delete category</Button>
+         <Button className="btn-danger"onClick={()=> { 
+            try {
+              deleteCategory(selectedCategory.id).
+              then(()=> {
+                runInAction(() =>
+                { 
+                  const categoryIndex = category.categories.findIndex(category => category.id === selectedCategory.id)
+                  category.categories.splice(categoryIndex, 1)
+               })
+               setChangeCategoryModal(false)
+              })
+            } catch(e) {
+              alert(e.response.data.message);
+            }
+         }}>Delete category</Button>
          </div>
  </Modal>
 
