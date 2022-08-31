@@ -1,10 +1,11 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useMemo, useState } from 'react'
 import {observer} from 'mobx-react-lite'
 import { Button, ButtonGroup, ButtonToolbar, Col, Container, Row } from 'react-bootstrap';
 import { Context } from '../index';
 import { changeTransaction, deleteTransaction, fetchTransaction } from '../http/transactionApi';
 import Modal from './modal/modal';
 import { runInAction } from 'mobx';
+import { Icons } from './Icons/CategoryIcons';
 
 
 
@@ -17,38 +18,47 @@ const Transactions = observer(() => {
   const [transactionsSort,setTransactionsSort] = useState("DESC")
   useEffect(()=>{
     try {
-      fetchTransaction(category.transactionsPage,category.transactionsLimit,transactionsSort).then(data=> {category.setTransactions(data.rows)
-    
+      fetchTransaction(category.transactionsPage,category.transactionsLimit,transactionsSort).
+      then(data=> {category.setTransactions(data.rows)    
+       
     })
     } catch(e) {
       alert(e.response.data.message);
     }
    
 
-  },[category.transactionsLimit,transactionsSort])
+  },[category.transactionsLimit,transactionsSort,category])
 
 
  
 const data = category.transactions
 
   const transactions = data.reduce((transactions, transactionItem) => {
+    console.log("re")
     const date = transactionItem.createdAt.split('T')[0];
     if (!transactions[date]) {
       transactions[date] = [];
     }
     transactions[date].push(transactionItem);
     return transactions;
-  }, {});
+  }, {})
   
   const transactionArrays = Object.keys(transactions).map((date) => {
+    console.log("rere")
     return {
       date,
       trs: transactions[date]
     };
-  });
+  })
 
   console.log({...transactionArrays})
 
+  const getIconIdFromCategoryById =(id)=> {
+  
+    console.log("icon")
+    let findCategory = category.categories.find((category)=> category.id === id)
+    return findCategory.iconId
+  }
 
   return (
    <>
@@ -59,6 +69,7 @@ const data = category.transactions
 setTransactionsSort(transactionsSort==="DESC" ? "ASC" : "DESC" )
 category.setTransactionsPage(1)
 setButtonVisible(true)
+
 }}>sort</Button>
 <ButtonToolbar className="justify-content-end"aria-label="Toolbar with button groups">
       <ButtonGroup className="me-2" aria-label="First group">
@@ -89,15 +100,17 @@ setButtonVisible(true)
 
 
 {transactionArrays.map(transactionsMap=>
- 
+
   <Row>
     
      
      <h2>{transactionsMap.date}</h2> 
    {transactionsMap.trs.map(transactions=>
 
-       <Col key={transactions.id} md="12" className="d-inline-flex justify-content-between">
+<Col key={transactions.id} md="12" className="d-inline-flex justify-content-between">
+         <Icons iconId={getIconIdFromCategoryById(transactions.categoryId)}></Icons> 
        <h2>{transactions.description}</h2>
+       {console.log("map")}
     <div className="d-flex flex-direction-row">  
       <h4>{transactions.sum}</h4>
        <Button className="ml-2 btn-danger" onClick={()=>{
@@ -106,17 +119,23 @@ setButtonVisible(true)
        try {
         deleteTransaction(transactions.id).
         then(()=> {
-          const transactionIndex =  category.transactions.findIndex(transaction => transaction.id === transactions.id)
+          runInAction(()=>{
+            const transactionIndex =  category.transactions.findIndex(transaction => transaction.id === transactions.id)
         
-          const categoryIndex = category.categories.findIndex(category =>category.id === transactions.categoryId)
-          if(transactions.walletId !== -1) 
-         {
-           const walletIndex = wallet.wallets.findIndex(wallet => wallet.id === transactions.walletId)
-          wallet.wallets[walletIndex].balance += parseFloat(category.transactions[transactionIndex].sum)
-        }
-          category.categories[categoryIndex].spent -= parseFloat(category.transactions[transactionIndex].sum)
-       
-       category.transactions.splice(transactionIndex, 1)
+            const categoryIndex = category.categories.findIndex(category =>category.id === transactions.categoryId)
+            if(transactions.walletId !== -1) 
+           {
+             const walletIndex = wallet.wallets.findIndex(wallet => wallet.id === transactions.walletId)
+            wallet.wallets[walletIndex].balance += parseFloat(category.transactions[transactionIndex].sum)
+          }
+            category.categories[categoryIndex].spent -= parseFloat(category.transactions[transactionIndex].sum)
+         
+         category.transactions.splice(transactionIndex, 1)
+         category.setTransactions(category.transactions)
+         setNewSum('')
+         setNewDescription("")
+          })
+         
         })
       } catch(e) {
         alert(e.response.data.message);

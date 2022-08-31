@@ -77,14 +77,15 @@ const icons = [
 },
 ]
 
-export function Icons({iconId}){
+export const Icons = ({iconId})=>{
     let index = icons.findIndex(icon => icon.id === iconId)
+    console.log(iconId)
     if (index == -1) {
         index = 1
     }
     return (
         <>
-           <div>
+           <div style={{ backgroundColor: "#7AAFFC"}}>
              {
                     icons[index].svg
                }
@@ -105,7 +106,7 @@ export const AllIcons = ({selectedIcon,setSelectedIcon}) => {
 
         {icons.map(
             (icon)=>
-            <Col md={4} key={icon.id} className="justify-content-center text-center" style={{ border:icon.id === selectedIcon.id ? '3px solid red' : '3px solid black'}}
+            <Col md={4} key={icon.id} className="justify-content-center text-center" style={{ border:icon.id === selectedIcon.id ? '3px solid red' : '3px solid black',backgroundColor: "#7AAFFC"}}
             onClick={()=> {setSelectedIcon(icon)
            
             } }  >

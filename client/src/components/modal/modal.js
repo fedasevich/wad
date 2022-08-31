@@ -1,8 +1,9 @@
+import { observer } from 'mobx-react-lite';
 import React, { useRef } from 'react'
 import { useOnClickOutside } from '../calculator/Hooks/useOnClickOutisde';
 import './modalStyle.css'
 
-const Modal = ({active,setActive,children}) => {
+const Modal = observer(({active,setActive,children})=>{ 
   const modalRef = useRef(); 
   useOnClickOutside(modalRef, () => setActive(false));
   return (
@@ -10,6 +11,6 @@ const Modal = ({active,setActive,children}) => {
         <div ref={modalRef} className={active ? "custom_modal_content active":"custom_modal_content" }>{children}</div>
     </div>
   )
-}
+})
 
 export default Modal

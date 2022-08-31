@@ -7,6 +7,7 @@ import OperationButton from './OperationDigit';
 import { Context } from '../..';
 import Modal from '../modal/modal';
 import { createTransaction } from '../../http/transactionApi';
+import { observer } from 'mobx-react-lite';
 
 
 
@@ -139,7 +140,7 @@ function evaluate({currentOperand, previousOperand, operation}) {
  
   
 
-const Calculator = ({active,setActive,category}) => {
+const Calculator = observer(({active,setActive,category}) => {
     const [walletModalActive, setWalletModalActive] = useState(false)
     const [categoryModalActive, setCategoryModalActive] = useState(false)
     const [{currentOperand='0', previousOperand, operation}, dispatch] = useReducer(reducer, {})
@@ -259,6 +260,6 @@ if(currentOperand === '0') {
    
     </>
     )
-}
+})
 
 export default Calculator
