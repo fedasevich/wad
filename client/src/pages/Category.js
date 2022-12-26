@@ -8,7 +8,7 @@ import { changeCategory, createCategory, deleteCategory, fetchCategory } from '.
 import Modal from '../components/modal/modal'
 import { observer } from 'mobx-react-lite'
 import { runInAction } from 'mobx'
-import { AllIcons, Icons } from '../ui/Icons/CategoryIcons'
+import { AllIcons, Icons } from '../ui/Icons/CategoryIcons/CategoryIcons'
 
 const Category = observer(() => {
   const {category} = useContext(Context) 

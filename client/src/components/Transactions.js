@@ -5,7 +5,7 @@ import { Context } from '../index';
 import { changeTransaction, deleteTransaction, fetchTransaction } from '../http/transactionApi';
 import Modal from './modal/modal';
 import { runInAction } from 'mobx';
-import { Icons } from '../ui/Icons/CategoryIcons';
+import { Icons } from '../ui/Icons/CategoryIcons/CategoryIcons';
 import ChangeTransactionModal from './ChangeTransactionModal';
 
 

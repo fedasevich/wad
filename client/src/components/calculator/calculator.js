@@ -1,6 +1,6 @@
 import React, { useState, useRef, useReducer, useContext, useEffect } from 'react'
 import { useOnClickOutside } from './Hooks/useOnClickOutisde';
-import "./CalculatorStyle.css"
+// import "./CalculatorStyle.css"
 import { ACTIONS, BACK_SYMBOL, DIVIDE_SYMBOL, EVALUATE_SYMBOL, INTEGER_FORMATTER, MULTIPLY_SYMBOL, SUBMIT_SYMBOL } from './utils/consts';
 import DigitButton from './DigitButtons';
 import OperationButton from './OperationDigit';
