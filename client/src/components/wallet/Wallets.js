@@ -1,19 +1,19 @@
 import React, { useContext, useEffect, useState } from 'react'
-import {observer} from 'mobx-react-lite'
+import { observer } from 'mobx-react-lite'
 import { Card, Col, Row, Button, Accordion, useAccordionButton } from 'react-bootstrap';
 import { Context } from '../../index';
 import { createWallet, fetchWallet } from '../../http/walletApi';
 import Modal from '../modal/modal';
+import WalletActions from './WalletActions';
 
 
 
 function WalletToggle({ children, eventKey }) {
-  const decoratedOnClick = useAccordionButton(eventKey, () =>
-    console.log('totally custom!'),
-  );
+  const decoratedOnClick = useAccordionButton(eventKey);
 
   return (
     <div
+      className='d-flex flex-row justify-content-between align-items-center'
       onClick={decoratedOnClick}
     >
       {children}
@@ -21,38 +21,43 @@ function WalletToggle({ children, eventKey }) {
   );
 }
 
-const Wallets = observer(({dispatch}) => {
-    const {wallet} = useContext(Context) 
-    const [createWalletModal, setCreateWalletModal] = useState(false)
+const Wallets = observer(({ dispatch }) => {
+  const { wallet } = useContext(Context)
+  const [createWalletModal, setCreateWalletModal] = useState(false)
 
-    useEffect(()=>{
-        try {
-          fetchWallet().then(data=> {wallet.setWallet(data) 
-          wallet.setSelectedWallet(data[0])
-          })
-        } catch(e) {
-          alert(e.response.data.message);
-        }
-      },[])
-    return (
-   
-        <>
-        <Row>
-           <h2>Wallets:</h2>
-       {wallet.wallets.map(walletsMap =>
-        <Col md="12" >
-  <Accordion >
-      <Card>
-        <Card.Header>
-          <WalletToggle eventKey="0"> <h1>{walletsMap.name}</h1>
-            <h4>{walletsMap.balance} {walletsMap.currency}</h4></WalletToggle>
-        </Card.Header>
-        <Accordion.Collapse eventKey="0">
-          <Card.Body>Hello! I'm the body</Card.Body>
-        </Accordion.Collapse>
-      </Card>
-    </Accordion>
-        {/* <div className="p-4 mb-2 " 
+  useEffect(() => {
+    try {
+      fetchWallet().then(data => {
+        wallet.setWallet(data)
+        wallet.setSelectedWallet(data[0])
+      })
+    } catch (e) {
+      alert(e.response.data.message);
+    }
+  }, [])
+  return (
+
+    <>
+      <Row className='fw-medium'>
+        <Accordion >
+          {wallet.wallets.map((walletsMap, index) =>
+
+            <Col md="12" className='mb-4 wallet '>
+
+
+
+
+              <Card className='component-shadow' >
+                <Card.Header>
+                  <WalletToggle eventKey={index}> <h4 className='m-0'>{walletsMap.name}</h4>
+                    <h6 className='m-0' >{walletsMap.balance} {walletsMap.currency}</h6></WalletToggle>
+                </Card.Header>
+                <Accordion.Collapse eventKey={index}>
+                  <Card.Body><WalletActions dispatch={dispatch} id={walletsMap.id} /></Card.Body>
+                </Accordion.Collapse>
+              </Card>
+
+              {/* <div className="p-4 mb-2 " 
         style={{ cursor: "pointer", borderRadius: "400px",backgroundColor: "lightblue",textAlign:"center" ,
         border:walletsMap.id === wallet.selectedWallet.id ? '3px solid red' : '3px solid black'}}
         onClick={()=> wallet.setSelectedWallet(walletsMap) }  
@@ -77,25 +82,27 @@ const Wallets = observer(({dispatch}) => {
    >
 <h1>Change</h1>
      </div> */}
-        </Col>
-        
-        )}
-        <Col md="4" >
-     
 
-     <div className="p-4 mb-2 " 
-     style={{ cursor: "pointer", borderRadius: "400px",backgroundColor: "lightblue",textAlign:"center" ,border: '3px solid green'}}
-       onClick={()=> {
-          setCreateWalletModal(true);
-       } }  
-   >
-<h1>+</h1>
-     </div>
-     </Col>
-    </Row>
-    
-        </>
-      );
+            </Col>
+
+          )}
+        </Accordion>
+        <Col md="12" >
+
+
+          <div className="p-4 mb-2 component-shadow bg-light-blue text-center component-border-radius "
+            style={{ cursor: "pointer", color: "white" }}
+            onClick={() => {
+              dispatch("");
+            }}
+          >
+            <span className=''>Add wallet</span>
+          </div>
+        </Col>
+      </Row>
+
+    </>
+  );
 })
 
 export default Wallets

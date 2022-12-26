@@ -14,7 +14,7 @@ import { DateRangePicker } from "react-date-range";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import { runInAction } from 'mobx';
-import {AllIcons, Icons} from '../ui/Icons/CategoryIcons'
+import {AllIcons, Icons} from '../ui/Icons/CategoryIcons/CategoryIcons'
 
 const Categories = observer(() => {
     const {category,user} = useContext(Context) 
