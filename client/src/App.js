@@ -4,8 +4,9 @@ import { BrowserRouter } from 'react-router-dom';
 import { Context } from './index';
 import { check } from './http/userApi';
 import AppRouter from './components/AppRouter';
-import './style.css';
-import { Spinner } from 'react-bootstrap';
+import './ui/style.css';
+
+
 
 const App = observer(()=> {
   const {user} = useContext(Context)
@@ -23,11 +24,12 @@ if (loading) {
 }
 
   return (
+<>
 
     <BrowserRouter>
      <AppRouter/>
      </BrowserRouter>
-   
+     </>
   );
 })
 

@@ -23,4 +23,8 @@ export default class UserStore {
         return this._user
     }
 
+    logOut() {
+        this._isAuth = false
+        this._user = {} 
+    }
 }

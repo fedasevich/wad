@@ -14,7 +14,7 @@ import { DateRangePicker } from "react-date-range";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import { runInAction } from 'mobx';
-import {AllIcons, Icons} from './Icons/CategoryIcons'
+import {AllIcons, Icons} from '../ui/Icons/CategoryIcons'
 
 const Categories = observer(() => {
     const {category,user} = useContext(Context) 
@@ -193,7 +193,7 @@ const Categories = observer(() => {
              }
             )
             })
-        })}).finally(() => setDatePickerModal(false))
+        })}).then(() => setDatePickerModal(false))
       } catch(e) {
         alert(e.response.data.message);
       }

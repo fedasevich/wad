@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react'
 import {observer} from 'mobx-react-lite'
 import { Card, Col, Row, Button } from 'react-bootstrap';
-import { Context } from '../index';
-import { createWallet, fetchWallet } from '../http/walletApi';
-import Modal from './modal/modal';
+import { Context } from '../../index';
+import { createWallet, fetchWallet } from '../../http/walletApi';
+import Modal from '../modal/modal';
 
 const Wallets = observer(() => {
     const {wallet} = useContext(Context) 
