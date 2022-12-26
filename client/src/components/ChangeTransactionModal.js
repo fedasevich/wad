@@ -58,6 +58,8 @@ return alert(`Not enough data`)
   
    })
 
+  }).then(()=> {
+    setChangeTransactionModal(false)
   })
 } catch(e) {
   alert(e.response.data.message);

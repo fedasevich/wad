@@ -5,7 +5,7 @@ import { Context } from '../index';
 import { changeTransaction, deleteTransaction, fetchTransaction } from '../http/transactionApi';
 import Modal from './modal/modal';
 import { runInAction } from 'mobx';
-import { Icons } from './Icons/CategoryIcons';
+import { Icons } from '../ui/Icons/CategoryIcons';
 import ChangeTransactionModal from './ChangeTransactionModal';
 
 
@@ -58,7 +58,7 @@ const data = category.transactions
   
     console.log("icon")
     let findCategory = category.categories.find((category)=> category.id === id)
-    return findCategory.iconId
+    return findCategory?.iconId
   }
 
   return (
@@ -105,7 +105,7 @@ setButtonVisible(true)
   <Row>
     
      
-     <h2>{transactionsMap.date}</h2> 
+     <h2 key={transactionsMap.date}>{transactionsMap.date}</h2> 
    {transactionsMap.trs.map(transactions=>
 
 <Col key={transactions.id} md="12" className="d-inline-flex justify-content-between">
