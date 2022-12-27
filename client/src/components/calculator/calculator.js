@@ -144,7 +144,7 @@ const Calculator = observer(({active,setActive,category}) => {
     const [walletModalActive, setWalletModalActive] = useState(false)
     const [categoryModalActive, setCategoryModalActive] = useState(false)
     const [{currentOperand='0', previousOperand, operation}, dispatch] = useReducer(reducer, {})
-    const [description, setDescription] = useState(null)
+    const [description, setDescription] = useState("")
     const calculatorRef = useRef(); 
 
     const {wallet} = useContext(Context)
