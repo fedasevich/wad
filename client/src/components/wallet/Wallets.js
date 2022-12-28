@@ -5,7 +5,7 @@ import { Context } from '../../index';
 import { createWallet, fetchWallet } from '../../http/walletApi';
 import Modal from '../modal/modal';
 import WalletActions from './WalletActions';
-
+import {DispatchContext} from '../../pages/MainPage';
 
 
 function WalletToggle({ children, eventKey }) {
@@ -21,8 +21,9 @@ function WalletToggle({ children, eventKey }) {
   );
 }
 
-const Wallets = observer(({ dispatch }) => {
+const Wallets = observer(() => {
   const { wallet } = useContext(Context)
+  const dispatch = useContext(DispatchContext)
   const [createWalletModal, setCreateWalletModal] = useState(false)
 
   useEffect(() => {
@@ -93,7 +94,7 @@ const Wallets = observer(({ dispatch }) => {
           <div className="p-4 mb-2 component-shadow bg-light-blue text-center component-border-radius "
             style={{ cursor: "pointer", color: "white" }}
             onClick={() => {
-              dispatch("");
+              dispatch({ operation: "CREATE_WALLET", id: -1 });
             }}
           >
             <span className=''>Add wallet</span>

@@ -9,6 +9,7 @@
     --background-grey: #F4F4F4;
     --component-shadow: 0px 30px 45px rgba(21, 21, 21, 0.1);
     --component-border-radius: 20px;
+    --component-padding: 30px;
 }
 
 
@@ -42,6 +43,10 @@
 
 .component-border-radius {
     border-radius: var(--component-border-radius);
+}
+
+.component-half-border-radius {
+    border-radius: calc(var(--component-border-radius)/2);
 }
 
 @font-face {
@@ -127,7 +132,7 @@
 }
 
 .wallet .card-header {
-    padding: 30px;
+    padding: var(--component-padding);
     color: var(--text-color-white);
     border-radius: var(--component-border-radius);
     background-color: var(--secondary-blue);
@@ -152,6 +157,36 @@
 
 }
 
+
+/*menu*/
+
+.menu {
+    background-color: var(--text-color-white);
+    border-radius: var(--component-border-radius);
+    box-shadow: var(--component-shadow);
+    
+    font-family: Poppins-Medium;
+}
+
+.menu-control-header {
+    color:var(--text-color-white);
+    padding: var(--component-padding);
+}
+
+.menu-header {
+  
+    padding-left: var(--component-padding);
+    padding-right: var(--component-padding);
+    padding-top: var(--component-padding);
+    padding-bottom: 0;
+}
+
+
+.menu-container {
+    padding: var(--component-padding);
+}
+
+/*responsive*/
 @media screen and (max-width: 768px) {
     .desktop-height-100vh {
         height: 100%;
