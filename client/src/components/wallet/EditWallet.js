@@ -32,6 +32,7 @@ const handleCommit = ()=> {
   setEditWallet({ name: "",
   currency: "",
   balance:"",})
+  handleClose()
 }
 
 const handleKeyDown = event => {
@@ -39,7 +40,7 @@ const handleKeyDown = event => {
     handleCommit()
   }
   if (event.key === 'Escape') {
-    handleCommit()
+    handleClose()
   }
 };
 

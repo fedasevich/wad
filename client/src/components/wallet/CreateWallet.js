@@ -35,7 +35,7 @@ const CreateWallet = () => {
             handleCommit()
         }
         if (event.key === 'Escape') {
-            handleCommit()
+            handleClose()
         }
     };
 
@@ -56,7 +56,7 @@ const CreateWallet = () => {
                     <input className='mb-2 component-half-border-radius' type="text" name='name' onKeyDown={handleKeyDown} value={newWallet.name} onChange={handleChange} />
                     <label className='mb-2' htmlFor="balance">Enter balance:</label>
                     <input className='mb-2 component-half-border-radius' type="number" name='balance' onKeyDown={handleKeyDown} value={newWallet.balance} onChange={handleChange} />
-                    <h4 className='mb-2' >Choosen currency: {newWallet.currency}</h4>
+                    <h4 className='mb-2' >Chosen currency: {newWallet.currency}</h4>
                 </MenuProvider.Container>
             </MenuProvider> </Col>
 
@@ -64,7 +64,7 @@ const CreateWallet = () => {
                 <MenuProvider>
                     <MenuProvider.Header><h2>Choose currency:</h2></MenuProvider.Header>
                     <MenuProvider.Container className="d-flex flex-column">
-                        <Currencies />
+                        <Currencies setCurrency={handleChange}/>
                     </MenuProvider.Container>
                 </MenuProvider>
             </Col>
