@@ -35,14 +35,7 @@ import MenuProvider from '../components/MenuProvider'
     case "DEFAULT_WALLET":
       return defaultPage
       case "CREATE_WALLET":
-        return [<CreateWallet/>,    <>
-        <MenuProvider>
-          <MenuProvider.Header><h2>Choose currency:</h2></MenuProvider.Header>
-          <MenuProvider.Container className="d-flex flex-column">
-         <Currencies  />
-             </MenuProvider.Container>
-        </MenuProvider> 
-        </>]
+        return "CREATE_WALLET"
   }
 }
 
@@ -60,7 +53,7 @@ const MainPage = observer(() => {
     <>
     <DispatchContext.Provider value={dispatch}>
     <PageProvider pageName="Accounts">
-{Array.isArray(state) ? <CreateWallet/>: 
+{state==="CREATE_WALLET" ? <CreateWallet/>: 
  <>
 <Col xl={{ span: 4, offset: 1 }}>{<Wallets />}</Col>
 

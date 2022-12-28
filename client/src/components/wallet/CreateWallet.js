@@ -6,6 +6,7 @@ import Currencies from '../Currencies'
 import MenuProvider from '../MenuProvider'
 
 const CreateWallet = () => {
+
     const [newWallet, setNewWallet] = useState({
         name: "",
         currency: "",
@@ -24,10 +25,13 @@ const CreateWallet = () => {
 
 
     const handleCommit = () => {
-        //   wallet.editWallet(id,newWallet.currency,newWallet.name,newWallet.balance)
-        //   setNewtWallet({ name: "",
-        //   currency: "",
-        //   balance:"",})
+        
+          wallet.createWallet(newWallet.currency,newWallet.name)
+          setNewWallet({ 
+            name: "",
+            currency: "",
+            })
+        handleClose()
     }
 
     const handleKeyDown = event => {
@@ -54,8 +58,6 @@ const CreateWallet = () => {
                 <MenuProvider.Container className="d-flex flex-column">
                     <label className='mb-2' htmlFor="name">Enter name:</label>
                     <input className='mb-2 component-half-border-radius' type="text" name='name' onKeyDown={handleKeyDown} value={newWallet.name} onChange={handleChange} />
-                    <label className='mb-2' htmlFor="balance">Enter balance:</label>
-                    <input className='mb-2 component-half-border-radius' type="number" name='balance' onKeyDown={handleKeyDown} value={newWallet.balance} onChange={handleChange} />
                     <h4 className='mb-2' >Chosen currency: {newWallet.currency}</h4>
                 </MenuProvider.Container>
             </MenuProvider> </Col>

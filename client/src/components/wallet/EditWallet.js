@@ -3,6 +3,7 @@ import { Context } from '../..'
 
 
 import {DispatchContext} from '../../pages/MainPage';
+import { DeleteIcon } from '../../ui/Icons/ControlIcons/ControlIcons';
 import Currencies from '../Currencies';
 import MenuProvider from '../MenuProvider'
 
@@ -19,9 +20,14 @@ const EditWallet = ({id}) => {
   const dispatch = useContext(DispatchContext)
 
 
-
+const eraseState=()=>{
+  setEditWallet({ name: "",
+  currency: "",
+  balance:"",})
+}
 
 const handleClose = ()=> {
+
   dispatch({ operation: "DEFAULT_WALLET", id:-1 })
 }
 
@@ -29,9 +35,7 @@ const handleClose = ()=> {
 
 const handleCommit = ()=> {
   wallet.editWallet(id,editWallet.currency,editWallet.name,editWallet.balance)
-  setEditWallet({ name: "",
-  currency: "",
-  balance:"",})
+  eraseState()
   handleClose()
 }
 
@@ -44,12 +48,19 @@ const handleKeyDown = event => {
   }
 };
 
-function handleChange(event) {
+const handleChange=(event)=> {
   setEditWallet({
     ...editWallet,
     [event.target.name]: event.target.value
   });
  
+}
+
+const handleDoubleClick=(id)=> {
+
+  wallet.deleteWallet(id)
+  eraseState()
+  handleClose()
 }
 
   return (
@@ -69,6 +80,8 @@ function handleChange(event) {
       <input className='mb-2 component-half-border-radius' type="number" name='balance' onKeyDown={handleKeyDown} value={editWallet.balance} onChange={handleChange}/>
       <h4 className='mb-2' >Choose new currency:</h4>
    <Currencies setCurrency={handleChange} />
+
+   <h6 onDoubleClick={()=>handleDoubleClick(id)} className='text-danger mb-0 btn' ><DeleteIcon/> Delete wallet</h6>
        </MenuProvider.Container>
   </MenuProvider> 
   </>
