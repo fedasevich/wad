@@ -94,7 +94,7 @@ const Wallets = observer(() => {
           <div className="p-4 mb-2 component-shadow bg-light-blue text-center component-border-radius "
             style={{ cursor: "pointer", color: "white" }}
             onClick={() => {
-              dispatch("EDIT_WALLET");
+              dispatch({ operation: "CREATE_WALLET", id: -1 });
             }}
           >
             <span className=''>Add wallet</span>

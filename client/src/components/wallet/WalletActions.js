@@ -4,8 +4,8 @@ import { Row, Col } from 'react-bootstrap'
 import { BalanceIcon, EditIcon, RechargeIcon, TransactionsIcon, TransferIcon, WithdrawIcon } from '../../ui/Icons/WalletIcons/WalletIcons'
 
 const WalletActionsAndIcons = [
-  { icon: <RechargeIcon />, action: "EDIT_WALLET", name: "Edit" },
-  { icon: <EditIcon />, action: "RECHARGE_WALLET", name: "Recharge" },
+  { icon: <EditIcon />, action: "EDIT_WALLET", name: "Edit" },
+  { icon: <RechargeIcon />, action: "RECHARGE_WALLET", name: "Recharge" },
   { icon: <BalanceIcon />, action: "BALANCE_WALLET", name: "Balance" },
   { icon: <WithdrawIcon />, action: "WITHDRAW_WALLET", name: "Withdraw" },
   { icon: <TransactionsIcon />, action: "TRANSACTIONS_WALLET", name: "Transactions" },

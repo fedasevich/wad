@@ -7,6 +7,9 @@ import NavBar from '../components/NavBar'
 import Transactions from '../components/Transactions'
 import Wallets from '../components/wallet/Wallets'
 import PageProvider from './PageProvider'
+import Currencies from '../components/Currencies'
+import CreateWallet from '../components/wallet/CreateWallet'
+import MenuProvider from '../components/MenuProvider'
 
 
 
@@ -31,6 +34,15 @@ import PageProvider from './PageProvider'
       return <Wallets id={id}/> 
     case "DEFAULT_WALLET":
       return defaultPage
+      case "CREATE_WALLET":
+        return [<CreateWallet/>,    <>
+        <MenuProvider>
+          <MenuProvider.Header><h2>Choose currency:</h2></MenuProvider.Header>
+          <MenuProvider.Container className="d-flex flex-column">
+         <Currencies  />
+             </MenuProvider.Container>
+        </MenuProvider> 
+        </>]
   }
 }
 
@@ -48,10 +60,14 @@ const MainPage = observer(() => {
     <>
     <DispatchContext.Provider value={dispatch}>
     <PageProvider pageName="Accounts">
-
-<Col xl={{ span: 4, offset: 1 }}><Wallets /></Col>
+{Array.isArray(state) ? <CreateWallet/>: 
+ <>
+<Col xl={{ span: 4, offset: 1 }}>{<Wallets />}</Col>
 
 <Col xl={{ span: 6, offset: 1 }}>{state}</Col>
+</>
+}
+
 
 </PageProvider>
 

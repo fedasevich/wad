@@ -45,6 +45,10 @@
     border-radius: var(--component-border-radius);
 }
 
+.component-half-border-radius {
+    border-radius: calc(var(--component-border-radius)/2);
+}
+
 @font-face {
     font-family: Poppins-Medium;
     src: url(./ui/fonts/Poppins-Medium.ttf);
@@ -168,6 +172,15 @@
     color:var(--text-color-white);
     padding: var(--component-padding);
 }
+
+.menu-header {
+  
+    padding-left: var(--component-padding);
+    padding-right: var(--component-padding);
+    padding-top: var(--component-padding);
+    padding-bottom: 0;
+}
+
 
 .menu-container {
     padding: var(--component-padding);

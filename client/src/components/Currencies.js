@@ -3,26 +3,28 @@ import React from 'react'
 import { mainCurrencies,cryptoCurrencies } from '../utils/consts'
 
 
-const Currencies = observer(({state}) => {
+const Currencies = observer(({setCurrency}) => {
  
-const handleChange= (currency)=> {
-    state=currency
+
+
+const handleChange= (event)=> {
+  setCurrency(event)
 }
 
   return (
     <>
 
   <div> 
-  <h4>{mainCurrencies.name}</h4>
+  <h6>{mainCurrencies.name}</h6>
  {mainCurrencies.data.map(currency=>{
   
     return (
     <div className='d-flex flex-row mb-2'> 
 
-<input type="radio" id={currency.currency} name="currency" value={currency.currency} 
+<input type="radio" id={currency.currency} name="currency" value={currency.symbol} 
 
 
-onChange={()=>{ handleChange(currency.currency)}} />
+onChange={(e)=>{ handleChange(e)}} />
 <label className='ms-2 ' htmlFor={currency.currency}> {currency.currency}  </label>
 <p className='mb-0 ms-auto'>{currency.symbol}</p>
 
@@ -34,13 +36,13 @@ onChange={()=>{ handleChange(currency.currency)}} />
 </div> 
 
 <div> 
-  <h4>{cryptoCurrencies.name}</h4>
+  <h6>{cryptoCurrencies.name}</h6>
  {cryptoCurrencies.data.map(currency=>{
   
     return (
         <div className='d-flex flex-row mb-2' >  
 
-<input type="radio" id={currency.currency} name="currency" value={currency.currency} />
+<input type="radio" id={currency.currency} name="currency" value={currency.symbol} onChange={(e)=>{ handleChange(e)}}/>
 <label className='ms-2 ' htmlFor={currency.currency}> {currency.currency}  </label>
 <p className='mb-0 ms-auto'>{currency.symbol}</p>
 

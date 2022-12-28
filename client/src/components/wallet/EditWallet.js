@@ -1,6 +1,6 @@
 import React, { useContext, useState, } from 'react'
 import { Context } from '../..'
-import { defaultPage } from '../../pages/MainPage'
+
 
 import {DispatchContext} from '../../pages/MainPage';
 import Currencies from '../Currencies';
@@ -28,7 +28,10 @@ const handleClose = ()=> {
 
 
 const handleCommit = ()=> {
-wallet.editWallet(id,"test","test",222)
+  wallet.editWallet(id,editWallet.currency,editWallet.name,editWallet.balance)
+  setEditWallet({ name: "",
+  currency: "",
+  balance:"",})
 }
 
 const handleKeyDown = event => {
@@ -58,12 +61,13 @@ function handleChange(event) {
     
     <MenuProvider.Container className="d-flex flex-column">
       <label className='mb-2' htmlFor="name">Enter new name:</label>
-      <input className='mb-2' type="text" name='name' onKeyDown={handleKeyDown} value={editWallet.name} onChange={handleChange}/>
-      <label className='mb-2' htmlFor="currency">Enter new currency:</label>
-      <input className='mb-2' type="text" name='currency' onKeyDown={handleKeyDown} value={editWallet.currency} onChange={handleChange}/>
+      <input className='mb-2 component-half-border-radius' type="text" name='name' onKeyDown={handleKeyDown} value={editWallet.name} onChange={handleChange}/>
+
+
       <label className='mb-2' htmlFor="balance">Enter new balance:</label>
-      <input className='mb-2' type="number" name='balance' onKeyDown={handleKeyDown} value={editWallet.balance} onChange={handleChange}/>
-   <Currencies state={editWallet.currency}/>
+      <input className='mb-2 component-half-border-radius' type="number" name='balance' onKeyDown={handleKeyDown} value={editWallet.balance} onChange={handleChange}/>
+      <h4 className='mb-2' >Choose new currency:</h4>
+   <Currencies setCurrency={handleChange} />
        </MenuProvider.Container>
   </MenuProvider> 
   </>
