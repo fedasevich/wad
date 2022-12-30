@@ -85,7 +85,7 @@ export const Icons = ({iconId})=>{
     }
     return (
         <>
-           <div style={{ backgroundColor: "#7AAFFC"}}>
+           <div className="bg-main-blue component-one-third-border-radius">
              {
                     icons[index].svg
                }

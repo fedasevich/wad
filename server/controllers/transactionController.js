@@ -85,8 +85,7 @@ return res.json(newTransaction)
       })
       return res.json(transactions)
       }    
-      if(categoryId && !walletId) 
-  {   
+      if(categoryId && !walletId) {   
     const transactions = await Transaction.findAndCountAll({
         where: {
            categoryId,userId
@@ -97,6 +96,7 @@ return res.json(newTransaction)
         limit,
         offset
      })
+     return res.json(transactions)
     }
      if(!categoryId && walletId) {
       const transactions = await Transaction.findAndCountAll({
@@ -109,6 +109,7 @@ return res.json(newTransaction)
         limit,
         offset
      })
+     return res.json(transactions)
      }
      if(categoryId && walletId) {
       const transactions = await Transaction.findAndCountAll({
@@ -121,8 +122,9 @@ return res.json(newTransaction)
         limit,
         offset
      })
+     return res.json(transactions)
      }
-      return res.json(transactions)
+   
    }
    
 

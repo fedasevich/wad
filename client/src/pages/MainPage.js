@@ -4,17 +4,19 @@ import { Col, Container, Row } from 'react-bootstrap'
 import Categories from '../components/Categories'
 import EditWallet from '../components/wallet/EditWallet'
 import NavBar from '../components/NavBar'
-import Transactions from '../components/Transactions'
+
 import Wallets from '../components/wallet/Wallets'
 import PageProvider from './PageProvider'
 import Currencies from '../components/Currencies'
 import CreateWallet from '../components/wallet/CreateWallet'
 import MenuProvider from '../components/MenuProvider'
+import WalletTransactions from '../components/wallet/WalletTransactions'
+import TransactionsColumn from '../components/transaction/TransactionsColumn'
 
 
 
 
- export const defaultPage = <Transactions />;
+ export const defaultPage = <TransactionsColumn actions={true}/>;
 
 
 
@@ -29,7 +31,7 @@ import MenuProvider from '../components/MenuProvider'
     case "WITHDRAW_WALLET":
       return <Wallets id={id}/>
     case "TRANSACTIONS_WALLET":
-      return <Wallets id={id}/>
+      return <WalletTransactions id={id}/>
     case "TRANSFER_WALLET":
       return <Wallets id={id}/> 
     case "DEFAULT_WALLET":
@@ -55,9 +57,9 @@ const MainPage = observer(() => {
     <PageProvider pageName="Accounts">
 {state==="CREATE_WALLET" ? <CreateWallet/>: 
  <>
-<Col xl={{ span: 4, offset: 1 }}>{<Wallets />}</Col>
+<Col xl={{ span: 5, offset: 1 }}>{<Wallets />}</Col>
 
-<Col xl={{ span: 6, offset: 1 }}>{state}</Col>
+<Col xl={{ span: 5, offset: 1 }}>{state}</Col>
 </>
 }
 

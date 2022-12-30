@@ -2,15 +2,16 @@ import { runInAction } from 'mobx'
 import { observer } from 'mobx-react-lite'
 import React, { useState } from 'react'
 import { Button} from 'react-bootstrap'
-import { changeTransaction } from '../http/transactionApi'
-import Modal from './modal/modal'
+import { changeTransaction } from '../../http/transactionApi'
+
+
 
 const ChangeTransactionModal = observer(({category,wallet,changeTransactionModal,setChangeTransactionModal}) => {
     const [newSum,setNewSum] = useState('')
     const [newDescription,setNewDescription] = useState('')
   return (
     <>
-    <Modal active={changeTransactionModal} setActive={setChangeTransactionModal}>
+    {/* <Modal active={changeTransactionModal} setActive={setChangeTransactionModal}>
     <div className='d-flex flex-row justify-content-between'>
 
     <h2>{category.selectedTransaction.description}</h2>
@@ -68,7 +69,7 @@ return alert(`Not enough data`)
  }}>Save</Button>
     
 </div>
-</Modal>
+</Modal> */}
 </>
   )
 })

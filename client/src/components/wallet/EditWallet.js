@@ -66,10 +66,10 @@ const handleDoubleClick=(id)=> {
   return (
     <>
   <MenuProvider>
-    <MenuProvider.Actions close={handleClose} commit={handleCommit}>
+    <MenuProvider.Header.Actions close={handleClose} commit={handleCommit}>
       <h5>Edit wallet</h5> 
       <h6>Wallet: {wallet.getWalletById(id).name}</h6>
-      </MenuProvider.Actions>
+      </MenuProvider.Header.Actions>
     
     <MenuProvider.Container className="d-flex flex-column">
       <label className='mb-2' htmlFor="name">Enter new name:</label>
