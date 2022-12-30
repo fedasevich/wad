@@ -5,17 +5,21 @@ import { Context } from './index';
 import { check } from './http/userApi';
 import AppRouter from './components/AppRouter';
 import './style.css';
+import { fetchCategory } from './http/categoryApi';
+import { fetchWallet } from './http/walletApi';
 
 
 
 const App = observer(() => {
-  const { user } = useContext(Context)
+  const { user,category,wallet } = useContext(Context)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     check().then(data => {
       user.setUser(data)
       user.setIsAuth(true)
+      fetchCategory().then(data=> category.setCategories(data))
+      fetchWallet().then(data => {wallet.setWallet(data)})
     }).finally(() => setLoading(false))
   }, [])
 

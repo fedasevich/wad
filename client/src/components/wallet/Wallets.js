@@ -43,7 +43,7 @@ const Wallets = observer(() => {
         <Accordion >
           {wallet.wallets.map((walletsMap, index) =>
 
-            <Col md="12" className='mb-4 wallet '>
+            <Col md="12" className='mb-4 wallet ' key={index}>
 
 
 

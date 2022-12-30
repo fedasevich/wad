@@ -20,8 +20,8 @@ const WalletActions = observer(({ dispatch, id }) => {
 
       <Row>
         {WalletActionsAndIcons.map((WalletActionAndIcon, index) =>
-          <Col sm="6" md="6" className='mb-3 px-lg-0 px-xl-2'>
-            <div key={index} onClick={() => { dispatch({ operation: WalletActionAndIcon.action, id: id }) }}>
+          <Col sm="6" md="6" className='mb-3 px-lg-0 px-xl-2' key={index}>
+            <div className='cursor-pointer' onClick={() => { dispatch({ operation: WalletActionAndIcon.action, id: id }) }}>
               {WalletActionAndIcon.icon}
               <span className='ms-2'>{WalletActionAndIcon.name}</span>
             </div>

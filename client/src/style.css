@@ -13,6 +13,10 @@
 }
 
 
+h1,h2,h3,h4,h5,h6 {
+    margin-bottom: 0;
+}
+
 .bg-main-blue {
     background-color: var(--main-blue);
 }
@@ -37,6 +41,10 @@
     background-color: var(--background-grey);
 }
 
+.bg-none {
+    background-color: unset!important;
+}
+
 .component-shadow {
     box-shadow: var(--component-shadow);
 }
@@ -47,6 +55,20 @@
 
 .component-half-border-radius {
     border-radius: calc(var(--component-border-radius)/2);
+}
+
+.component-one-third-border-radius {
+    border-radius: calc(var(--component-border-radius)/3);
+}
+
+
+.component-one-third-border-radius-bottom {
+    border-bottom-left-radius: calc(var(--component-border-radius)/3);
+    border-bottom-right-radius: calc(var(--component-border-radius)/3);
+}
+
+.cursor-pointer {
+    cursor: pointer;
 }
 
 @font-face {
@@ -80,6 +102,9 @@
 .desktop-height-100vh {
     height: max(100vh,100%);
 }
+
+
+
 
 /*Navbar*/
 
@@ -168,7 +193,7 @@
     font-family: Poppins-Medium;
 }
 
-.menu-control-header {
+.menu-colored-header {
     color:var(--text-color-white);
     padding: var(--component-padding);
 }

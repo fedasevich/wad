@@ -3,7 +3,7 @@ import { ReactComponent as ArrowLeft } from './CaretLeft.svg'
 import { ReactComponent as ArrowRight } from './CaretRight.svg'
 import { ReactComponent as CheckMark } from './CheckMark.svg'
 import { ReactComponent as Delete } from './Trash.svg'
-
+import { ReactComponent as DeleteCircle } from './TrashCircle.svg'
 
 export const CancelIcon = () => {
     return (
@@ -32,5 +32,11 @@ export const CheckMarkIcon = () => {
 export const DeleteIcon = () => {
     return (
         <Delete/>
+    )
+}
+
+export const DeleteCircleIcon = () => {
+    return (
+        <DeleteCircle/>
     )
 }
