@@ -72,7 +72,6 @@ const Straight = ({children,close,commit}) => {
 const Container = ({children,className}) => {
     return (
     <>
-
     <div className={'menu-container '+className}>{children}</div> 
     </>
     )
@@ -89,6 +88,6 @@ const Container = ({children,className}) => {
 
 MenuProvider.Header = Header
 MenuProvider.Container = Container
-MenuProvider.Header.Actions = Actions
+MenuProvider.Actions = Actions
 MenuProvider.Header.Rounded = Rounded
 export default MenuProvider

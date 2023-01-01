@@ -19,7 +19,7 @@ const handleChange= (event)=> {
  {mainCurrencies.data.map(currency=>{
   
     return (
-    <div className='d-flex flex-row mb-2'> 
+    <div className='d-flex flex-row mb-2' key={currency.symbol}> 
 
 <input type="radio" id={currency.currency} name="currency" value={currency.symbol} 
 
@@ -40,7 +40,7 @@ onChange={(e)=>{ handleChange(e)}} />
  {cryptoCurrencies.data.map(currency=>{
   
     return (
-        <div className='d-flex flex-row mb-2' >  
+        <div className='d-flex flex-row mb-2'  key={currency.symbol}>  
 
 <input type="radio" id={currency.currency} name="currency" value={currency.symbol} onChange={(e)=>{ handleChange(e)}}/>
 <label className='ms-2 ' htmlFor={currency.currency}> {currency.currency}  </label>

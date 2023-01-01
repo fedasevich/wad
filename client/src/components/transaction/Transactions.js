@@ -245,13 +245,13 @@ console.log(data)
       return (
     
         <>
-<TransactionProvider.Transaction.Date key={index} date={transactionsMap.date}/>
+<TransactionProvider.Transaction.Date key={transactionsMap.date} date={transactionsMap.date}/>
 <Accordion>
  {transactionsMap.trs.map((transactions,index)=>{
 
   return (
-    <TransactionToggle eventKey={index}>
-<TransactionProvider.Transaction key={transactions.id} transaction={transactions} wallet={wallet} category={category} index={index}/>
+    <TransactionToggle eventKey={index} key={transactions.id}>
+<TransactionProvider.Transaction transaction={transactions} wallet={wallet} category={category} index={index}/>
 </TransactionToggle>
 
   )

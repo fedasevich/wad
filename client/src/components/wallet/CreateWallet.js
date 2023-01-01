@@ -53,14 +53,16 @@ const CreateWallet = () => {
 
     return (
         <>
-            <Col xl={{ span: 4, offset: 1 }}> <MenuProvider>
+            <Col xl={{ span: 4, offset: 1 }}> 
+            <MenuProvider>
                 <MenuProvider.Actions close={handleClose} commit={handleCommit}><h4>Create wallet</h4></MenuProvider.Actions>
                 <MenuProvider.Container className="d-flex flex-column">
                     <label className='mb-2' htmlFor="name">Enter name:</label>
                     <input className='mb-2 component-half-border-radius' type="text" name='name' onKeyDown={handleKeyDown} value={newWallet.name} onChange={handleChange} />
                     <h4 className='mb-2' >Chosen currency: {newWallet.currency}</h4>
                 </MenuProvider.Container>
-            </MenuProvider> </Col>
+            </MenuProvider> 
+            </Col>
 
             <Col xl={{ span: 6, offset: 1 }}>
                 <MenuProvider>
