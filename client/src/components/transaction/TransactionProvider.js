@@ -106,7 +106,7 @@ const TransactionContent = ({ transaction, category, wallet,index }) => {
            
 
 
-                <Col key={transaction.id} md="12" className="d-inline-flex justify-content-between mt-3">
+                <Col  md="12" className="d-inline-flex justify-content-between mt-3">
                     <Card className='border-0 w-100' >
                         <Card.Header className='bg-none d-flex w-100 justify-content-between border-0' >
                             <div className="d-flex flex-row align-items-center">

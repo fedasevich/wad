@@ -16,7 +16,7 @@ import TransactionsColumn from '../components/transaction/TransactionsColumn'
 
 
 
- export const defaultPage = <TransactionsColumn actions={true}/>;
+ export const defaultPage = <TransactionsColumn/>;
 
 
 

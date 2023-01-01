@@ -240,12 +240,13 @@ console.log(data)
 
   <TransactionProvider>
     {actions && <TransactionProvider.Actions setButtonVisible={setButtonVisible} category={category}/>}
-    <Row >
+   
     {transactionArrays.map((transactionsMap,index)=>{
       return (
     
-        <>
-<TransactionProvider.Transaction.Date key={transactionsMap.date} date={transactionsMap.date}/>
+        
+        <Row key={transactionsMap.date}>  
+<TransactionProvider.Transaction.Date key={index} date={transactionsMap.date}/>
 <Accordion>
  {transactionsMap.trs.map((transactions,index)=>{
 
@@ -259,15 +260,19 @@ console.log(data)
 
    )}
    </Accordion>
-
-   </>
+ 
+   </Row>
 )
 
     }
+    
   )}
    
+   <Row>
    <TransactionProvider.LoadMore buttonVisible={buttonVisible} setButtonVisible={setButtonVisible} category={category} />
-  </Row>
+   </Row>
+ 
+ 
   </TransactionProvider>
   </>
 
