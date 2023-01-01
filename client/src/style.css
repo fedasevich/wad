@@ -77,6 +77,10 @@ h1,h2,h3,h4,h5,h6 {
     cursor: pointer;
 }
 
+.vh-50 {
+    height: 50vh;
+}
+
 @font-face {
     font-family: Poppins-Medium;
     src: url(./ui/fonts/Poppins-Medium.ttf);
@@ -110,7 +114,27 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 
+/*Scroll*/
 
+::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #fff; 
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888; 
+    border-radius: var(--component-border-radius);
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+  }
 
 /*Navbar*/
 

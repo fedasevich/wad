@@ -4,6 +4,8 @@ import { ReactComponent as ArrowRight } from './CaretRight.svg'
 import { ReactComponent as CheckMark } from './CheckMark.svg'
 import { ReactComponent as Delete } from './Trash.svg'
 import { ReactComponent as DeleteCircle } from './TrashCircle.svg'
+import { ReactComponent as Wallet } from './Wallet-icon.svg'
+
 
 export const CancelIcon = () => {
     return (
@@ -38,5 +40,12 @@ export const DeleteIcon = () => {
 export const DeleteCircleIcon = () => {
     return (
         <DeleteCircle/>
+    )
+}
+
+
+export const WalletIcon = () => {
+    return (
+        <Wallet/>
     )
 }

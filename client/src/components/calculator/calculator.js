@@ -8,6 +8,8 @@ import { Context } from '../..';
 import Modal from '../modal/modal';
 import { createTransaction } from '../../http/transactionApi';
 import { observer } from 'mobx-react-lite';
+import CalculatorWalletModal from './CalculatorWalletModal';
+import CalculatorCategoryModal from './CalculatorCategoryModal';
 
 
 
@@ -140,24 +142,26 @@ function evaluate({currentOperand, previousOperand, operation}) {
  
   
 
-const Calculator = observer(({active,setActive}) => {
+const Calculator = observer(({id}) => {
 
     const {wallet,category} = useContext(Context)
     const [walletModalActive, setWalletModalActive] = useState(false)
     const [categoryModalActive, setCategoryModalActive] = useState(false)
-    const [selectedWallet, setSelectedWallet] = useState(wallet.wallets[0])
+    const [selectedWallet, setSelectedWallet] = useState(wallet.getWalletById(id))
     const [selectedCategory,  setSelectedCategory] = useState(category.categories[0])
     const [{currentOperand='0', previousOperand, operation}, dispatch] = useReducer(reducer, {})
     const [description, setDescription] = useState("")
-    const calculatorRef = useRef(); 
 
 
-  
 
-    // useOnClickOutside(calculatorRef, () => setActive(false));
+    useEffect(() => {
+setSelectedWallet(wallet.getWalletById(id))
+    }, [id])
+
+
   return (
     <>
-    <div ref={calculatorRef}  >
+    <div >
    
     <div className="calculator">
     <div className="item wallet" onClick={()=> setWalletModalActive(true)}>
@@ -167,9 +171,9 @@ const Calculator = observer(({active,setActive}) => {
       </div>
     <div className="item category" onClick={()=> setCategoryModalActive(true)}><h4>{selectedCategory.name}</h4></div>
     <div className="item sum">
-      <h6>Expense</h6>
+      <h6 className='mt-3'>Expense</h6>
       <p className='fs-3'>{formatOperand(previousOperand)} {operation} {formatOperand(currentOperand)} {wallet.getCurrencyFromWalletById(selectedWallet.id)}</p>
-      <input type="text" name="description" placeholder="Description" onChange={e => setDescription(e.target.value)} value={description}/>
+      <input type="text" name="description" className='w-100 text-center p-1' placeholder="Description" onChange={e => setDescription(e.target.value)} value={description}/>
       </div>
  
     <DigitButton digit="7" dispatch={dispatch}/>
@@ -222,45 +226,10 @@ if(currentOperand === '0') {
 
     </div>
 
-    <Modal active={walletModalActive} setActive={setWalletModalActive}>
-    {wallet.wallets.map(walletsMap =>
-       
-          <div className="p-4 mb-2 " 
-        style={{ cursor: "pointer", color:"black", borderRadius: "400px",backgroundColor: "lightblue",textAlign:"center" ,
-        border:walletsMap.id === selectedWallet.id ? '3px solid red' : '3px solid black'}}
-        onClick={()=> {
-        setSelectedWallet(walletsMap) 
-        setWalletModalActive(false)
-      } }  
-         key={walletsMap.id}>
-           
-            <h1>{walletsMap.name}</h1>
-            <h4>{walletsMap.balance} {walletsMap.currency}</h4>
-        </div>
-        
-        )}
-   
-    </Modal>
 
-    <Modal active={categoryModalActive} setActive={setCategoryModalActive}>
-  {category.categories.map(categoryMap =>
-    
-     
-    <div className="p-4 mb-2 " 
-    style={{ cursor: "pointer",color:"black", borderRadius: "400px",backgroundColor: "lightblue",textAlign:"center" ,border:categoryMap.id === selectedCategory.id ? '3px solid red' : '3px solid black'}}
-      onClick={()=> {setSelectedCategory(categoryMap)
-        setCategoryModalActive(false)
-      } }  
-     key={categoryMap.id}>
-      
-        <h1>{categoryMap.name}</h1>
-        <h4>{categoryMap.spent}</h4>
-    </div>
-    
-    
-    )}
-   
-    </Modal>
+<CalculatorWalletModal walletModalActive={walletModalActive} setWalletModalActive={setWalletModalActive} setSelectedWallet={setSelectedWallet}/>
+<CalculatorCategoryModal categoryModalActive={categoryModalActive} setCategoryModalActive={setCategoryModalActive} setSelectedCategory={setSelectedCategory}/>
+
     </div>
    
   

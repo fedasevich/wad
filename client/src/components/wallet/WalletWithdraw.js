@@ -15,7 +15,7 @@ const WalletWithdraw = observer(({id}) => {
       </MenuProvider.Header.Straight>
     
 
-     <Calculator/>
+     <Calculator id={id}/>
     <h6 className='text-center py-2 fw-light'> {format( new Date(),'d MMMM y')}</h6>
   </MenuProvider> 
   )

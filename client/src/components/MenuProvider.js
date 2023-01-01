@@ -13,6 +13,16 @@ import { CancelIcon, CheckMarkIcon } from '../ui/Icons/ControlIcons/ControlIcons
     )
 }
 
+const HeaderBorderBottom = ({children}) => {
+  return (
+  <>
+
+  <div className='menu-header border-bottom'>{children}</div> 
+  </>
+  )
+}
+
+
 const Actions = ({children,close,commit}) => {
   return (
     <>
@@ -86,4 +96,5 @@ MenuProvider.Container = Container
 MenuProvider.Actions = Actions
 MenuProvider.Header.Rounded = Rounded
 MenuProvider.Header.Straight = Straight
+MenuProvider.Header.BorderBottom = HeaderBorderBottom
 export default MenuProvider
