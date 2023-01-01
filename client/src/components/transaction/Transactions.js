@@ -229,6 +229,27 @@ console.log(data)
 
 
 
+  const loadMoreTransactions = () => {
+    category.setTransactionsPage(category.transactionsPage + 1);
+  
+    try {
+      fetchTransaction(category.transactionsPage, category.transactionsLimit, category.transactionsSort).then(data => {
+            if (!data.rows.length) {
+                setButtonVisible(false)
+            };
+            runInAction(() => {
+                category.transactions.push(...data.rows)
+            })
+  
+  
+  
+  
+        })
+    } catch (e) {
+        alert(e.response.data.message);
+    }
+  }
+
 
 
 
@@ -269,7 +290,7 @@ console.log(data)
   )}
    
    <Row>
-   <TransactionProvider.LoadMore buttonVisible={buttonVisible} setButtonVisible={setButtonVisible} category={category} />
+   <TransactionProvider.LoadMore buttonVisible={buttonVisible} setButtonVisible={setButtonVisible} fetchTransaction={loadMoreTransactions} />
    </Row>
  
  

@@ -68,7 +68,26 @@ console.log(data)
 
 
 
+const loadMoreWalletTransactions = () => {
+  category.setTransactionsPage(category.transactionsPage + 1);
 
+  try {
+    fetchWalletTransactionByWalletId(category.transactionsPage, category.transactionsLimit, category.transactionsSort,id).then(data => {
+          if (!data.rows.length) {
+              setButtonVisible(false)
+          };
+          runInAction(() => {
+              category.transactions.push(...data.rows)
+          })
+
+
+
+
+      })
+  } catch (e) {
+      alert(e.response.data.message);
+  }
+}
 
 
 
@@ -80,18 +99,18 @@ console.log(data)
   <>
 
   <TransactionProvider>
-    <Row >
-    {transactionArrays.map((transactionsMap,index)=>{
+    
+    {transactionArrays.map((transactionsMap)=>{
       return (
     
-        <>
-<TransactionProvider.Transaction.Date key={index} date={transactionsMap.date}/>
+        <Row key={transactionsMap.date}>
+<TransactionProvider.Transaction.Date  date={transactionsMap.date}/>
 <Accordion>
  {transactionsMap.trs.map((transactions,index)=>{
 
   return (
-    <TransactionToggle eventKey={index}>
-<TransactionProvider.Transaction key={transactions.id} transaction={transactions} wallet={wallet} category={category} index={index}/>
+    <TransactionToggle eventKey={index} key={transactions.id}>
+<TransactionProvider.Transaction  transaction={transactions} wallet={wallet} category={category} index={index}/>
 </TransactionToggle>
 
   )
@@ -100,14 +119,16 @@ console.log(data)
    )}
    </Accordion>
 
-   </>
+   </Row>
 )
 
     }
   )}
-   
-   <TransactionProvider.LoadMore buttonVisible={buttonVisible} setButtonVisible={setButtonVisible} category={category} />
-  </Row>
+   <Row>
+   <TransactionProvider.LoadMore buttonVisible={buttonVisible} setButtonVisible={setButtonVisible}  fetchTransaction={loadMoreWalletTransactions} />
+   </Row>
+  
+ 
   </TransactionProvider>
   </>
 

@@ -90,4 +90,11 @@ export default class WalletStore {
     }
   }
 
+
+  getCurrencyFromWalletById=(id)=> {
+    const wallet = this.getWalletById(id)
+    console.table(wallet)
+    return wallet?.currency
+  } 
+
 }   
