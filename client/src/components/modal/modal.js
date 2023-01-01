@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import React, { useRef } from 'react'
-import { useOnClickOutside } from '../calculator/Hooks/useOnClickOutisde';
+import { useOnClickOutside } from '../calculator/Hooks/useOnClickOutside';
 import './modalStyle.css'
 
 const Modal = observer(({active,setActive,children})=>{ 

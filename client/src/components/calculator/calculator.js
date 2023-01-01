@@ -1,6 +1,6 @@
 import React, { useState, useRef, useReducer, useContext, useEffect } from 'react'
-import { useOnClickOutside } from './Hooks/useOnClickOutisde';
-// import "./CalculatorStyle.css"
+import { useOnClickOutside } from './Hooks/useOnClickOutside';
+import "./CalculatorStyle.css"
 import { ACTIONS, BACK_SYMBOL, DIVIDE_SYMBOL, EVALUATE_SYMBOL, INTEGER_FORMATTER, MULTIPLY_SYMBOL, SUBMIT_SYMBOL } from './utils/consts';
 import DigitButton from './DigitButtons';
 import OperationButton from './OperationDigit';
@@ -140,47 +140,52 @@ function evaluate({currentOperand, previousOperand, operation}) {
  
   
 
-const Calculator = observer(({active,setActive,category}) => {
+const Calculator = observer(({active,setActive}) => {
+
+    const {wallet,category} = useContext(Context)
     const [walletModalActive, setWalletModalActive] = useState(false)
     const [categoryModalActive, setCategoryModalActive] = useState(false)
+    const [selectedWallet, setSelectedWallet] = useState(wallet.wallets[0])
+    const [selectedCategory,  setSelectedCategory] = useState(category.categories[0])
     const [{currentOperand='0', previousOperand, operation}, dispatch] = useReducer(reducer, {})
     const [description, setDescription] = useState("")
     const calculatorRef = useRef(); 
 
-    const {wallet} = useContext(Context)
 
   
 
-    useOnClickOutside(calculatorRef, () => setActive(false));
+    // useOnClickOutside(calculatorRef, () => setActive(false));
   return (
     <>
-    <div ref={calculatorRef} className="wrapper" style={{ display: active ? "block":"none"}} >
+    <div ref={calculatorRef}  >
    
     <div className="calculator">
     <div className="item wallet" onClick={()=> setWalletModalActive(true)}>
-      <h4> {wallet.selectedWallet.name}</h4>
+      <h4> {selectedWallet.name}</h4>
       {'\n'}
-     <h5>{wallet.selectedWallet.balance} {wallet.selectedWallet.currency}</h5>
+     <h5>{selectedWallet.balance} {selectedWallet.currency}</h5>
       </div>
-    <div className="item category" onClick={()=> setCategoryModalActive(true)}><h4>{category.selectedCategory.name}</h4></div>
+    <div className="item category" onClick={()=> setCategoryModalActive(true)}><h4>{selectedCategory.name}</h4></div>
     <div className="item sum">
-      <h6>Sum</h6>
-      <p>{formatOperand(previousOperand)} {operation} {formatOperand(currentOperand)}</p>
+      <h6>Expense</h6>
+      <p className='fs-3'>{formatOperand(previousOperand)} {operation} {formatOperand(currentOperand)} {wallet.getCurrencyFromWalletById(selectedWallet.id)}</p>
       <input type="text" name="description" placeholder="Description" onChange={e => setDescription(e.target.value)} value={description}/>
       </div>
-    <OperationButton operation={DIVIDE_SYMBOL} dispatch={dispatch}/>
+ 
     <DigitButton digit="7" dispatch={dispatch}/>
     <DigitButton digit="8" dispatch={dispatch}/>
     <DigitButton digit="9" dispatch={dispatch}/>
+    <OperationButton operation={DIVIDE_SYMBOL} dispatch={dispatch}/>
     <div className="item back" onClick={()=> dispatch({type: ACTIONS.DELETE_DIGIT})}>{BACK_SYMBOL}</div>
-    <OperationButton operation={MULTIPLY_SYMBOL} dispatch={dispatch}/>
+  
     <DigitButton digit="4" dispatch={dispatch}/>
     <DigitButton digit="5" dispatch={dispatch}/>
     <DigitButton digit="6" dispatch={dispatch}/>
-    <OperationButton operation="-" dispatch={dispatch}/>
+    <OperationButton operation={MULTIPLY_SYMBOL} dispatch={dispatch}/>
     <DigitButton digit="1" dispatch={dispatch}/>
     <DigitButton digit="2" dispatch={dispatch}/>
     <DigitButton digit="3" dispatch={dispatch}/>
+    <OperationButton operation="-" dispatch={dispatch}/>
     {operation ? <div className="item submit" onClick={()=> dispatch({type: ACTIONS.EVALUATE})}>{EVALUATE_SYMBOL}</div>
     :  
     <div className="item submit" onClick={()=> {
@@ -188,29 +193,31 @@ if(currentOperand === '0') {
   return alert("sum cant be 0")
 }
 
-      try {
+      // try {
  
-        createTransaction(category.selectedCategory.id,wallet.selectedWallet.id, description ?  description:category.selectedCategory.name , parseFloat(currentOperand)).
-        then(data=> {category.transactions.unshift(data)
-      const findWalletIndex = (e) => e.id === wallet.selectedWallet.id
-      const walletIndex = wallet.wallets.findIndex(findWalletIndex)
-      wallet.wallets[walletIndex].balance -= parseFloat(currentOperand)
-      category.selectedCategory.spent += parseFloat(currentOperand)
-      setDescription('')
-      dispatch({type: ACTIONS.CLEAR})
-      setActive(false)
-          console.log(data)
-        })
-      } catch(e) {
-        alert(e.response.data.message);
-      }
+      //   createTransaction(selectedCategory.id,selectedWallet.id, description ?  description:selectedCategory.name , parseFloat(currentOperand)).
+      //   then(data=> {category.transactions.unshift(data)
+      // const findWalletIndex = (e) => e.id === selectedWallet.id
+      // const walletIndex = wallet.wallets.findIndex(findWalletIndex)
+      // wallet.wallets[walletIndex].balance -= parseFloat(currentOperand)
+      // selectedCategory.spent += parseFloat(currentOperand)
+      // setDescription('')
+      // dispatch({type: ACTIONS.CLEAR})
+      // setActive(false)
+      //     console.log(data)
+      //   })
+      // } catch(e) {
+      //   alert(e.response.data.message);
+      // }
 
     
     }} >{SUBMIT_SYMBOL}</div>}
     
-    <OperationButton operation="+" dispatch={dispatch}/>
+    
     <DigitButton className="zero" digit="0" dispatch={dispatch}/>
     <DigitButton digit="." dispatch={dispatch}/>
+    <OperationButton operation="+" dispatch={dispatch}/>
+   
     
 
     </div>
@@ -220,8 +227,9 @@ if(currentOperand === '0') {
        
           <div className="p-4 mb-2 " 
         style={{ cursor: "pointer", color:"black", borderRadius: "400px",backgroundColor: "lightblue",textAlign:"center" ,
-        border:walletsMap.id === wallet.selectedWallet.id ? '3px solid red' : '3px solid black'}}
-        onClick={()=> {wallet.setSelectedWallet(walletsMap) 
+        border:walletsMap.id === selectedWallet.id ? '3px solid red' : '3px solid black'}}
+        onClick={()=> {
+        setSelectedWallet(walletsMap) 
         setWalletModalActive(false)
       } }  
          key={walletsMap.id}>
@@ -239,8 +247,8 @@ if(currentOperand === '0') {
     
      
     <div className="p-4 mb-2 " 
-    style={{ cursor: "pointer",color:"black", borderRadius: "400px",backgroundColor: "lightblue",textAlign:"center" ,border:categoryMap.id === category.selectedCategory.id ? '3px solid red' : '3px solid black'}}
-      onClick={()=> {category.setSelectedCategory(categoryMap)
+    style={{ cursor: "pointer",color:"black", borderRadius: "400px",backgroundColor: "lightblue",textAlign:"center" ,border:categoryMap.id === selectedCategory.id ? '3px solid red' : '3px solid black'}}
+      onClick={()=> {setSelectedCategory(categoryMap)
         setCategoryModalActive(false)
       } }  
      key={categoryMap.id}>

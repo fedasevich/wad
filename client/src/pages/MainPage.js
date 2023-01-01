@@ -12,6 +12,7 @@ import CreateWallet from '../components/wallet/CreateWallet'
 import MenuProvider from '../components/MenuProvider'
 import WalletTransactions from '../components/wallet/WalletTransactions'
 import TransactionsColumn from '../components/transaction/TransactionsColumn'
+import WalletWithdraw from '../components/wallet/WalletWithdraw'
 
 
 
@@ -29,7 +30,7 @@ import TransactionsColumn from '../components/transaction/TransactionsColumn'
     case "BALANCE_WALLET":
       return <Wallets id={id}/>
     case "WITHDRAW_WALLET":
-      return <Wallets id={id}/>
+      return <WalletWithdraw id={id}/>
     case "TRANSACTIONS_WALLET":
       return <WalletTransactions id={id}/>
     case "TRANSFER_WALLET":

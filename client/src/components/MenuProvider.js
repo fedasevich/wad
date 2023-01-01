@@ -48,21 +48,16 @@ const Rounded = ({children}) => {
 }
 
 
-const Straight = ({children,close,commit}) => {
+const Straight = ({children}) => {
   return (
     <>
-     {/* <div className='menu-control-header bg-secondary-blue component-border-radius d-flex flex-row justify-content-between'>
-    <div className="" onClick={()=>{ close()}}>
-    {close && <CancelIcon />}
-    </div>
-    <div className="">
+     <div className='align-items-center menu-colored-header component-none-border-radius-bottom  bg-secondary-blue component-border-radius d-flex flex-row justify-content-between'>
+
+ 
     {children} 
+    
+
     </div>
-  
-    <div className="" onClick={()=>{commit()}} >
-    {commit && <CheckMarkIcon />}
-    </div>
-    </div> */}
     </>
   )
 }
@@ -90,4 +85,5 @@ MenuProvider.Header = Header
 MenuProvider.Container = Container
 MenuProvider.Actions = Actions
 MenuProvider.Header.Rounded = Rounded
+MenuProvider.Header.Straight = Straight
 export default MenuProvider

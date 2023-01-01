@@ -30,6 +30,7 @@
 
 
 .custom_modal_content.active {
-margin-top: 10vh;
+margin-top: 0vh;
+bottom: -15%;
 transition:.3s;
 }
