@@ -3,7 +3,7 @@ import React from 'react'
 import MenuProvider from '../MenuProvider'
 import Transactions from './Transactions'
 
-const TransactionsColumn = observer(({actions}) => {
+const TransactionsColumn = observer(() => {
   return (
     <MenuProvider>
     <MenuProvider.Header>
@@ -12,7 +12,7 @@ const TransactionsColumn = observer(({actions}) => {
       </MenuProvider.Header>
     
     <MenuProvider.Container className="d-flex flex-column">
-    <Transactions actions={actions}/>
+    <Transactions actions={true}/>
        </MenuProvider.Container>
   </MenuProvider> 
 

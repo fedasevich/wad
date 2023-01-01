@@ -3,7 +3,6 @@ import { observer } from 'mobx-react-lite'
 import React, { useContext, useState } from 'react'
 import { Accordion, Button, ButtonGroup, ButtonToolbar, Card, Col, Container, Row, useAccordionButton } from 'react-bootstrap'
 import { Context } from '../..'
-import { fetchTransaction } from '../../http/transactionApi'
 import { Icons } from '../../ui/Icons/CategoryIcons/CategoryIcons'
 import { DeleteCircleIcon } from '../../ui/Icons/ControlIcons/ControlIcons'
 import { EditIcon } from '../../ui/Icons/WalletIcons/WalletIcons'
@@ -51,32 +50,24 @@ const Actions = ({ setButtonVisible, category }) => {
     )
 }
 
-const LoadMore = ({ buttonVisible, setButtonVisible, category }) => {
+const LoadMore = ({ buttonVisible, setButtonVisible,fetchTransaction }) => {
     return (
         <>
 
             {buttonVisible ?
-                <Button className={"d-flex justify-content-center mb-3 mt-4 bg-dark-blue border-0"} onClick={() => {
-                    category.setTransactionsPage(category.transactionsPage + 1);
-
-                    try {
-                        fetchTransaction(category.transactionsPage, category.transactionsLimit, category.transactionsSort).then(data => {
-                            if (!data.rows.length) {
-                                setButtonVisible(false)
-                            };
-                            runInAction(() => {
-                                category.transactions.push(...data.rows)
+                <Button className={"d-flex justify-content-center mb-3 mt-4 bg-dark-blue border-0"} onClick={() => 
+                    {
+                        try {
+                            fetchTransaction().then(data => {
+                                if (!data.rows.length) {
+                                    setButtonVisible(false)
+                                };                      
                             })
-
-
-
-
-                        })
-                    } catch (e) {
-                        alert(e.response.data.message);
+                        } catch (e) {
+                            alert(e.response.data.message);
+                        }
                     }
-
-                }}>Load More</Button> :
+                }>Load More</Button> :
                 <h2 className="text-center">There is nothing to load...</h2>
             }
         </>
@@ -84,29 +75,14 @@ const LoadMore = ({ buttonVisible, setButtonVisible, category }) => {
 }
 
 
-const TransactionContent = ({ transaction, category, wallet,index }) => {
-
-
-    function TransactionToggle({ children, eventKey }) {
-        const decoratedOnClick = useAccordionButton(eventKey);
-      
-        return (
-          <div
-            className='d-flex flex-row justify-content-between align-items-center'
-            onClick={decoratedOnClick}
-          >
-            {children}
-          </div>
-        );
-      }
-      
+const Transaction = ({ transaction, category, wallet,index }) => {
 
     return (
         <>
            
 
 
-                <Col key={transaction.id} md="12" className="d-inline-flex justify-content-between mt-3">
+                <Col  md="12" className="d-inline-flex justify-content-between mt-3">
                     <Card className='border-0 w-100' >
                         <Card.Header className='bg-none d-flex w-100 justify-content-between border-0' >
                             <div className="d-flex flex-row align-items-center">
@@ -114,7 +90,7 @@ const TransactionContent = ({ transaction, category, wallet,index }) => {
                             <h4 className='ms-3 mb-0'>{transaction.description}</h4>
                             </div>
                          
-                            <h4>-{transaction.sum}</h4>
+                            <h4>-{transaction.sum} {wallet.getCurrencyFromWalletById(transaction.walletId)}</h4>
 
                         </Card.Header>
 
@@ -162,7 +138,7 @@ const TransactionProvider = observer(({ children }) => {
 })
 
 
-TransactionProvider.Transaction = TransactionContent
+TransactionProvider.Transaction = Transaction
 TransactionProvider.Transaction.Date = TransactionDate
 TransactionProvider.Actions = Actions
 TransactionProvider.LoadMore = LoadMore
