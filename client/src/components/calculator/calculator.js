@@ -146,22 +146,26 @@ function evaluate({currentOperand, previousOperand, operation}) {
  
   
 
-const Calculator = observer(({id}) => {
+const Calculator = observer(({walletId,categoryId}) => {
 
     const {wallet,category} = useContext(Context)
     const [walletModalActive, setWalletModalActive] = useState(false)
     const [categoryModalActive, setCategoryModalActive] = useState(false)
-    const [selectedWallet, setSelectedWallet] = useState(wallet.getWalletById(id))
-    const [selectedCategory,  setSelectedCategory] = useState(category.categories[0])
+    const [selectedWallet, setSelectedWallet] = useState({})
+    const [selectedCategory,  setSelectedCategory] = useState({})
     const [{currentOperand='0', previousOperand, operation}, dispatch] = useReducer(reducer, {})
     const [description, setDescription] = useState("")
 
 
 
     useEffect(() => {
-setSelectedWallet(wallet.getWalletById(id))
-    }, [id])
+setSelectedWallet(wallet.getWalletById(walletId || -1))
+    }, [walletId])
 
+
+    useEffect(() => {
+      setSelectedCategory(category.getCategoryById(categoryId || -1))
+          }, [categoryId])
 
   return (
     <>
@@ -200,23 +204,9 @@ setSelectedWallet(wallet.getWalletById(id))
 if(currentOperand === '0') {
   return alert("sum cant be 0")
 }
-
-      // try {
- 
-      //   createTransaction(selectedCategory.id,selectedWallet.id, description ?  description:selectedCategory.name , parseFloat(currentOperand)).
-      //   then(data=> {category.transactions.unshift(data)
-      // const findWalletIndex = (e) => e.id === selectedWallet.id
-      // const walletIndex = wallet.wallets.findIndex(findWalletIndex)
-      // wallet.wallets[walletIndex].balance -= parseFloat(currentOperand)
-      // selectedCategory.spent += parseFloat(currentOperand)
-      // setDescription('')
-      // dispatch({type: ACTIONS.CLEAR})
-      // setActive(false)
-      //     console.log(data)
-      //   })
-      // } catch(e) {
-      //   alert(e.response.data.message);
-      // }
+category.createTransaction(currentOperand,selectedCategory,selectedWallet,description,wallet)
+setDescription('')
+dispatch({type: ACTIONS.CLEAR})
 
     
     }} >{SUBMIT_SYMBOL}</div>}
@@ -231,8 +221,8 @@ if(currentOperand === '0') {
     </div>
 
 
-<CalculatorWalletModal walletModalActive={walletModalActive} setWalletModalActive={setWalletModalActive} setSelectedWallet={setSelectedWallet}/>
-<CalculatorCategoryModal categoryModalActive={categoryModalActive} setCategoryModalActive={setCategoryModalActive} setSelectedCategory={setSelectedCategory}/>
+{!walletId && <CalculatorWalletModal walletModalActive={walletModalActive} setWalletModalActive={setWalletModalActive} setSelectedWallet={setSelectedWallet}/>}
+{!categoryId && <CalculatorCategoryModal categoryModalActive={categoryModalActive} setCategoryModalActive={setCategoryModalActive} setSelectedCategory={setSelectedCategory}/>}
 
     </div>
    
