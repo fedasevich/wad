@@ -85,7 +85,7 @@ function reducer(state, {type, payload}) {
           return {
             ...state,
             overwrite:false,
-            currentOperand:null
+            currentOperand:"0"
           }
         }
         if (state.currentOperand == null || state.currentOperand == "0") return state
@@ -108,6 +108,7 @@ function reducer(state, {type, payload}) {
 
 
 function formatOperand(operand) {
+
   if ( operand == null ) return
   const [integer, decimal] = operand.split('.')
   if (decimal == null) {
@@ -134,10 +135,13 @@ function evaluate({currentOperand, previousOperand, operation}) {
         computation = previous * current
         break
         case DIVIDE_SYMBOL:
+          if(current==0) {
+            return "0"
+          }
         computation = previous / current
         break
     }
-    return computation.toString()
+    return computation%1 == 0 ? computation.toString(): computation.toFixed(2).toString()
   } 
  
   
@@ -172,7 +176,7 @@ setSelectedWallet(wallet.getWalletById(id))
     <div className="item category" onClick={()=> setCategoryModalActive(true)}><h4>{selectedCategory.name}</h4></div>
     <div className="item sum">
       <h6 className='mt-3'>Expense</h6>
-      <p className='fs-3'>{formatOperand(previousOperand)} {operation} {formatOperand(currentOperand)} {wallet.getCurrencyFromWalletById(selectedWallet.id)}</p>
+      <p className='fs-3 text-break'>{formatOperand(previousOperand)} {operation} {formatOperand(currentOperand)} {wallet.getCurrencyFromWalletById(selectedWallet.id)}</p>
       <input type="text" name="description" className='w-100 text-center p-1' placeholder="Description" onChange={e => setDescription(e.target.value)} value={description}/>
       </div>
  
