@@ -28,8 +28,10 @@ export default class WalletStore {
 
 
   getWalletById(id) {
+    if(id==-1) return this.wallets[0]
     return this.wallets.find(wallet => wallet.id === id)
   }
+
 
 
   editWallet(id, newCurrency, newName, newBalance) {
