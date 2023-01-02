@@ -1,6 +1,6 @@
 import React, { useState, useRef, useReducer, useContext, useEffect } from 'react'
-import { useOnClickOutside } from './Hooks/useOnClickOutisde';
-// import "./CalculatorStyle.css"
+import { useOnClickOutside } from './Hooks/useOnClickOutside';
+import "./CalculatorStyle.css"
 import { ACTIONS, BACK_SYMBOL, DIVIDE_SYMBOL, EVALUATE_SYMBOL, INTEGER_FORMATTER, MULTIPLY_SYMBOL, SUBMIT_SYMBOL } from './utils/consts';
 import DigitButton from './DigitButtons';
 import OperationButton from './OperationDigit';
@@ -8,6 +8,8 @@ import { Context } from '../..';
 import Modal from '../modal/modal';
 import { createTransaction } from '../../http/transactionApi';
 import { observer } from 'mobx-react-lite';
+import CalculatorWalletModal from './CalculatorWalletModal';
+import CalculatorCategoryModal from './CalculatorCategoryModal';
 
 
 
@@ -83,7 +85,7 @@ function reducer(state, {type, payload}) {
           return {
             ...state,
             overwrite:false,
-            currentOperand:null
+            currentOperand:"0"
           }
         }
         if (state.currentOperand == null || state.currentOperand == "0") return state
@@ -106,6 +108,7 @@ function reducer(state, {type, payload}) {
 
 
 function formatOperand(operand) {
+
   if ( operand == null ) return
   const [integer, decimal] = operand.split('.')
   if (decimal == null) {
@@ -132,127 +135,95 @@ function evaluate({currentOperand, previousOperand, operation}) {
         computation = previous * current
         break
         case DIVIDE_SYMBOL:
+          if(current==0) {
+            return "0"
+          }
         computation = previous / current
         break
     }
-    return computation.toString()
+    return computation%1 == 0 ? computation.toString(): computation.toFixed(2).toString()
   } 
  
   
 
-const Calculator = observer(({active,setActive,category}) => {
+const Calculator = observer(({walletId,categoryId}) => {
+
+    const {wallet,category} = useContext(Context)
     const [walletModalActive, setWalletModalActive] = useState(false)
     const [categoryModalActive, setCategoryModalActive] = useState(false)
+    const [selectedWallet, setSelectedWallet] = useState({})
+    const [selectedCategory,  setSelectedCategory] = useState({})
     const [{currentOperand='0', previousOperand, operation}, dispatch] = useReducer(reducer, {})
     const [description, setDescription] = useState("")
-    const calculatorRef = useRef(); 
 
-    const {wallet} = useContext(Context)
 
-  
 
-    useOnClickOutside(calculatorRef, () => setActive(false));
+    useEffect(() => {
+setSelectedWallet(wallet.getWalletById(walletId || -1))
+    }, [walletId])
+
+
+    useEffect(() => {
+      setSelectedCategory(category.getCategoryById(categoryId || -1))
+          }, [categoryId])
+
   return (
     <>
-    <div ref={calculatorRef} className="wrapper" style={{ display: active ? "block":"none"}} >
+    <div >
    
     <div className="calculator">
     <div className="item wallet" onClick={()=> setWalletModalActive(true)}>
-      <h4> {wallet.selectedWallet.name}</h4>
+      <h4> {selectedWallet.name}</h4>
       {'\n'}
-     <h5>{wallet.selectedWallet.balance} {wallet.selectedWallet.currency}</h5>
+     <h5>{selectedWallet.balance} {selectedWallet.currency}</h5>
       </div>
-    <div className="item category" onClick={()=> setCategoryModalActive(true)}><h4>{category.selectedCategory.name}</h4></div>
+    <div className="item category" onClick={()=> setCategoryModalActive(true)}><h4>{selectedCategory.name}</h4></div>
     <div className="item sum">
-      <h6>Sum</h6>
-      <p>{formatOperand(previousOperand)} {operation} {formatOperand(currentOperand)}</p>
-      <input type="text" name="description" placeholder="Description" onChange={e => setDescription(e.target.value)} value={description}/>
+      <h6 className='mt-3'>Expense</h6>
+      <p className='fs-3 text-break'>{formatOperand(previousOperand)} {operation} {formatOperand(currentOperand)} {wallet.getCurrencyFromWalletById(selectedWallet.id)}</p>
+      <input type="text" name="description" className='w-100 text-center p-1' placeholder="Description" onChange={e => setDescription(e.target.value)} value={description}/>
       </div>
-    <OperationButton operation={DIVIDE_SYMBOL} dispatch={dispatch}/>
+ 
     <DigitButton digit="7" dispatch={dispatch}/>
     <DigitButton digit="8" dispatch={dispatch}/>
     <DigitButton digit="9" dispatch={dispatch}/>
+    <OperationButton operation={DIVIDE_SYMBOL} dispatch={dispatch}/>
     <div className="item back" onClick={()=> dispatch({type: ACTIONS.DELETE_DIGIT})}>{BACK_SYMBOL}</div>
-    <OperationButton operation={MULTIPLY_SYMBOL} dispatch={dispatch}/>
+  
     <DigitButton digit="4" dispatch={dispatch}/>
     <DigitButton digit="5" dispatch={dispatch}/>
     <DigitButton digit="6" dispatch={dispatch}/>
-    <OperationButton operation="-" dispatch={dispatch}/>
+    <OperationButton operation={MULTIPLY_SYMBOL} dispatch={dispatch}/>
     <DigitButton digit="1" dispatch={dispatch}/>
     <DigitButton digit="2" dispatch={dispatch}/>
     <DigitButton digit="3" dispatch={dispatch}/>
+    <OperationButton operation="-" dispatch={dispatch}/>
     {operation ? <div className="item submit" onClick={()=> dispatch({type: ACTIONS.EVALUATE})}>{EVALUATE_SYMBOL}</div>
     :  
     <div className="item submit" onClick={()=> {
 if(currentOperand === '0') {
   return alert("sum cant be 0")
 }
-
-      try {
- 
-        createTransaction(category.selectedCategory.id,wallet.selectedWallet.id, description ?  description:category.selectedCategory.name , parseFloat(currentOperand)).
-        then(data=> {category.transactions.unshift(data)
-      const findWalletIndex = (e) => e.id === wallet.selectedWallet.id
-      const walletIndex = wallet.wallets.findIndex(findWalletIndex)
-      wallet.wallets[walletIndex].balance -= parseFloat(currentOperand)
-      category.selectedCategory.spent += parseFloat(currentOperand)
-      setDescription('')
-      dispatch({type: ACTIONS.CLEAR})
-      setActive(false)
-          console.log(data)
-        })
-      } catch(e) {
-        alert(e.response.data.message);
-      }
+category.createTransaction(currentOperand,selectedCategory,selectedWallet,description,wallet)
+setDescription('')
+dispatch({type: ACTIONS.CLEAR})
 
     
     }} >{SUBMIT_SYMBOL}</div>}
     
-    <OperationButton operation="+" dispatch={dispatch}/>
+    
     <DigitButton className="zero" digit="0" dispatch={dispatch}/>
     <DigitButton digit="." dispatch={dispatch}/>
+    <OperationButton operation="+" dispatch={dispatch}/>
+   
     
 
     </div>
 
-    <Modal active={walletModalActive} setActive={setWalletModalActive}>
-    {wallet.wallets.map(walletsMap =>
-       
-          <div className="p-4 mb-2 " 
-        style={{ cursor: "pointer", color:"black", borderRadius: "400px",backgroundColor: "lightblue",textAlign:"center" ,
-        border:walletsMap.id === wallet.selectedWallet.id ? '3px solid red' : '3px solid black'}}
-        onClick={()=> {wallet.setSelectedWallet(walletsMap) 
-        setWalletModalActive(false)
-      } }  
-         key={walletsMap.id}>
-           
-            <h1>{walletsMap.name}</h1>
-            <h4>{walletsMap.balance} {walletsMap.currency}</h4>
-        </div>
-        
-        )}
-   
-    </Modal>
 
-    <Modal active={categoryModalActive} setActive={setCategoryModalActive}>
-  {category.categories.map(categoryMap =>
-    
-     
-    <div className="p-4 mb-2 " 
-    style={{ cursor: "pointer",color:"black", borderRadius: "400px",backgroundColor: "lightblue",textAlign:"center" ,border:categoryMap.id === category.selectedCategory.id ? '3px solid red' : '3px solid black'}}
-      onClick={()=> {category.setSelectedCategory(categoryMap)
-        setCategoryModalActive(false)
-      } }  
-     key={categoryMap.id}>
-      
-        <h1>{categoryMap.name}</h1>
-        <h4>{categoryMap.spent}</h4>
-    </div>
-    
-    
-    )}
-   
-    </Modal>
+{!walletId && <CalculatorWalletModal walletModalActive={walletModalActive} setWalletModalActive={setWalletModalActive} setSelectedWallet={setSelectedWallet}/>}
+{!categoryId && <CalculatorCategoryModal categoryModalActive={categoryModalActive} setCategoryModalActive={setCategoryModalActive} setSelectedCategory={setSelectedCategory}/>}
+
     </div>
    
   

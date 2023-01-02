@@ -1,6 +1,6 @@
 import {makeAutoObservable, runInAction} from "mobx";
 
-import { deleteTransaction } from "../http/transactionApi";
+import { createTransaction, deleteTransaction } from "../http/transactionApi";
 
 
 export default class CategoryStore {
@@ -74,36 +74,53 @@ export default class CategoryStore {
         return this._transactionsSort
     }
 
-    deleteTransaction(id,categoryId,walletId,wallet) {
+    createTransaction(currentOperand,selectedCategory,selectedWallet,description,wallet) {
+           try {
+        createTransaction(selectedCategory.id,selectedWallet.id, description ?  description:selectedCategory.name , parseFloat(currentOperand)).
+        then(data=> {
+            runInAction(()=>{
+        this.transactions.unshift(data)
+        selectedWallet.balance -= parseFloat(currentOperand)
+        selectedCategory.spent += parseFloat(currentOperand)
+        })
+    })
+      } catch(e) {
+        alert(e.response.data.message);
+      }
+    }
+
+    deleteTransaction(transactionId,categoryId,walletId,wallet) {    
         try {
-            deleteTransaction(id).
+            deleteTransaction(transactionId).
             then(()=> {
                 runInAction(()=>{
-                    const transactionIndex =  this.transactions.findIndex(transaction => transaction.id === id)
-                console.log(categoryId)
-                    const categoryIndex = this.categories.findIndex(category =>category.id === categoryId)
-                    console.log(categoryIndex)
-                    if(walletId !== -1) 
-                   {
-                     const walletIndex = wallet.wallets.findIndex(wallet => wallet.id === walletId)
-                    wallet.wallets[walletIndex].balance += parseFloat(this.transactions[transactionIndex].sum)
-                  }
-                    this.categories[categoryIndex].spent -= parseFloat(this.transactions[transactionIndex].sum)
-                 
-                    this.transactions.splice(transactionIndex, 1)
-        
-        
+                const transaction =  this.getTransactionById(transactionId)
+                const category= this.getCategoryById(categoryId)
+                if(walletId !== -1) 
+               {
+                 const foundWallet = wallet.getWalletById(walletId)
+                 foundWallet.balance += parseFloat(transaction.sum)
+              }
+                category.spent -= parseFloat(transaction.sum)
+                this.transactions.splice(this.transactions.indexOf(transaction),1)
                   }) 
-             
             })
           } catch(e) {
             alert(e.response.data.message);
           }
-       
+    }
+
+    getTransactionById=(id)=>{
+        return this.transactions.find((transaction)=> transaction.id === id)
+    }
+
+    getCategoryById=(id) => {
+        if(id==-1) return this.categories[0]
+        return this.categories.find((category)=> category.id === id)
     }
 
     getIconIdFromCategoryById =(id)=> {
-        let findCategory = this.categories.find((category)=> category.id === id)
+        const findCategory = this.getCategoryById(id)
         return findCategory?.iconId
       }
 

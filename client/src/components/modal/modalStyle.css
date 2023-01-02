@@ -5,6 +5,7 @@
     top:0;
     width: 100vw;
     height: 0;
+    display: none;
     overflow: hidden;
     opacity: 0;
    z-index:2;
@@ -18,18 +19,20 @@
 
 .custom_modal_content {
     padding: 20px;
-    background-color: rgb(85, 81, 81);
     margin-top: 101vh;
     position:relative;
     overflow: auto;
-   height: 85vh;
-   border-top-left-radius: 2rem;
-   border-top-right-radius: 2rem;
-   transition:1s;
+    margin: 0 auto;
+    width: max(33.333%,300px);
+   transition:1s all;
 }
 
 
 .custom_modal_content.active {
-margin-top: 10vh;
+margin-top: 0vh;
+
+top: 50%;
+transform: translateY(-50%);
 transition:.3s;
 }
+

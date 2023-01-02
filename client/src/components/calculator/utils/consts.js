@@ -1,5 +1,5 @@
 export const ACTIONS = {
-    ADD_DIFIT: 'add-digit',
+    ADD_DIGIT: 'add-digit',
     CHOOSE_OPERATION: 'choose-operation',
     DELETE_DIGIT:'delete-digit',
     EVALUATE: 'evaluate',

@@ -3,6 +3,7 @@
     --light-blue: #8FCAF5;
     --dark-blue: #192850;
     --secondary-blue: #4A90FF;
+    --anakiwa:#A7CBFF;
     --cyan: #75DEFF;
     --text-color-white: #fff;
     --text-color-hover: #dbdbdb;
@@ -34,7 +35,7 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 .bg-cyan {
-    background-color: var(--cayn);
+    background-color: var(--cyan);
 }
 
 .bg-grey {
@@ -67,8 +68,17 @@ h1,h2,h3,h4,h5,h6 {
     border-bottom-right-radius: calc(var(--component-border-radius)/3);
 }
 
+.component-none-border-radius-bottom {
+    border-bottom-left-radius:0;
+    border-bottom-right-radius: 0;
+}
+
 .cursor-pointer {
     cursor: pointer;
+}
+
+.vh-50 {
+    height: 50vh;
 }
 
 @font-face {
@@ -104,7 +114,27 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 
+/*Scroll*/
 
+::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #fff; 
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888; 
+    border-radius: var(--component-border-radius);
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+  }
 
 /*Navbar*/
 

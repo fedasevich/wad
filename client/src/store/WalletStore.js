@@ -28,8 +28,10 @@ export default class WalletStore {
 
 
   getWalletById(id) {
+    if(id==-1) return this.wallets[0]
     return this.wallets.find(wallet => wallet.id === id)
   }
+
 
 
   editWallet(id, newCurrency, newName, newBalance) {
@@ -93,7 +95,6 @@ export default class WalletStore {
 
   getCurrencyFromWalletById=(id)=> {
     const wallet = this.getWalletById(id)
-    console.table(wallet)
     return wallet?.currency
   } 
 
