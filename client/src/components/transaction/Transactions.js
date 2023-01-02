@@ -8,6 +8,8 @@ import { runInAction } from 'mobx';
 import { Icons } from '../../ui/Icons/CategoryIcons/CategoryIcons';
 import ChangeTransactionModal from './ChangeTransactionModal';
 import TransactionProvider from './TransactionProvider';
+import { format, formatISO, parseISO } from 'date-fns';
+
 
 
 
@@ -208,8 +210,7 @@ const data = category.transactions
 
 console.log(data)
   const transactions = data.reduce((transactions, transactionItem) => {
-
-    const date = transactionItem.createdAt.split('T')[0];
+     const date = format(parseISO(transactionItem.createdAt),"d MMMM y");
     if (!transactions[date]) {
       transactions[date] = [];
     }
