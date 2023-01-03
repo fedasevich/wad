@@ -3,14 +3,20 @@ import React, { useContext } from 'react'
 import { Col,Row } from 'react-bootstrap'
 import { Context } from '../..'
 import { WalletIcon } from '../../ui/Icons/ControlIcons/ControlIcons'
+import MenuProvider from '../MenuProvider'
 import Modal from '../modal/modal'
 
 const CalculatorCategoryModal = observer(({categoryModalActive,setCategoryModalActive,setSelectedCategory}) => {
     const {category} = useContext(Context)
   return (
-    <Modal active={categoryModalActive} setActive={setCategoryModalActive}  header={"Choose category"}>
+    <Modal active={categoryModalActive} setActive={setCategoryModalActive}>
 
-   <Row>
+<MenuProvider.Header>
+      <h2>Choose category</h2> 
+
+      </MenuProvider.Header>
+      <MenuProvider.Container>
+      <Row>
     <Col md={12} className="overflow-auto vh-50 ">
     {category.categories.map(categoryMap =>
     
@@ -31,6 +37,10 @@ const CalculatorCategoryModal = observer(({categoryModalActive,setCategoryModalA
     </Col>
    </Row>
     
+      </MenuProvider.Container>
+
+
+   
 
     </Modal>
   )

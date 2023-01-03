@@ -13,13 +13,9 @@ const Modal = observer(({active,setActive,children,header})=>{
         <div ref={modalRef} className={active ? "custom_modal_content active ":"custom_modal_content" }>
 
         <MenuProvider>
-    <MenuProvider.Header>
-      <h2>{header}</h2> 
 
-      </MenuProvider.Header>
-      <MenuProvider.Container>
       {children}
-      </MenuProvider.Container>
+
      
 
   </MenuProvider> 

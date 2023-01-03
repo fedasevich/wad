@@ -3,15 +3,22 @@ import React, { useContext } from 'react'
 import { Col,Row } from 'react-bootstrap'
 import { Context } from '../..'
 import { WalletIcon } from '../../ui/Icons/ControlIcons/ControlIcons'
+import MenuProvider from '../MenuProvider'
 import Modal from '../modal/modal'
 
 const CalculatorWalletModal = observer(({walletModalActive,setWalletModalActive,setSelectedWallet}) => {
     const {wallet} = useContext(Context)
   return (
   
-    <Modal active={walletModalActive} setActive={setWalletModalActive} header={"Choose wallet"}>
-   <Row>
-    <Col md={12}>
+    <Modal active={walletModalActive} setActive={setWalletModalActive} >
+
+<MenuProvider.Header>
+      <h2>Choose wallet</h2> 
+
+      </MenuProvider.Header>
+      <MenuProvider.Container>
+      <Row>
+    <Col md={12} className="overflow-auto vh-50 ">
         
     {wallet.wallets.map(walletsMap =>
        
@@ -30,6 +37,8 @@ const CalculatorWalletModal = observer(({walletModalActive,setWalletModalActive,
      )}
     </Col>
    </Row>
+      </MenuProvider.Container>
+ 
     
 
     </Modal>
