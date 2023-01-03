@@ -73,13 +73,13 @@ class CategoryController {
 
     await Transaction.update(update,{where:{categoryId,userId}})
     
-    return res.json("test")
+
     try {
         await sequelize.transaction(async (SequelizeTransaction)=>{
 
-    // const deletedCategory = await Category.destroy({where:{userId,id:categoryId}})
+    const deletedCategory = await Category.destroy({where:{userId,id:categoryId}})
    
- 
+    return res.json(deletedCategory)
    
 })
 }catch(e){

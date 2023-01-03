@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useReducer } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
-import Categories from '../components/Categories'
+import Categories from '../components/category/Categories'
 import EditWallet from '../components/wallet/EditWallet'
 import NavBar from '../components/NavBar'
 
