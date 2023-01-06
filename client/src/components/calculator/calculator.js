@@ -37,6 +37,9 @@ function reducer(state, {type, payload}) {
         currentOperand:`${state.currentOperand || ""}${payload.digit}`
       }
       case ACTIONS.CHOOSE_OPERATION:
+        if (Object.keys(state).length === 0) {
+          return state
+        }
         if (state.currentOperand == null && state.previousOperand === null || state.currentOperand === '0') {
   
           return state
@@ -47,7 +50,6 @@ function reducer(state, {type, payload}) {
           return state
         }
         if (state.previousOperand == null ) {
-         
           return {
             ...state,
             operation: payload.operation,

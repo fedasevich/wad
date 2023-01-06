@@ -1,4 +1,5 @@
 import {makeAutoObservable, runInAction} from "mobx";
+import { createCategory } from "../http/categoryApi";
 
 import { createTransaction, deleteTransaction } from "../http/transactionApi";
 
@@ -123,5 +124,17 @@ export default class CategoryStore {
         const findCategory = this.getCategoryById(id)
         return findCategory?.iconId
       }
-
+    
+    createCategory(newCategoryName,newCategorySelectedIcon) {
+        
+        try {
+            createCategory(newCategoryName,newCategorySelectedIcon.id).
+            then(data=> {
+              this.categories.push(data)
+            //   setCreateCategoryModal(false)
+            })
+          } catch(e) {
+            alert(e.response.data.message);
+          }
+    }
 }

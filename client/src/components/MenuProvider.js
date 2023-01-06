@@ -27,14 +27,14 @@ const Actions = ({children,close,commit}) => {
   return (
     <>
      <div className='menu-colored-header bg-secondary-blue component-border-radius d-flex flex-row justify-content-between'>
-    <div className="" onClick={()=>{ close()}}>
+    <div className="cursor-pointer" onClick={()=>{ close()}}>
     {close && <CancelIcon />}
     </div>
     <div className="">
     {children} 
     </div>
   
-    <div className="" onClick={()=>{commit()}} >
+    <div className="cursor-pointer" onClick={()=>{commit()}} >
     {commit && <CheckMarkIcon />}
     </div>
     </div>
@@ -74,10 +74,10 @@ const Straight = ({children}) => {
 
 
 
-const Container = ({children,className}) => {
+const Container = ({children}) => {
     return (
     <>
-    <div className={'menu-container '+className}>{children}</div> 
+    <div className={'menu-container d-flex flex-column'}>{children}</div> 
     </>
     )
 }

@@ -23,7 +23,8 @@ import CategoryCalculatorModal from './CategoryCalculatorModal';
 
 const MAIN_CATEGORIES_LENGTH = 7
 
-const Categories = observer(() => {
+const Categories = observer(
+  ({dispatch}) => {
   const { category} = useContext(Context)
   const [calculatorModal, setCalculatorModal] = useState({
     active: false,
@@ -67,7 +68,7 @@ const Categories = observer(() => {
   category.categories.slice(MAIN_CATEGORIES_LENGTH, category.categories.length)];
 
 const handlePlusClick=()=>{
-  setCreateCategoryModal(true);
+ dispatch({operation:"CREATE_CATEGORY",dispatch:dispatch});
 } 
 
 const handleThreeDotsClick=()=>{
@@ -139,7 +140,9 @@ const handleCalculatorModalChange=({categoryId,active})=> {
 otherCategories={otherCategories} 
 otherCategoriesModal={otherCategoriesModal} 
 setOtherCategoriesModal={setOtherCategoriesModal} 
-setCalculatorModal={handleCalculatorModalChange}/>
+setCalculatorModal={handleCalculatorModalChange}
+dispatch={dispatch}
+/>
 
 <CategoryCalculatorModal categoryId={calculatorModal.categoryId} calculatorModal={calculatorModal.active} setCalculatorModal={setCalculatorModal}/>
 

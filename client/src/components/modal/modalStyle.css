@@ -50,3 +50,15 @@
 .custom_modal_content.active .menu {
     box-shadow: none;
 }
+
+.custom_modal .custom_modal_content .modal_item:hover {
+    cursor: pointer;
+    transition: .3s all;
+    color:white;
+    background-color: var(--light-blue);
+    border-radius: var(--component-border-radius);
+}
+
+.modal_item {
+    transition: .2s all;
+}

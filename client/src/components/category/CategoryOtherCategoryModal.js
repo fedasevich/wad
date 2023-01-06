@@ -5,7 +5,7 @@ import { Icons } from '../../ui/Icons/CategoryIcons/CategoryIcons'
 import MenuProvider from '../MenuProvider'
 import Modal from '../modal/modal'
 
-const CategoryOtherCategoryModal = observer(({otherCategories,otherCategoriesModal,setOtherCategoriesModal,setCalculatorModal}) => {
+const CategoryOtherCategoryModal = observer(({otherCategories,otherCategoriesModal,setOtherCategoriesModal,setCalculatorModal,dispatch}) => {
 
   return (
 
@@ -33,6 +33,13 @@ const CategoryOtherCategoryModal = observer(({otherCategories,otherCategoriesMod
      
      
      )}
+      <div className="p-3 mb-2 modal_item bg-main-blue component-border-radius d-flex flex-row justify-content-center" 
+       onClick={()=> {
+        dispatch({operation:"CREATE_CATEGORY",dispatch:dispatch});
+       } }>
+         <h3 className='mt-1'>+</h3>
+     </div>
+     
      </Col>
     </Row>
       </MenuProvider.Container>

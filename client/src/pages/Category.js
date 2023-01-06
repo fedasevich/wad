@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useReducer, useState } from 'react'
 import { Button, Col, Container, Row } from 'react-bootstrap'
 import { Context } from '../index'
 import Categories from '../components/category/Categories'
@@ -10,6 +10,12 @@ import { observer } from 'mobx-react-lite'
 import { runInAction } from 'mobx'
 import { AllIcons, Icons } from '../ui/Icons/CategoryIcons/CategoryIcons'
 import PageProvider from './PageProvider'
+import CreateCategory from '../components/category/CreateCategory'
+import EditCategory from '../components/category/EditCategory'
+
+
+
+
 
 const Category = observer(() => {
   const {category} = useContext(Context) 
@@ -26,36 +32,61 @@ const Category = observer(() => {
   const [newSelectedIcon, setNewSelectedIcon] = useState({})
 
 
-  useEffect(()=>{
-    if(category.categories.length === 0) {  
-        try {
-          fetchCategory().then(data=> category.setCategories(data)).finally(() => {setLoading(false)
-          
-          })
-        } catch(e) {
-          alert(e.response.data.message);
-        }
-    }
-    if(category.categories.length !== 0) { 
-      setLoading(false)
-     }
-  },[])
+  const [selectedPage, dispatch] = useReducer(reducer, null)
 
-  if (loading) {
-    return (<h2>loading</h2>)
-  }
+
+
+  // useEffect(()=>{
+  //   if(category.categories.length === 0) {  
+  //       try {
+  //         fetchCategory().then(data=> category.setCategories(data)).finally(() => {setLoading(false)
+          
+  //         })
+  //       } catch(e) {
+  //         alert(e.response.data.message);
+  //       }
+  //   }
+  //   if(category.categories.length !== 0) { 
+  //     setLoading(false)
+  //    }
+  // },[])
+
+  // if (loading) {
+  //   return (<h2>loading</h2>)
+  // }
   
-  const handleClickOnCategoryToChange = (category) => {
-setSelectedCategory(category)
-setChangeCategoryModal(true)
+//   const handleClickOnCategoryToChange = (category) => {
+// setSelectedCategory(category)
+// setChangeCategoryModal(true)
+//   }
+
+
+
+function reducer(page, { operation, id,dispatch }) {
+  switch (operation) {
+    case "EDIT_CATEGORY":
+      return <EditCategory id={id} />
+    case "CREATE_CATEGORY":
+      return <CreateCategory dispatch={dispatch}/>
+    default:
+      return false
   }
+}
+
+
+
+
 
   return (
 
    
     <PageProvider pageName="Categories">
-
-<Col xl={12}><Categories /></Col>
+{
+selectedPage ||
+<Col xl={12}>
+  <Categories dispatch={dispatch}/>
+  </Col>
+}
 
 
 
