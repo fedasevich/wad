@@ -10,10 +10,12 @@
 }
 
 .category .gear {
-    display: none;
+    opacity: 0;
+    transition: .3s all;
 }
 
 .category .categoryIcon:hover .gear{
-    display: block;
+
+    opacity: 1;
 }
 

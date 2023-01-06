@@ -20,30 +20,10 @@ const EditCategory = observer(({ id, dispatch }) => {
   }
 
   const handleCommit = () => {
-
-    if (!editCategory || !editCategory.spent && !editCategory.name && !Object.keys(editCategory.icon).length) {
-      console.log("test")
-      return alert(`Not enough data`)
-    }
-   
-    try {
-      changeCategory(id, editCategory.spent, editCategory.name, editCategory.icon.id).
-        then(() => {
-
-         
-          runInAction(() => {
-            const categoryToEdit = category.getCategoryById(id)
-            categoryToEdit.name = editCategory.name
-            categoryToEdit.spent = editCategory.spent
-            categoryToEdit.iconId = editCategory.icon.id
-      
-            handleClose()
-          })
-         
-        })
-    } catch (e) {
-      alert(e.response.data.message);
-    }
+    category.changeCategory(id, editCategory)
+    
+    handleClose()
+ 
   }
 
 
@@ -54,7 +34,7 @@ const EditCategory = observer(({ id, dispatch }) => {
 
 
   const handleEditCategorySpentChange = (value) => {
-    setEditCategory({ ...editCategory, ["spent"]: value })
+    setEditCategory({ ...editCategory, ["spent"]: parseFloat(value)})
   }
 
   const handleEditCategoryIconChange = (value) => {
@@ -74,7 +54,7 @@ const EditCategory = observer(({ id, dispatch }) => {
             <label className='mb-2' htmlFor="name">Enter name:</label>
             <input className='mb-3 component-half-border-radius' type="text" name='name' value={editCategory.name} onChange={e => handleEditCategoryNameChange(e.target.value)} />
             <label className='mb-2' htmlFor="spent">Enter spent:</label>
-            <input className='mb-3 component-half-border-radius' type="number" name='spent' value={editCategory.spent} onChange={e => handleEditCategorySpentChange(e.target.value)} />
+            <input className='mb-3 component-half-border-radius' type="number" name='spent' value={editCategory.spent} onChange={e => handleEditCategorySpentChange(e.target.valueAsNumber)} />
             <div className='d-flex align-items-center'>
               <h4 className='me-2' >Chosen icon: </h4>
               <div className="bg-main-blue component-one-third-border-radius">{editCategory.icon?.svg}</div>

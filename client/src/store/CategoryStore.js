@@ -1,5 +1,5 @@
 import {makeAutoObservable, runInAction} from "mobx";
-import { createCategory } from "../http/categoryApi";
+import { changeCategory, createCategory } from "../http/categoryApi";
 
 import { changeTransaction, createTransaction, deleteTransaction } from "../http/transactionApi";
 
@@ -166,4 +166,29 @@ export default class CategoryStore {
             alert(e.response.data.message);
           }
     }
+
+    changeCategory(id, editCategory) {
+        if (!editCategory || !editCategory.spent && !editCategory.name && !Object.keys(editCategory.icon).length) {
+            return alert(`Not enough data`)
+          }
+         console.log(editCategory)
+          try {
+            changeCategory(id, parseFloat(editCategory.spent), editCategory.name, editCategory.icon.id).
+              then(() => {
+      
+               
+                runInAction(() => {
+                  const categoryToEdit = this.getCategoryById(id)
+                  if(editCategory.name) categoryToEdit.name = editCategory.name
+                  if(editCategory.spent) categoryToEdit.spent = editCategory.spent
+                  if(editCategory.icon.id) categoryToEdit.iconId = editCategory.icon.id
+            
+                })
+               
+              })
+          } catch (e) {
+            alert(e.response.data.message);
+          }
+    }
+
 }
