@@ -1,76 +1,56 @@
 import { runInAction } from 'mobx'
 import { observer } from 'mobx-react-lite'
-import React, { useState } from 'react'
-import { Button} from 'react-bootstrap'
+import React, { useContext, useState } from 'react'
+import { Button } from 'react-bootstrap'
+import { Context } from '../..'
 import { changeTransaction } from '../../http/transactionApi'
+import MenuProvider from '../MenuProvider'
+import Modal from '../modal/modal'
 
 
 
-const ChangeTransactionModal = observer(({category,wallet,changeTransactionModal,setChangeTransactionModal}) => {
-    const [newSum,setNewSum] = useState('')
-    const [newDescription,setNewDescription] = useState('')
+const ChangeTransactionModal = observer(({ changeTransactionModal, setChangeTransactionModal, id }) => {
+  const [newSum, setNewSum] = useState('')
+  const [newDescription, setNewDescription] = useState('')
+  const { wallet, category } = useContext(Context)
+
+  const handleClose = () => {
+    setChangeTransactionModal({active:false,id:-1})
+  }
+
+  const handleCommit = () => {
+  category.changeTransaction(id,newSum,newDescription,wallet)
+  handleClose()
+  }
+
+const selectedTransaction =  category.getTransactionById(id);
+
   return (
     <>
-    {/* <Modal active={changeTransactionModal} setActive={setChangeTransactionModal}>
-    <div className='d-flex flex-row justify-content-between'>
+      <Modal active={changeTransactionModal} setActive={setChangeTransactionModal}>
+        <MenuProvider>
+          <MenuProvider.Actions close={handleClose} commit={handleCommit}>
+            <h4>Change transaction</h4>
+            <h6>Description: {selectedTransaction?.description}</h6>
+            <h6>Id: {selectedTransaction?.id}</h6>
+            <h6>Sum: {selectedTransaction?.sum}</h6>
+           
+          </MenuProvider.Actions>
+          <MenuProvider.Container>
+            <div className="d-flex align-items-center flex-column ">
 
-    <h2>{category.selectedTransaction.description}</h2>
-    <h2>{category.selectedTransaction.id}</h2>
-    <h2>{category.selectedTransaction.sum}</h2>
-    </div>
-  
-    <div className="d-flex align-items-center flex-column ">
-    <input  className="mb-2" type="text" name="newSum" placeholder="New sum..." value={newSum}
-   onChange={e => setNewSum(e.target.value)}/>
+            <label className='mb-2' htmlFor="name">Enter new description:</label>
+            <input className='mb-3 component-half-border-radius' type="text" name='description' id="description" value={newDescription} onChange={e => setNewDescription(e.target.value)} />
+            <label className='mb-2' htmlFor="spent">Enter spent:</label>
+            <input className='mb-3 component-half-border-radius' type="number" name='spent' is="spent" value={newSum} onChange={e => setNewSum(e.target.value)} />
+        
 
-  <input  className="mb-2" type="text" name="newDescription" placeholder="New description..." value={newDescription}
-   onChange={e => setNewDescription(e.target.value)}/>
+            </div>
+          </MenuProvider.Container>
+        </MenuProvider>
 
-
-   <Button onClick={()=>{
-if(!newSum && !newDescription) {
-return alert(`Not enough data`)
-}
-
-
- try {
-  changeTransaction(category.selectedTransaction.id,newSum ? parseFloat(newSum):null,newDescription?newDescription:null).
-  then(()=> {
-    runInAction(() =>
-    { 
-      const transactionIndex =  category.transactions.findIndex(transaction => transaction.id === category.selectedTransaction.id)
-
-      if(newSum) {
-     
-     
-     const categoryIndex = category.categories.findIndex(categoryIndex => categoryIndex.id === category.selectedTransaction.categoryId)
-     if(category.selectedTransaction.walletId !== -1) 
-    {
-     const walletIndex = wallet.wallets.findIndex(wallet => wallet.id === category.selectedTransaction.walletId)
-     wallet.wallets[walletIndex].balance = (parseFloat(wallet.wallets[walletIndex].balance) + parseFloat(category.selectedTransaction.sum)) - parseFloat(newSum)
-    }
-     category.categories[categoryIndex].spent = (parseFloat(category.categories[categoryIndex].spent) - parseFloat(category.selectedTransaction.sum)) + parseFloat(newSum)
-     category.transactions[transactionIndex].sum = newSum
-    
-      }
-      if(newDescription) {
-        category.transactions[transactionIndex].description = newDescription
-      }
-  
-   })
-
-  }).then(()=> {
-    setChangeTransactionModal(false)
-  })
-} catch(e) {
-  alert(e.response.data.message);
-}
-
- }}>Save</Button>
-    
-</div>
-</Modal> */}
-</>
+      </Modal>
+    </>
   )
 })
 

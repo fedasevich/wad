@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useMemo, useState } from 'react'
-import {observer} from 'mobx-react-lite'
+import { observer } from 'mobx-react-lite'
 import { Accordion, Button, ButtonGroup, ButtonToolbar, Col, Container, Row, useAccordionButton } from 'react-bootstrap';
 import { Context } from '../../index';
 import { changeTransaction, deleteTransaction, fetchTransaction } from '../../http/transactionApi';
@@ -25,17 +25,17 @@ import { format, formatISO, parseISO } from 'date-fns';
 //     try {
 //       fetchTransaction(category.transactionsPage,category.transactionsLimit,category.transactionsSort).
 //       then(data=> {category.setTransactions(data.rows)    
-       
+
 //     })
 //     } catch(e) {
 //       alert(e.response.data.message);
 //     }
-   
+
 
 //   },[category.transactionsLimit,category.transactionsSort,category])
 
 
- 
+
 // const data = category.transactions
 
 //   const transactions = data.reduce((transactions, transactionItem) => {
@@ -47,9 +47,9 @@ import { format, formatISO, parseISO } from 'date-fns';
 //     transactions[date].push(transactionItem);
 //     return transactions;
 //   }, {})
-  
+
 //   const transactionArrays = Object.keys(transactions).map((date) => {
-    
+
 //     return {
 //       date,
 //       trs: transactions[date]
@@ -68,7 +68,7 @@ import { format, formatISO, parseISO } from 'date-fns';
 //    <>
 //    <Container> 
 //     <h2>Transactions:</h2>
- 
+
 // <Button onClick={()=> {
 // category.setTransactionsSort(category.transactionsSort==="DESC" ? "ASC" : "DESC" )
 
@@ -107,20 +107,20 @@ import { format, formatISO, parseISO } from 'date-fns';
 // {transactionArrays.map((transactionsMap,index)=>
 
 //   <Row  key={index}>
-    
-     
+
+
 //      <h2>{transactionsMap.date}</h2> 
 //    {transactionsMap.trs.map(transactions=>
 
 // <Col key={transactions.id} md="12" className="d-inline-flex justify-content-between">
 //          <Icons iconId={getIconIdFromCategoryById(transactions.categoryId)}></Icons> 
 //        <h2>{transactions.description}</h2>
-    
+
 //     <div className="d-flex flex-direction-row">  
 //       <h4>{transactions.sum}</h4>
 //        <Button className="ml-2 btn-danger" onClick={()=>{
 //           category.deleteTransaction(transactions.id,transactions.categoryId,transactions.walletId,wallet)
-  
+
 //       }}> Delete</Button>
 //        <Button onClick={()=>{
 //         category.setSelectedTransaction(transactions)
@@ -129,16 +129,16 @@ import { format, formatISO, parseISO } from 'date-fns';
 //        }}>Change</Button>
 //        </div> 
 //       </Col>
-     
+
 //      )}
 //      </Row>
-    
+
 //     )}
-  
+
 // { buttonVisible ?    
 //     <Button className={"d-flex justify-content-center mb-5"} onClick={()=> {
 //       category.setTransactionsPage(category.transactionsPage+1);  
-  
+
 //       try {
 //         fetchTransaction(category.transactionsPage,category.transactionsLimit,category.transactionsSort).then(data=> 
 //           {
@@ -148,9 +148,9 @@ import { format, formatISO, parseISO } from 'date-fns';
 //         runInAction(()=> {
 //           category.transactions.push(...data.rows)
 //         }) 
-          
-        
-        
+
+
+
 
 //           })
 //       } catch(e) {
@@ -162,7 +162,7 @@ import { format, formatISO, parseISO } from 'date-fns';
 //       }
 //          </Container>
 
-      
+
 //           {/* <ChangeTransactionModal changeTransactionModal={changeTransactionModal} setChangeTransactionModal={setChangeTransactionModal} category={category} wallet={wallet}/>
 //       */}
 
@@ -176,7 +176,7 @@ function TransactionToggle({ children, eventKey }) {
 
   return (
     <div
-      
+
       onClick={decoratedOnClick}
     >
       {children}
@@ -184,42 +184,42 @@ function TransactionToggle({ children, eventKey }) {
   );
 }
 
-const Transactions = observer(({actions,classifiedTransactions}) => {
-  const {category,wallet} = useContext(Context) 
-  const [buttonVisible,setButtonVisible] = useState(true)
-  const [changeTransactionModal,setChangeTransactionModal] = useState(false)
-
-  const [newSum,setNewSum] = useState('')
-  const [newDescription,setNewDescription] = useState('')
-  useEffect(()=>{
+const Transactions = observer(({ actions }) => {
+  const { category, wallet } = useContext(Context)
+  const [buttonVisible, setButtonVisible] = useState(true)
+  const [changeTransactionModal, setChangeTransactionModal] = useState(false)
+  const [newSum, setNewSum] = useState('')
+  const [newDescription, setNewDescription] = useState('')
+  useEffect(() => {
     try {
-      fetchTransaction(category.transactionsPage,category.transactionsLimit,category.transactionsSort).
-      then(data=> {category.setTransactions(data.rows)    
-       
-    })
-    } catch(e) {
+      fetchTransaction(category.transactionsPage, category.transactionsLimit, category.transactionsSort).
+        then(data => {
+          category.setTransactions(data.rows)
+
+        })
+    } catch (e) {
       alert(e.response.data.message);
     }
-   
-
-  },[category.transactionsLimit,category.transactionsSort,category])
 
 
- 
-const data = category.transactions
+  }, [category.transactionsLimit, category.transactionsSort, category])
 
-console.log(data)
+
+
+  const data = category.transactions
+
+  console.log(data)
   const transactions = data.reduce((transactions, transactionItem) => {
-     const date = format(parseISO(transactionItem.createdAt),"d MMMM y");
+    const date = format(parseISO(transactionItem.createdAt), "d MMMM y");
     if (!transactions[date]) {
       transactions[date] = [];
     }
     transactions[date].push(transactionItem);
     return transactions;
   }, {})
-  
+
   const transactionArrays = Object.keys(transactions).map((date) => {
-    
+
     return {
       date,
       trs: transactions[date]
@@ -232,22 +232,22 @@ console.log(data)
 
   const loadMoreTransactions = () => {
     category.setTransactionsPage(category.transactionsPage + 1);
-  
+
     try {
       fetchTransaction(category.transactionsPage, category.transactionsLimit, category.transactionsSort).then(data => {
-            if (!data.rows.length) {
-                setButtonVisible(false)
-            };
-            runInAction(() => {
-                category.transactions.push(...data.rows)
-            })
-  
-  
-  
-  
+        if (!data.rows.length) {
+          setButtonVisible(false)
+        };
+        runInAction(() => {
+          category.transactions.push(...data.rows)
         })
+
+
+
+
+      })
     } catch (e) {
-        alert(e.response.data.message);
+      alert(e.response.data.message);
     }
   }
 
@@ -258,45 +258,49 @@ console.log(data)
 
 
   return (
-  <>
+    <>
 
-  <TransactionProvider>
-    {actions && <TransactionProvider.Actions setButtonVisible={setButtonVisible} category={category}/>}
-   
-    {transactionArrays.map((transactionsMap,index)=>{
-      return (
-    
-        
-        <Row key={transactionsMap.date}>  
-<TransactionProvider.Transaction.Date key={index} date={transactionsMap.date}/>
-<Accordion>
- {transactionsMap.trs.map((transactions,index)=>{
+      <TransactionProvider>
+        {actions && <TransactionProvider.Actions setButtonVisible={setButtonVisible} category={category} />}
 
-  return (
-    <TransactionToggle eventKey={index} key={transactions.id}>
-<TransactionProvider.Transaction transaction={transactions} wallet={wallet} category={category} index={index}/>
-</TransactionToggle>
+        {transactionArrays.map((transactionsMap, index) => {
+          return (
 
-  )
- }
 
-   )}
-   </Accordion>
- 
-   </Row>
-)
+            <Row key={transactionsMap.date}>
+              <TransactionProvider.Transaction.Date key={index} date={transactionsMap.date} />
+              <Accordion>
+                {transactionsMap.trs.map((transactions, index) => {
 
-    }
-    
-  )}
-   
-   <Row>
-   <TransactionProvider.LoadMore buttonVisible={buttonVisible} setButtonVisible={setButtonVisible} fetchTransaction={loadMoreTransactions} />
-   </Row>
- 
- 
-  </TransactionProvider>
-  </>
+                  return (
+                    <TransactionToggle eventKey={index} key={transactions.id}>
+                      <TransactionProvider.Transaction transaction={transactions} wallet={wallet} category={category} index={index} setChangeTransactionModal={setChangeTransactionModal} />
+                    </TransactionToggle>
+
+                  )
+                }
+
+                )}
+              </Accordion>
+
+            </Row>
+
+          )
+
+        }
+
+        )}
+
+        <Row>
+          <TransactionProvider.LoadMore buttonVisible={buttonVisible}
+            setButtonVisible={setButtonVisible}
+            fetchTransaction={loadMoreTransactions}
+          />
+        </Row>
+
+        <ChangeTransactionModal changeTransactionModal={changeTransactionModal.active} id={changeTransactionModal.id} setChangeTransactionModal={setChangeTransactionModal} />
+      </TransactionProvider>
+    </>
 
   );
 

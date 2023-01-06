@@ -1,7 +1,7 @@
 import {makeAutoObservable, runInAction} from "mobx";
 import { createCategory } from "../http/categoryApi";
 
-import { createTransaction, deleteTransaction } from "../http/transactionApi";
+import { changeTransaction, createTransaction, deleteTransaction } from "../http/transactionApi";
 
 
 export default class CategoryStore {
@@ -126,14 +126,43 @@ export default class CategoryStore {
       }
     
     createCategory(newCategoryName,newCategorySelectedIcon) {
-        
         try {
             createCategory(newCategoryName,newCategorySelectedIcon.id).
             then(data=> {
               this.categories.push(data)
-            //   setCreateCategoryModal(false)
             })
           } catch(e) {
+            alert(e.response.data.message);
+          }
+    }
+
+    changeTransaction(id,newSum,newDescription,wallet) {
+        if (!newSum && !newDescription) {
+            return alert(`Not enough data`)
+          }
+          const transaction = this.getTransactionById(id)
+          try {
+            changeTransaction(transaction.id, parseFloat(newSum), newDescription).
+              then(() => {
+                runInAction(() => {
+                    const categoryToChange = this.getCategoryById(transaction.categoryId)
+                    const walletToChange = wallet.getWalletById(transaction.walletId)
+                  if (newSum) {
+                    if (transaction.walletId !== -1) {
+                        walletToChange.balance = (parseFloat(walletToChange.balance) + parseFloat(transaction.sum)) - parseFloat(newSum)
+                    }
+                    if(categoryToChange.id !==-1) {
+                        categoryToChange.spent = (parseFloat(categoryToChange.spent) - parseFloat(transaction.sum)) + parseFloat(newSum)
+                    }
+                    transaction.sum = newSum
+                  }
+                  if (newDescription) {
+                    categoryToChange.description = newDescription
+                    transaction.description = newDescription
+                  }
+                })
+              })
+          } catch (e) {
             alert(e.response.data.message);
           }
     }
