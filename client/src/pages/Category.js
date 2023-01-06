@@ -65,7 +65,7 @@ const Category = observer(() => {
 function reducer(page, { operation, id,dispatch }) {
   switch (operation) {
     case "EDIT_CATEGORY":
-      return <EditCategory id={id} />
+      return <EditCategory id={id} dispatch={dispatch}/>
     case "CREATE_CATEGORY":
       return <CreateCategory dispatch={dispatch}/>
     default:

@@ -107,7 +107,7 @@ export const AllIcons = ({selectedIcon,setSelectedIcon}) => {
 
         {icons.map(
             (icon)=>
-            <Col md={{ span: 3, offset: 1 }} key={icon.id} className="mb-2 justify-content-center text-center bg-main-blue component-one-third-border-radius" style={{ outline:icon.id === selectedIcon.id ? '2px solid black' : null}}
+            <Col md={{ span: 3, offset: 1 }} key={icon.id} className="mb-2 justify-content-center text-center bg-main-blue component-one-third-border-radius" style={{ outline:icon.id === selectedIcon?.id ? '2px solid black' : null}}
             onClick={()=> {setSelectedIcon(icon)
            
             } }  >

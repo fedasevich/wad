@@ -5,7 +5,7 @@ import { ReactComponent as CheckMark } from './CheckMark.svg'
 import { ReactComponent as Delete } from './Trash.svg'
 import { ReactComponent as DeleteCircle } from './TrashCircle.svg'
 import { ReactComponent as Wallet } from './Wallet-icon.svg'
-
+import { ReactComponent as GearSix } from './GearSixBackground.svg'
 
 export const CancelIcon = () => {
     return (
@@ -47,5 +47,12 @@ export const DeleteCircleIcon = () => {
 export const WalletIcon = () => {
     return (
         <Wallet/>
+    )
+}
+
+
+export const SettingsBackgroundIcon = () => {
+    return (
+        <GearSix/>
     )
 }

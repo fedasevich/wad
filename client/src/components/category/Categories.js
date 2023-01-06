@@ -18,13 +18,13 @@ import { AllIcons, Icons } from '../../ui/Icons/CategoryIcons/CategoryIcons'
 import "./CategoryStyle.css"
 import CategoryOtherCategoryModal from './CategoryOtherCategoryModal';
 import CategoryCalculatorModal from './CategoryCalculatorModal';
+import { SettingsBackgroundIcon } from '../../ui/Icons/ControlIcons/ControlIcons';
 
 
 
 const MAIN_CATEGORIES_LENGTH = 7
 
-const Categories = observer(
-  ({dispatch}) => {
+const Categories = observer(({dispatch}) => {
   const { category} = useContext(Context)
   const [calculatorModal, setCalculatorModal] = useState({
     active: false,
@@ -71,6 +71,13 @@ const handlePlusClick=()=>{
  dispatch({operation:"CREATE_CATEGORY",dispatch:dispatch});
 } 
 
+
+const handleGearClick=(event,id)=>{
+  event.stopPropagation()
+  dispatch({operation:"EDIT_CATEGORY",dispatch:dispatch,id:id});
+ } 
+
+
 const handleThreeDotsClick=()=>{
   setOtherCategoriesModal(true)
 }
@@ -90,7 +97,7 @@ const handleCalculatorModalChange=({categoryId,active})=> {
 
     <>
 
-      <div className="category">
+      <div className="categories">
 
 
         {/* <Button onClick={()=> {
@@ -100,7 +107,7 @@ const handleCalculatorModalChange=({categoryId,active})=> {
         {firstCategories.map(categoryMap =>
 
 
-          <div className="p-1 mb-2 d-flex flex-column align-items-center cursor-pointer"
+          <div className="category p-1 mb-2 d-flex flex-column align-items-center cursor-pointer position-relative "
             onClick={() => {
               setCalculatorModal({active:true,categoryId:categoryMap.id})
             }}
@@ -109,8 +116,16 @@ const handleCalculatorModalChange=({categoryId,active})=> {
 
 
             <h4 className='mb-3 fw-medium'>{categoryMap.name}</h4>
+            <div className=' position-relative categoryIcon'>
             <Icons iconId={categoryMap.iconId}></Icons>
+            <span className="position-absolute top-0 start-100 translate-middle p-2 gear" onClick={(event)=>{ 
+              handleGearClick(event,categoryMap.id) }}>
+            <SettingsBackgroundIcon/>
+  </span>
+            </div>
+           
             <h4 className='mt-3 fw-bold'>{categoryMap.spent}</h4>
+           
           </div>
 
 
