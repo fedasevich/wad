@@ -157,6 +157,7 @@ otherCategoriesModal={otherCategoriesModal}
 setOtherCategoriesModal={setOtherCategoriesModal} 
 setCalculatorModal={handleCalculatorModalChange}
 dispatch={dispatch}
+handleGearClick={handleGearClick}
 />
 
 <CategoryCalculatorModal categoryId={calculatorModal.categoryId} calculatorModal={calculatorModal.active} setCalculatorModal={setCalculatorModal}/>

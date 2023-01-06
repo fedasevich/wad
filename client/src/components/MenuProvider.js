@@ -84,7 +84,7 @@ const Container = ({children}) => {
 
  const MenuProvider = observer(({children}) => {
   return (
-    <div className='menu'>
+    <div className='menu mb-3'>
 
     {children}
   </div>
