@@ -11,7 +11,6 @@ const EditCategory = observer(({ id, dispatch }) => {
 
   const [editCategory, setEditCategory] = useState({ name: "", spent: "", icon: {} })
 
-  const [editCategorySelectedIcon, setEditCategorySelectedIcon] = useState({})
   const { category } = useContext(Context)
 
 

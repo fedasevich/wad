@@ -19,6 +19,7 @@ import "./CategoryStyle.css"
 import CategoryOtherCategoryModal from './CategoryOtherCategoryModal';
 import CategoryCalculatorModal from './CategoryCalculatorModal';
 import { SettingsBackgroundIcon } from '../../ui/Icons/ControlIcons/ControlIcons';
+import DatePickerProvider from '../DatePickerProvider';
 
 
 
@@ -96,7 +97,14 @@ const handleCalculatorModalChange=({categoryId,active})=> {
 
 
     <>
-
+                  <Row>
+                <Col xl={{ span: 4, offset: 1 }}>
+                  <h1 className='mt-5 mb-5 fw-bold'>Categories</h1>
+                </Col>
+              <Col xl={{span:4,offset:3}} onClick={()=> {
+                setDatePickerModal(true)
+              }}><DatePickerProvider/></Col>
+              </Row>
       <div className="categories">
 
 
@@ -190,7 +198,7 @@ handleGearClick={handleGearClick}
     } 
 
 
-      {/* <Modal active={datePickerModal} setActive={setDatePickerModal}>
+      <Modal active={datePickerModal} setActive={setDatePickerModal}>
         <DateRangePicker
           onChange={item => setDateRange([item.selection])}
           showSelectionPreview={true}
@@ -201,7 +209,7 @@ handleGearClick={handleGearClick}
           preventSnapRefocus={true}
           calendarFocus="backwards"
         />
-        {/* idk how to make it better 
+        {/* idk how to make it better */}
         <Button onClick={() => {
           try {
             fetchCategoryPeriod(dateRange[0].startDate.toISOString(), dateRange[0].endDate.toISOString()).then(data => {
@@ -227,7 +235,7 @@ handleGearClick={handleGearClick}
             alert(e.response.data.message);
           }
         }}>Submit</Button>
-      </Modal> */}
+      </Modal>
 
 
     </>

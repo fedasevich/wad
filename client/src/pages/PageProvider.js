@@ -14,13 +14,14 @@ const PageProvider = observer(({ pageName, children }) => {
 
           <Col xs="12"  md="9" xxl="10" className='px-0'>
             <Container fluid className='desktop-height-100vh bg-grey'>
+              {pageName && 
               <Row>
                 <Col xl={{ span: 4, offset: 1 }}>
                   <h1 className='mt-5 mb-5 fw-bold'>{pageName}</h1>
                 </Col>
 
               </Row>
-
+                }
               <Row>
                 {children}
               </Row>

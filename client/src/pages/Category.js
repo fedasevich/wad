@@ -80,7 +80,7 @@ function reducer(page, { operation, id,dispatch }) {
   return (
 
    
-    <PageProvider pageName="Categories">
+    <PageProvider >
 {
 selectedPage ||
 <Col xl={12}>
