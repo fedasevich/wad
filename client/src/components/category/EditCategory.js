@@ -1,7 +1,7 @@
 import { runInAction } from 'mobx'
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useState } from 'react'
-import { Col } from 'react-bootstrap'
+import { Col, Row } from 'react-bootstrap'
 import { Context } from '../..'
 import { changeCategory } from '../../http/categoryApi'
 import { AllIcons } from '../../ui/Icons/CategoryIcons/CategoryIcons'

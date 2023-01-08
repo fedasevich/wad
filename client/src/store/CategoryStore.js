@@ -1,5 +1,5 @@
 import {makeAutoObservable, runInAction} from "mobx";
-import { changeCategory, createCategory } from "../http/categoryApi";
+import { changeCategory, createCategory, fetchCategory, fetchCategoryPeriod } from "../http/categoryApi";
 
 import { changeTransaction, createTransaction, deleteTransaction } from "../http/transactionApi";
 
@@ -190,5 +190,44 @@ export default class CategoryStore {
             alert(e.response.data.message);
           }
     }
+
+    fetchCategoryPeriod(dateRange) {
+      if(!dateRange || !dateRange[0].startDate || !dateRange[0].endDate) return
+      try {
+
+        fetchCategoryPeriod(dateRange[0].startDate.toISOString(), dateRange[0].endDate.toISOString()).then(data => {
+
+          if (!data) {
+            return
+          }
+          runInAction(() => {
+            this.categories.forEach(categoryMap => {
+              categoryMap.spent = 0;
+            })
+            data.rows.forEach(dataMap => {
+              this.categories.map(categoryMap => {
+
+                if (dataMap.categoryId === categoryMap.id) {
+                  categoryMap.spent += parseFloat(dataMap.sum)
+                }
+              }
+              )
+            })
+          })
+        })
+
+      } catch (e) {
+        alert(e.response.data.message);
+      }
+    }
+
+    fetchCategory() {
+      try {
+        fetchCategory().then(data => this.setCategories(data))
+      } catch (e) {
+        alert(e.response.data.message);
+      }
+    }
+  
 
 }

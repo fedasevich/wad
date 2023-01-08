@@ -9,7 +9,7 @@ import { LOGIN_ROUTE } from '../../utils/consts';
 import { createCategory, fetchCategory, fetchCategoryPeriod, resetAllCategories } from '../../http/categoryApi';
 import Modal from '../modal/modal';
 //date
-import { addDays } from 'date-fns';
+import { addDays, endOfMonth, startOfMonth } from 'date-fns';
 import { DateRangePicker } from "react-date-range";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
@@ -35,13 +35,14 @@ const Categories = observer(({dispatch}) => {
   const [loading, setLoading] = useState(true)
   const [newCategoryName, setNewCategoryName] = useState('')
   const [resetCategoriesModal, setResetCategoriesModal] = useState(false)
-  const [datePickerModal, setDatePickerModal] = useState(false)
+ 
   const [selectedIcon, setSelectedIcon] = useState([])
   const [otherCategoriesModal, setOtherCategoriesModal] = useState(false)
+  const [selectedDate, setSelectedDate] = useState("January 2023")
   const [dateRange, setDateRange] = useState([
     {
-      startDate: new Date(),
-      endDate: addDays(new Date(), 7),
+      startDate: startOfMonth(new Date()),
+      endDate: endOfMonth(new Date(),),
       key: 'selection'
     }
   ]);
@@ -98,12 +99,12 @@ const handleCalculatorModalChange=({categoryId,active})=> {
 
     <>
                   <Row>
-                <Col xl={{ span: 4, offset: 1 }}>
+                <Col xs={{span:4,offset:1}} xl={{ span: 4, offset: 1 }}>
                   <h1 className='mt-5 mb-5 fw-bold'>Categories</h1>
                 </Col>
-              <Col xl={{span:4,offset:3}} onClick={()=> {
-                setDatePickerModal(true)
-              }}><DatePickerProvider/></Col>
+              <Col xs={{span:4,offset:3}} xl={{span:4,offset:3}}>
+              <DatePickerProvider dateRange={dateRange} setDateRange={setDateRange}/>
+              </Col>
               </Row>
       <div className="categories">
 
@@ -198,44 +199,7 @@ handleGearClick={handleGearClick}
     } 
 
 
-      <Modal active={datePickerModal} setActive={setDatePickerModal}>
-        <DateRangePicker
-          onChange={item => setDateRange([item.selection])}
-          showSelectionPreview={true}
-          moveRangeOnFirstSelection={false}
-          months={2}
-          ranges={dateRange}
-          direction="horizontal"
-          preventSnapRefocus={true}
-          calendarFocus="backwards"
-        />
-        {/* idk how to make it better */}
-        <Button onClick={() => {
-          try {
-            fetchCategoryPeriod(dateRange[0].startDate.toISOString(), dateRange[0].endDate.toISOString()).then(data => {
-              if (!data) {
-                return
-              }
-              runInAction(() => {
-                category.categories.forEach(categoryMap => {
-                  categoryMap.spent = 0;
-                })
-                data.rows.forEach(dataMap => {
-                  category.categories.map(categoryMap => {
-
-                    if (dataMap.categoryId === categoryMap.id) {
-                      categoryMap.spent += parseFloat(dataMap.sum)
-                    }
-                  }
-                  )
-                })
-              })
-            }).then(() => setDatePickerModal(false))
-          } catch (e) {
-            alert(e.response.data.message);
-          }
-        }}>Submit</Button>
-      </Modal>
+      
 
 
     </>
