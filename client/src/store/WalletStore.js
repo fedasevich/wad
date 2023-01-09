@@ -35,11 +35,12 @@ export default class WalletStore {
 
 
   editWallet(id, newCurrency, newName, newBalance) {
+    console.log(newCurrency)
     if (!newCurrency && !newName && !newBalance) {
       return alert(`Not enough data`)
     }
     try {
-      changeWallet(id, newName ? newName : null, newBalance ? parseFloat(newBalance) : null, newCurrency ? parseFloat(newCurrency) : null).
+      changeWallet(id, newName ? newName : null, newBalance ? parseFloat(newBalance) : null, newCurrency ? newCurrency : null).
         then(() => {
           runInAction(() => {
             const wallet = this.wallets.find(wallet => wallet.id === id)
