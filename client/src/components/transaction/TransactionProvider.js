@@ -76,11 +76,14 @@ const LoadMore = ({ buttonVisible, setButtonVisible, fetchTransaction }) => {
 
 
 const Transaction = observer(({ transaction, category, wallet, index, setChangeTransactionModal }) => {
+    let isDeleted = false;
+    if(transaction.categoryId===-1) isDeleted=true;
+    if(transaction.walletId===-1) isDeleted=true;
     return (
         <>
             <Col md="12" className="d-inline-flex justify-content-between mt-3">
                 <Card className='border-0 w-100' >
-                    <Card.Header className='bg-none d-flex w-100 justify-content-between border-0' >
+                    <Card.Header className={`bg-none d-flex w-100 justify-content-between border-0 ${isDeleted ? 'text-decoration-line-through':''} `}>
                         <div className="d-flex flex-row align-items-center">
                             <Icons iconId={category.getIconIdFromCategoryById(transaction.categoryId)}></Icons>
                             <h4 className='ms-3 mb-0'>{transaction.description}</h4>
