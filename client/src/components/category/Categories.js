@@ -43,7 +43,8 @@ const Categories = observer(({dispatch}) => {
     {
       startDate: startOfMonth(new Date()),
       endDate: endOfMonth(new Date(),),
-      key: 'selection'
+      key: 'selection',
+      action: 'month'
     }
   ]);
 
