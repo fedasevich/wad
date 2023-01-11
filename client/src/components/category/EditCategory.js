@@ -5,6 +5,7 @@ import { Col, Row } from 'react-bootstrap'
 import { Context } from '../..'
 import { changeCategory } from '../../http/categoryApi'
 import { AllIcons } from '../../ui/Icons/CategoryIcons/CategoryIcons'
+import { DeleteIcon } from '../../ui/Icons/ControlIcons/ControlIcons'
 import MenuProvider from '../MenuProvider'
 
 const EditCategory = observer(({ id, dispatch }) => {
@@ -40,6 +41,11 @@ const EditCategory = observer(({ id, dispatch }) => {
     setEditCategory({ ...editCategory, ["icon"]: value })
   }
 
+  const handleDoubleClickToDeleteCategory= () => {
+    category.deleteCategory(id)
+    handleClose()
+  }
+
   return (
 
     <>
@@ -58,7 +64,7 @@ const EditCategory = observer(({ id, dispatch }) => {
               <h4 className='me-2' >Chosen icon: </h4>
               <div className="bg-main-blue component-one-third-border-radius">{editCategory.icon?.svg}</div>
             </div>
-
+            <h6 onDoubleClick={()=>handleDoubleClickToDeleteCategory()} className='text-danger mb-0 mt-5 btn' ><DeleteIcon/> Delete category</h6>
           </MenuProvider.Container>
         </MenuProvider>
       </Col>

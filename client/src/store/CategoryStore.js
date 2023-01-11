@@ -1,5 +1,5 @@
 import {makeAutoObservable, runInAction} from "mobx";
-import { changeCategory, createCategory, fetchCategory, fetchCategoryPeriod } from "../http/categoryApi";
+import { changeCategory, createCategory, deleteCategory, fetchCategory, fetchCategoryPeriod } from "../http/categoryApi";
 
 import { changeTransaction, createTransaction, deleteTransaction } from "../http/transactionApi";
 
@@ -129,7 +129,10 @@ export default class CategoryStore {
         try {
             createCategory(newCategoryName,newCategorySelectedIcon.id).
             then(data=> {
+              runInAction(() => {
               this.categories.push(data)
+
+              })
             })
           } catch(e) {
             alert(e.response.data.message);
@@ -223,11 +226,30 @@ export default class CategoryStore {
 
     fetchCategory() {
       try {
-        fetchCategory().then(data => this.setCategories(data))
+        fetchCategory().then(data => {
+          runInAction(() => {
+          this.setCategories(data)
+        })
+      })
       } catch (e) {
         alert(e.response.data.message);
       }
     }
   
+
+    deleteCategory(id) {
+      try {
+        deleteCategory(id).
+        then(() => {
+          runInAction(() => {
+            const categoryIndex = this.categories.findIndex(category => category.id === id)
+            this.categories.splice(categoryIndex, 1)
+          })
+
+        })
+      } catch (e) {
+        alert(e.response.data.message);
+      }
+    }
 
 }
