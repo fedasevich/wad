@@ -35,7 +35,6 @@ export default class WalletStore {
 
 
   editWallet(id, newCurrency, newName, newBalance) {
-    console.log(newCurrency)
     if (!newCurrency && !newName && !newBalance) {
       return alert(`Not enough data`)
     }
@@ -70,7 +69,10 @@ export default class WalletStore {
     try {
       createWallet(createWalletName, createWalletCurrency)
       .then(data => {
+        runInAction(() => {
           this.wallets.push(data)
+        })
+         
 
         })
     } catch (e) {
