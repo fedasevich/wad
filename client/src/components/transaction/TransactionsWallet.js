@@ -34,7 +34,11 @@ const TransactionsWallet = observer(({actions,id}) => {
   useEffect(()=>{
     try {
       fetchWalletTransactionByWalletId(category.transactionsPage,category.transactionsLimit,category.transactionsSort,id).
-      then(data=> {category.setTransactions(data.rows)    
+      then(data=> {
+        runInAction(() => {
+          category.setTransactions(data.rows)    
+
+        })
        
     })
     } catch(e) {
@@ -42,7 +46,7 @@ const TransactionsWallet = observer(({actions,id}) => {
     }
    
 
-  },[category.transactionsLimit,category.transactionsSort,category])
+  },[category.transactionsLimit,category.transactionsSort,category,id])
 
 
  

@@ -116,7 +116,7 @@ export default class CategoryStore {
     }
 
     getCategoryById=(id) => {
-        if(id==-1) return this.categories[0]
+        if(id===-1) return this.categories[0]
         return this.categories.find((category)=> category.id === id)
     }
 

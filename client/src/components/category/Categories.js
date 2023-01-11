@@ -53,7 +53,13 @@ const Categories = observer(({dispatch}) => {
     const date = new Date()
 
     try {
-      fetchCategory().then(data => category.setCategories(data)).finally(() => setLoading(false))
+      fetchCategory().then(data => 
+        runInAction(() => {
+          category.setCategories(data)
+
+        })
+        
+        ).finally(() => setLoading(false))
     } catch (e) {
       alert(e.response.data.message);
     }
@@ -143,7 +149,7 @@ const handleCalculatorModalChange=({categoryId,active})=> {
 
         <div className="chart">test</div>
 
-        <div className="p-4 mb-2 cursor-pointer">
+        <div className="p-4 mb-2 cursor-pointer text-center">
           <div >
           {otherCategories.length ? 
           <h1 onClick={()=>handleThreeDotsClick()}>...</h1>

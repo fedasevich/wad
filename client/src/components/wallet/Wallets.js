@@ -6,6 +6,7 @@ import { createWallet, fetchWallet } from '../../http/walletApi';
 import Modal from '../modal/modal';
 import WalletActions from './WalletActions';
 import {DispatchContext} from '../../pages/MainPage';
+import { runInAction } from 'mobx';
 
 
 function WalletToggle({ children, eventKey }) {
@@ -29,8 +30,10 @@ const Wallets = observer(() => {
   useEffect(() => {
     try {
       fetchWallet().then(data => {
-        wallet.setWallet(data)
-        wallet.setSelectedWallet(data[0])
+        runInAction(()=>{
+          wallet.setWallet(data)
+        })
+    
       })
     } catch (e) {
       alert(e.response.data.message);
