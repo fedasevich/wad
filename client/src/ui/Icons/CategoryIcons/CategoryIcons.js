@@ -80,7 +80,7 @@ const icons = [
 export const Icons = ({iconId})=>{
     let index = icons.findIndex(icon => icon.id === iconId)
     console.log(iconId)
-    if (index == -1) {
+    if (index === -1) {
         index = 1
     }
     return (
@@ -99,18 +99,22 @@ export const Icons = ({iconId})=>{
 }
 
 export const AllIcons = ({selectedIcon,setSelectedIcon}) => {
+
     return (
        <>
-       <Container>
+       <Container fluid>
         <Row>
 
         {icons.map(
             (icon)=>
-            <Col md={4} key={icon.id} className="justify-content-center text-center" style={{ border:icon.id === selectedIcon.id ? '3px solid red' : '3px solid black',backgroundColor: "#7AAFFC"}}
+            <Col md={3} lg={{ span: 3, offset: 1 }} key={icon.id} className="mb-2 justify-content-center text-center bg-main-blue component-one-third-border-radius" style={{ outline:icon.id === selectedIcon?.id ? '2px solid black' : null}}
             onClick={()=> {setSelectedIcon(icon)
            
             } }  >
+              
                 {icon.svg}
+              
+               
                 </Col>
 
             )

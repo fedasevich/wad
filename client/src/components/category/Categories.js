@@ -9,7 +9,7 @@ import { LOGIN_ROUTE } from '../../utils/consts';
 import { createCategory, fetchCategory, fetchCategoryPeriod, resetAllCategories } from '../../http/categoryApi';
 import Modal from '../modal/modal';
 //date
-import { addDays } from 'date-fns';
+import { addDays, endOfMonth, startOfMonth } from 'date-fns';
 import { DateRangePicker } from "react-date-range";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
@@ -18,12 +18,14 @@ import { AllIcons, Icons } from '../../ui/Icons/CategoryIcons/CategoryIcons'
 import "./CategoryStyle.css"
 import CategoryOtherCategoryModal from './CategoryOtherCategoryModal';
 import CategoryCalculatorModal from './CategoryCalculatorModal';
+import { SettingsBackgroundIcon } from '../../ui/Icons/ControlIcons/ControlIcons';
+import DatePickerProvider from '../DatePickerProvider';
 
 
 
 const MAIN_CATEGORIES_LENGTH = 7
 
-const Categories = observer(() => {
+const Categories = observer(({dispatch}) => {
   const { category} = useContext(Context)
   const [calculatorModal, setCalculatorModal] = useState({
     active: false,
@@ -33,14 +35,16 @@ const Categories = observer(() => {
   const [loading, setLoading] = useState(true)
   const [newCategoryName, setNewCategoryName] = useState('')
   const [resetCategoriesModal, setResetCategoriesModal] = useState(false)
-  const [datePickerModal, setDatePickerModal] = useState(false)
+ 
   const [selectedIcon, setSelectedIcon] = useState([])
   const [otherCategoriesModal, setOtherCategoriesModal] = useState(false)
+  const [selectedDate, setSelectedDate] = useState("January 2023")
   const [dateRange, setDateRange] = useState([
     {
-      startDate: new Date(),
-      endDate: addDays(new Date(), 7),
-      key: 'selection'
+      startDate: startOfMonth(new Date()),
+      endDate: endOfMonth(new Date(),),
+      key: 'selection',
+      action: 'month'
     }
   ]);
 
@@ -67,8 +71,15 @@ const Categories = observer(() => {
   category.categories.slice(MAIN_CATEGORIES_LENGTH, category.categories.length)];
 
 const handlePlusClick=()=>{
-  setCreateCategoryModal(true);
+ dispatch({operation:"CREATE_CATEGORY",dispatch:dispatch});
 } 
+
+
+const handleGearClick=(event,id)=>{
+  event.stopPropagation()
+  dispatch({operation:"EDIT_CATEGORY",dispatch:dispatch,id:id});
+ } 
+
 
 const handleThreeDotsClick=()=>{
   setOtherCategoriesModal(true)
@@ -88,8 +99,15 @@ const handleCalculatorModalChange=({categoryId,active})=> {
 
 
     <>
-
-      <div className="category">
+                  <Row>
+                <Col xs={{span:4,offset:1}} xl={{ span: 4, offset: 1 }}>
+                  <h1 className='mt-5 mb-5 fw-bold'>Categories</h1>
+                </Col>
+              <Col xs={{span:4,offset:3}} xl={{span:4,offset:3}}>
+              <DatePickerProvider dateRange={dateRange} setDateRange={setDateRange}/>
+              </Col>
+              </Row>
+      <div className="categories">
 
 
         {/* <Button onClick={()=> {
@@ -99,7 +117,7 @@ const handleCalculatorModalChange=({categoryId,active})=> {
         {firstCategories.map(categoryMap =>
 
 
-          <div className="p-1 mb-2 d-flex flex-column align-items-center cursor-pointer"
+          <div className="category p-1 mb-2 d-flex flex-column align-items-center cursor-pointer position-relative "
             onClick={() => {
               setCalculatorModal({active:true,categoryId:categoryMap.id})
             }}
@@ -108,8 +126,16 @@ const handleCalculatorModalChange=({categoryId,active})=> {
 
 
             <h4 className='mb-3 fw-medium'>{categoryMap.name}</h4>
+            <div className=' position-relative categoryIcon'>
             <Icons iconId={categoryMap.iconId}></Icons>
+            <span className="position-absolute top-0 start-100 translate-middle p-2 gear" onClick={(event)=>{ 
+              handleGearClick(event,categoryMap.id) }}>
+            <SettingsBackgroundIcon/>
+  </span>
+            </div>
+           
             <h4 className='mt-3 fw-bold'>{categoryMap.spent}</h4>
+           
           </div>
 
 
@@ -139,7 +165,10 @@ const handleCalculatorModalChange=({categoryId,active})=> {
 otherCategories={otherCategories} 
 otherCategoriesModal={otherCategoriesModal} 
 setOtherCategoriesModal={setOtherCategoriesModal} 
-setCalculatorModal={handleCalculatorModalChange}/>
+setCalculatorModal={handleCalculatorModalChange}
+dispatch={dispatch}
+handleGearClick={handleGearClick}
+/>
 
 <CategoryCalculatorModal categoryId={calculatorModal.categoryId} calculatorModal={calculatorModal.active} setCalculatorModal={setCalculatorModal}/>
 
@@ -171,44 +200,7 @@ setCalculatorModal={handleCalculatorModalChange}/>
     } 
 
 
-      {/* <Modal active={datePickerModal} setActive={setDatePickerModal}>
-        <DateRangePicker
-          onChange={item => setDateRange([item.selection])}
-          showSelectionPreview={true}
-          moveRangeOnFirstSelection={false}
-          months={2}
-          ranges={dateRange}
-          direction="horizontal"
-          preventSnapRefocus={true}
-          calendarFocus="backwards"
-        />
-        {/* idk how to make it better 
-        <Button onClick={() => {
-          try {
-            fetchCategoryPeriod(dateRange[0].startDate.toISOString(), dateRange[0].endDate.toISOString()).then(data => {
-              if (!data) {
-                return
-              }
-              runInAction(() => {
-                category.categories.forEach(categoryMap => {
-                  categoryMap.spent = 0;
-                })
-                data.rows.forEach(dataMap => {
-                  category.categories.map(categoryMap => {
-
-                    if (dataMap.categoryId === categoryMap.id) {
-                      categoryMap.spent += parseFloat(dataMap.sum)
-                    }
-                  }
-                  )
-                })
-              })
-            }).then(() => setDatePickerModal(false))
-          } catch (e) {
-            alert(e.response.data.message);
-          }
-        }}>Submit</Button>
-      </Modal> */}
+      
 
 
     </>

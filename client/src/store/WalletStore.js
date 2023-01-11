@@ -28,7 +28,7 @@ export default class WalletStore {
 
 
   getWalletById(id) {
-    if(id==-1) return this.wallets[0]
+    if(id===-1) return this.wallets[0]
     return this.wallets.find(wallet => wallet.id === id)
   }
 
@@ -39,8 +39,8 @@ export default class WalletStore {
       return alert(`Not enough data`)
     }
     try {
-      changeWallet(id, newName ? newName : null, newBalance ? parseFloat(newBalance) : null, newCurrency ? parseFloat(newCurrency) : null).
-        then(() => {
+      changeWallet(id, newName ? newName : null, newBalance ? parseFloat(newBalance) : null, newCurrency ? newCurrency : null)
+      .then(() => {
           runInAction(() => {
             const wallet = this.wallets.find(wallet => wallet.id === id)
             if (newName) {
@@ -67,9 +67,12 @@ export default class WalletStore {
     }
 
     try {
-      createWallet(createWalletName, createWalletCurrency).
-        then(data => {
+      createWallet(createWalletName, createWalletCurrency)
+      .then(data => {
+        runInAction(() => {
           this.wallets.push(data)
+        })
+         
 
         })
     } catch (e) {

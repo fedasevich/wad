@@ -8,6 +8,7 @@ import { DeleteCircleIcon } from '../../ui/Icons/ControlIcons/ControlIcons'
 import { EditIcon } from '../../ui/Icons/WalletIcons/WalletIcons'
 
 
+
 const Actions = ({ setButtonVisible, category }) => {
 
     return (
@@ -50,23 +51,22 @@ const Actions = ({ setButtonVisible, category }) => {
     )
 }
 
-const LoadMore = ({ buttonVisible, setButtonVisible,fetchTransaction }) => {
+const LoadMore = ({ buttonVisible, setButtonVisible, fetchTransaction }) => {
     return (
         <>
 
             {buttonVisible ?
-                <Button className={"d-flex justify-content-center mb-3 mt-4 bg-dark-blue border-0"} onClick={() => 
-                    {
-                        try {
-                            fetchTransaction().then(data => {
-                                if (!data.rows.length) {
-                                    setButtonVisible(false)
-                                };                      
-                            })
-                        } catch (e) {
-                            alert(e.response.data.message);
-                        }
+                <Button className={"d-flex justify-content-center mb-3 mt-4 bg-light-blue border-0"} onClick={() => {
+                    try {
+                        fetchTransaction().then(data => {
+                            if (!data.rows.length) {
+                                setButtonVisible(false)
+                            };
+                        })
+                    } catch (e) {
+                        alert(e.response.data.message);
                     }
+                }
                 }>Load More</Button> :
                 <h2 className="text-center">There is nothing to load...</h2>
             }
@@ -75,45 +75,41 @@ const LoadMore = ({ buttonVisible, setButtonVisible,fetchTransaction }) => {
 }
 
 
-const Transaction = ({ transaction, category, wallet,index }) => {
-
+const Transaction = observer(({ transaction, category, wallet, index, setChangeTransactionModal }) => {
     return (
         <>
-           
-
-
-                <Col  md="12" className="d-inline-flex justify-content-between mt-3">
-                    <Card className='border-0 w-100' >
-                        <Card.Header className='bg-none d-flex w-100 justify-content-between border-0' >
-                            <div className="d-flex flex-row align-items-center">
+            <Col md="12" className="d-inline-flex justify-content-between mt-3">
+                <Card className='border-0 w-100' >
+                    <Card.Header className='bg-none d-flex w-100 justify-content-between border-0' >
+                        <div className="d-flex flex-row align-items-center">
                             <Icons iconId={category.getIconIdFromCategoryById(transaction.categoryId)}></Icons>
                             <h4 className='ms-3 mb-0'>{transaction.description}</h4>
+                        </div>
+
+                        <h4>-{transaction.sum} {wallet.getCurrencyFromWalletById(transaction.walletId)}</h4>
+
+                    </Card.Header>
+
+                    <Accordion.Collapse eventKey={index}>
+                        <Card.Body className='d-flex justify-content-evenly bg-light-blue text-light component-one-third-border-radius-bottom '>
+                            <div className='cursor-pointer' onClick={() => { category.deleteTransaction(transaction.id, transaction.categoryId, transaction.walletId, wallet) }}>
+                                <DeleteCircleIcon />
+                                <span className='ms-2'>Delete</span>
                             </div>
-                         
-                            <h4>-{transaction.sum} {wallet.getCurrencyFromWalletById(transaction.walletId)}</h4>
 
-                        </Card.Header>
+                            {setChangeTransactionModal && <div className='cursor-pointer' onClick={() => { setChangeTransactionModal({ active: true, id: transaction.id }) }}>
+                                <EditIcon />
+                                <span className='ms-2'>Change</span>
+                            </div>
+                            }
+                        </Card.Body>
+                    </Accordion.Collapse>
+                </Card>
+            </Col>
 
-                        <Accordion.Collapse eventKey={index}>
-                            <Card.Body className='d-flex justify-content-evenly bg-light-blue text-light component-one-third-border-radius-bottom '>
-                            <div  className='cursor-pointer' onClick={() => {  category.deleteTransaction(transaction.id, transaction.categoryId, transaction.walletId, wallet) }}>
-              <DeleteCircleIcon/>
-              <span className='ms-2'>Delete</span>
-            </div>
-                                   
-<div className='cursor-pointer' onClick={() => {   category.setSelectedTransaction(transaction) }}>
-              <EditIcon/>
-              <span className='ms-2'>Change</span>
-            </div>
-                                             
-                                 </Card.Body>
-                        </Accordion.Collapse>
-                    </Card>
-                </Col>
-          
         </>
     )
-}
+})
 
 const TransactionDate = ({ date }) => {
     return (

@@ -56,7 +56,7 @@ const CreateWallet = () => {
             <Col xl={{ span: 4, offset: 1 }}> 
             <MenuProvider>
                 <MenuProvider.Actions close={handleClose} commit={handleCommit}><h4>Create wallet</h4></MenuProvider.Actions>
-                <MenuProvider.Container className="d-flex flex-column">
+                <MenuProvider.Container >
                     <label className='mb-2' htmlFor="name">Enter name:</label>
                     <input className='mb-2 component-half-border-radius' type="text" name='name' onKeyDown={handleKeyDown} value={newWallet.name} onChange={handleChange} />
                     <h4 className='mb-2' >Chosen currency: {newWallet.currency}</h4>
@@ -67,7 +67,7 @@ const CreateWallet = () => {
             <Col xl={{ span: 6, offset: 1 }}>
                 <MenuProvider>
                     <MenuProvider.Header><h2>Choose currency:</h2></MenuProvider.Header>
-                    <MenuProvider.Container className="d-flex flex-column">
+                    <MenuProvider.Container >
                         <Currencies setCurrency={handleChange}/>
                     </MenuProvider.Container>
                 </MenuProvider>

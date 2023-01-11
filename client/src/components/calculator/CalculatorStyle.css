@@ -77,10 +77,3 @@
 
 }
 
-.custom_modal .custom_modal_content .modal_item:hover {
-    cursor: pointer;
-    transition: .3s all;
-    color:white;
-    background-color: var(--light-blue);
-    border-radius: var(--component-border-radius);
-}

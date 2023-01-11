@@ -29,14 +29,14 @@ class CategoryController {
     
     async change(req,res,next) {
         const {categoryId,newName,newSpent,newIconId} = req.body
-        if(newSpent !== null  && !newName && !newIconId|| !categoryId){
+        if(!newSpent  && !newName && !newIconId || !categoryId){
             return next(ApiError.badRequest('Not enough data'))
         }
         const userId = req.user.id
         
         let update= {}
         if(newName) update["name"] = newName
-        if(newSpent!== null) update["spent"] = newSpent
+        if(newSpent) update["spent"] = newSpent
         if(newIconId) update["iconId"] = newIconId
     
   
@@ -54,7 +54,7 @@ class CategoryController {
         if(transaction){
             await transaction.rollback()
         }
-        return next(ApiError.badRequest('Wrong data'))
+        return next(ApiError.badRequest(e))
        
     }
         

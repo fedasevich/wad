@@ -1,6 +1,7 @@
 import {makeAutoObservable, runInAction} from "mobx";
+import { changeCategory, createCategory, deleteCategory, fetchCategory, fetchCategoryPeriod } from "../http/categoryApi";
 
-import { createTransaction, deleteTransaction } from "../http/transactionApi";
+import { changeTransaction, createTransaction, deleteTransaction } from "../http/transactionApi";
 
 
 export default class CategoryStore {
@@ -123,5 +124,132 @@ export default class CategoryStore {
         const findCategory = this.getCategoryById(id)
         return findCategory?.iconId
       }
+    
+    createCategory(newCategoryName,newCategorySelectedIcon) {
+        try {
+            createCategory(newCategoryName,newCategorySelectedIcon.id).
+            then(data=> {
+              runInAction(() => {
+              this.categories.push(data)
+
+              })
+            })
+          } catch(e) {
+            alert(e.response.data.message);
+          }
+    }
+
+    changeTransaction(id,newSum,newDescription,wallet) {
+        if (!newSum && !newDescription) {
+            return alert(`Not enough data`)
+          }
+          const transaction = this.getTransactionById(id)
+          try {
+            changeTransaction(transaction.id, parseFloat(newSum), newDescription).
+              then(() => {
+                runInAction(() => {
+                    const categoryToChange = this.getCategoryById(transaction.categoryId)
+                    const walletToChange = wallet.getWalletById(transaction.walletId)
+                  if (newSum) {
+                    if (transaction.walletId !== -1) {
+                        walletToChange.balance = (parseFloat(walletToChange.balance) + parseFloat(transaction.sum)) - parseFloat(newSum)
+                    }
+                    if(categoryToChange.id !==-1) {
+                        categoryToChange.spent = (parseFloat(categoryToChange.spent) - parseFloat(transaction.sum)) + parseFloat(newSum)
+                    }
+                    transaction.sum = newSum
+                  }
+                  if (newDescription) {
+                    categoryToChange.description = newDescription
+                    transaction.description = newDescription
+                  }
+                })
+              })
+          } catch (e) {
+            alert(e.response.data.message);
+          }
+    }
+
+    changeCategory(id, editCategory) {
+        if (!editCategory || !editCategory.spent && !editCategory.name && !Object.keys(editCategory.icon).length) {
+            return alert(`Not enough data`)
+          }
+         console.log(editCategory)
+          try {
+            changeCategory(id, parseFloat(editCategory.spent), editCategory.name, editCategory.icon.id).
+              then(() => {
+      
+               
+                runInAction(() => {
+                  const categoryToEdit = this.getCategoryById(id)
+                  if(editCategory.name) categoryToEdit.name = editCategory.name
+                  if(editCategory.spent) categoryToEdit.spent = editCategory.spent
+                  if(editCategory.icon.id) categoryToEdit.iconId = editCategory.icon.id
+            
+                })
+               
+              })
+          } catch (e) {
+            alert(e.response.data.message);
+          }
+    }
+
+    fetchCategoryPeriod(dateRange) {
+      if(!dateRange || !dateRange[0].startDate || !dateRange[0].endDate) return
+      try {
+
+        fetchCategoryPeriod(dateRange[0].startDate.toISOString(), dateRange[0].endDate.toISOString()).then(data => {
+
+          if (!data) {
+            return
+          }
+          runInAction(() => {
+            this.categories.forEach(categoryMap => {
+              categoryMap.spent = 0;
+            })
+            data.rows.forEach(dataMap => {
+              this.categories.map(categoryMap => {
+
+                if (dataMap.categoryId === categoryMap.id) {
+                  categoryMap.spent += parseFloat(dataMap.sum)
+                }
+              }
+              )
+            })
+          })
+        })
+
+      } catch (e) {
+        alert(e.response.data.message);
+      }
+    }
+
+    fetchCategory() {
+      try {
+        fetchCategory().then(data => {
+          runInAction(() => {
+          this.setCategories(data)
+        })
+      })
+      } catch (e) {
+        alert(e.response.data.message);
+      }
+    }
+  
+
+    deleteCategory(id) {
+      try {
+        deleteCategory(id).
+        then(() => {
+          runInAction(() => {
+            const categoryIndex = this.categories.findIndex(category => category.id === id)
+            this.categories.splice(categoryIndex, 1)
+          })
+
+        })
+      } catch (e) {
+        alert(e.response.data.message);
+      }
+    }
 
 }
