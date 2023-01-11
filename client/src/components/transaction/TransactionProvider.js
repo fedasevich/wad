@@ -56,7 +56,7 @@ const LoadMore = ({ buttonVisible, setButtonVisible, fetchTransaction }) => {
         <>
 
             {buttonVisible ?
-                <Button className={"d-flex justify-content-center mb-3 mt-4 bg-dark-blue border-0"} onClick={() => {
+                <Button className={"d-flex justify-content-center mb-3 mt-4 bg-light-blue border-0"} onClick={() => {
                     try {
                         fetchTransaction().then(data => {
                             if (!data.rows.length) {
