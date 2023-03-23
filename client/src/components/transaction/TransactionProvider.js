@@ -15,7 +15,7 @@ const Actions = ({ setButtonVisible, category }) => {
         <>
             <Row>
 
-                <ButtonToolbar className="justify-content-between mb-4" aria-label="Toolbar with button groups">
+                <ButtonToolbar className="justify-content-between mb-3" aria-label="Toolbar with button groups">
                     <Button className='bg-light-blue border-0' onClick={() => {
                         category.setTransactionsSort(category.transactionsSort === "DESC" ? "ASC" : "DESC")
 
@@ -56,7 +56,7 @@ const LoadMore = ({ buttonVisible, setButtonVisible, fetchTransaction }) => {
         <>
 
             {buttonVisible ?
-                <Button className={"d-flex justify-content-center mb-3 mt-4 bg-light-blue border-0"} onClick={() => {
+                <Button className={"d-flex justify-content-center mt-4 bg-light-blue border-0"} onClick={() => {
                     try {
                         fetchTransaction().then(data => {
                             if (!data.rows.length) {
@@ -117,7 +117,7 @@ const Transaction = observer(({ transaction, category, wallet, index, setChangeT
 const TransactionDate = ({ date }) => {
     return (
         <>
-            <h2>{date}</h2>
+            <h3>{date}</h3>
         </>
     )
 }

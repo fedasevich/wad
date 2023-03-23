@@ -23,7 +23,7 @@ const submit = async () => {
       data = await registration(email,password);
     }
     
-user.setUser(user)
+user.setUser(data)
 user.setIsAuth(true)
 console.log(user.isAuth)
 navigate(MAIN_ROUTE)
@@ -64,7 +64,7 @@ navigate(MAIN_ROUTE)
           <h4>Have account? <NavLink to={LOGIN_ROUTE}>Login </NavLink></h4>
         }
 
-        <Button className="align-self-end" onClick={submit}variant={"outline-success"}>
+        <Button className="align-self-end" onClick={submit} variant={"outline-success"}>
           {isLogin ? 'Login':'Register'}
         </Button>
         </Row>
