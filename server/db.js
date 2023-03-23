@@ -1,4 +1,5 @@
 const {Sequelize} = require('sequelize')
+require('pg')
 
 module.exports = new Sequelize(
 process.env.DB_NAME,
