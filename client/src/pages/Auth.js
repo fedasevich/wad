@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 
 import {Button, Card, Container, Form, Row} from "react-bootstrap"
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
@@ -30,10 +30,8 @@ navigate(MAIN_ROUTE)
   } catch(e) {
    alert(e.response.data.message);
   }
-
-
-
 }
+
 
   return (
     <Container className="d-flex justify-content-center align-items-center">
@@ -46,6 +44,7 @@ navigate(MAIN_ROUTE)
         onChange={e => setEmail(e.target.value)}
         type="email"
         name="email"
+        autoFocus={true}
         placeholder="Enter your email..." className="mt-2"
         />
         <Form.Control 
