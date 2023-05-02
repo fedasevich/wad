@@ -22,7 +22,7 @@
     position: relative;
     overflow: auto;
     margin: 0 auto;
-    width: max(33.333%, 300px);
+    width: max(20.333%, min(350px, 90vw));
     transition: 1s all;
 }
 
