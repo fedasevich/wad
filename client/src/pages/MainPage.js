@@ -39,6 +39,8 @@ import WalletWithdraw from '../components/wallet/WalletWithdraw'
       return defaultPage
       case "CREATE_WALLET":
         return "CREATE_WALLET"
+      default:
+        return <Wallets id={id}/> 
   }
 }
 

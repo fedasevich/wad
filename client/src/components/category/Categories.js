@@ -150,7 +150,7 @@ const handleCalculatorModalChange=({categoryId,active})=> {
         <div className="chart">test</div>
 
         <div className="p-4 mb-2 cursor-pointer text-center">
-          <div >
+          <div className='d-flex justify-content-center align-items-center h-100'>
           {otherCategories.length ? 
           <h1 onClick={()=>handleThreeDotsClick()}>...</h1>
           :
@@ -193,8 +193,7 @@ handleGearClick={handleGearClick}
       
       <Button onClick={()=>{ 
 
-      resetAllCategories().
-        then(data=> {
+      resetAllCategories().then(data=> {
           category.setCategories(data)
           setResetCategoriesModal(false)
         })

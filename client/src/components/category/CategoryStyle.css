@@ -1,7 +1,8 @@
 .categories {
     display: grid;
     grid-template-columns: repeat(3,1fr);
-    gap:min(150px,40vh);
+    /* gap:min(150px,40vh); */
+    gap: calc(30vh - 170px) 5vw;
 }
 
 .categories .chart{
@@ -19,3 +20,9 @@
     opacity: 1;
 }
 
+/*responsive*/
+@media screen and (max-width: 768px) {
+    .category .gear {
+        opacity: 1;
+    }
+}
