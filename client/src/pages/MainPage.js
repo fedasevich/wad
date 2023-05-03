@@ -13,6 +13,7 @@ import MenuProvider from '../components/MenuProvider'
 import WalletTransactions from '../components/wallet/WalletTransactions'
 import TransactionsColumn from '../components/transaction/TransactionsColumn'
 import WalletWithdraw from '../components/wallet/WalletWithdraw'
+import NotImplemented from '../components/NotImplemented'
 
 
 
@@ -26,21 +27,21 @@ import WalletWithdraw from '../components/wallet/WalletWithdraw'
     case "EDIT_WALLET":
       return <EditWallet id={id} />
     case "RECHARGE_WALLET":
-      return <EditWallet id={id} />
+      return <NotImplemented/>
     case "BALANCE_WALLET":
-      return <Wallets id={id}/>
+      return <NotImplemented/>
     case "WITHDRAW_WALLET":
       return <WalletWithdraw id={id}/>
     case "TRANSACTIONS_WALLET":
       return <WalletTransactions id={id}/>
     case "TRANSFER_WALLET":
-      return <Wallets id={id}/> 
+      return <NotImplemented/> 
     case "DEFAULT_WALLET":
       return defaultPage
       case "CREATE_WALLET":
         return "CREATE_WALLET"
       default:
-        return <Wallets id={id}/> 
+        return <NotImplemented/>
   }
 }
 
