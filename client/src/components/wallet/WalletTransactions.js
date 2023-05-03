@@ -7,13 +7,12 @@ import Transactions from '../transaction/Transactions'
 import TransactionsWallet from '../transaction/TransactionsWallet'
 
 const WalletTransactions = observer(({id}) => {
-    const { wallet,category } = useContext(Context)
+    const { wallet, category } = useContext(Context)
 
 
     useEffect(()=>{
       try {
-        fetchWalletTransactionByWalletId(category.transactionsPage,category.transactionsLimit,category.transactionsSort,id).
-        then(data=> {
+        fetchWalletTransactionByWalletId(category.transactionsPage,category.transactionsLimit,category.transactionsSort,id).then(data=> {
           category.setTransactions(data.rows)    
          
       })
@@ -22,7 +21,7 @@ const WalletTransactions = observer(({id}) => {
       }
      
   
-    },[id])
+    }, [id, category])
 
     return (
    <>

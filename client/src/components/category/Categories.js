@@ -109,7 +109,7 @@ const handleCalculatorModalChange=({categoryId,active})=> {
                 <Col xs={{span:4,offset:1}} xl={{ span: 4, offset: 1 }}>
                   <h1 className='mt-5 mb-5 fw-bold'>Categories</h1>
                 </Col>
-              <Col xs={{span:4,offset:3}} xl={{span:4,offset:3}}>
+              <Col xs={{span:4,offset:2}} xl={{span:4,offset:3}}>
               <DatePickerProvider dateRange={dateRange} setDateRange={setDateRange}/>
               </Col>
               </Row>
