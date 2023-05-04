@@ -81,7 +81,7 @@ const Transaction = observer(({ transaction, category, wallet, index, setChangeT
     if(transaction.walletId===-1) isDeleted=true;
     return (
         <>
-            <Col md="12" className="d-inline-flex justify-content-between mt-3">
+            <Col md="12" className="d-inline-flex justify-content-between mt-3 w-100">
                 <Card className='border-0 w-100' >
                     <Card.Header className={`bg-none d-flex w-100 justify-content-between border-0 ${isDeleted ? 'text-decoration-line-through':''} `}>
                         <div className="d-flex flex-row align-items-center">

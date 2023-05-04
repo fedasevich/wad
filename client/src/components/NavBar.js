@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite'
 import React, { useContext } from 'react'
 import { Container, Nav } from 'react-bootstrap'
 import { NavLink } from 'react-router-dom'
-import { CATEGORY_ROUTE, LOGIN_ROUTE, MAIN_ROUTE, WALLET_ROUTE } from '../utils/consts'
+import { CATEGORY_ROUTE, LOGIN_ROUTE, MAIN_ROUTE, NOT_IMPLEMENTED_ROUTE, WALLET_ROUTE } from '../utils/consts'
 import { ChartBarIcon, ChartPieIcon, ClipboardTextIcon, CreditCardIcon, GearSixIcon, LogoIcon, SignOutIcon } from '../ui/Icons/NavbarIcons/NavIcons'
 import '../style.css'
 import { Context } from '../index';
@@ -32,15 +32,15 @@ const NavBar = observer(() => {
             </Nav.Item>
             <Nav.Item>
 
-              <NavLink to={WALLET_ROUTE}><ClipboardTextIcon /><span className='d-none d-md-inline'>Transactions</span></NavLink>
+              <NavLink to={NOT_IMPLEMENTED_ROUTE}><ClipboardTextIcon /><span className='d-none d-md-inline'>Transactions</span></NavLink>
             </Nav.Item>
             <Nav.Item>
 
-              <NavLink to={WALLET_ROUTE}> <ChartBarIcon /><span className='d-none d-md-inline'>Analytics</span></NavLink>
+              <NavLink to={NOT_IMPLEMENTED_ROUTE}> <ChartBarIcon /><span className='d-none d-md-inline'>Analytics</span></NavLink>
             </Nav.Item>
             <Nav.Item>
 
-              <NavLink to={WALLET_ROUTE}>  <GearSixIcon /><span className='d-none d-md-inline'>Settings</span></NavLink>
+              <NavLink to={NOT_IMPLEMENTED_ROUTE}>  <GearSixIcon /><span className='d-none d-md-inline'>Settings</span></NavLink>
             </Nav.Item>
 
           </Nav>

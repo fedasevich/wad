@@ -83,7 +83,7 @@ function reducer(page, { operation, id,dispatch }) {
     <PageProvider pageName={selectedPage&& "Categories"}>
 {
 selectedPage ||
-<Col xl={12} className='px-0 px-md-0'>
+<Col xl={12} className='px-0 px-md-0 vh-80'>
   <Categories dispatch={dispatch}/>
   </Col>
 }

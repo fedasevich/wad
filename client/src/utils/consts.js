@@ -3,7 +3,7 @@ export const LOGIN_ROUTE = '/login'
 export const REGESTRATION_ROUTE = '/registration'
 export const CATEGORY_ROUTE = '/category'
 export const WALLET_ROUTE = '/wallet'
-
+export const NOT_IMPLEMENTED_ROUTE = '/not-implemented'
 
 
 export const mainCurrencies = {

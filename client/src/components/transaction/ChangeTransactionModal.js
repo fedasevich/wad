@@ -6,7 +6,7 @@ import { Context } from '../..'
 import { changeTransaction } from '../../http/transactionApi'
 import MenuProvider from '../MenuProvider'
 import Modal from '../modal/modal'
-
+import { getHours, getMinutes } from 'date-fns';
 
 
 const ChangeTransactionModal = observer(({ changeTransactionModal, setChangeTransactionModal, id }) => {
@@ -34,7 +34,7 @@ const selectedTransaction =  category.getTransactionById(id);
             <h6>Description: {selectedTransaction?.description}</h6>
             <h6>Id: {selectedTransaction?.id}</h6>
             <h6>Sum: {selectedTransaction?.sum}</h6>
-           
+            <h6>Time: {getHours(new Date(selectedTransaction?.createdAt))}:{getMinutes(new Date(selectedTransaction?.createdAt))}</h6>
           </MenuProvider.Actions>
           <MenuProvider.Container>
             <div className="d-flex align-items-center flex-column ">

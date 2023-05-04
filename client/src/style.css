@@ -277,6 +277,8 @@ grid-row: 1;
         height: 100%;
     }
 
-
+    .vh-80 {
+        min-height: 80vh;
+    }
 
 }
