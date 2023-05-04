@@ -153,7 +153,7 @@ const Calculator = observer(({walletId,categoryId}) => {
     const {wallet,category} = useContext(Context)
     const [walletModalActive, setWalletModalActive] = useState(false)
     const [categoryModalActive, setCategoryModalActive] = useState(false)
-    const [selectedWallet, setSelectedWallet] = useState({})
+    const [selectedWallet, setSelectedWallet] = useState({name:"", balance: 0, currency:"USD"})
     const [selectedCategory,  setSelectedCategory] = useState({})
     const [{currentOperand='0', previousOperand, operation}, dispatch] = useReducer(reducer, {})
     const [description, setDescription] = useState("")
@@ -162,12 +162,12 @@ const Calculator = observer(({walletId,categoryId}) => {
 
     useEffect(() => {
 setSelectedWallet(wallet.getWalletById(walletId || -1))
-    }, [walletId])
+    }, [walletId, wallet])
 
 
     useEffect(() => {
       setSelectedCategory(category.getCategoryById(categoryId || -1))
-          }, [categoryId])
+          }, [categoryId, category])
 
   return (
     <>
@@ -175,9 +175,9 @@ setSelectedWallet(wallet.getWalletById(walletId || -1))
    
     <div className="calculator">
     <div className="item wallet" onClick={()=> setWalletModalActive(true)}>
-      <h4> {selectedWallet.name}</h4>
+      <h4> {"" ?? selectedWallet.name}</h4>
       {'\n'}
-     <h5>{selectedWallet.balance} {selectedWallet.currency}</h5>
+     <h5>{"" ?? selectedWallet.balance} {"" ?? selectedWallet.currency}</h5>
       </div>
     <div className="item category" onClick={()=> setCategoryModalActive(true)}><h4>{selectedCategory.name}</h4></div>
     <div className="item sum">
