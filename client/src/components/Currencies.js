@@ -26,7 +26,7 @@ const [activeCurrency, setActiveCurrency] = useState(walletDefaultCurrency)
               id={currency.currency}
               name="currency"
               value={currency.symbol}
-              checked={currency.symbol === walletDefaultCurrency}
+              checked={currency.symbol === activeCurrency}
               onChange={(e) => { handleChange(e) }}
               />
               <label className='ms-2 ' htmlFor={currency.currency}> {currency.currency}  </label>
@@ -45,7 +45,7 @@ const [activeCurrency, setActiveCurrency] = useState(walletDefaultCurrency)
           return (
             <div className='d-flex flex-row mb-2' key={currency.symbol}>
 
-              <input checked={currency.symbol === walletDefaultCurrency} type="radio" id={currency.currency} name="currency" value={currency.symbol} onChange={(e) => { handleChange(e) }} />
+              <input checked={currency.symbol === activeCurrency} type="radio" id={currency.currency} name="currency" value={currency.symbol} onChange={(e) => { handleChange(e) }} />
               <label className='ms-2 ' htmlFor={currency.currency}> {currency.currency}  </label>
               <p className='mb-0 ms-auto'>{currency.symbol}</p>
 
