@@ -7,19 +7,20 @@ import AppRouter from './components/AppRouter';
 import './style.css';
 import { fetchCategory } from './http/categoryApi';
 import { fetchWallet } from './http/walletApi';
+import ErrorBoundary from './components/ErrorBoundary';
 
 
 
 const App = observer(() => {
-  const { user,category,wallet } = useContext(Context)
+  const { user, category, wallet } = useContext(Context)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     check().then(data => {
       user.setUser(data)
       user.setIsAuth(true)
-      fetchCategory().then(data=> category.setCategories(data))
-      fetchWallet().then(data => {wallet.setWallet(data)})
+      fetchCategory().then(data => category.setCategories(data))
+      fetchWallet().then(data => { wallet.setWallet(data) })
     }).finally(() => setLoading(false))
   }, [])
 
@@ -29,10 +30,11 @@ const App = observer(() => {
 
   return (
     <>
-
-      <BrowserRouter>
-        <AppRouter />
-      </BrowserRouter>
+      <ErrorBoundary>
+        <BrowserRouter>
+          <AppRouter />
+        </BrowserRouter>
+      </ErrorBoundary>
     </>
   );
 })
