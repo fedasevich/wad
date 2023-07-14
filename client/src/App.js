@@ -1,13 +1,13 @@
 import { observer } from 'mobx-react-lite';
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { Context } from './index';
-import { check } from './http/userApi';
 import AppRouter from './components/AppRouter';
-import './style.css';
-import { fetchCategory } from './http/categoryApi';
-import { fetchWallet } from './http/walletApi';
 import ErrorBoundary from './components/ErrorBoundary';
+import { fetchCategory } from './http/categoryApi';
+import { check } from './http/userApi';
+import { fetchWallet } from './http/walletApi';
+import { Context } from './index';
+import './style.css';
 
 
 
