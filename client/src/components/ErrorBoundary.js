@@ -1,23 +1,30 @@
-import React, { useState } from 'react'
-export default class ErrorBoundary extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { hasError: false, errorMessage: "" };
-  }
+import React, { Component } from "react";
 
-  static getDerivedStateFromError(error) {
-    return { hasError: true, errorMessage: error };
-  }
+class ErrorBoundary extends Component {
+  state = {
+    hasError: false,
+    error: null,
+  };
 
   componentDidCatch(error, errorInfo) {
-    alert(JSON.stringify(error) + " " + JSON.stringify(errorInfo));
+    this.setState({
+      hasError: true,
+      error,
+    });
   }
 
   render() {
     if (this.state.hasError) {
-      return <h1>Something went wrong. {this.state.errorMessage}</h1>;
+      return (
+        <div>
+          <h1>An error occurred</h1>
+          <pre>{this.state.error.message}</pre>
+        </div>
+      );
+    } else {
+      return this.props.children;
     }
-
-    return this.props.children; 
   }
 }
+
+export default ErrorBoundary;
