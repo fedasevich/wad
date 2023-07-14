@@ -1,11 +1,11 @@
-import React, { useContext, useEffect, useState, } from 'react'
-import { Context } from '../..'
+import React, { useContext, useEffect, useRef, useState, } from 'react';
+import { Context } from '../..';
 
 
 import { DispatchContext } from '../../pages/MainPage';
 import { DeleteIcon } from '../../ui/Icons/ControlIcons/ControlIcons';
 import Currencies from '../Currencies';
-import MenuProvider from '../MenuProvider'
+import MenuProvider from '../MenuProvider';
 
 
 
@@ -18,7 +18,7 @@ const EditWallet = ({ id }) => {
     currency: "",
     balance: "",
   })
-
+  const scrollRef = useRef(null);
 
   const eraseState = () => {
     setEditWallet({
@@ -36,6 +36,12 @@ const EditWallet = ({ id }) => {
   useEffect(() => {
     eraseState()
   }, [id])
+
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [])
 
   const handleCommit = () => {
     wallet.editWallet(id, editWallet.currency, editWallet.name, editWallet.balance)
@@ -69,27 +75,23 @@ const EditWallet = ({ id }) => {
   }
 
   return (
-    <>
-      <MenuProvider>
-        <MenuProvider.Actions close={handleClose} commit={handleCommit}>
-          <h5>Edit wallet</h5>
-          <h6>Wallet: {wallet.getWalletById(id).name}</h6>
-        </MenuProvider.Actions>
+    <MenuProvider>
+      <MenuProvider.Actions close={handleClose} commit={handleCommit}>
+        <h5 ref={scrollRef} className='scroll-margin'>Edit wallet</h5>
+        <h6>Wallet: {wallet.getWalletById(id).name}</h6>
+      </MenuProvider.Actions>
 
-        <MenuProvider.Container className="d-flex flex-column">
-          <label className='mb-2' htmlFor="name">Enter new name:</label>
-          <input className='mb-2 component-half-border-radius' type="text" name='name' onKeyDown={handleKeyDown} value={editWallet.name} onChange={handleChange} />
+      <MenuProvider.Container className="d-flex flex-column">
+        <label className='mb-2' htmlFor="name">Enter new name:</label>
+        <input className='mb-2 component-half-border-radius' type="text" name='name' onKeyDown={handleKeyDown} value={editWallet.name} onChange={handleChange} />
+        <label className='mb-2' htmlFor="balance">Enter new balance:</label>
+        <input className='mb-2 component-half-border-radius' type="number" name='balance' onKeyDown={handleKeyDown} value={editWallet.balance} onChange={handleChange} />
+        <h4 className='mb-2' >Choose new currency:</h4>
+        <Currencies setCurrency={handleChange} walletDefaultCurrency={wallet.getWalletById(id).currency} />
 
-
-          <label className='mb-2' htmlFor="balance">Enter new balance:</label>
-          <input className='mb-2 component-half-border-radius' type="number" name='balance' onKeyDown={handleKeyDown} value={editWallet.balance} onChange={handleChange} />
-          <h4 className='mb-2' >Choose new currency:</h4>
-          <Currencies setCurrency={handleChange} walletDefaultCurrency={wallet.getWalletById(id).currency} />
-
-          <h6 onDoubleClick={() => handleDoubleClick(id)} className='text-danger mb-0 btn' ><DeleteIcon /> Delete wallet</h6>
-        </MenuProvider.Container>
-      </MenuProvider>
-    </>
+        <h6 onDoubleClick={() => handleDoubleClick(id)} className='text-danger mb-0 btn' ><DeleteIcon /> Delete wallet</h6>
+      </MenuProvider.Container>
+    </MenuProvider>
   )
 
 
