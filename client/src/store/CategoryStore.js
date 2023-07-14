@@ -197,7 +197,7 @@ export default class CategoryStore {
     const startDate = dateRange[0].startDate.toISOString();
     const endDate = dateRange[0].endDate.toISOString();
 
-    fetchCategoryPeriod(startDate, endDate)
+    return fetchCategoryPeriod(startDate, endDate)
       .then(data => {
         if (!data) {
           return;
