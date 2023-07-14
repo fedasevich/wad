@@ -1,10 +1,10 @@
 import { observer } from 'mobx-react-lite'
 import React, { useState } from 'react'
-import { mainCurrencies, cryptoCurrencies } from '../utils/consts'
+import { cryptoCurrencies, mainCurrencies } from '../utils/constants'
 
 
 const Currencies = observer(({ setCurrency, walletDefaultCurrency }) => {
-const [activeCurrency, setActiveCurrency] = useState(walletDefaultCurrency)
+  const [activeCurrency, setActiveCurrency] = useState(walletDefaultCurrency)
 
 
   const handleChange = (event) => {
@@ -22,12 +22,12 @@ const [activeCurrency, setActiveCurrency] = useState(walletDefaultCurrency)
           return (
             <div className='d-flex flex-row mb-2' key={currency.symbol}>
               <input
-              type="radio"
-              id={currency.currency}
-              name="currency"
-              value={currency.symbol}
-              checked={currency.symbol === activeCurrency}
-              onChange={(e) => { handleChange(e) }}
+                type="radio"
+                id={currency.currency}
+                name="currency"
+                value={currency.symbol}
+                checked={currency.symbol === activeCurrency}
+                onChange={(e) => { handleChange(e) }}
               />
               <label className='ms-2 ' htmlFor={currency.currency}> {currency.currency}  </label>
               <p className='mb-0 ms-auto'>{currency.symbol}</p>

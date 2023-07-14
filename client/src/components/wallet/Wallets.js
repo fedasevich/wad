@@ -1,12 +1,11 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { observer } from 'mobx-react-lite'
-import { Card, Col, Row, Button, Accordion, useAccordionButton } from 'react-bootstrap';
-import { Context } from '../../index';
-import { createWallet, fetchWallet } from '../../http/walletApi';
-import Modal from '../modal/modal';
-import WalletActions from './WalletActions';
-import {DispatchContext} from '../../pages/MainPage';
 import { runInAction } from 'mobx';
+import { observer } from 'mobx-react-lite';
+import React, { useContext, useEffect, useState } from 'react';
+import { Accordion, Card, Col, Row, useAccordionButton } from 'react-bootstrap';
+import { fetchWallet } from '../../http/walletApi';
+import { Context } from '../../index';
+import { DispatchContext } from '../../pages/MainPage';
+import WalletActions from './WalletActions';
 
 
 function WalletToggle({ children, eventKey }) {
@@ -30,10 +29,10 @@ const Wallets = observer(() => {
   useEffect(() => {
     try {
       fetchWallet().then(data => {
-        runInAction(()=>{
+        runInAction(() => {
           wallet.setWallet(data)
         })
-    
+
       })
     } catch (e) {
       alert(e.response.data.message);
