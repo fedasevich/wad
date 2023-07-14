@@ -7,7 +7,7 @@ import { icons as categoryIcons } from '../../ui/Icons/CategoryIcons/CategoryIco
 ChartJS.register(ArcElement, Tooltip);
 
 const parseCategoriesIcons = (categories) =>
-  categories.map(category => categoryIcons.find((icon) => icon.id === category.iconId).backgroundColor);
+  categories.map(category => categoryIcons.find((icon) => icon.id === (category.iconId || 1)).backgroundColor);
 
 
 const CategoriesChart = observer(() => {
