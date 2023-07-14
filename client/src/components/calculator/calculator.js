@@ -1,15 +1,12 @@
-import React, { useState, useRef, useReducer, useContext, useEffect } from 'react'
-import { useOnClickOutside } from './Hooks/useOnClickOutside';
-import "./CalculatorStyle.css"
-import { ACTIONS, BACK_SYMBOL, DIVIDE_SYMBOL, EVALUATE_SYMBOL, INTEGER_FORMATTER, MULTIPLY_SYMBOL, SUBMIT_SYMBOL } from './utils/consts';
+import { observer } from 'mobx-react-lite';
+import React, { useContext, useEffect, useReducer, useState } from 'react';
+import { Context } from '../..';
+import CalculatorCategoryModal from './CalculatorCategoryModal';
+import "./CalculatorStyle.css";
+import CalculatorWalletModal from './CalculatorWalletModal';
 import DigitButton from './DigitButtons';
 import OperationButton from './OperationDigit';
-import { Context } from '../..';
-import Modal from '../modal/modal';
-import { createTransaction } from '../../http/transactionApi';
-import { observer } from 'mobx-react-lite';
-import CalculatorWalletModal from './CalculatorWalletModal';
-import CalculatorCategoryModal from './CalculatorCategoryModal';
+import { ACTIONS, BACK_SYMBOL, DIVIDE_SYMBOL, EVALUATE_SYMBOL, INTEGER_FORMATTER, MULTIPLY_SYMBOL, SUBMIT_SYMBOL } from './utils/constants';
 
 
 
@@ -39,16 +36,15 @@ function reducer(state, { type, payload }) {
       if (Object.keys(state).length === 0) {
         return state
       }
-      if (state.currentOperand == null && state.previousOperand === null || state.currentOperand === '0') {
-
+      if ((state.currentOperand === null && state.previousOperand === null) || state.currentOperand === '0') {
         return state
       }
 
-      if (state.currentOperand == '0') {
+      if (state.currentOperand === '0') {
 
         return state
       }
-      if (state.previousOperand == null) {
+      if (state.previousOperand === null) {
         return {
           ...state,
           operation: payload.operation,
@@ -56,7 +52,7 @@ function reducer(state, { type, payload }) {
           currentOperand: null
         }
       }
-      if (state.currentOperand == null) {
+      if (state.currentOperand === null) {
 
         return {
           ...state,
@@ -71,7 +67,7 @@ function reducer(state, { type, payload }) {
         currentOperand: null
       }
     case ACTIONS.EVALUATE:
-      if (state.operation == null || state.operation == null || state.previousOperand == null) {
+      if (state.operation === null || state.operation === null || state.previousOperand === null) {
         return state
       }
       return {
@@ -89,7 +85,7 @@ function reducer(state, { type, payload }) {
           currentOperand: "0"
         }
       }
-      if (state.currentOperand == null || state.currentOperand == "0") return state
+      if (state.currentOperand == null || state.currentOperand === "0") return state
       if (state.currentOperand.length === 1) {
         return {
           ...state,
@@ -138,13 +134,15 @@ function evaluate({ currentOperand, previousOperand, operation }) {
       computation = previous * current
       break
     case DIVIDE_SYMBOL:
-      if (current == 0) {
+      if (current === 0) {
         return "0"
       }
       computation = previous / current
       break
+    default:
+      break;
   }
-  return computation % 1 == 0 ? computation.toString() : computation.toFixed(2).toString()
+  return computation % 1 === 0 ? computation.toString() : computation.toFixed(2).toString()
 }
 
 
@@ -155,19 +153,18 @@ const Calculator = observer(({ walletId, categoryId }) => {
   const [walletModalActive, setWalletModalActive] = useState(false)
   const [categoryModalActive, setCategoryModalActive] = useState(false)
   const [selectedWallet, setSelectedWallet] = useState({ name: "", balance: "", currency: "", id: 0 })
-  const [selectedCategory, setSelectedCategory] = useState({name: ""})
+  const [selectedCategory, setSelectedCategory] = useState({ name: "" })
   const [{ currentOperand = '0', previousOperand, operation }, dispatch] = useReducer(reducer, {})
   const [description, setDescription] = useState("")
 
 
-
   useEffect(() => {
-    setSelectedWallet(wallet.getWalletById(walletId || -1))
+    setSelectedWallet(wallet.getWalletById(walletId || -1) || { name: "", balance: "", currency: "", id: 0 })
   }, [walletId, wallet])
 
 
   useEffect(() => {
-    setSelectedCategory(category.getCategoryById(categoryId || -1))
+    setSelectedCategory(category.getCategoryById(categoryId || -1) || { name: "" })
   }, [categoryId, category])
 
   return (
