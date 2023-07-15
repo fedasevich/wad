@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { Suspense, useContext, useEffect, useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import AppRouter from './components/AppRouter';
 import ErrorBoundary from './components/ErrorBoundary';
@@ -16,6 +16,9 @@ const App = observer(() => {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    if (!localStorage.getItem('token')) {
+      return setLoading(false)
+    }
     check().then(data => {
       user.setUser(data)
       user.setIsAuth(true)
@@ -32,7 +35,9 @@ const App = observer(() => {
     <>
       <ErrorBoundary>
         <BrowserRouter>
-          <AppRouter />
+          <Suspense fallback={<div>Loading...</div>}>
+            <AppRouter />
+          </Suspense>
         </BrowserRouter>
       </ErrorBoundary>
     </>
