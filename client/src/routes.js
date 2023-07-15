@@ -1,8 +1,9 @@
-import NotImplemented from "./components/NotImplemented"
-import Auth from "./pages/Auth"
-import Category from "./pages/Category"
-import MainPage from "./pages/MainPage"
-import { CATEGORY_ROUTE, LOGIN_ROUTE, MAIN_ROUTE, NOT_IMPLEMENTED_ROUTE, REGISTRATION_ROUTE } from "./utils/constants"
+import { lazy } from "react";
+import { CATEGORY_ROUTE, LOGIN_ROUTE, MAIN_ROUTE, NOT_IMPLEMENTED_ROUTE, REGISTRATION_ROUTE } from "./utils/constants";
+const MainPage = lazy(() => import('./pages/MainPage'));
+const Category = lazy(() => import('./pages/Category'));
+const Auth = lazy(() => import('./pages/Auth'));
+const NotImplemented = lazy(() => import('./components/NotImplemented'));
 
 export const authRoutes = [
     {
