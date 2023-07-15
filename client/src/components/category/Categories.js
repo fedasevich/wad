@@ -144,7 +144,7 @@ const Categories = observer(() => {
         }
       </Suspense>
 
-      <Suspense fallback={<h2>Loading</h2>}>
+      <Suspense >
         {calculatorModal.active &&
           <CategoryCalculatorModal
             categoryId={calculatorModal.categoryId}
