@@ -119,6 +119,12 @@ export default class CategoryStore {
     return this.transactions.find((transaction) => transaction.id === id)
   }
 
+
+  getRegularCategoryById = (id) => {
+    if (id === -1) return this.categories[0]
+    return this.categories.find((category) => category.id === id)
+  }
+
   getCategoryById = (id) => {
     if (id === -1) return this.parsedCategories[0]
     return this.parsedCategories.find((category) => category.id === id)
@@ -197,7 +203,7 @@ export default class CategoryStore {
     const startDate = dateRange[0].startDate.toISOString();
     const endDate = dateRange[0].endDate.toISOString();
 
-    fetchCategoryPeriod(startDate, endDate)
+    return fetchCategoryPeriod(startDate, endDate)
       .then(data => {
         if (!data) {
           return;

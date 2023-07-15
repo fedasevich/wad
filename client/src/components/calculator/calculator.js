@@ -148,7 +148,6 @@ function evaluate({ currentOperand, previousOperand, operation }) {
 
 
 const Calculator = observer(({ walletId, categoryId }) => {
-
   const { wallet, category } = useContext(Context)
   const [walletModalActive, setWalletModalActive] = useState(false)
   const [categoryModalActive, setCategoryModalActive] = useState(false)
@@ -164,7 +163,7 @@ const Calculator = observer(({ walletId, categoryId }) => {
 
 
   useEffect(() => {
-    setSelectedCategory(category.getCategoryById(categoryId || -1) || { name: "" })
+    setSelectedCategory(category.getRegularCategoryById(categoryId || -1) || { name: "" })
   }, [categoryId, category])
 
   return (
