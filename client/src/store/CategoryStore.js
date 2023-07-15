@@ -119,6 +119,12 @@ export default class CategoryStore {
     return this.transactions.find((transaction) => transaction.id === id)
   }
 
+
+  getRegularCategoryById = (id) => {
+    if (id === -1) return this.categories[0]
+    return this.categories.find((category) => category.id === id)
+  }
+
   getCategoryById = (id) => {
     if (id === -1) return this.parsedCategories[0]
     return this.parsedCategories.find((category) => category.id === id)

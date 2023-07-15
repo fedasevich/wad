@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { Suspense, lazy, useContext, useEffect, useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { Context } from '../../index';
 
@@ -11,12 +11,12 @@ import { fetchCategory } from '../../http/categoryApi';
 import { CategoryDispatchContext } from '../../pages/Category';
 import { Icons } from '../../ui/Icons/CategoryIcons/CategoryIcons';
 import { SettingsBackgroundIcon } from '../../ui/Icons/ControlIcons/ControlIcons';
-import DatePickerProvider from '../DatePickerProvider';
+import DatePickerProvider from '../date-picker/DatePickerProvider';
 import CategoriesChart from './CategoriesChart';
-import CategoryCalculatorModal from './CategoryCalculatorModal';
-import CategoryOtherCategoryModal from './CategoryOtherCategoryModal';
 import "./CategoryStyle.css";
 
+const CategoryCalculatorModal = lazy(() => import('./CategoryCalculatorModal'));
+const CategoryOtherCategoryModal = lazy(() => import('./CategoryOtherCategoryModal'));
 
 const MAIN_CATEGORIES_LENGTH = 7
 
@@ -131,17 +131,28 @@ const Categories = observer(() => {
           </div>
         </div>
       </div >
+      <Suspense fallback={<h2>Loading</h2>}>
+        {otherCategoriesModal &&
+          <CategoryOtherCategoryModal
+            otherCategories={otherCategories}
+            otherCategoriesModal={otherCategoriesModal}
+            setOtherCategoriesModal={setOtherCategoriesModal}
+            setCalculatorModal={handleCalculatorModalChange}
+            dispatch={dispatch}
+            handleGearClick={handleGearClick}
+          />
+        }
+      </Suspense>
 
-      <CategoryOtherCategoryModal
-        otherCategories={otherCategories}
-        otherCategoriesModal={otherCategoriesModal}
-        setOtherCategoriesModal={setOtherCategoriesModal}
-        setCalculatorModal={handleCalculatorModalChange}
-        dispatch={dispatch}
-        handleGearClick={handleGearClick}
-      />
-
-      <CategoryCalculatorModal categoryId={calculatorModal.categoryId} calculatorModal={calculatorModal.active} setCalculatorModal={setCalculatorModal} />
+      <Suspense fallback={<h2>Loading</h2>}>
+        {calculatorModal.active &&
+          <CategoryCalculatorModal
+            categoryId={calculatorModal.categoryId}
+            calculatorModal={calculatorModal.active}
+            setCalculatorModal={setCalculatorModal}
+          />
+        }
+      </Suspense>
     </>
   );
 });

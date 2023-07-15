@@ -1,12 +1,14 @@
 import { addDays, addMonths, endOfDay, endOfMonth, endOfWeek, endOfYear, format, fromUnixTime, lastDayOfWeek, startOfDay, startOfMonth, startOfWeek, startOfYear, subDays, subMonths, subYears } from 'date-fns'
 import { addYears } from 'date-fns/esm'
 import { observer } from 'mobx-react-lite'
-import React, { useContext, useEffect, useState } from 'react'
-import { DateRange } from 'react-date-range'
-import { Context } from '..'
-import { ArrowLeftIcon, ArrowRightIcon, WalletIcon } from "../ui/Icons/ControlIcons/ControlIcons"
-import MenuProvider from './MenuProvider'
-import Modal from './modal/modal'
+import React, { Suspense, lazy, useContext, useEffect, useState } from 'react'
+import { Context } from '../..'
+import { ArrowLeftIcon, ArrowRightIcon, WalletIcon } from "../../ui/Icons/ControlIcons/ControlIcons"
+import MenuProvider from '../MenuProvider'
+import Modal from '../modal/modal'
+
+import './style.css'
+const DateRange = lazy(() => import('react-date-range').then(module => ({ default: module.DateRange })));
 
 const DatePickerProvider = observer(({ dateRange, setDateRange }) => {
   const [datePickerModal, setDatePickerModal] = useState(false)
@@ -23,9 +25,7 @@ const DatePickerProvider = observer(({ dateRange, setDateRange }) => {
         action: action
       }
     ])
-    setDateToPrint(() => {
-      return print
-    })
+    setDateToPrint(print)
   }
 
 
@@ -130,15 +130,18 @@ const DatePickerProvider = observer(({ dateRange, setDateRange }) => {
     }
   };
 
+  const handleDateRangePickerChange = (item) => {
+    setDateRange([{ ...item.selection, action: 'all-time' }])
+    setDateToPrint('custom range');
+  }
+
   return (
     <>
-
-      <div className="d-flex mt-5 fw-medium justify-content-evenly cursor-pointer" >
+      <div className="d-flex mt-5 fw-medium justify-content-evenly cursor-pointer align-items-center" >
         {dateRange[0].action !== 'all-time' &&
           <span onClick={handleArrowLeftClick}>
             <ArrowLeftIcon />
           </span>}
-
 
         <h3 onClick={() => {
           setDatePickerModal(true)
@@ -147,16 +150,10 @@ const DatePickerProvider = observer(({ dateRange, setDateRange }) => {
           <span onClick={handleArrowRightClick}>
             <ArrowRightIcon />
           </span>}
-
       </div>
-
       <Modal active={datePickerModal} setActive={setDatePickerModal}>
-
         <MenuProvider.Container >
-
-
           <div className="date-picker ">
-
             <div className="item item-wide" onClick={handleSelectRangeClick}>
               <WalletIcon /> <h4>Select range</h4>
             </div>
@@ -178,28 +175,27 @@ const DatePickerProvider = observer(({ dateRange, setDateRange }) => {
             <div className="item" onClick={handleMonthClick}>
               <WalletIcon /> <h4 className='mt-2'>Month</h4>
             </div>
-
           </div>
         </MenuProvider.Container>
-
-
-
       </Modal>
 
-
-      <Modal active={dateRangeModal} setActive={setDateRangeModal}>
-        <MenuProvider.Container>
-          <DateRange
-            editableDateInputs={true}
-            onChange={item => setDateRange([item.selection])}
-            moveRangeOnFirstSelection={false}
-            ranges={dateRange}
-          />
-
-        </MenuProvider.Container>
-      </Modal>
+      {dateRangeModal &&
+        <Modal active={dateRangeModal} setActive={setDateRangeModal}>
+          <MenuProvider.Container>
+            <Suspense fallback={<h2>Loading</h2>}>
+              <div className="w-100 d-flex justify-content-center">
+                <DateRange
+                  editableDateInputs={true}
+                  onChange={handleDateRangePickerChange}
+                  moveRangeOnFirstSelection={false}
+                  ranges={dateRange}
+                />
+              </div>
+            </Suspense>
+          </MenuProvider.Container>
+        </Modal>
+      }
     </>
-
   )
 })
 
