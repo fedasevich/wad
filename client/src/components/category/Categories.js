@@ -43,13 +43,13 @@ const Categories = observer(() => {
 
   useEffect(() => {
     try {
-      Promise.all([fetchCategory(), category.fetchCategoryPeriod(dateRange)])
-        .then(([categoryData]) => {
+      fetchCategory()
+        .then((categoryData) => {
           runInAction(() => {
             category.setCategories(categoryData);
           });
         })
-        // this is required to run them sequentially 
+        // this is required to run then sequentially 
         .then(async () => {
           await category.fetchCategoryPeriod(dateRange).finally(() => setLoading(false))
         })
