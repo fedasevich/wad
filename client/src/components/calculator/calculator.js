@@ -44,7 +44,7 @@ function reducer(state, { type, payload }) {
 
         return state
       }
-      if (state.previousOperand === null) {
+      if (state.previousOperand == null) {
         return {
           ...state,
           operation: payload.operation,
