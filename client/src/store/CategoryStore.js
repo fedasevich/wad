@@ -87,7 +87,7 @@ export default class CategoryStore {
           runInAction(() => {
             this.transactions.unshift(data)
             selectedWallet.balance -= parseFloat(currentOperand)
-            selectedCategory.spent += parseFloat(currentOperand)
+            this.getCategoryById(selectedCategory.id).spent += parseFloat(currentOperand)
           })
         })
     } catch (e) {
