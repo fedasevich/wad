@@ -37,3 +37,6 @@ export const categoryIconsColors = {
     HEALTH: '#7AAFFC',
     GROCERIES: '#88E268'
 }
+
+
+export const TRANSACTION_LIMITS = [5, 10, 20, 30]
