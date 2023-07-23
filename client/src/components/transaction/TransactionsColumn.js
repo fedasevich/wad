@@ -6,16 +6,14 @@ import Transactions from './Transactions'
 const TransactionsColumn = observer(() => {
   return (
     <MenuProvider>
-    <MenuProvider.Header>
-      <h3 className='fw-bold'>Recent activity</h3> 
-
+      <MenuProvider.Header>
+        <h3 className='fw-bold'>Recent activity</h3>
       </MenuProvider.Header>
-    
-    <MenuProvider.Container className="d-flex flex-column">
-    <Transactions actions={true}/>
-       </MenuProvider.Container>
-  </MenuProvider> 
 
+      <MenuProvider.Container className="d-flex flex-column">
+        <Transactions actions={true} />
+      </MenuProvider.Container>
+    </MenuProvider>
   )
 })
 

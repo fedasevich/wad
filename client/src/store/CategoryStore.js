@@ -101,7 +101,7 @@ export default class CategoryStore {
         .then(() => {
           runInAction(() => {
             const transaction = this.getTransactionById(transactionId)
-            const category = this.getCategoryById(categoryId)
+            const category = this.getCategoryById(categoryId) || this.getRegularCategoryById(categoryId)
             if (walletId !== -1) {
               const foundWallet = wallet.getWalletById(walletId)
               foundWallet.balance += parseFloat(transaction.sum)
@@ -131,7 +131,7 @@ export default class CategoryStore {
   }
 
   getIconIdFromCategoryById = (id) => {
-    const findCategory = this.getCategoryById(id)
+    const findCategory = this.getRegularCategoryById(id)
     return findCategory?.iconId
   }
 
