@@ -1,17 +1,17 @@
 :root {
-    --main-blue: #7aaffc;
-    --light-blue: #8fcaf5;
-    --dark-blue: #192850;
-    --secondary-blue: #4a90ff;
-    --anakiwa: #a7cbff;
-    --cyan: #75deff;
-    --text-color-white: #fff;
-    --text-color-hover: #dbdbdb;
-    --background-grey: #f4f4f4;
-    --background-grey-light: #d9d9d9;
-    --component-shadow: 0px 30px 45px rgba(21, 21, 21, 0.1);
-    --component-border-radius: 20px;
-    --component-padding: 25px;
+  --main-blue: #7aaffc;
+  --light-blue: #8fcaf5;
+  --dark-blue: #192850;
+  --secondary-blue: #4a90ff;
+  --anakiwa: #a7cbff;
+  --cyan: #75deff;
+  --text-color-white: #fff;
+  --text-color-hover: #dbdbdb;
+  --background-grey: #f4f4f4;
+  --background-grey-light: #d9d9d9;
+  --component-shadow: 0px 30px 45px rgba(21, 21, 21, 0.1);
+  --component-border-radius: 20px;
+  --component-padding: 25px;
 }
 
 h1,
@@ -20,254 +20,254 @@ h3,
 h4,
 h5,
 h6 {
-    margin-bottom: 0;
+  margin-bottom: 0;
 }
 
 .bg-main-blue {
-    background-color: var(--main-blue);
+  background-color: var(--main-blue);
 }
 
 .bg-light-blue {
-    background-color: var(--light-blue);
+  background-color: var(--light-blue);
 }
 
 .bg-dark-blue {
-    background-color: var(--dark-blue);
+  background-color: var(--dark-blue);
 }
 
 .bg-secondary-blue {
-    background-color: var(--secondary-blue);
+  background-color: var(--secondary-blue);
 }
 
 .bg-cyan {
-    background-color: var(--cyan);
+  background-color: var(--cyan);
 }
 
 .bg-grey {
-    background-color: var(--background-grey);
+  background-color: var(--background-grey);
 }
 
 .bg-none {
-    background-color: unset !important;
+  background-color: unset !important;
 }
 
 .component-shadow {
-    box-shadow: var(--component-shadow);
+  box-shadow: var(--component-shadow);
 }
 
 .component-border-radius {
-    border-radius: var(--component-border-radius);
+  border-radius: var(--component-border-radius);
 }
 
 .component-half-border-radius {
-    border-radius: calc(var(--component-border-radius) / 2);
+  border-radius: calc(var(--component-border-radius) / 2);
 }
 
 .component-one-third-border-radius {
-    border-radius: calc(var(--component-border-radius) / 3);
+  border-radius: calc(var(--component-border-radius) / 3);
 }
 
 .component-one-third-border-radius-bottom {
-    border-bottom-left-radius: calc(var(--component-border-radius) / 3);
-    border-bottom-right-radius: calc(var(--component-border-radius) / 3);
+  border-bottom-left-radius: calc(var(--component-border-radius) / 3);
+  border-bottom-right-radius: calc(var(--component-border-radius) / 3);
 }
 
 .component-none-border-radius-bottom {
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 .cursor-pointer {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .vh-50 {
-    height: 50vh;
+  height: 50vh;
 }
 
 .w-fit-content {
-    width: fit-content;
+  width: fit-content;
 }
 
 .h-fit-content {
-    height: fit-content;
+  height: fit-content;
 }
 
 @font-face {
-    font-family: Poppins-Medium;
-    src: url(./ui/fonts/Poppins-Medium.ttf);
+  font-family: Poppins-Medium;
+  src: url(./ui/fonts/Poppins-Medium.ttf);
 }
 
 @font-face {
-    font-family: Poppins-Light;
-    src: url(./ui/fonts/Poppins-Light.ttf);
+  font-family: Poppins-Light;
+  src: url(./ui/fonts/Poppins-Light.ttf);
 }
 
 @font-face {
-    font-family: Poppins-Bold;
-    src: url(./ui/fonts/Poppins-Bold.ttf);
+  font-family: Poppins-Bold;
+  src: url(./ui/fonts/Poppins-Bold.ttf);
 }
 
 .fw-medium {
-    font-family: Poppins-Medium;
+  font-family: Poppins-Medium, sans-serif;
 }
 
 .fw-light {
-    font-family: Poppins-Light;
+  font-family: Poppins-Light, sans-serif;
 }
 
 .fw-bold {
-    font-family: Poppins-Bold;
+  font-family: Poppins-Bold, sans-serif;
 }
 
 .desktop-height-100vh {
-    height: max(100vh, 100%);
+  height: max(100vh, 100%);
 }
 
 /* Scroll */
 
 .scroll-margin {
-    scroll-margin-top: 2rem;
+  scroll-margin-top: 2rem;
 }
 
 ::-webkit-scrollbar {
-    width: 8px;
+  width: 8px;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-    background: #fff;
+  background: #fff;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: #888;
-    border-radius: var(--component-border-radius);
+  background: #888;
+  border-radius: var(--component-border-radius);
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-    background: #555;
+  background: #555;
 }
 
 /*Navbar*/
 
 .nav-item a {
-    color: var(--text-color-white);
-    text-decoration: none;
+  color: var(--text-color-white);
+  text-decoration: none;
 }
 
 .nav-item a span {
-    margin-left: 10px;
+  margin-left: 10px;
 }
 
 .nav-item {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .nav-item:hover a {
-    color: var(--text-color-hover);
-    text-decoration: none;
+  color: var(--text-color-hover);
+  text-decoration: none;
 }
 
 .nav-item:hover svg path {
-    stroke: var(--text-color-hover);
+  stroke: var(--text-color-hover);
 }
 
 .nav-item .active span:after {
-    content: '';
-    display: block;
-    width: 100%;
-    height: 2px;
-    padding-bottom: 0px;
-    background-color: var(--text-color-white);
-    margin-top: 8px;
-    z-index: 1;
-    transition: all 0.9s linear;
+  content: '';
+  display: block;
+  width: 100%;
+  height: 2px;
+  padding-bottom: 0px;
+  background-color: var(--text-color-white);
+  margin-top: 8px;
+  z-index: 1;
+  transition: all 0.9s linear;
 }
 
 /*wallet*/
 
 .wallet .card {
-    border-radius: var(--component-border-radius);
-    border: 0;
-    background-color: var(--text-color-white);
+  border-radius: var(--component-border-radius);
+  border: 0;
+  background-color: var(--text-color-white);
 }
 
 .wallet .card-header {
-    padding: var(--component-padding);
-    color: var(--text-color-white);
-    border-radius: var(--component-border-radius);
-    background-color: var(--secondary-blue);
+  padding: var(--component-padding);
+  color: var(--text-color-white);
+  border-radius: var(--component-border-radius);
+  background-color: var(--secondary-blue);
 }
 
 .wallet .accordion {
-    border-radius: var(--component-border-radius);
+  border-radius: var(--component-border-radius);
 }
 
 .wallet:nth-child(even) .card-header {
-    background-color: var(--dark-blue);
+  background-color: var(--dark-blue);
 }
 
 .wallet:nth-child(3n) .card-header {
-    background-color: var(--cyan);
+  background-color: var(--cyan);
 }
 
 /*menu*/
 
 .menu {
-    background-color: var(--text-color-white);
-    border-radius: var(--component-border-radius);
-    box-shadow: var(--component-shadow);
-    font-family: Poppins-Medium;
+  background-color: var(--text-color-white);
+  border-radius: var(--component-border-radius);
+  box-shadow: var(--component-shadow);
+  font-family: Poppins-Medium, sans-serif;
 }
 
 .menu-colored-header {
-    color: var(--text-color-white);
-    padding: var(--component-padding);
+  color: var(--text-color-white);
+  padding: var(--component-padding);
 }
 
 .menu-header {
-    padding-left: var(--component-padding);
-    padding-right: var(--component-padding);
-    padding-top: var(--component-padding);
-    padding-bottom: 0;
+  padding-left: var(--component-padding);
+  padding-right: var(--component-padding);
+  padding-top: var(--component-padding);
+  padding-bottom: 0;
 }
 
 .menu-container {
-    padding: var(--component-padding);
+  padding: var(--component-padding);
 }
 
 /* date picker modal */
 
 .date-picker {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
 
-    border-radius: var(--component-border-radius);
-    background-color: var(--background-grey-light);
+  border-radius: var(--component-border-radius);
+  background-color: var(--background-grey-light);
 }
 
 .date-picker .item {
-    text-align: center;
-    cursor: pointer;
-    background-color: white;
-    padding: var(--component-padding);
+  text-align: center;
+  cursor: pointer;
+  background-color: white;
+  padding: var(--component-padding);
 }
 
 .date-picker .item-wide {
-    grid-column: 1/3;
-    grid-row: 1;
+  grid-column: 1/3;
+  grid-row: 1;
 }
 
 /*responsive*/
 @media screen and (max-width: 768px) {
-    .desktop-height-100vh {
-        height: 100%;
-    }
+  .desktop-height-100vh {
+    height: 100%;
+  }
 
-    .vh-80 {
-        min-height: 80vh;
-    }
+  .vh-80 {
+    min-height: 80vh;
+  }
 }
