@@ -3,11 +3,8 @@ import { observer } from 'mobx-react-lite';
 import React, { useContext } from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import { Context } from '../..';
-import { icons as categoryIcons } from '../../ui/Icons/CategoryIcons/CategoryIcons';
+import { parseCategoriesIcons } from '../../ui/Icons/CategoryIcons/CategoryIcons';
 ChartJS.register(ArcElement, Tooltip);
-
-const parseCategoriesIcons = (categories) =>
-  categories.map(category => categoryIcons.find((icon) => icon.id === (category.iconId || 1)).backgroundColor);
 
 
 const CategoriesChart = observer(() => {
