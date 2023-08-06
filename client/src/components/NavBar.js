@@ -1,43 +1,82 @@
-import { observer } from 'mobx-react-lite'
-import React, { useContext } from 'react'
-import { Nav } from 'react-bootstrap'
-import { NavLink } from 'react-router-dom'
-import { Context } from '../index'
-import '../style.css'
-import { ChartBarIcon, ChartPieIcon, ClipboardTextIcon, CreditCardIcon, GearSixIcon, LogoIcon, SignOutIcon } from '../ui/Icons/NavbarIcons/NavIcons'
-import { CATEGORY_ROUTE, LOGIN_ROUTE, MAIN_ROUTE, NOT_IMPLEMENTED_ROUTE } from '../utils/constants'
+import { observer } from 'mobx-react-lite';
+import React, { useContext, useMemo } from 'react';
+import { Nav } from 'react-bootstrap';
+import { NavLink } from 'react-router-dom';
+import { Context } from '../index';
+import '../style.css';
+import {
+  ChartBarIcon,
+  ChartPieIcon,
+  CreditCardIcon,
+  GearSixIcon,
+  LogoIcon,
+  SignOutIcon
+} from '../ui/Icons/NavbarIcons/NavIcons';
+import { ANALYTICS_ROUTE, CATEGORY_ROUTE, LOGIN_ROUTE, MAIN_ROUTE, NOT_IMPLEMENTED_ROUTE } from '../utils/constants';
+
+
+
+const NavItem = ({ to, children, icon, ...rest }) => (
+  <Nav.Item>
+    <NavLink to={to} {...rest}>
+      {icon}
+      <span className='d-none d-md-inline'>{children}</span>
+    </NavLink>
+  </Nav.Item>
+);
 
 const NavBar = observer(() => {
-  const { user } = useContext(Context)
-  return (
-    <>
-      <aside className='d-flex justify-content-between flex-column desktop-height-100vh px-2 bg-main-blue px-lg-0 ps-md-4 ps-lg-4 fw-medium fs-6' >
-        <div>
-          <LogoIcon />
-          <Nav variant="pills" className="flex-row flex-md-column mt-lg-5 text-center mt-md-0 text-md-start justify-content-between">
-            <Nav.Item>
-              <NavLink to={MAIN_ROUTE}><CreditCardIcon /><span className='d-none d-md-inline'>Accounts</span></NavLink>
-            </Nav.Item>
-            <Nav.Item>
-              <NavLink to={CATEGORY_ROUTE}><ChartPieIcon /><span className='d-none d-md-inline'>Categories</span></NavLink>
-            </Nav.Item>
-            <Nav.Item>
-              <NavLink to={NOT_IMPLEMENTED_ROUTE}><ClipboardTextIcon /><span className='d-none d-md-inline'>Transactions</span></NavLink>
-            </Nav.Item>
-            <Nav.Item>
-              <NavLink to={NOT_IMPLEMENTED_ROUTE}> <ChartBarIcon /><span className='d-none d-md-inline'>Analytics</span></NavLink>
-            </Nav.Item>
-            <Nav.Item>
-              <NavLink to={NOT_IMPLEMENTED_ROUTE}>  <GearSixIcon /><span className='d-none d-md-inline'>Settings</span></NavLink>
-            </Nav.Item>
-          </Nav>
-        </div>
-        <Nav.Item>
-          <NavLink onClick={() => { user.logOut() }} to={LOGIN_ROUTE} end> <SignOutIcon /><span className='d-none d-md-inline'>Sign out</span></NavLink>
-        </Nav.Item>
-      </aside>
-    </>
-  )
-})
+  const { user } = useContext(Context);
 
-export default NavBar
+  const handleLogOut = () => {
+    user.logOut()
+  }
+
+  const navigationItems = useMemo(
+    () => [
+      {
+        to: MAIN_ROUTE,
+        icon: <CreditCardIcon />,
+        label: 'Accounts',
+      },
+      {
+        to: CATEGORY_ROUTE,
+        icon: <ChartPieIcon />,
+        label: 'Categories',
+      },
+      {
+        to: ANALYTICS_ROUTE,
+        icon: <ChartBarIcon />,
+        label: 'Analytics',
+      },
+      {
+        to: NOT_IMPLEMENTED_ROUTE,
+        icon: <GearSixIcon />,
+        label: 'Settings',
+      },
+      {
+        to: LOGIN_ROUTE,
+        icon: <SignOutIcon />,
+        label: 'Sign out',
+        onClick: handleLogOut
+      },
+    ], []);
+
+
+  return (
+    <aside className='d-flex justify-content-between flex-column desktop-height-100vh px-2 bg-main-blue px-lg-0 ps-md-4 ps-lg-4 fw-medium fs-6'>
+      <div>
+        <LogoIcon />
+        <Nav variant="pills" className="flex-row flex-md-column mb-4 mb-lg-0 mt-lg-5 text-center mt-md-0 text-md-start justify-content-between">
+          {navigationItems.map((item, index) => (
+            <NavItem key={index} {...item}>
+              {item.label}
+            </NavItem>
+          ))}
+        </Nav>
+      </div>
+    </aside>
+  );
+});
+
+export default NavBar;
