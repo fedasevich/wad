@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import React, { Suspense, lazy, useContext, useEffect, useState } from 'react';
-import { Col, Row } from 'react-bootstrap';
+import { Col } from 'react-bootstrap';
 import { Context } from '../../index';
 
 import { endOfMonth, startOfMonth } from 'date-fns';
@@ -9,6 +9,7 @@ import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import { fetchCategory } from '../../http/categoryApi';
 import { CategoryDispatchContext } from '../../pages/Category';
+import PageProvider from '../../pages/PageProvider';
 import { Icons } from '../../ui/Icons/CategoryIcons/CategoryIcons';
 import { SettingsBackgroundIcon } from '../../ui/Icons/ControlIcons/ControlIcons';
 import DatePickerProvider from '../date-picker/DatePickerProvider';
@@ -51,7 +52,7 @@ const Categories = observer(() => {
         })
         // this is required to run then sequentially 
         .then(async () => {
-          await category.fetchCategoryPeriod(dateRange).finally(() => setLoading(false))
+          await category.fetchCategoryPeriod(dateRange).then(data => category.parseCategories(data)).finally(() => setLoading(false))
         })
     } catch (e) {
       alert(e.response.data.message);
@@ -88,15 +89,12 @@ const Categories = observer(() => {
 
   return (
     <>
-      <Row>
-        <Col xs={{ span: 4, offset: 1 }} xl={{ span: 4, offset: 1 }}>
-          <h1 className="mt-5 mb-5 fw-bold">Categories</h1>
-        </Col>
-        <Col xs={{ span: 4, offset: 2 }} xl={{ span: 4, offset: 3 }}>
+      <PageProvider.Header pageName={'Categories'} >
+        <Col xs={{ span: 5, offset: 2 }}>
           <DatePickerProvider dateRange={dateRange} setDateRange={setDateRange} />
         </Col>
-      </Row>
-      <div className="categories">
+      </PageProvider.Header>
+      <Col md={12} className='categories'>
         {firstCategories.map((categoryMap) =>
         (
           <div className="category d-flex justify-content-center"
@@ -130,7 +128,7 @@ const Categories = observer(() => {
               : <h1 onClick={() => handlePlusClick()}>+</h1>}
           </div>
         </div>
-      </div >
+      </Col>
       <Suspense fallback={<h2>Loading</h2>}>
         {otherCategoriesModal &&
           <CategoryOtherCategoryModal
