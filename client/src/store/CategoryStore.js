@@ -205,11 +205,7 @@ export default class CategoryStore {
 
     return fetchCategoryPeriod(startDate, endDate)
       .then(data => {
-        if (!data) {
-          return;
-        }
-
-        this.parseCategories(data)
+        return data
       })
       .catch(error => {
         alert(error.message);
