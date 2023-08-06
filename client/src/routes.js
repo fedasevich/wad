@@ -1,9 +1,11 @@
 import { lazy } from "react";
-import { CATEGORY_ROUTE, LOGIN_ROUTE, MAIN_ROUTE, NOT_IMPLEMENTED_ROUTE, REGISTRATION_ROUTE } from "./utils/constants";
+import { ANALYTICS_ROUTE, CATEGORY_ROUTE, LOGIN_ROUTE, MAIN_ROUTE, NOT_IMPLEMENTED_ROUTE, REGISTRATION_ROUTE } from "./utils/constants";
 const MainPage = lazy(() => import('./pages/MainPage'));
 const Category = lazy(() => import('./pages/Category'));
 const Auth = lazy(() => import('./pages/Auth'));
 const NotImplemented = lazy(() => import('./components/NotImplemented'));
+const AnalyticsPage = lazy(() => import("./pages/AnalyticsPage"));
+
 
 export const authRoutes = [
     {
@@ -14,10 +16,10 @@ export const authRoutes = [
         path: CATEGORY_ROUTE,
         Component: Category
     },
-    // {
-    //     path: WALLET_ROUTE,
-    //     Component: Wallet
-    // }
+    {
+        path: ANALYTICS_ROUTE,
+        Component: AnalyticsPage
+    }
 ]
 
 
