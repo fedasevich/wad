@@ -10,7 +10,7 @@ const TransactionsColumn = observer(() => {
         <h3 className='fw-bold'>Recent activity</h3>
       </MenuProvider.Header>
 
-      <MenuProvider.Container className="d-flex flex-column">
+      <MenuProvider.Container>
         <Transactions actions={true} />
       </MenuProvider.Container>
     </MenuProvider>
