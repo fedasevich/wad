@@ -172,11 +172,9 @@ const DatePickerProvider = observer(({ dateRange, setDateRange }) => {
   const rightArrowShow = dateRange[0].action !== dateRangeOptions.ALL_TIME
   return (
     <>
-
       <ArrowSelect handleArrowLeftClick={handleArrowLeftClick}
         handleArrowRightClick={handleArrowRightClick}
         handleTextClick={handleTextClick}
-        className="mt-5"
         leftArrowShow={leftArrowShow}
         rightArrowShow={rightArrowShow}
         textToPrint={dateToPrint}
