@@ -215,9 +215,9 @@ export default class CategoryStore {
   parseCategories(data) {
     runInAction(() => {
       this._parsedCategories = this._categories.map(category => {
-        const categoryId = category.id;
+        const { id } = category;
         const spent = data.rows.reduce((total, row) => {
-          if (row.categoryId === categoryId) {
+          if (row.categoryId === id) {
             return total + parseFloat(row.sum);
           }
           return total;
