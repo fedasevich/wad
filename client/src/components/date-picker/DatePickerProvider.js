@@ -1,12 +1,15 @@
-import { addDays, addMonths, endOfDay, endOfMonth, endOfWeek, endOfYear, format, fromUnixTime, lastDayOfWeek, startOfDay, startOfMonth, startOfWeek, startOfYear, subDays, subMonths, subYears } from 'date-fns'
+import { addDays, addMonths, endOfDay, endOfMonth, endOfWeek, endOfYear, format, startOfDay, startOfMonth, startOfWeek, startOfYear, subDays, subMonths, subYears } from 'date-fns'
 import { addYears } from 'date-fns/esm'
 import { observer } from 'mobx-react-lite'
 import React, { Suspense, lazy, useContext, useEffect, useState } from 'react'
+import 'react-date-range/dist/styles.css'
+import 'react-date-range/dist/theme/default.css'
 import { Context } from '../..'
-import { ArrowLeftIcon, ArrowRightIcon, WalletIcon } from "../../ui/Icons/ControlIcons/ControlIcons"
+import { WalletIcon } from "../../ui/Icons/ControlIcons/ControlIcons"
+import { dateRangeOptions, getDateRangeOptions } from '../../utils/constants'
+import ArrowSelect from '../ArrowSelect'
 import MenuProvider from '../MenuProvider'
 import Modal from '../modal/modal'
-
 import './style.css'
 const DateRange = lazy(() => import('react-date-range').then(module => ({ default: module.DateRange })));
 
@@ -15,8 +18,10 @@ const DatePickerProvider = observer(({ dateRange, setDateRange }) => {
   const [dateRangeModal, setDateRangeModal] = useState(false)
   const [dateToPrint, setDateToPrint] = useState(format(dateRange[0].startDate, 'MMMM y'))
   const { category } = useContext(Context)
+  const now = new Date()
 
-  const handleDateRangeChange = (start, end, action, print) => {
+
+  const handleDateRangeChange = ({ start, end, action, print }) => {
     setDateRange([
       {
         startDate: start,
@@ -40,7 +45,7 @@ const DatePickerProvider = observer(({ dateRange, setDateRange }) => {
   }
 
   const handleAllTimeClick = () => {
-    handleDateRangeChange(fromUnixTime(0), new Date(), "all-time", "All time")
+    handleDateRangeChange(getDateRangeOptions(now, dateRangeOptions.ALL_TIME))
   }
 
   const handleDefaultClick = () => {
@@ -53,49 +58,59 @@ const DatePickerProvider = observer(({ dateRange, setDateRange }) => {
 
   const handleWeekClick = () => {
     handleDateRangeChange(
-      startOfWeek(new Date()),
-      lastDayOfWeek(new Date()),
-      "week",
-      format(startOfWeek(new Date()), 'd.M') + " - " + format(lastDayOfWeek(new Date()), 'd.M')
+      getDateRangeOptions(now, dateRangeOptions.WEEK)
     )
   }
 
   const handleYearClick = () => {
-    handleDateRangeChange(startOfYear(new Date()), endOfYear(new Date()), "year", format(new Date(), 'y'))
-
+    handleDateRangeChange(getDateRangeOptions(now, dateRangeOptions.YEAR))
   }
 
   const handleMonthClick = () => {
-    handleDateRangeChange(startOfMonth(new Date()), endOfMonth(new Date()), "month", format(new Date(), 'MMMM y'))
+    handleDateRangeChange(getDateRangeOptions(now, dateRangeOptions.MONTH))
   }
 
   const handleTodayClick = () => {
-    handleDateRangeChange(startOfDay(new Date()), endOfDay(new Date()), "today", format(new Date(), 'd.M'))
+    handleDateRangeChange(getDateRangeOptions(now, dateRangeOptions.TODAY))
 
   }
 
+
   const handleArrowLeftClick = () => {
-    const action = dateRange[0].action;
-    const startDate = dateRange[0].startDate;
-    const endDate = dateRange[0].endDate;
+    const { action, startDate, endDate } = dateRange[0];
 
     switch (action) {
-      case "week":
-        handleDateRangeChange(
-          subDays(startOfWeek(startDate), 7),
-          endOfWeek(endDate),
-          "week",
-          format(subDays(startOfWeek(startDate), 7), 'd.M') + " - " + format(endOfWeek(endDate), 'd.M')
-        );
+      case dateRangeOptions.WEEK:
+        handleDateRangeChange({
+          start: subDays(startOfWeek(startDate), 7),
+          end: endOfWeek(endDate),
+          action: dateRangeOptions.WEEK,
+          print: format(subDays(startOfWeek(startDate), 7), 'd.M') + " - " + format(endOfWeek(endDate), 'd.M')
+        });
         break;
-      case "year":
-        handleDateRangeChange(startOfYear(subYears(startDate, 1)), endOfYear(subYears(endDate, 1)), "year", format(subYears(endDate, 1), 'y'));
+      case dateRangeOptions.YEAR:
+        handleDateRangeChange({
+          start: startOfYear(subYears(startDate, 1)),
+          end: endOfYear(subYears(endDate, 1)),
+          action: dateRangeOptions.YEAR,
+          print: format(subYears(endDate, 1), 'y')
+        });
         break;
-      case "today":
-        handleDateRangeChange(startOfDay(subDays(startDate, 1)), endOfDay(subDays(endDate, 1)), "today", format(endOfDay(subDays(endDate, 1)), 'd.M'));
+      case dateRangeOptions.TODAY:
+        handleDateRangeChange({
+          start: startOfDay(subDays(startDate, 1)),
+          end: endOfDay(subDays(endDate, 1)),
+          action: dateRangeOptions.TODAY,
+          print: format(endOfDay(subDays(endDate, 1)), 'd.M')
+        });
         break;
-      case "month":
-        handleDateRangeChange(startOfMonth(subMonths(startDate, 1)), endOfMonth(subMonths(endDate, 1)), "month", format(subMonths(endDate, 1), 'MMMM y'));
+      case dateRangeOptions.MONTH:
+        handleDateRangeChange({
+          start: startOfMonth(subMonths(startDate, 1)),
+          end: endOfMonth(subMonths(endDate, 1)),
+          action: dateRangeOptions.MONTH,
+          print: format(subMonths(endDate, 1), 'MMMM y')
+        });
         break;
       default:
         break;
@@ -103,54 +118,68 @@ const DatePickerProvider = observer(({ dateRange, setDateRange }) => {
   };
 
   const handleArrowRightClick = () => {
-    const action = dateRange[0].action;
-    const startDate = dateRange[0].startDate;
-    const endDate = dateRange[0].endDate;
+    const { action, startDate, endDate } = dateRange[0];
 
     switch (action) {
-      case "week":
-        handleDateRangeChange(
-          startOfWeek(startDate),
-          addDays(endOfWeek(endDate), 7),
-          "week",
-          format(startOfWeek(startDate), 'd.M') + " - " + format(addDays(endOfWeek(endDate), 7), 'd.M')
-        );
+      case dateRangeOptions.WEEK:
+        handleDateRangeChange({
+          start: startOfWeek(startDate),
+          end: addDays(endOfWeek(endDate), 7),
+          action: dateRangeOptions.WEEK,
+          print: format(startOfWeek(startDate), 'd.M') + " - " + format(addDays(endOfWeek(endDate), 7), 'd.M')
+        });
         break;
-      case "year":
-        handleDateRangeChange(startOfYear(addYears(startDate, 1)), endOfYear(addYears(endDate, 1)), "year", format(addYears(endDate, 1), 'y'));
+      case dateRangeOptions.YEAR:
+        handleDateRangeChange({
+          start: startOfYear(addYears(startDate, 1)),
+          end: endOfYear(addYears(endDate, 1)),
+          action: dateRangeOptions.YEAR,
+          print: format(addYears(endDate, 1), 'y')
+        });
         break;
-      case "today":
-        handleDateRangeChange(startOfDay(addDays(startDate, 1)), endOfDay(addDays(endDate, 1)), "today", format(endOfDay(addDays(endDate, 1)), 'd.M'));
+      case dateRangeOptions.TODAY:
+        handleDateRangeChange({
+          start: startOfDay(addDays(startDate, 1)),
+          end: endOfDay(addDays(endDate, 1)),
+          action: dateRangeOptions.TODAY,
+          print: format(endOfDay(addDays(endDate, 1)), 'd.M')
+        });
         break;
-      case "month":
-        handleDateRangeChange(startOfMonth(addMonths(startDate, 1)), endOfMonth(addMonths(endDate, 1)), "month", format(addMonths(endDate, 1), 'MMMM y'));
+      case dateRangeOptions.MONTH:
+        handleDateRangeChange({
+          start: startOfMonth(addMonths(startDate, 1)),
+          end: endOfMonth(addMonths(endDate, 1)),
+          action: dateRangeOptions.MONTH,
+          print: format(addMonths(endDate, 1), 'MMMM y')
+        });
         break;
       default:
         break;
     }
   };
 
+
   const handleDateRangePickerChange = (item) => {
-    setDateRange([{ ...item.selection, action: 'all-time' }])
+    setDateRange([{ ...item.selection, action: dateRangeOptions.ALL_TIME }])
     setDateToPrint('custom range');
   }
 
+  const handleTextClick = () => {
+    setDatePickerModal(true)
+  }
+
+  const leftArrowShow = dateRange[0].action !== dateRangeOptions.ALL_TIME
+  const rightArrowShow = dateRange[0].action !== dateRangeOptions.ALL_TIME
   return (
     <>
-      <div className="d-flex mt-5 fw-medium justify-content-evenly cursor-pointer align-items-center" >
-        {dateRange[0].action !== 'all-time' &&
-          <span onClick={handleArrowLeftClick}>
-            <ArrowLeftIcon />
-          </span>}
+      <ArrowSelect handleArrowLeftClick={handleArrowLeftClick}
+        handleArrowRightClick={handleArrowRightClick}
+        handleTextClick={handleTextClick}
+        leftArrowShow={leftArrowShow}
+        rightArrowShow={rightArrowShow}
+        textToPrint={dateToPrint}
+      />
 
-        <h3 onClick={() => {
-          setDatePickerModal(true)
-        }}>{dateToPrint}</h3>
-        {dateRange[0].action !== 'all-time' &&
-          <span onClick={handleArrowRightClick}>
-            <ArrowRightIcon />
-          </span>}
-      </div>
       <Modal active={datePickerModal} setActive={setDatePickerModal}>
         <MenuProvider.Container >
           <div className="date-picker ">

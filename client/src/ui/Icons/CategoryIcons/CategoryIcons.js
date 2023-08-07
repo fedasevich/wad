@@ -122,3 +122,9 @@ export const AllIcons = ({ selectedIcon, setSelectedIcon }) => {
     </>
   )
 }
+
+
+export const parseCategoriesIcons = (categories) =>
+  categories.map(category => icons.find((icon) => icon.id === (category.iconId || 1)).backgroundColor);
+
+export const getCategoryBackgroundColorByIconId = (id) => (icons.find((icon) => icon.id === (id || 1)).backgroundColor)

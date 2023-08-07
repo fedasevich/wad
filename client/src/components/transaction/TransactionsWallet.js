@@ -37,7 +37,6 @@ const TransactionsWallet = observer(({ id }) => {
 
   const data = category.transactions
 
-  console.log(data)
   const transactions = data.reduce((transactions, transactionItem) => {
 
     const date = format(parseISO(transactionItem.createdAt), "d MMMM y");

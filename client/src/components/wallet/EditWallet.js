@@ -81,7 +81,7 @@ const EditWallet = ({ id }) => {
         <h6>Wallet: {wallet.getWalletById(id).name}</h6>
       </MenuProvider.Actions>
 
-      <MenuProvider.Container className="d-flex flex-column">
+      <MenuProvider.Container>
         <label className='mb-2' htmlFor="name">Enter new name:</label>
         <input className='mb-2 component-half-border-radius' type="text" name='name' onKeyDown={handleKeyDown} value={editWallet.name} onChange={handleChange} />
         <label className='mb-2' htmlFor="balance">Enter new balance:</label>

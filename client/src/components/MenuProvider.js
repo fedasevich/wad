@@ -4,90 +4,69 @@ import { CancelIcon, CheckMarkIcon } from '../ui/Icons/ControlIcons/ControlIcons
 
 
 
- const Header = ({children}) => {
-    return (
-    <>
-
-    <div className='menu-header'>{children}</div> 
-    </>
-    )
+const Header = ({ children }) => {
+  return (
+    <div className='menu-header'>{children}</div>
+  )
 }
 
-const HeaderBorderBottom = ({children}) => {
+const HeaderBorderBottom = ({ children }) => {
   return (
-  <>
-
-  <div className='menu-header border-bottom'>{children}</div> 
-  </>
+    <div className='menu-header border-bottom'>{children}</div>
   )
 }
 
 
-const Actions = ({children,close,commit}) => {
+const Actions = ({ children, close, commit }) => {
   return (
-    <>
-     <div className='menu-colored-header bg-secondary-blue component-border-radius d-flex flex-row justify-content-between'>
-    <div className="cursor-pointer" onClick={()=>{ close()}}>
-    {close && <CancelIcon />}
+    <div className='menu-colored-header bg-secondary-blue component-border-radius d-flex flex-row justify-content-between'>
+      <div className="cursor-pointer" onClick={() => { close() }}>
+        {close && <CancelIcon />}
+      </div>
+      <div className="">
+        {children}
+      </div>
+
+      <div className="cursor-pointer" onClick={() => { commit() }} >
+        {commit && <CheckMarkIcon />}
+      </div>
     </div>
-    <div className="">
-    {children} 
-    </div>
-  
-    <div className="cursor-pointer" onClick={()=>{commit()}} >
-    {commit && <CheckMarkIcon />}
-    </div>
-    </div>
-    </>
   )
 }
 
 
-const Rounded = ({children}) => {
+const Rounded = ({ children }) => {
   return (
-    <>
-     <div className='menu-colored-header bg-secondary-blue component-border-radius d-flex flex-row justify-content-between'>
-
-    <div className="">
-    {children} 
+    <div className='menu-colored-header bg-secondary-blue component-border-radius d-flex flex-row justify-content-between'>
+      <div className="">
+        {children}
+      </div>
     </div>
-
-    </div>
-    </>
   )
 }
 
 
-const Straight = ({children}) => {
+const Straight = ({ children }) => {
   return (
-    <>
-     <div className='align-items-center menu-colored-header component-none-border-radius-bottom  bg-secondary-blue component-border-radius d-flex flex-row justify-content-between'>
-
- 
-    {children} 
-    
-
+    <div className='align-items-center menu-colored-header component-none-border-radius-bottom  bg-secondary-blue component-border-radius d-flex flex-row justify-content-between'>
+      {children}
     </div>
-    </>
   )
 }
 
 
 
-const Container = ({children}) => {
-    return (
-    <>
-    <div className={'menu-container d-flex flex-column'}>{children}</div> 
-    </>
-    )
+const Container = ({ children, className }) => {
+  return (
+    <div className={`menu-container d-flex flex-column ${className}`}>{children}</div>
+  )
 }
 
- const MenuProvider = observer(({children}) => {
+const MenuProvider = observer(({ children }) => {
   return (
     <div className='menu mb-3'>
-
-    {children}
-  </div>
+      {children}
+    </div>
   )
 })
 
