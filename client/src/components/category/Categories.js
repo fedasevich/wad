@@ -90,7 +90,7 @@ const Categories = observer(() => {
   return (
     <>
       <PageProvider.Header pageName={'Categories'} >
-        <Col xs={{ span: 5, offset: 2 }}>
+        <Col xs={{ span: 5, offset: 2 }} className="d-flex align-items-center justify-content-center">
           <DatePickerProvider dateRange={dateRange} setDateRange={setDateRange} />
         </Col>
       </PageProvider.Header>
