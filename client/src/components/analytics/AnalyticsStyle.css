@@ -1,0 +1,26 @@
+.analytics-chart {
+  width: 100%;
+  height: 45vh;
+}
+
+.analytics-chart-container .expand-button {
+  display: none;
+}
+
+.progress {
+  height: 10px;
+}
+
+p {
+  margin-bottom: 0;
+}
+
+/*responsive*/
+@media screen and (max-width: 768px) {
+  .analytics-chart {
+    height: 28vh;
+  }
+  .analytics-chart.expanded {
+    height: 61vh;
+  }
+}
