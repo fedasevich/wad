@@ -26,8 +26,8 @@ export const DeleteIcon = () => <Delete />
 export const DeleteCircleIcon = () => <DeleteCircle />
 
 
-
 export const WalletIcon = () => <Wallet />
+
 
 export const SettingsBackgroundIcon = () => <GearSix />
 
