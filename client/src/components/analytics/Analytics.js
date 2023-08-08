@@ -50,7 +50,7 @@ export const Analytics = observer(() => {
         }
     }, [category, dateRange])
 
-    if (loading || !category.categories) {
+    if (loading || !category.categories.length) {
         return (<h2>loading</h2>)
     }
 
