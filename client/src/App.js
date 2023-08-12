@@ -1,18 +1,19 @@
 import { observer } from 'mobx-react-lite';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import AppRouter from './components/AppRouter';
 import ErrorBoundary from './components/ErrorBoundary';
 import { fetchCategory } from './http/categoryApi';
 import { check } from './http/userApi';
 import { fetchWallet } from './http/walletApi';
-import { Context } from './index';
+import { useStore } from './store';
 import './style.css';
-
+import { useTheme } from './ui/hooks/useTheme';
 
 
 const App = observer(() => {
-  const { user, category, wallet } = useContext(Context)
+  const { user, category, wallet } = useStore()
+
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -23,22 +24,22 @@ const App = observer(() => {
       user.setUser(data)
       user.setIsAuth(true)
       fetchCategory().then(data => category.setCategories(data))
-      fetchWallet().then(data => { wallet.setWallet(data) })
+      fetchWallet().then(data => wallet.setWallet(data))
     }).finally(() => setLoading(false))
   }, [])
+
+  useTheme()
 
   if (loading) {
     return <h2>loading</h2>
   }
 
   return (
-    <>
-      <ErrorBoundary>
-        <BrowserRouter>
-          <AppRouter />
-        </BrowserRouter>
-      </ErrorBoundary>
-    </>
+    <ErrorBoundary>
+      <BrowserRouter>
+        <AppRouter />
+      </BrowserRouter>
+    </ErrorBoundary>
   );
 })
 
