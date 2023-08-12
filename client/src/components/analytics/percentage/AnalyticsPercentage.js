@@ -1,11 +1,11 @@
 import { observer } from 'mobx-react-lite';
-import { useContext, useState } from 'react';
-import { Context } from '../../..';
+import { useState } from 'react';
 import { AnalyticsPercentageItem } from './AnalyticsPercentageItem';
 import { AnalyticsShowMore } from './AnalyticsShowMore';
 
 
 import { useMemo } from 'react';
+import { useStore } from '../../../store';
 
 
 const CATEGORIES_TO_SHOW = 2
@@ -14,7 +14,7 @@ const CATEGORIES_TO_SHOW = 2
 const getProgressBarPercentage = (spent, totalSpent) => ((spent / totalSpent) * 100).toFixed(1)
 
 export const AnalyticsPercentage = observer(() => {
-    const { category } = useContext(Context);
+    const { category } = useStore();
     const [showMore, setShowMore] = useState(false);
 
     const sortedParsedCategories = useMemo(() =>

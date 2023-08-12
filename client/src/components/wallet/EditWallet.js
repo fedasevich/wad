@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useRef, useState, } from 'react';
-import { Context } from '../..';
 
 
 import { DispatchContext } from '../../pages/MainPage';
+import { useStore } from '../../store';
 import { DeleteIcon } from '../../ui/Icons/ControlIcons/ControlIcons';
 import Currencies from '../Currencies';
 import MenuProvider from '../MenuProvider';
@@ -11,7 +11,7 @@ import MenuProvider from '../MenuProvider';
 
 
 const EditWallet = ({ id }) => {
-  const { wallet } = useContext(Context)
+  const { wallet } = useStore()
   const dispatch = useContext(DispatchContext)
   const [editWallet, setEditWallet] = useState({
     name: "",

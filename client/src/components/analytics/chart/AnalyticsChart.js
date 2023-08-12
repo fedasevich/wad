@@ -7,10 +7,10 @@ import {
     Tooltip
 } from 'chart.js';
 import { observer } from 'mobx-react-lite';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { Bar } from 'react-chartjs-2';
-import { Context } from '../../..';
+import { useStore } from '../../../store';
 import { getCategoryBackgroundColorByIconId } from '../../../ui/Icons/CategoryIcons/CategoryIcons';
 import { getDateRangeOptions } from '../../../utils/constants';
 ChartJS.register(
@@ -37,7 +37,11 @@ export const options = {
 
 
 export const AnalyticsChart = observer(({ transactions, chartRange }) => {
-    const { category } = useContext(Context)
+    const { category } = useStore()
+
+    if (!category.categories.length) {
+        return (<h2>loading</h2>)
+    }
 
     const [expanded, setExpanded] = useState(false)
 

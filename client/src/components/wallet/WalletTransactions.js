@@ -1,12 +1,12 @@
 import { observer } from 'mobx-react-lite'
-import React, { useContext, useEffect } from 'react'
-import { Context } from '../..'
+import React, { useEffect } from 'react'
 import { fetchWalletTransactionByWalletId } from '../../http/transactionApi'
+import { useStore } from '../../store'
 import MenuProvider from '../MenuProvider'
 import TransactionsWallet from '../transaction/TransactionsWallet'
 
 const WalletTransactions = observer(({ id }) => {
-  const { wallet, category } = useContext(Context)
+  const { wallet, category } = useStore()
 
 
   useEffect(() => {

@@ -1,14 +1,14 @@
 import { ArcElement, Chart as ChartJS, Tooltip } from 'chart.js';
 import { observer } from 'mobx-react-lite';
-import React, { useContext } from 'react';
+import React from 'react';
 import { Doughnut } from 'react-chartjs-2';
-import { Context } from '../..';
+import { useStore } from '../../store';
 import { parseCategoriesIcons } from '../../ui/Icons/CategoryIcons/CategoryIcons';
 ChartJS.register(ArcElement, Tooltip);
 
 
 const CategoriesChart = observer(() => {
-  const { category } = useContext(Context)
+  const { category } = useStore()
 
   const options = {
     cutout: '85%'

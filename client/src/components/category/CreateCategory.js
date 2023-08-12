@@ -1,15 +1,15 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useState } from 'react'
 import { Col } from 'react-bootstrap'
-import { Context } from '../..'
 import { CategoryDispatchContext } from '../../pages/Category'
+import { useStore } from '../../store'
 import { AllIcons } from '../../ui/Icons/CategoryIcons/CategoryIcons'
 import MenuProvider from '../MenuProvider'
 
 const CreateCategory = observer(() => {
   const [newCategoryName, setNewCategoryName] = useState("")
   const [newCategorySelectedIcon, setNewCategorySelectedIcon] = useState({})
-  const { category } = useContext(Context)
+  const { category } = useStore()
   const dispatch = useContext(CategoryDispatchContext)
 
   const handleClose = () => {

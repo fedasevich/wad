@@ -1,13 +1,13 @@
 import { observer } from 'mobx-react-lite';
-import React, { Suspense, useContext } from 'react';
+import React, { Suspense } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { Context } from '../index';
 import { authRoutes, publicRoutes } from '../routes';
+import { useStore } from '../store';
 import { LOGIN_ROUTE } from '../utils/constants';
 import { SidebarLayout } from './SidebarLayout';
 
 const AppRouter = observer(() => {
-  const { user } = useContext(Context)
+  const { user } = useStore()
   return (
     <Suspense>
       <Routes>

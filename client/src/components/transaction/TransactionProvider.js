@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { Accordion, Button, ButtonGroup, ButtonToolbar, Card, Col, Row } from 'react-bootstrap';
+import { useStore } from '../../store';
 import { Icons } from '../../ui/Icons/CategoryIcons/CategoryIcons';
 import { DeleteCircleIcon } from '../../ui/Icons/ControlIcons/ControlIcons';
 import { EditIcon } from '../../ui/Icons/WalletIcons/WalletIcons';
@@ -10,14 +11,12 @@ import { TRANSACTION_LIMITS } from '../../utils/constants';
 
 const Actions = ({ setButtonVisible, category }) => {
   const handleSortClick = () => {
-    category.setTransactionsSort(category.transactionsSort === 'DESC' ? 'ASC' : 'DESC');
-    category.setTransactionsPage(1);
+    category.modifyTransactionsFilter({ sort: category.transactionsSort === 'DESC' ? 'ASC' : 'DESC', page: 1 })
     setButtonVisible(true);
   };
 
   const handleTransactionsLimitClick = (limit) => {
-    category.setTransactionsLimit(limit);
-    category.setTransactionsPage(1);
+    category.modifyTransactionsFilter({ limit, page: 1 })
     setButtonVisible(true);
   };
 
@@ -64,11 +63,12 @@ const LoadMore = ({ buttonVisible, setButtonVisible, fetchTransaction }) => {
   );
 };
 
-const Transaction = observer(({ transaction, category, wallet, index, setChangeTransactionModal }) => {
+const Transaction = observer(({ transaction, index, setChangeTransactionModal }) => {
+  const { category, wallet } = useStore()
   const isDeleted = transaction.categoryId === -1 || transaction.walletId === -1;
 
   const handleDeleteClick = () => {
-    category.deleteTransaction(transaction.id, transaction.categoryId, transaction.walletId, wallet);
+    category.deleteTransaction(transaction.id, transaction.categoryId, transaction.walletId);
   };
 
   const handleChangeClick = () => {

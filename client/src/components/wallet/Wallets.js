@@ -3,8 +3,8 @@ import { observer } from 'mobx-react-lite';
 import React, { useContext, useEffect, useState } from 'react';
 import { Accordion, Card, Col, Row, useAccordionButton } from 'react-bootstrap';
 import { fetchWallet } from '../../http/walletApi';
-import { Context } from '../../index';
 import { DispatchContext } from '../../pages/MainPage';
+import { useStore } from '../../store';
 import WalletActions from './WalletActions';
 
 
@@ -22,7 +22,7 @@ function WalletToggle({ children, eventKey }) {
 }
 
 const Wallets = observer(() => {
-  const { wallet } = useContext(Context)
+  const { wallet } = useStore()
   const dispatch = useContext(DispatchContext)
   const [createWalletModal, setCreateWalletModal] = useState(false)
 

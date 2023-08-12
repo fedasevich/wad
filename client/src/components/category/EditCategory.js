@@ -1,8 +1,8 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useState } from 'react'
 import { Col } from 'react-bootstrap'
-import { Context } from '../..'
 import { CategoryDispatchContext } from '../../pages/Category'
+import { useStore } from '../../store'
 import { AllIcons } from '../../ui/Icons/CategoryIcons/CategoryIcons'
 import { DeleteIcon } from '../../ui/Icons/ControlIcons/ControlIcons'
 import MenuProvider from '../MenuProvider'
@@ -10,7 +10,7 @@ import MenuProvider from '../MenuProvider'
 const EditCategory = observer(({ id }) => {
   const [editCategory, setEditCategory] = useState({ name: "", icon: {} })
 
-  const { category } = useContext(Context)
+  const { category } = useStore()
   const dispatch = useContext(CategoryDispatchContext)
 
 

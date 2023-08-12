@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { Col } from 'react-bootstrap'
-import { Context } from '../..'
 import { DispatchContext } from '../../pages/MainPage'
+import { useStore } from '../../store'
 import Currencies from '../Currencies'
 import MenuProvider from '../MenuProvider'
 
@@ -12,7 +12,7 @@ const CreateWallet = () => {
         currency: "",
         balance: "",
     })
-    const { wallet } = useContext(Context)
+    const { wallet } = useStore()
     const dispatch = useContext(DispatchContext)
 
 
@@ -25,12 +25,12 @@ const CreateWallet = () => {
 
 
     const handleCommit = () => {
-        
-          wallet.createWallet(newWallet.currency,newWallet.name)
-          setNewWallet({ 
+
+        wallet.createWallet(newWallet.currency, newWallet.name)
+        setNewWallet({
             name: "",
             currency: "",
-            })
+        })
         handleClose()
     }
 
@@ -53,22 +53,22 @@ const CreateWallet = () => {
 
     return (
         <>
-            <Col xl={{ span: 4, offset: 1 }}> 
-            <MenuProvider>
-                <MenuProvider.Actions close={handleClose} commit={handleCommit}><h4>Create wallet</h4></MenuProvider.Actions>
-                <MenuProvider.Container >
-                    <label className='mb-2' htmlFor="name">Enter name:</label>
-                    <input className='mb-2 component-half-border-radius' type="text" name='name' onKeyDown={handleKeyDown} value={newWallet.name} onChange={handleChange} />
-                    <h4 className='mb-2' >Chosen currency: {newWallet.currency}</h4>
-                </MenuProvider.Container>
-            </MenuProvider> 
+            <Col xl={{ span: 4, offset: 1 }}>
+                <MenuProvider>
+                    <MenuProvider.Actions close={handleClose} commit={handleCommit}><h4>Create wallet</h4></MenuProvider.Actions>
+                    <MenuProvider.Container >
+                        <label className='mb-2' htmlFor="name">Enter name:</label>
+                        <input className='mb-2 component-half-border-radius' type="text" name='name' onKeyDown={handleKeyDown} value={newWallet.name} onChange={handleChange} />
+                        <h4 className='mb-2' >Chosen currency: {newWallet.currency}</h4>
+                    </MenuProvider.Container>
+                </MenuProvider>
             </Col>
 
             <Col xl={{ span: 6, offset: 1 }}>
                 <MenuProvider>
                     <MenuProvider.Header><h2>Choose currency:</h2></MenuProvider.Header>
                     <MenuProvider.Container >
-                        <Currencies setCurrency={handleChange}/>
+                        <Currencies setCurrency={handleChange} />
                     </MenuProvider.Container>
                 </MenuProvider>
             </Col>
