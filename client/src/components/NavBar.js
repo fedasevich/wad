@@ -1,8 +1,8 @@
 import { observer } from 'mobx-react-lite';
-import React, { useContext, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { Nav } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
-import { Context } from '../index';
+import { useStore } from '../store';
 import '../style.css';
 import {
   ChartBarIcon,
@@ -12,7 +12,7 @@ import {
   LogoIcon,
   SignOutIcon
 } from '../ui/Icons/NavbarIcons/NavIcons';
-import { ANALYTICS_ROUTE, CATEGORY_ROUTE, LOGIN_ROUTE, MAIN_ROUTE, NOT_IMPLEMENTED_ROUTE } from '../utils/constants';
+import { ANALYTICS_ROUTE, CATEGORY_ROUTE, LOGIN_ROUTE, MAIN_ROUTE, SETTINGS_ROUTE } from '../utils/constants';
 
 
 
@@ -26,7 +26,7 @@ const NavItem = ({ to, children, icon, ...rest }) => (
 );
 
 const NavBar = observer(() => {
-  const { user } = useContext(Context);
+  const { user } = useStore();
 
   const handleLogOut = () => {
     user.logOut()
@@ -50,7 +50,7 @@ const NavBar = observer(() => {
         label: 'Analytics',
       },
       {
-        to: NOT_IMPLEMENTED_ROUTE,
+        to: SETTINGS_ROUTE,
         icon: <GearSixIcon />,
         label: 'Settings',
       },

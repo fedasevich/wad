@@ -1,10 +1,10 @@
 import { format, parseISO } from 'date-fns';
 import { runInAction } from 'mobx';
 import { observer } from 'mobx-react-lite';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Accordion, Row, useAccordionButton } from 'react-bootstrap';
 import { fetchTransaction } from '../../http/transactionApi';
-import { Context } from '../../index';
+import { useStore } from '../../store';
 import ChangeTransactionModal from './ChangeTransactionModal';
 import TransactionProvider from './TransactionProvider';
 
@@ -19,7 +19,7 @@ function TransactionToggle({ children, eventKey }) {
 }
 
 const Transactions = observer(({ actions }) => {
-  const { category, wallet } = useContext(Context)
+  const { category, } = useStore()
   const [buttonVisible, setButtonVisible] = useState(true)
   const [changeTransactionModal, setChangeTransactionModal] = useState(false)
 
@@ -54,7 +54,7 @@ const Transactions = observer(({ actions }) => {
   })
 
   const loadMoreTransactions = () => {
-    category.setTransactionsPage(category.transactionsPage + 1);
+    category.modifyTransactionsFilter({ page: category.transactionsPage + 1 });
 
     try {
       fetchTransaction(category.transactionsPage, category.transactionsLimit, category.transactionsSort).then(data => {
@@ -82,7 +82,7 @@ const Transactions = observer(({ actions }) => {
                 {transactionsMap.trs.map((transactions, index) => {
                   return (
                     <TransactionToggle eventKey={index} key={transactions.id}>
-                      <TransactionProvider.Transaction transaction={transactions} wallet={wallet} category={category} index={index} setChangeTransactionModal={setChangeTransactionModal} />
+                      <TransactionProvider.Transaction transaction={transactions} index={index} setChangeTransactionModal={setChangeTransactionModal} />
                     </TransactionToggle>
                   )
                 }

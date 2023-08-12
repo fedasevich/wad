@@ -1,7 +1,7 @@
 import { getHours, getMinutes } from 'date-fns'
 import { observer } from 'mobx-react-lite'
-import React, { useContext, useState } from 'react'
-import { Context } from '../..'
+import React, { useState } from 'react'
+import { useStore } from '../../store'
 import MenuProvider from '../MenuProvider'
 import Modal from '../modal/modal'
 
@@ -9,14 +9,14 @@ import Modal from '../modal/modal'
 const ChangeTransactionModal = observer(({ changeTransactionModal, setChangeTransactionModal, id }) => {
   const [newSum, setNewSum] = useState('')
   const [newDescription, setNewDescription] = useState('')
-  const { wallet, category } = useContext(Context)
+  const { category } = useStore()
 
   const handleClose = () => {
     setChangeTransactionModal({ active: false, id: -1 })
   }
 
   const handleCommit = () => {
-    category.changeTransaction(id, newSum, newDescription, wallet)
+    category.changeTransaction(id, newSum, newDescription)
     handleClose()
   }
 

@@ -1,9 +1,9 @@
 import { endOfMonth, startOfMonth } from 'date-fns';
 import { observer } from 'mobx-react-lite';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
-import { Context } from '../..';
 import PageProvider from '../../pages/PageProvider';
+import { useStore } from '../../store';
 import MenuProvider from '../MenuProvider';
 import DatePickerProvider from '../date-picker/DatePickerProvider';
 import { AnalyticsSelect } from './AnalyticsSelect';
@@ -24,7 +24,7 @@ const AnalyticsHOC = (WrappedComponent) => {
 
 
 export const Analytics = observer(() => {
-    const { category } = useContext(Context)
+    const { category } = useStore()
 
     const [loading, setLoading] = useState(true)
     const [dateRange, setDateRange] = useState([
@@ -37,7 +37,6 @@ export const Analytics = observer(() => {
     ]);
     const [chartRange, setChartRange] = useState('')
     const [transactions, setTransactions] = useState([])
-
 
     useEffect(() => {
         try {

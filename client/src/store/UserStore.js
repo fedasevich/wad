@@ -1,7 +1,8 @@
 import { makeAutoObservable } from "mobx";
 
 export default class UserStore {
-    constructor() {
+    constructor(rootStore) {
+        this.rootStore = rootStore
         this._isAuth = false
         this._user = {}
         makeAutoObservable(this)
@@ -26,6 +27,6 @@ export default class UserStore {
     logOut() {
         this._isAuth = false
         this._user = {}
-        localStorage.clear()
+        localStorage.removeItem('token')
     }
 }

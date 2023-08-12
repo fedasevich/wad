@@ -2,7 +2,8 @@ import { makeAutoObservable, runInAction } from "mobx";
 import { changeWallet, createWallet, deleteWallet } from "../http/walletApi";
 
 export default class WalletStore {
-  constructor() {
+  constructor(rootStore) {
+    this.rootStore = rootStore
     this._wallets = [{ name: "", balance: "", currency: "", id: 0 }]
 
     this._selectedWallet = {}
@@ -28,7 +29,7 @@ export default class WalletStore {
 
 
   getWalletById(id) {
-    if(id===-1 || !isFinite(id)) return this.wallets[0]
+    if (id === -1 || !isFinite(id)) return this.wallets[0]
     return this.wallets.find(wallet => wallet.id === id)
   }
 
@@ -40,7 +41,7 @@ export default class WalletStore {
     }
     try {
       changeWallet(id, newName ? newName : null, newBalance ? parseFloat(newBalance) : null, newCurrency ? newCurrency : null)
-      .then(() => {
+        .then(() => {
           runInAction(() => {
             const wallet = this.wallets.find(wallet => wallet.id === id)
             if (newName) {
@@ -68,11 +69,11 @@ export default class WalletStore {
 
     try {
       createWallet(createWalletName, createWalletCurrency)
-      .then(data => {
-        runInAction(() => {
-          this.wallets.push(data)
-        })
-         
+        .then(data => {
+          runInAction(() => {
+            this.wallets.push(data)
+          })
+
 
         })
     } catch (e) {
@@ -83,22 +84,22 @@ export default class WalletStore {
   deleteWallet(id) {
     try {
       runInAction(() => {
-      deleteWallet(id).then(() => {   
-        const walletIndex = this.wallets.findIndex(wallet => wallet.id === id)
-        this.wallets.splice(walletIndex, 1)
-    })
+        deleteWallet(id).then(() => {
+          const walletIndex = this.wallets.findIndex(wallet => wallet.id === id)
+          this.wallets.splice(walletIndex, 1)
+        })
 
-  })
- 
-    }catch(e) {
+      })
+
+    } catch (e) {
       alert(e.response.data.message);
     }
   }
 
 
-  getCurrencyFromWalletById=(id)=> {
+  getCurrencyFromWalletById = (id) => {
     const wallet = this.getWalletById(id)
     return wallet?.currency
-  } 
+  }
 
 }   

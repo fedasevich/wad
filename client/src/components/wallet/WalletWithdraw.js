@@ -1,13 +1,13 @@
 import { format } from 'date-fns'
 import { observer } from 'mobx-react-lite'
-import React, { Suspense, lazy, useContext } from 'react'
-import { Context } from '../..'
+import React, { Suspense, lazy } from 'react'
+import { useStore } from '../../store'
 import MenuProvider from '../MenuProvider'
 const Calculator = lazy(() => import('../calculator/calculator'))
 
 
 const WalletWithdraw = observer(({ id }) => {
-  const { wallet } = useContext(Context)
+  const { wallet } = useStore()
   return (
     <MenuProvider>
       <MenuProvider.Header.Straight>

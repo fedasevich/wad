@@ -1,10 +1,10 @@
 import { addDays, addMonths, endOfDay, endOfMonth, endOfWeek, endOfYear, format, startOfDay, startOfMonth, startOfWeek, startOfYear, subDays, subMonths, subYears } from 'date-fns'
 import { addYears } from 'date-fns/esm'
 import { observer } from 'mobx-react-lite'
-import React, { Suspense, lazy, useContext, useEffect, useState } from 'react'
+import React, { Suspense, lazy, useEffect, useState } from 'react'
 import 'react-date-range/dist/styles.css'
 import 'react-date-range/dist/theme/default.css'
-import { Context } from '../..'
+import { useStore } from '../../store'
 import { WalletIcon } from "../../ui/Icons/ControlIcons/ControlIcons"
 import { dateRangeOptions, getDateRangeOptions } from '../../utils/constants'
 import ArrowSelect from '../ArrowSelect'
@@ -17,7 +17,7 @@ const DatePickerProvider = observer(({ dateRange, setDateRange }) => {
   const [datePickerModal, setDatePickerModal] = useState(false)
   const [dateRangeModal, setDateRangeModal] = useState(false)
   const [dateToPrint, setDateToPrint] = useState(format(dateRange[0].startDate, 'MMMM y'))
-  const { category } = useContext(Context)
+  const { category } = useStore()
   const now = new Date()
 
 

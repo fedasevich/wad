@@ -6,6 +6,7 @@ export const REGISTRATION_ROUTE = '/registration'
 export const CATEGORY_ROUTE = '/category'
 export const ANALYTICS_ROUTE = '/analytics'
 export const WALLET_ROUTE = '/wallet'
+export const SETTINGS_ROUTE = '/settings'
 export const NOT_IMPLEMENTED_ROUTE = '/not-implemented'
 
 
@@ -107,3 +108,10 @@ export const getDateRangeOptions = (date, action) => {
             }
     }
 }
+
+
+export const themes = {
+    DEFAULT: 'default',
+    DARK: 'dark',
+    LIGHT: 'light',
+};

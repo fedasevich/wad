@@ -1,10 +1,10 @@
 import { format, parseISO } from 'date-fns';
 import { runInAction } from 'mobx';
 import { observer } from 'mobx-react-lite';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Accordion, Row, useAccordionButton } from 'react-bootstrap';
 import { fetchWalletTransactionByWalletId } from '../../http/transactionApi';
-import { Context } from '../../index';
+import { useStore } from '../../store';
 import TransactionProvider from './TransactionProvider';
 
 
@@ -19,7 +19,7 @@ function TransactionToggle({ children, eventKey }) {
 }
 
 const TransactionsWallet = observer(({ id }) => {
-  const { category, wallet } = useContext(Context)
+  const { category, wallet } = useStore()
   const [buttonVisible, setButtonVisible] = useState(true)
 
   useEffect(() => {

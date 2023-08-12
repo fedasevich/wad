@@ -1,12 +1,12 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 
 import { Button, Card, Container, Form, Row } from "react-bootstrap";
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { login, registration } from '../http/userApi';
-import { Context } from '../index';
-import { LOGIN_ROUTE, MAIN_ROUTE, REGISTRATION_ROUTE } from '../utils/constants';
+import { useStore } from '../store';
+import { LOGIN_ROUTE, REGISTRATION_ROUTE } from '../utils/constants';
 const Auth = () => {
-  const { user } = useContext(Context)
+  const { user, userSettings } = useStore()
   const location = useLocation()
   const navigate = useNavigate()
   const isLogin = location.pathname === LOGIN_ROUTE
@@ -26,7 +26,7 @@ const Auth = () => {
 
       user.setUser(data)
       user.setIsAuth(true)
-      navigate(MAIN_ROUTE)
+      navigate(userSettings.startPage)
     } catch (e) {
       alert(e.response.data.message);
     }

@@ -1,11 +1,13 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import { changeCategory, createCategory, deleteCategory, fetchCategory, fetchCategoryPeriod } from "../http/categoryApi";
 
+import { clearPersistedStore, makePersistable, pausePersisting, startPersisting } from "mobx-persist-store";
 import { changeTransaction, createTransaction, deleteTransaction } from "../http/transactionApi";
 
 
 export default class CategoryStore {
-  constructor() {
+  constructor(rootStore) {
+    this.rootStore = rootStore
     this._categories = []
     this._parsedCategories = []
     this._transactions = []
@@ -15,6 +17,11 @@ export default class CategoryStore {
     this._selectedCategory = {}
     this._selectedTransaction = {}
     makeAutoObservable(this)
+    makePersistable(this, {
+      name: "transaction",
+      properties: ['_transactionsSort', '_transactionsLimit', '_transactionsPage'],
+      storage: window.localStorage
+    }, { fireImmediately: true });
   }
 
   setCategories(categories) {
@@ -49,6 +56,23 @@ export default class CategoryStore {
     this._transactionsSort = sort
   }
 
+
+  clearPersistence() {
+    clearPersistedStore(this)
+  }
+
+  modifyTransactionsFilter({ limit = this.transactionsLimit, page = this.transactionsPage, sort = this.transactionsSort }) {
+    if (this.rootStore.userSettings.persistTransactionFilter) {
+      startPersisting(this)
+    } else {
+      pausePersisting(this)
+    }
+
+    this.setTransactionsLimit(limit);
+    this.setTransactionsPage(page);
+    this.setTransactionsSort(sort);
+  }
+
   get categories() {
     return this._categories
   }
@@ -80,7 +104,7 @@ export default class CategoryStore {
     return this._transactionsSort
   }
 
-  createTransaction(currentOperand, selectedCategory, selectedWallet, description, wallet) {
+  createTransaction(currentOperand, selectedCategory, selectedWallet, description) {
     try {
       createTransaction(selectedCategory.id, selectedWallet.id, description ? description : selectedCategory.name, parseFloat(currentOperand))
         .then(data => {
@@ -95,7 +119,7 @@ export default class CategoryStore {
     }
   }
 
-  deleteTransaction(transactionId, categoryId, walletId, wallet) {
+  deleteTransaction(transactionId, categoryId, walletId) {
     try {
       deleteTransaction(transactionId)
         .then(() => {
@@ -103,7 +127,7 @@ export default class CategoryStore {
             const transaction = this.getTransactionById(transactionId)
             const category = this.getCategoryById(categoryId) || this.getRegularCategoryById(categoryId)
             if (walletId !== -1) {
-              const foundWallet = wallet.getWalletById(walletId)
+              const foundWallet = this.rootStore.wallet.getWalletById(walletId)
               foundWallet.balance += parseFloat(transaction.sum)
             }
             category.spent -= parseFloat(transaction.sum)
@@ -149,7 +173,7 @@ export default class CategoryStore {
     }
   }
 
-  changeTransaction(id, newSum, newDescription, wallet) {
+  changeTransaction(id, newSum, newDescription) {
     if (!newSum && !newDescription) {
       return alert(`Not enough data`)
     }
@@ -158,8 +182,8 @@ export default class CategoryStore {
       changeTransaction(transaction.id, parseFloat(newSum), newDescription)
         .then(() => {
           runInAction(() => {
-            const categoryToChange = this.getCategoryById(transaction.categoryId)
-            const walletToChange = wallet.getWalletById(transaction.walletId)
+            const categoryToChange = this.getRegularCategoryById(transaction.categoryId)
+            const walletToChange = this.rootStore.wallet.getWalletById(transaction.walletId)
             if (newSum) {
               if (transaction.walletId !== -1) {
                 walletToChange.balance = (parseFloat(walletToChange.balance) + parseFloat(transaction.sum)) - parseFloat(newSum)

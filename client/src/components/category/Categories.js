@@ -1,7 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import React, { Suspense, lazy, useContext, useEffect, useState } from 'react';
 import { Col } from 'react-bootstrap';
-import { Context } from '../../index';
 
 import { endOfMonth, startOfMonth } from 'date-fns';
 import { runInAction } from 'mobx';
@@ -10,6 +9,7 @@ import "react-date-range/dist/theme/default.css";
 import { fetchCategory } from '../../http/categoryApi';
 import { CategoryDispatchContext } from '../../pages/Category';
 import PageProvider from '../../pages/PageProvider';
+import { useStore } from '../../store';
 import { Icons } from '../../ui/Icons/CategoryIcons/CategoryIcons';
 import { SettingsBackgroundIcon } from '../../ui/Icons/ControlIcons/ControlIcons';
 import DatePickerProvider from '../date-picker/DatePickerProvider';
@@ -22,7 +22,7 @@ const CategoryOtherCategoryModal = lazy(() => import('./CategoryOtherCategoryMod
 const MAIN_CATEGORIES_LENGTH = 7
 
 const Categories = observer(() => {
-  const { category } = useContext(Context)
+  const { category } = useStore()
   const [calculatorModal, setCalculatorModal] = useState({
     active: false,
     categoryId: null,
