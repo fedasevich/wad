@@ -1,5 +1,6 @@
 import { lazy } from "react";
-import { ANALYTICS_ROUTE, CATEGORY_ROUTE, LOGIN_ROUTE, MAIN_ROUTE, NOT_IMPLEMENTED_ROUTE, REGISTRATION_ROUTE } from "./utils/constants";
+import { ANALYTICS_ROUTE, CATEGORY_ROUTE, LOGIN_ROUTE, MAIN_ROUTE, NOT_IMPLEMENTED_ROUTE, REGISTRATION_ROUTE, SETTINGS_ROUTE } from "./utils/constants";
+const SettingsPage = lazy(() => import("./pages/SettingPage"));
 const MainPage = lazy(() => import('./pages/MainPage'));
 const Category = lazy(() => import('./pages/Category'));
 const Auth = lazy(() => import('./pages/Auth'));
@@ -19,7 +20,11 @@ export const authRoutes = [
     {
         path: ANALYTICS_ROUTE,
         Component: AnalyticsPage
-    }
+    },
+    {
+        path: SETTINGS_ROUTE,
+        Component: SettingsPage
+    },
 ]
 
 
