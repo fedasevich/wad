@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
-import React, { useContext, useEffect, useReducer, useState } from 'react';
-import { Context } from '../..';
+import React, { useEffect, useReducer, useState } from 'react';
+import { useStore } from '../../store';
 import CalculatorCategoryModal from './CalculatorCategoryModal';
 import "./CalculatorStyle.css";
 import CalculatorWalletModal from './CalculatorWalletModal';
@@ -147,8 +147,8 @@ function evaluate({ currentOperand, previousOperand, operation }) {
 
 
 
-const Calculator = observer(({ walletId, categoryId }) => {
-  const { wallet, category } = useContext(Context)
+const Calculator = observer(({ walletId, categoryId, onSubmit }) => {
+  const { wallet, category, userSettings } = useStore()
   const [walletModalActive, setWalletModalActive] = useState(false)
   const [categoryModalActive, setCategoryModalActive] = useState(false)
   const [selectedWallet, setSelectedWallet] = useState({ name: "", balance: "", currency: "", id: 0 })
@@ -206,7 +206,9 @@ const Calculator = observer(({ walletId, categoryId }) => {
               category.createTransaction(currentOperand, selectedCategory, selectedWallet, description, wallet)
               setDescription('')
               dispatch({ type: ACTIONS.CLEAR })
-
+              if (userSettings.closeCalculatorOnSubmit) {
+                onSubmit()
+              }
 
             }} >{SUBMIT_SYMBOL}</div>}
 
