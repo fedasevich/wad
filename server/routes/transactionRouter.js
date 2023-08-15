@@ -4,9 +4,9 @@ const router = new Router()
 const transactionController = require('../controllers/transactionController')
 const authMiddleware = require('../middleware/authMiddleware')
 
-router.post('/',authMiddleware,transactionController.create)
-router.get('/',authMiddleware,transactionController.get)
-router.put('/',authMiddleware,transactionController.change)
-router.delete('/',authMiddleware,transactionController.delete)
+router.post('/', authMiddleware, transactionController.create)
+router.get('/', authMiddleware, transactionController.get)
+router.put('/:id', authMiddleware, transactionController.change)
+router.delete('/:id', authMiddleware, transactionController.delete)
 
 module.exports = router;
