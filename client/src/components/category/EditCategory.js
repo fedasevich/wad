@@ -13,7 +13,6 @@ const EditCategory = observer(({ id }) => {
   const { category } = useStore()
   const dispatch = useContext(CategoryDispatchContext)
 
-
   const handleClose = () => {
     dispatch({ operation: null })
   }
@@ -24,24 +23,21 @@ const EditCategory = observer(({ id }) => {
     })
   }
 
-
   const handleEditCategoryNameChange = (value) => {
     setEditCategory({ ...editCategory, name: value })
   }
-
-
 
   const handleEditCategoryIconChange = (value) => {
     setEditCategory({ ...editCategory, icon: value })
   }
 
-  const handleDoubleClickToDeleteCategory = () => {
-    category.deleteCategory(id)
-    handleClose()
+  const handleDoubleClickToDeleteCategory = async () => {
+    await category.deleteCategory(id).finally(() => {
+      handleClose()
+    })
   }
 
   return (
-
     <>
       <Col xl={{ span: 5, offset: 1 }}>
         <MenuProvider>

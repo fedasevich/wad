@@ -267,16 +267,14 @@ export default class CategoryStore {
     }
   }
 
-
-  deleteCategory(id) {
+  async deleteCategory(id) {
     try {
-      deleteCategory(id)
+      await deleteCategory(id)
         .then(() => {
           runInAction(() => {
-            const categoryIndex = this.parsedCategories.findIndex(category => category.id === id)
-            this.parsedCategories.splice(categoryIndex, 1)
+            const categoryIndex = this._parsedCategories.findIndex(category => category.id === id)
+            this._parsedCategories.splice(categoryIndex, 1)
           })
-
         })
     } catch (e) {
       alert(e.response.data.message);

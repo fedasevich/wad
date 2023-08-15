@@ -20,7 +20,7 @@ const CreateCategory = observer(() => {
     if (!newCategoryName) {
       return alert("name can't be empty")
     }
-    if (!newCategorySelectedIcon) {
+    if (!newCategorySelectedIcon.id) {
       return alert("please select icon")
     }
     await category.createCategory(newCategoryName, newCategorySelectedIcon).finally(() => {
