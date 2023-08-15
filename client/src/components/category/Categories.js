@@ -66,6 +66,7 @@ const Categories = observer(() => {
 
   const [firstCategories, otherCategories] = [category.parsedCategories.slice(0, MAIN_CATEGORIES_LENGTH),
   category.parsedCategories.slice(MAIN_CATEGORIES_LENGTH, category.parsedCategories.length)];
+
   const handlePlusClick = () => {
     dispatch({ operation: "CREATE_CATEGORY" });
   }
