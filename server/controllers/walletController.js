@@ -1,94 +1,98 @@
 const ApiError = require('../error/ApiError')
 const sequelize = require('../db')
-const { Wallet, Transaction} = require('../models/models')
+const { Wallet, Transaction } = require('../models/models')
 
 
 class WalletController {
-    
-    async create(req,res,next) {
-    const {name,currency}=req.body
-    const userId = req.user.id
-    if(!name||!currency){
-    next(ApiError.badRequest('Wrong data'))
-    }
-    const wallet = await Wallet.create({name,userId,currency})
-    return res.json(wallet)
-    }
-    
-    
-    async get(req,res,next) {
-        
-        if(!req.user.id ){
-            return next(ApiError.badRequest('Wrong data'))
-        }
+    async create(req, res, next) {
+        const { name, currency } = req.body
         const userId = req.user.id
-        const wallet = await Wallet.findAll({where:{userId}})
+
+        if (!name || !currency) {
+            next(ApiError.badRequest('Wrong data'))
+        }
+
+        const wallet = await Wallet.create({ name, userId, currency })
         return res.json(wallet)
     }
-    
-    async change(req,res,next) {
-    let {walletId, newCurrency, newName, newBalance} = req.body
-    if( !walletId || !newBalance && newCurrency && newName  ) {
-        return next(ApiError.badRequest('Wrong data'))
+
+    async get(req, res, next) {
+        if (!req.user.id) {
+            return next(ApiError.badRequest('Wrong data'))
+        }
+
+        const userId = req.user.id
+        const wallets = await Wallet.findAll({
+            where: { userId },
+            order: [
+                ['id', "ASC"]
+            ]
+        })
+        return res.json(wallets)
     }
-    const userId = req.user.id
-    let SequelizeTransaction
-    try {
-    SequelizeTransaction = await sequelize.transaction()
-const oldWallet = await Wallet.findOne({where:{id:walletId, userId}}, { SequelizeTransaction })
 
- newBalance = newBalance || oldWallet.balance
- newCurrency = newCurrency || oldWallet.currency
-newName = newName || oldWallet.name
+    async change(req, res, next) {
+        const { newCurrency, newName, newBalance } = req.body;
+        const id = req.params.id;
 
+        if (!id || (!newBalance && newCurrency && newName)) {
+            return next(ApiError.badRequest('Wrong data'));
+        }
+
+        const userId = req.user.id;
+        let sequelizeTransaction;
+
+        try {
+            sequelizeTransaction = await sequelize.transaction();
+
+            const oldWallet = await Wallet.findOne({ where: { id, userId }, transaction: sequelizeTransaction });
+
+            const updatedFields = {
+                balance: isFinite(newBalance) ? newBalance : oldWallet.balance,
+                currency: newCurrency || oldWallet.currency,
+                name: newName || oldWallet.name
+            };
+
+            await Wallet.update(updatedFields, { where: { id, userId }, transaction: sequelizeTransaction });
+
+            const updatedWallet = await Wallet.findOne({ where: { id, userId }, transaction: sequelizeTransaction });
+
+            await sequelizeTransaction.commit();
+
+            return res.json(updatedWallet);
+        } catch (error) {
+            if (sequelizeTransaction) {
+                await sequelizeTransaction.rollback();
+            }
+            return next(ApiError.badRequest('Error updating wallet'));
+        }
+    }
+
+
+    async delete(req, res, next) {
+        const id = req.params.id;
+
+        if (!id) {
+            return next(ApiError.badRequest('Wrong data'));
+        }
+
+        const userId = req.user.id;
         const update = {
-            balance: newBalance,
-            currency: newCurrency,
-            name: newName
+            walletId: -1
+        };
+
+        try {
+            await sequelize.transaction(async (transaction) => {
+                const deletedWallet = await Wallet.destroy({ where: { userId, id }, transaction });
+
+                await Transaction.update(update, { where: { walletId: id, userId }, transaction });
+
+                res.json(deletedWallet);
+            });
+        } catch (error) {
+            return next(ApiError.badRequest("Error deleting wallet"));
         }
-        
-        const updatedWallet = await Wallet.update(update,{where:{id:walletId,userId}}, { SequelizeTransaction })
-       
-            const wallet =  await Wallet.findOne({where:{id:walletId, userId}}, { SequelizeTransaction })
-            await SequelizeTransaction.commit()
-            return res.json(wallet)
-
-    
-    }catch(e){
-        if(SequelizeTransaction){
-            await SequelizeTransaction.rollback()
-        }
-        return next(ApiError.badRequest('Wrong data'))
-       
     }
-    }
-
-async delete(req,res,next) {
-    const {walletId} = req.body
-if(!walletId ) {
-    return next(ApiError.badRequest('Wrong data'))
-}
-const userId = req.user.id
-const update = {
-    walletId: -1
 }
 
-    try {
-        await sequelize.transaction(async (SequelizeTransaction)=>{
- const deletedWallet = await Wallet.destroy({where:{userId,id:walletId},transaction:SequelizeTransaction })
-
-await Transaction.update(update,{where:{walletId,userId} ,SequelizeTransaction })
-
- res.json(deletedWallet)
-})
-}catch(e){
-
-    return next(ApiError.badRequest("Wrong data"))
-   
-}
-}
-
-
-}
-    
-    module.exports = new WalletController()
+module.exports = new WalletController()

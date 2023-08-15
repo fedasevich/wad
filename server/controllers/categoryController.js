@@ -15,57 +15,59 @@ class CategoryController {
     }
 
     async get(req, res, next) {
-
-        if (!req.user.id) {
+        const userId = req.user.id
+        if (!userId) {
             return next(ApiError.badRequest('Wrong data'))
         }
-        const userId = req.user.id
-        const category = await Category.findAll({
+        const categories = await Category.findAll({
             where: { userId },
             order: [
                 ['id', "ASC"]
             ]
         })
-        return res.json(category)
+        return res.json(categories)
     }
 
     async change(req, res, next) {
-        const { categoryId, newName, newSpent, newIconId } = req.body
-        if (!newSpent && !newName && !newIconId || !categoryId) {
-            return next(ApiError.badRequest('Not enough data'))
+        const { newName, newSpent, newIconId } = req.body;
+        const id = req.params.id;
+
+        if ((!newSpent && !newName && !newIconId) || !id) {
+            return next(ApiError.badRequest('Not enough data'));
         }
-        const userId = req.user.id
 
-        let update = {}
-        if (newName) update["name"] = newName
-        if (newSpent) update["spent"] = newSpent
-        if (newIconId) update["iconId"] = newIconId
+        const userId = req.user.id;
+        const update = {};
 
+        if (newName) update.name = newName;
+        if (newSpent) update.spent = newSpent;
+        if (newIconId) update.iconId = newIconId;
 
-        let transaction
+        let transaction;
+
         try {
-            transaction = await sequelize.transaction()
-            const category = await Category.update(update, { where: { id: categoryId, userId }, transaction })
+            transaction = await sequelize.transaction();
 
-            const updatedCategory = await Category.findOne({ where: { id: categoryId, userId }, transaction })
+            await Category.update(update, { where: { id, userId }, transaction });
 
-            await transaction.commit()
+            const updatedCategory = await Category.findOne({ where: { id, userId }, transaction });
 
-            return res.json(updatedCategory)
-        } catch (e) {
+            await transaction.commit();
+
+            return res.json(updatedCategory);
+        } catch (error) {
             if (transaction) {
-                await transaction.rollback()
+                await transaction.rollback();
             }
-            return next(ApiError.badRequest(e))
-
+            return next(ApiError.badRequest(error));
         }
-
     }
 
-    async delete(req, res, next) {
-        const { categoryId } = req.body
 
-        if (!categoryId) {
+    async delete(req, res, next) {
+        const id = req.params.id;
+
+        if (!id) {
             return next(ApiError.badRequest('Wrong data'))
         }
         const update = {
@@ -73,21 +75,15 @@ class CategoryController {
         }
         const userId = req.user.id
 
-        await Transaction.update(update, { where: { categoryId, userId } })
-
+        await Transaction.update(update, { where: { categoryId: id, userId } })
 
         try {
             await sequelize.transaction(async (SequelizeTransaction) => {
-
-                const deletedCategory = await Category.destroy({ where: { userId, id: categoryId } })
-
+                const deletedCategory = await Category.destroy({ where: { userId, id } })
                 return res.json(deletedCategory)
-
             })
-        } catch (e) {
-
-            return next(ApiError.badRequest(e))
-
+        } catch (error) {
+            return next(ApiError.badRequest(error))
         }
     }
 
