@@ -11,11 +11,11 @@ export const fetchWallet = async () => {
 }
 
 export const changeWallet = async (walletId, newName, newBalance, newCurrency) => {
-    const { data } = await $authHost.put('api/wallet', { walletId, newName, newBalance, newCurrency })
+    const { data } = await $authHost.put(`api/wallet/${walletId}`, { newName, newBalance, newCurrency })
     return data
 }
 
 export const deleteWallet = async (walletId) => {
-    const { data } = await $authHost.delete('api/wallet', { data: { walletId } })
+    const { data } = await $authHost.delete(`api/wallet/${walletId}`)
     return data
 }
