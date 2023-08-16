@@ -1,35 +1,45 @@
-import { ReactComponent as Cancel } from './Cancel.svg'
-import { ReactComponent as ArrowLeft } from './CaretLeft.svg'
-import { ReactComponent as ArrowRight } from './CaretRight.svg'
-import { ReactComponent as CheckMark } from './CheckMark.svg'
-import { ReactComponent as GearSix } from './GearSixBackground.svg'
-import { ReactComponent as ShowMore } from './ShowMore.svg'
-import { ReactComponent as Delete } from './Trash.svg'
-import { ReactComponent as DeleteCircle } from './TrashCircle.svg'
-import { ReactComponent as Wallet } from './Wallet-icon.svg'
+import { ReactComponent as Cancel } from './Cancel.svg';
+import { ReactComponent as ArrowLeft } from './CaretLeft.svg';
+import { ReactComponent as ArrowRight } from './CaretRight.svg';
+import { ReactComponent as CheckMark } from './CheckMark.svg';
+import { ReactComponent as GearSix } from './GearSixBackground.svg';
+import { ReactComponent as ShowMore } from './ShowMore.svg';
+import { ReactComponent as Delete } from './Trash.svg';
+import { ReactComponent as DeleteCircle } from './TrashCircle.svg';
+import { ReactComponent as Wallet } from './Wallet-icon.svg';
 
-export const CancelIcon = () => <Cancel />
+export function CancelIcon() {
+  return <Cancel />;
+}
 
+export function ArrowLeftIcon() {
+  return <ArrowLeft />;
+}
 
-export const ArrowLeftIcon = () => <ArrowLeft />
+export function ArrowRightIcon() {
+  return <ArrowRight />;
+}
 
+export function CheckMarkIcon() {
+  return <CheckMark />;
+}
 
-export const ArrowRightIcon = () => <ArrowRight />
+export function DeleteIcon() {
+  return <Delete />;
+}
 
+export function DeleteCircleIcon() {
+  return <DeleteCircle />;
+}
 
-export const CheckMarkIcon = () => <CheckMark />
+export function WalletIcon() {
+  return <Wallet />;
+}
 
+export function SettingsBackgroundIcon() {
+  return <GearSix />;
+}
 
-export const DeleteIcon = () => <Delete />
-
-
-export const DeleteCircleIcon = () => <DeleteCircle />
-
-
-export const WalletIcon = () => <Wallet />
-
-
-export const SettingsBackgroundIcon = () => <GearSix />
-
-
-export const ShowMoreIcon = () => <ShowMore />
+export function ShowMoreIcon() {
+  return <ShowMore />;
+}

@@ -1,42 +1,38 @@
-import { $authHost } from "./index"
-
+import { $authHost } from './index';
 
 export const createCategory = async (name, iconId) => {
-
-    const { data } = await $authHost.post('api/category', { name, iconId })
-    return data
-}
+  const { data } = await $authHost.post('api/category', { name, iconId });
+  return data;
+};
 
 export const fetchCategory = async () => {
+  const { data } = await $authHost.get('api/category');
 
-    const { data } = await $authHost.get('api/category')
-
-    return data
-}
-
+  return data;
+};
 
 export const fetchCategoryPeriod = async (fromDate, toDate) => {
-    const { data } = await $authHost.get('api/transaction', {
-        params: {
-            fromDate, toDate
-        }
-    })
-    return data
-}
+  const { data } = await $authHost.get('api/transaction', {
+    params: {
+      fromDate,
+      toDate
+    }
+  });
+  return data;
+};
 
 export const changeCategory = async (categoryId, newSpent, newName, newIconId) => {
-    const { data } = await $authHost.put(`api/category/${categoryId}`, { newName, newSpent, newIconId })
-    return data
-}
-
+  const { data } = await $authHost.put(`api/category/${categoryId}`, { newName, newSpent, newIconId });
+  return data;
+};
 
 export const resetAllCategories = async () => {
-    const newSpent = 0
-    const { data } = await $authHost.put('api/category', { newSpent })
-    return data
-}
+  const newSpent = 0;
+  const { data } = await $authHost.put('api/category', { newSpent });
+  return data;
+};
 
 export const deleteCategory = async (categoryId) => {
-    const { data } = await $authHost.delete(`api/category/${categoryId}`)
-    return data
-}
+  const { data } = await $authHost.delete(`api/category/${categoryId}`);
+  return data;
+};

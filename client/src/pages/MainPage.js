@@ -1,10 +1,10 @@
-import { observer } from 'mobx-react-lite'
-import React, { Suspense, lazy, useReducer } from 'react'
-import { Col } from 'react-bootstrap'
+import { observer } from 'mobx-react-lite';
+import React, { Suspense, lazy, useReducer } from 'react';
+import { Col } from 'react-bootstrap';
 
-import TransactionsColumn from '../components/transaction/TransactionsColumn'
-import Wallets from '../components/wallet/Wallets'
-import PageProvider from './PageProvider'
+import TransactionsColumn from '../components/transaction/TransactionsColumn';
+import Wallets from '../components/wallet/Wallets';
+import PageProvider from './PageProvider';
 
 const EditWallet = lazy(() => import('../components/wallet/EditWallet'));
 const NotImplemented = lazy(() => import('../components/NotImplemented'));
@@ -16,24 +16,24 @@ export const defaultPage = <TransactionsColumn />;
 
 function reducer(page, { operation, id }) {
   switch (operation) {
-    case "EDIT_WALLET":
-      return <EditWallet id={id} />
-    case "RECHARGE_WALLET":
-      return <NotImplemented />
-    case "BALANCE_WALLET":
-      return <NotImplemented />
-    case "WITHDRAW_WALLET":
-      return <WalletWithdraw id={id} />
-    case "TRANSACTIONS_WALLET":
-      return <WalletTransactions id={id} />
-    case "TRANSFER_WALLET":
-      return <NotImplemented />
-    case "DEFAULT_WALLET":
-      return defaultPage
-    case "CREATE_WALLET":
-      return "CREATE_WALLET"
+    case 'EDIT_WALLET':
+      return <EditWallet id={id} />;
+    case 'RECHARGE_WALLET':
+      return <NotImplemented />;
+    case 'BALANCE_WALLET':
+      return <NotImplemented />;
+    case 'WITHDRAW_WALLET':
+      return <WalletWithdraw id={id} />;
+    case 'TRANSACTIONS_WALLET':
+      return <WalletTransactions id={id} />;
+    case 'TRANSFER_WALLET':
+      return <NotImplemented />;
+    case 'DEFAULT_WALLET':
+      return defaultPage;
+    case 'CREATE_WALLET':
+      return 'CREATE_WALLET';
     default:
-      return <NotImplemented />
+      return <NotImplemented />;
   }
 }
 
@@ -43,29 +43,25 @@ const MainPage = observer(() => {
   const [state, dispatch] = useReducer(reducer, defaultPage);
 
   return (
-    <>
-      <DispatchContext.Provider value={dispatch}>
-        <PageProvider pageName="Accounts">
-          {state === 'CREATE_WALLET' ? (
-            <Suspense fallback={<h2>Loading</h2>}>
-              <CreateWallet />
-            </Suspense>
-          ) : (
-            <>
-              <Col xl={{ span: 4, offset: 1 }}>
-                {<Wallets />}
-              </Col>
+    <DispatchContext.Provider value={dispatch}>
+      <PageProvider pageName="Accounts">
+        {state === 'CREATE_WALLET' ? (
+          <Suspense fallback={<h2>Loading</h2>}>
+            <CreateWallet />
+          </Suspense>
+        ) : (
+          <>
+            <Col xl={{ span: 4, offset: 1 }}>
+              <Wallets />
+            </Col>
 
-              <Col xl={{ span: 5, offset: 1 }}>
-                <Suspense fallback={<h2>Loading</h2>}>
-                  {state}
-                </Suspense>
-              </Col>
-            </>
-          )}
-        </PageProvider>
-      </DispatchContext.Provider>
-    </>
+            <Col xl={{ span: 5, offset: 1 }}>
+              <Suspense fallback={<h2>Loading</h2>}>{state}</Suspense>
+            </Col>
+          </>
+        )}
+      </PageProvider>
+    </DispatchContext.Provider>
   );
 });
 

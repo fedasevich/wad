@@ -1,62 +1,55 @@
-import { makeAutoObservable, runInAction } from "mobx";
-import { changeWallet, createWallet, deleteWallet } from "../http/walletApi";
+import { makeAutoObservable, runInAction } from 'mobx';
+import { changeWallet, createWallet, deleteWallet } from '../http/walletApi';
 
 export default class WalletStore {
   constructor(rootStore) {
-    this.rootStore = rootStore
-    this._wallets = [{ name: "", balance: "", currency: "", id: 0 }]
+    this.rootStore = rootStore;
+    this._wallets = [{ name: '', balance: '', currency: '', id: 0 }];
 
-    this._selectedWallet = {}
-    makeAutoObservable(this)
+    this._selectedWallet = {};
+    makeAutoObservable(this);
   }
 
   setWallet(wallets) {
-    this._wallets = wallets
+    this._wallets = wallets;
   }
 
   setSelectedWallet(wallet) {
-    this._selectedWallet = wallet
+    this._selectedWallet = wallet;
   }
 
   get wallets() {
-    return this._wallets
+    return this._wallets;
   }
-
 
   get selectedWallet() {
-    return this._selectedWallet
+    return this._selectedWallet;
   }
-
 
   getWalletById(id) {
-    if (id === -1 || !isFinite(id)) return this.wallets[0]
-    return this.wallets.find(wallet => wallet.id === id)
+    if (id === -1 || !Number.isFinite(id)) return this.wallets[0];
+    return this.wallets.find((wallet) => wallet.id === id);
   }
-
-
 
   editWallet(id, newCurrency, newName, newBalance) {
     if (!newCurrency && !newName && !newBalance) {
-      return alert(`Not enough data`)
+      return alert(`Not enough data`);
     }
     try {
-      changeWallet(id, newName ? newName : null, newBalance ? parseFloat(newBalance) : null, newCurrency ? newCurrency : null)
-        .then(() => {
-          runInAction(() => {
-            const wallet = this.wallets.find(wallet => wallet.id === id)
-            if (newName) {
-              wallet.name = newName
-            }
-            if (newBalance) {
-              wallet.balance = newBalance
-            }
-            if (newCurrency) {
-              wallet.currency = newCurrency
-            }
-
-          })
-
-        })
+      changeWallet(id, newName || null, newBalance ? parseFloat(newBalance) : null, newCurrency || null).then(() => {
+        runInAction(() => {
+          const wallet = this.wallets.find((wallet) => wallet.id === id);
+          if (newName) {
+            wallet.name = newName;
+          }
+          if (newBalance) {
+            wallet.balance = newBalance;
+          }
+          if (newCurrency) {
+            wallet.currency = newCurrency;
+          }
+        });
+      });
     } catch (e) {
       alert(e.response.data.message);
     }
@@ -64,18 +57,15 @@ export default class WalletStore {
 
   createWallet(createWalletCurrency, createWalletName) {
     if (!createWalletName || !createWalletCurrency) {
-      return alert("Inputs can't be empty")
+      return alert("Inputs can't be empty");
     }
 
     try {
-      createWallet(createWalletName, createWalletCurrency)
-        .then(data => {
-          runInAction(() => {
-            this.wallets.push(data)
-          })
-
-
-        })
+      createWallet(createWalletName, createWalletCurrency).then((data) => {
+        runInAction(() => {
+          this.wallets.push(data);
+        });
+      });
     } catch (e) {
       alert(e.response.data.message);
     }
@@ -85,21 +75,17 @@ export default class WalletStore {
     try {
       runInAction(() => {
         deleteWallet(id).then(() => {
-          const walletIndex = this.wallets.findIndex(wallet => wallet.id === id)
-          this.wallets.splice(walletIndex, 1)
-        })
-
-      })
-
+          const walletIndex = this.wallets.findIndex((wallet) => wallet.id === id);
+          this.wallets.splice(walletIndex, 1);
+        });
+      });
     } catch (e) {
       alert(e.response.data.message);
     }
   }
 
-
   getCurrencyFromWalletById = (id) => {
-    const wallet = this.getWalletById(id)
-    return wallet?.currency
-  }
-
-}   
+    const wallet = this.getWalletById(id);
+    return wallet?.currency;
+  };
+}

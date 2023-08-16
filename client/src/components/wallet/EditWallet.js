@@ -1,102 +1,114 @@
-import React, { useContext, useEffect, useRef, useState, } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 
-
+import { Form } from 'react-bootstrap';
 import { DispatchContext } from '../../pages/MainPage';
 import { useStore } from '../../store';
 import { DeleteIcon } from '../../ui/Icons/ControlIcons/ControlIcons';
 import Currencies from '../Currencies';
 import MenuProvider from '../MenuProvider';
 
-
-
-
-const EditWallet = ({ id }) => {
-  const { wallet } = useStore()
-  const dispatch = useContext(DispatchContext)
+function EditWallet({ id }) {
+  const { wallet } = useStore();
+  const dispatch = useContext(DispatchContext);
   const [editWallet, setEditWallet] = useState({
-    name: "",
-    currency: "",
-    balance: "",
-  })
+    name: '',
+    currency: '',
+    balance: ''
+  });
   const scrollRef = useRef(null);
 
   const eraseState = () => {
     setEditWallet({
-      name: "",
-      currency: "",
-      balance: "",
-    })
-  }
+      name: '',
+      currency: '',
+      balance: ''
+    });
+  };
 
   const handleClose = () => {
-
-    dispatch({ operation: "DEFAULT_WALLET", id: -1 })
-  }
+    dispatch({ operation: 'DEFAULT_WALLET', id: -1 });
+  };
 
   useEffect(() => {
-    eraseState()
-  }, [id])
+    eraseState();
+  }, [id]);
 
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollIntoView({ behavior: 'smooth' });
     }
-  }, [])
+  }, []);
 
   const handleCommit = () => {
-    wallet.editWallet(id, editWallet.currency, editWallet.name, editWallet.balance)
-    eraseState()
-    handleClose()
-  }
+    wallet.editWallet(id, editWallet.currency, editWallet.name, editWallet.balance);
+    eraseState();
+    handleClose();
+  };
 
-  const handleKeyDown = event => {
+  const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
-      handleCommit()
+      handleCommit();
     }
     if (event.key === 'Escape') {
-      handleClose()
+      handleClose();
     }
   };
 
   const handleChange = (event) => {
-    console.log(event.target.name)
     setEditWallet({
       ...editWallet,
       [event.target.name]: event.target.value
     });
-
-  }
+  };
 
   const handleDoubleClick = (id) => {
-
-    wallet.deleteWallet(id)
-    eraseState()
-    handleClose()
-  }
+    wallet.deleteWallet(id);
+    eraseState();
+    handleClose();
+  };
 
   return (
     <MenuProvider>
       <MenuProvider.Actions close={handleClose} commit={handleCommit}>
-        <h5 ref={scrollRef} className='scroll-margin'>Edit wallet</h5>
+        <h5 ref={scrollRef} className="scroll-margin">
+          Edit wallet
+        </h5>
         <h6>Wallet: {wallet.getWalletById(id).name}</h6>
       </MenuProvider.Actions>
 
       <MenuProvider.Container>
-        <label className='mb-2' htmlFor="name">Enter new name:</label>
-        <input className='mb-2 component-half-border-radius' type="text" name='name' onKeyDown={handleKeyDown} value={editWallet.name} onChange={handleChange} />
-        <label className='mb-2' htmlFor="balance">Enter new balance:</label>
-        <input className='mb-2 component-half-border-radius' type="number" name='balance' onKeyDown={handleKeyDown} value={editWallet.balance} onChange={handleChange} />
-        <h4 className='mb-2' >Choose new currency:</h4>
+        <Form.Label className="mb-2" htmlFor="name">
+          Enter new name:
+        </Form.Label>
+        <Form.Control
+          className="mb-2 component-half-border-radius"
+          type="text"
+          name="name"
+          onKeyDown={handleKeyDown}
+          value={editWallet.name}
+          onChange={handleChange}
+        />
+        <Form.Label className="mb-2" htmlFor="balance">
+          Enter new balance:
+        </Form.Label>
+        <Form.Control
+          className="mb-2 component-half-border-radius"
+          type="number"
+          name="balance"
+          onKeyDown={handleKeyDown}
+          value={editWallet.balance}
+          onChange={handleChange}
+        />
+        <h4 className="mb-2">Choose new currency:</h4>
         <Currencies setCurrency={handleChange} walletDefaultCurrency={wallet.getWalletById(id).currency} />
-
-        <h6 onDoubleClick={() => handleDoubleClick(id)} className='text-danger mb-0 btn' ><DeleteIcon /> Delete wallet</h6>
+        <button onDoubleClick={() => handleDoubleClick(id)} type="button">
+          <h6 className="text-danger mb-0 btn">
+            <DeleteIcon /> Delete wallet
+          </h6>
+        </button>
       </MenuProvider.Container>
     </MenuProvider>
-  )
-
-
-
-
+  );
 }
 
-export default EditWallet
+export default EditWallet;

@@ -48,7 +48,7 @@ class WalletController {
             const oldWallet = await Wallet.findOne({ where: { id, userId }, transaction: sequelizeTransaction });
 
             const updatedFields = {
-                balance: isFinite(newBalance) ? newBalance : oldWallet.balance,
+                balance: Number.isInteger(newBalance) ? newBalance : oldWallet.balance,
                 currency: newCurrency || oldWallet.currency,
                 name: newName || oldWallet.name
             };

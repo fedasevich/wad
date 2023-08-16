@@ -1,13 +1,14 @@
-import { format } from 'date-fns'
-import { observer } from 'mobx-react-lite'
-import React, { Suspense, lazy } from 'react'
-import { useStore } from '../../store'
-import MenuProvider from '../MenuProvider'
-const Calculator = lazy(() => import('../calculator/calculator'))
+import { format } from 'date-fns';
+import { observer } from 'mobx-react-lite';
+import React, { Suspense, lazy } from 'react';
+import { useStore } from '../../store';
+import MenuProvider from '../MenuProvider';
 
+const Calculator = lazy(() => import('../calculator/calculator'));
 
 const WalletWithdraw = observer(({ id }) => {
-  const { wallet } = useStore()
+  const { wallet } = useStore();
+
   return (
     <MenuProvider>
       <MenuProvider.Header.Straight>
@@ -17,9 +18,9 @@ const WalletWithdraw = observer(({ id }) => {
       <Suspense fallback={<h2>Loading</h2>}>
         <Calculator walletId={id} />
       </Suspense>
-      <h6 className='text-center py-2 fw-light'> {format(new Date(), 'd MMMM y')}</h6>
+      <h6 className="text-center py-2 fw-light"> {format(new Date(), 'd MMMM y')}</h6>
     </MenuProvider>
-  )
-})
+  );
+});
 
-export default WalletWithdraw
+export default WalletWithdraw;

@@ -1,28 +1,27 @@
 import { observer } from 'mobx-react-lite';
-import React, { useRef } from 'react'
-import { Col, Row } from 'react-bootstrap';
-import { useOnClickOutside } from '../calculator/Hooks/useOnClickOutside';
+import React, { useRef } from 'react';
+import ReactDOM from 'react-dom'; // Import ReactDOM for using portals
 import MenuProvider from '../MenuProvider';
-import './modalStyle.css'
+import { useNestedModal } from '../calculator/Hooks/useNestedModal';
+import './modalStyle.css';
 
-const Modal = observer(({active,setActive,children,header})=>{ 
-  const modalRef = useRef(); 
-  useOnClickOutside(modalRef, () => setActive(false));
-  return (
-    <div className={active ? "custom_modal active":"custom_modal" }>
-        <div ref={modalRef} className={active ? "custom_modal_content active ":"custom_modal_content" }>
+const Modal = observer(({ active, setActive, children, id }) => {
+  const modalRef = useRef();
 
-        <MenuProvider>
+  const portalContainer = document.getElementById('modal-root');
 
-      {children}
+  useNestedModal(modalRef, () => setActive(false));
 
-     
+  if (!portalContainer) return null;
 
-  </MenuProvider> 
+  return ReactDOM.createPortal(
+    <div className={`custom_modal ${active ? 'active' : ''}`}>
+      <div ref={modalRef} className={`custom_modal_content ${active ? 'active' : ''}`} id={id}>
+        <MenuProvider>{children}</MenuProvider>
+      </div>
+    </div>,
+    portalContainer
+  );
+});
 
-          </div>
-    </div>
-  )
-})
-
-export default Modal
+export default Modal;

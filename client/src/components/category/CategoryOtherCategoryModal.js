@@ -14,19 +14,18 @@ const CategoryOtherCategoryModal = observer(function CategoryOtherCategoryModal(
   dispatch,
   handleGearClick
 }) {
-
   const handleCategoryClick = (categoryMap) => {
     setCalculatorModal({ active: true, categoryId: categoryMap.id });
     setOtherCategoriesModal(false);
-  }
+  };
 
   const handleGearIconClick = (event, categoryId) => {
     handleGearClick(event, categoryId);
-  }
+  };
 
   const handleAddCategoryClick = () => {
-    dispatch({ operation: 'CREATE_CATEGORY', dispatch: dispatch });
-  }
+    dispatch({ operation: 'CREATE_CATEGORY', dispatch });
+  };
 
   return (
     <Modal active={otherCategoriesModal} setActive={setOtherCategoriesModal}>
@@ -36,31 +35,36 @@ const CategoryOtherCategoryModal = observer(function CategoryOtherCategoryModal(
       <MenuProvider.Container>
         <Row>
           <Col md={12} className="overflow-auto vh-50">
-            {otherCategories.map(categoryMap => (
-              <div
-                className="p-3 mb-2 modal_item d-flex flex-row justify-content-between category align-items-center"
+            {otherCategories.map((categoryMap) => (
+              <button
+                type="button"
+                className="w-100 p-3 mb-2 modal_item d-flex flex-row justify-content-between category align-items-center"
                 onClick={() => handleCategoryClick(categoryMap)}
                 key={categoryMap.id}
               >
                 <div className="position-relative categoryIcon">
-                  <Icons iconId={categoryMap.iconId}></Icons>
+                  <Icons iconId={categoryMap.iconId} />
                   <span
+                    role="button"
+                    onKeyDown={() => undefined}
+                    tabIndex={0}
                     className="position-absolute top-0 start-100 translate-middle p-2 gear"
-                    onClick={event => handleGearIconClick(event, categoryMap.id)}
+                    onClick={(event) => handleGearIconClick(event, categoryMap.id)}
                   >
                     <SettingsBackgroundIcon />
                   </span>
                 </div>
                 <h3 className="mt-1">{categoryMap.name}</h3>
                 <h6>{categoryMap.spent}</h6>
-              </div>
+              </button>
             ))}
-            <div
-              className="p-3 mb-2 modal_item bg-main-blue component-border-radius d-flex flex-row justify-content-center"
+            <button
+              type="button"
+              className="w-100 p-3 mb-2 modal_item bg-main-blue component-border-radius d-flex flex-row justify-content-center"
               onClick={handleAddCategoryClick}
             >
               <h3 className="mt-1">+</h3>
-            </div>
+            </button>
           </Col>
         </Row>
       </MenuProvider.Container>
