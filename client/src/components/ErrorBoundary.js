@@ -1,15 +1,17 @@
-import React, { Component } from "react";
+/* eslint-disable react/state-in-constructor */
+/* eslint-disable react/destructuring-assignment */
+import React, { Component } from 'react';
 
 class ErrorBoundary extends Component {
   state = {
     hasError: false,
-    error: null,
+    error: null
   };
 
-  componentDidCatch(error, errorInfo) {
+  componentDidCatch(error, _errorInfo) {
     this.setState({
       hasError: true,
-      error,
+      error
     });
   }
 
@@ -21,9 +23,8 @@ class ErrorBoundary extends Component {
           <pre>{this.state.error.message}</pre>
         </div>
       );
-    } else {
-      return this.props.children;
     }
+    return this.props.children;
   }
 }
 

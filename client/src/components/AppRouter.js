@@ -7,25 +7,21 @@ import { LOGIN_ROUTE } from '../utils/constants';
 import { SidebarLayout } from './SidebarLayout';
 
 const AppRouter = observer(() => {
-  const { user } = useStore()
+  const { user } = useStore();
   return (
     <Suspense>
       <Routes>
         <Route element={<SidebarLayout />}>
-          {user.isAuth && authRoutes.map(({ path, Component }) =>
-            <Route key={path} path={path} element={<Component />} exact />
-          )}
+          {user.isAuth &&
+            authRoutes.map(({ path, Component }) => <Route key={path} path={path} element={<Component />} exact />)}
         </Route>
-        {publicRoutes.map(({ path, Component }) =>
+        {publicRoutes.map(({ path, Component }) => (
           <Route key={path} path={path} element={<Component />} exact />
-        )}
-        <Route
-          path="*"
-          element={<Navigate to={LOGIN_ROUTE} replace />}
-        />
+        ))}
+        <Route path="*" element={<Navigate to={LOGIN_ROUTE} replace />} />
       </Routes>
     </Suspense>
-  )
-})
+  );
+});
 
-export default AppRouter
+export default AppRouter;

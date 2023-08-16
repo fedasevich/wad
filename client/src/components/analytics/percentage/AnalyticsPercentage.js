@@ -1,49 +1,69 @@
 import { observer } from 'mobx-react-lite';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
+import { useStore } from '../../../store';
 import { AnalyticsPercentageItem } from './AnalyticsPercentageItem';
 import { AnalyticsShowMore } from './AnalyticsShowMore';
 
+const CATEGORIES_TO_SHOW = 2;
 
-import { useMemo } from 'react';
-import { useStore } from '../../../store';
-
-
-const CATEGORIES_TO_SHOW = 2
-
-
-const getProgressBarPercentage = (spent, totalSpent) => ((spent / totalSpent) * 100).toFixed(1)
+const getProgressBarPercentage = (spent, totalSpent) => ((spent / totalSpent) * 100).toFixed(1);
 
 export const AnalyticsPercentage = observer(() => {
-    const { category } = useStore();
-    const [showMore, setShowMore] = useState(false);
+  const { category } = useStore();
+  const [showMore, setShowMore] = useState(false);
 
-    const sortedParsedCategories = useMemo(() =>
-        [...category.parsedCategories].filter((category => category.spent > 0)).sort((first, second) => second.spent - first.spent),
-        [category.parsedCategories]);
+  const sortedParsedCategories = useMemo(
+    () =>
+      [...category.parsedCategories]
+        .filter((category) => category.spent > 0)
+        .sort((first, second) => second.spent - first.spent),
+    [category.parsedCategories]
+  );
 
-    const [firstCategories, otherCategories] = useMemo(() =>
-        [sortedParsedCategories.slice(0, CATEGORIES_TO_SHOW), sortedParsedCategories.slice(CATEGORIES_TO_SHOW)],
-        [sortedParsedCategories]);
+  const [firstCategories, otherCategories] = useMemo(
+    () => [sortedParsedCategories.slice(0, CATEGORIES_TO_SHOW), sortedParsedCategories.slice(CATEGORIES_TO_SHOW)],
+    [sortedParsedCategories]
+  );
 
-    const totalSpent = useMemo(() =>
-        sortedParsedCategories.reduce((acc, item) => acc + item.spent, 0),
-        [sortedParsedCategories]);
+  const totalSpent = useMemo(
+    () => sortedParsedCategories.reduce((acc, item) => acc + item.spent, 0),
+    [sortedParsedCategories]
+  );
 
-    const otherCategoriesSpent = useMemo(() =>
-        otherCategories.reduce((acc, item) => acc + item.spent, 0),
-        [otherCategories]);
+  const otherCategoriesSpent = useMemo(
+    () => otherCategories.reduce((acc, item) => acc + item.spent, 0),
+    [otherCategories]
+  );
 
-    const handleShowMoreToggle = () => {
-        setShowMore(prev => !prev);
-    };
+  const handleShowMoreToggle = () => {
+    setShowMore((prev) => !prev);
+  };
 
-    return (<>
-        {firstCategories.map((categoryItem) =>
-            <AnalyticsPercentageItem key={categoryItem.id} categoryItem={categoryItem} progressBarPercentage={getProgressBarPercentage(categoryItem.spent, totalSpent)} />
-        )}
-        {!!otherCategories.length && !showMore && <AnalyticsShowMore onClick={handleShowMoreToggle} spent={otherCategoriesSpent} percentage={getProgressBarPercentage(otherCategoriesSpent, totalSpent)} />}
-        {showMore && otherCategories.map((categoryItem) =>
-            <AnalyticsPercentageItem onClick={handleShowMoreToggle} key={categoryItem.id} categoryItem={categoryItem} progressBarPercentage={getProgressBarPercentage(categoryItem.spent, totalSpent)} />
-        )}
-    </>);
+  return (
+    <>
+      {firstCategories.map((categoryItem) => (
+        <AnalyticsPercentageItem
+          key={categoryItem.id}
+          categoryItem={categoryItem}
+          progressBarPercentage={getProgressBarPercentage(categoryItem.spent, totalSpent)}
+        />
+      ))}
+      {!!otherCategories.length && !showMore && (
+        <AnalyticsShowMore
+          onClick={handleShowMoreToggle}
+          spent={otherCategoriesSpent}
+          percentage={getProgressBarPercentage(otherCategoriesSpent, totalSpent)}
+        />
+      )}
+      {showMore &&
+        otherCategories.map((categoryItem) => (
+          <AnalyticsPercentageItem
+            onClick={handleShowMoreToggle}
+            key={categoryItem.id}
+            categoryItem={categoryItem}
+            progressBarPercentage={getProgressBarPercentage(categoryItem.spent, totalSpent)}
+          />
+        ))}
+    </>
+  );
 });

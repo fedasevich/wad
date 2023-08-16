@@ -9,19 +9,19 @@ const EditCategory = lazy(() => import('../components/category/EditCategory'));
 
 export const CategoryDispatchContext = React.createContext(null);
 
+const reducer = (page, { operation, id, dispatch }) => {
+  switch (operation) {
+    case 'EDIT_CATEGORY':
+      return <EditCategory id={id} dispatch={dispatch} />;
+    case 'CREATE_CATEGORY':
+      return <CreateCategory dispatch={dispatch} />;
+    default:
+      return false;
+  }
+};
+
 const Category = observer(() => {
   const [selectedPage, dispatch] = useReducer(reducer, null);
-
-  function reducer(page, { operation, id, dispatch }) {
-    switch (operation) {
-      case 'EDIT_CATEGORY':
-        return <EditCategory id={id} dispatch={dispatch} />;
-      case 'CREATE_CATEGORY':
-        return <CreateCategory dispatch={dispatch} />;
-      default:
-        return false;
-    }
-  }
 
   return (
     <PageProvider pageName={selectedPage && 'Categories'}>

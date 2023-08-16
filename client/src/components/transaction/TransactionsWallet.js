@@ -7,71 +7,68 @@ import { fetchWalletTransactionByWalletId } from '../../http/transactionApi';
 import { useStore } from '../../store';
 import TransactionProvider from './TransactionProvider';
 
-
 function TransactionToggle({ children, eventKey }) {
   const decoratedOnClick = useAccordionButton(eventKey);
 
-  return (
-    <div onClick={decoratedOnClick}>
-      {children}
-    </div>
-  );
+  // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
+  return <div onClick={decoratedOnClick}>{children}</div>;
 }
 
 const TransactionsWallet = observer(({ id }) => {
-  const { category, wallet } = useStore()
-  const [buttonVisible, setButtonVisible] = useState(true)
+  const { category, wallet } = useStore();
+  const [buttonVisible, setButtonVisible] = useState(true);
 
   useEffect(() => {
     try {
-      fetchWalletTransactionByWalletId(category.transactionsPage, category.transactionsLimit, category.transactionsSort, id)
-        .then(data => {
-          runInAction(() => {
-            category.setTransactions(data.rows)
-          })
-        })
+      fetchWalletTransactionByWalletId(
+        category.transactionsPage,
+        category.transactionsLimit,
+        category.transactionsSort,
+        id
+      ).then((data) => {
+        runInAction(() => {
+          category.setTransactions(data.rows);
+        });
+      });
     } catch (e) {
       alert(e.response.data.message);
     }
-  }, [category.transactionsLimit, category.transactionsSort, category, id])
+  }, [category.transactionsLimit, category.transactionsSort, category, id]);
 
-  const data = category.transactions
+  const data = category.transactions;
 
   const transactions = data.reduce((transactions, transactionItem) => {
-
-    const date = format(parseISO(transactionItem.createdAt), "d MMMM y");
+    const date = format(parseISO(transactionItem.createdAt), 'd MMMM y');
     if (!transactions[date]) {
       transactions[date] = [];
     }
     transactions[date].push(transactionItem);
     return transactions;
-  }, {})
+  }, {});
 
-  const transactionArrays = Object.keys(transactions).map((date) => {
-
-    return {
-      date,
-      trs: transactions[date]
-    };
-  })
-
+  const transactionArrays = Object.keys(transactions).map((date) => ({ date, trs: transactions[date] }));
 
   const loadMoreWalletTransactions = () => {
     category.setTransactionsPage(category.transactionsPage + 1);
 
     try {
-      fetchWalletTransactionByWalletId(category.transactionsPage, category.transactionsLimit, category.transactionsSort, id).then(data => {
+      fetchWalletTransactionByWalletId(
+        category.transactionsPage,
+        category.transactionsLimit,
+        category.transactionsSort,
+        id
+      ).then((data) => {
         if (!data.rows.length) {
-          setButtonVisible(false)
-        };
+          setButtonVisible(false);
+        }
         runInAction(() => {
-          category.transactions.push(...data.rows)
-        })
-      })
+          category.transactions.push(...data.rows);
+        });
+      });
     } catch (e) {
       alert(e.response.data.message);
     }
-  }
+  };
 
   return (
     <TransactionProvider>
@@ -83,21 +80,28 @@ const TransactionsWallet = observer(({ id }) => {
               {transactionsMap.trs.map((transactions, index) => {
                 return (
                   <TransactionToggle eventKey={index} key={transactions.id}>
-                    <TransactionProvider.Transaction transaction={transactions} wallet={wallet} category={category} index={index} />
+                    <TransactionProvider.Transaction
+                      transaction={transactions}
+                      wallet={wallet}
+                      category={category}
+                      index={index}
+                    />
                   </TransactionToggle>
-                )
-              }
-              )}
+                );
+              })}
             </Accordion>
           </Row>
-        )
-      }
-      )}
+        );
+      })}
       <Row>
-        <TransactionProvider.LoadMore buttonVisible={buttonVisible} setButtonVisible={setButtonVisible} fetchTransaction={loadMoreWalletTransactions} />
+        <TransactionProvider.LoadMore
+          buttonVisible={buttonVisible}
+          setButtonVisible={setButtonVisible}
+          fetchTransaction={loadMoreWalletTransactions}
+        />
       </Row>
     </TransactionProvider>
   );
 });
 
-export default TransactionsWallet
+export default TransactionsWallet;
