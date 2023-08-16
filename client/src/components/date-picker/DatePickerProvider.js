@@ -1,25 +1,48 @@
-import { addDays, addMonths, endOfDay, endOfMonth, endOfWeek, endOfYear, format, startOfDay, startOfMonth, startOfWeek, startOfYear, subDays, subMonths, subYears } from 'date-fns'
-import { addYears } from 'date-fns/esm'
-import { observer } from 'mobx-react-lite'
-import React, { Suspense, lazy, useEffect, useState } from 'react'
-import 'react-date-range/dist/styles.css'
-import 'react-date-range/dist/theme/default.css'
-import { useStore } from '../../store'
-import { WalletIcon } from "../../ui/Icons/ControlIcons/ControlIcons"
-import { dateRangeOptions, getDateRangeOptions } from '../../utils/constants'
-import ArrowSelect from '../ArrowSelect'
-import MenuProvider from '../MenuProvider'
-import Modal from '../modal/modal'
-import './style.css'
-const DateRange = lazy(() => import('react-date-range').then(module => ({ default: module.DateRange })));
+import {
+  addDays,
+  addMonths,
+  addYears,
+  endOfDay,
+  endOfMonth,
+  endOfWeek,
+  endOfYear,
+  format,
+  startOfDay,
+  startOfMonth,
+  startOfWeek,
+  startOfYear,
+  subDays,
+  subMonths,
+  subYears
+} from 'date-fns';
+import { observer } from 'mobx-react-lite';
+import React, { Suspense, lazy, useEffect, useState } from 'react';
+import 'react-date-range/dist/styles.css';
+import 'react-date-range/dist/theme/default.css';
+import { useStore } from '../../store';
+import {
+  AllTimeIcon,
+  DefaultIcon,
+  MonthIcon,
+  RangeIcon,
+  TodayIcon,
+  WeekIcon,
+  YearIcon
+} from '../../ui/Icons/DatePickerIcons/DatePickerIcons';
+import { dateRangeOptions, getDateRangeOptions } from '../../utils/constants';
+import ArrowSelect from '../ArrowSelect';
+import MenuProvider from '../MenuProvider';
+import Modal from '../modal/modal';
+import './style.css';
+
+const DateRange = lazy(() => import('react-date-range').then((module) => ({ default: module.DateRange })));
 
 const DatePickerProvider = observer(({ dateRange, setDateRange }) => {
-  const [datePickerModal, setDatePickerModal] = useState(false)
-  const [dateRangeModal, setDateRangeModal] = useState(false)
-  const [dateToPrint, setDateToPrint] = useState(format(dateRange[0].startDate, 'MMMM y'))
-  const { category } = useStore()
-  const now = new Date()
-
+  const [datePickerModal, setDatePickerModal] = useState(false);
+  const [dateRangeModal, setDateRangeModal] = useState(false);
+  const [dateToPrint, setDateToPrint] = useState(format(dateRange[0].startDate, 'MMMM y'));
+  const { category } = useStore();
+  const now = new Date();
 
   const handleDateRangeChange = ({ start, end, action, print }) => {
     setDateRange([
@@ -27,54 +50,48 @@ const DatePickerProvider = observer(({ dateRange, setDateRange }) => {
         startDate: start,
         endDate: end,
         key: 'selection',
-        action: action
+        action
       }
-    ])
-    setDateToPrint(print)
-  }
-
+    ]);
+    setDateToPrint(print);
+  };
 
   useEffect(() => {
-    setDatePickerModal(false)
-  }, [dateRange])
-
+    setDatePickerModal(false);
+  }, [dateRange]);
 
   const handleSelectRangeClick = () => {
     setDatePickerModal(false);
-    setDateRangeModal(true)
-  }
+    setDateRangeModal(true);
+  };
 
   const handleAllTimeClick = () => {
-    handleDateRangeChange(getDateRangeOptions(now, dateRangeOptions.ALL_TIME))
-  }
+    handleDateRangeChange(getDateRangeOptions(now, dateRangeOptions.ALL_TIME));
+  };
 
   const handleDefaultClick = () => {
-    category.fetchCategory()
+    category.fetchCategory();
     setDateToPrint(() => {
-      return "Default"
-    })
-    setDatePickerModal(false)
-  }
+      return 'Default';
+    });
+    setDatePickerModal(false);
+  };
 
   const handleWeekClick = () => {
-    handleDateRangeChange(
-      getDateRangeOptions(now, dateRangeOptions.WEEK)
-    )
-  }
+    handleDateRangeChange(getDateRangeOptions(now, dateRangeOptions.WEEK));
+  };
 
   const handleYearClick = () => {
-    handleDateRangeChange(getDateRangeOptions(now, dateRangeOptions.YEAR))
-  }
+    handleDateRangeChange(getDateRangeOptions(now, dateRangeOptions.YEAR));
+  };
 
   const handleMonthClick = () => {
-    handleDateRangeChange(getDateRangeOptions(now, dateRangeOptions.MONTH))
-  }
+    handleDateRangeChange(getDateRangeOptions(now, dateRangeOptions.MONTH));
+  };
 
   const handleTodayClick = () => {
-    handleDateRangeChange(getDateRangeOptions(now, dateRangeOptions.TODAY))
-
-  }
-
+    handleDateRangeChange(getDateRangeOptions(now, dateRangeOptions.TODAY));
+  };
 
   const handleArrowLeftClick = () => {
     const { action, startDate, endDate } = dateRange[0];
@@ -85,7 +102,7 @@ const DatePickerProvider = observer(({ dateRange, setDateRange }) => {
           start: subDays(startOfWeek(startDate), 7),
           end: endOfWeek(endDate),
           action: dateRangeOptions.WEEK,
-          print: format(subDays(startOfWeek(startDate), 7), 'd.M') + " - " + format(endOfWeek(endDate), 'd.M')
+          print: `${format(subDays(startOfWeek(startDate), 7), 'd.M')} - ${format(endOfWeek(endDate), 'd.M')}`
         });
         break;
       case dateRangeOptions.YEAR:
@@ -126,7 +143,7 @@ const DatePickerProvider = observer(({ dateRange, setDateRange }) => {
           start: startOfWeek(startDate),
           end: addDays(endOfWeek(endDate), 7),
           action: dateRangeOptions.WEEK,
-          print: format(startOfWeek(startDate), 'd.M') + " - " + format(addDays(endOfWeek(endDate), 7), 'd.M')
+          print: `${format(startOfWeek(startDate), 'd.M')} - ${format(addDays(endOfWeek(endDate), 7), 'd.M')}`
         });
         break;
       case dateRangeOptions.YEAR:
@@ -158,21 +175,38 @@ const DatePickerProvider = observer(({ dateRange, setDateRange }) => {
     }
   };
 
-
   const handleDateRangePickerChange = (item) => {
-    setDateRange([{ ...item.selection, action: dateRangeOptions.ALL_TIME }])
+    setDateRange([{ ...item.selection, action: dateRangeOptions.ALL_TIME }]);
     setDateToPrint('custom range');
-  }
+  };
 
   const handleTextClick = () => {
-    setDatePickerModal(true)
-  }
+    setDatePickerModal(true);
+  };
 
-  const leftArrowShow = dateRange[0].action !== dateRangeOptions.ALL_TIME
-  const rightArrowShow = dateRange[0].action !== dateRangeOptions.ALL_TIME
+  const leftArrowShow = dateRange[0].action !== dateRangeOptions.ALL_TIME;
+  const rightArrowShow = dateRange[0].action !== dateRangeOptions.ALL_TIME;
+
+  const buttonData = [
+    {
+      id: 'selectRange',
+      onClick: handleSelectRangeClick,
+      icon: <RangeIcon />,
+      text: 'Select range',
+      className: 'item item-wide'
+    },
+    { id: 'allTime', onClick: handleAllTimeClick, icon: <AllTimeIcon />, text: 'All time', className: 'item' },
+    { id: 'default', onClick: handleDefaultClick, icon: <DefaultIcon />, text: 'Default', className: 'item' },
+    { id: 'week', onClick: handleWeekClick, icon: <WeekIcon />, text: 'Week', className: 'item' },
+    { id: 'today', onClick: handleTodayClick, icon: <TodayIcon />, text: 'Today', className: 'item' },
+    { id: 'year', onClick: handleYearClick, icon: <YearIcon />, text: 'Year', className: 'item' },
+    { id: 'month', onClick: handleMonthClick, icon: <MonthIcon />, text: 'Month', className: 'item' }
+  ];
+
   return (
     <>
-      <ArrowSelect handleArrowLeftClick={handleArrowLeftClick}
+      <ArrowSelect
+        handleArrowLeftClick={handleArrowLeftClick}
         handleArrowRightClick={handleArrowRightClick}
         handleTextClick={handleTextClick}
         leftArrowShow={leftArrowShow}
@@ -181,40 +215,24 @@ const DatePickerProvider = observer(({ dateRange, setDateRange }) => {
       />
 
       <Modal active={datePickerModal} setActive={setDatePickerModal}>
-        <MenuProvider.Container >
+        <MenuProvider.Container>
           <div className="date-picker ">
-            <div className="item item-wide" onClick={handleSelectRangeClick}>
-              <WalletIcon /> <h4>Select range</h4>
-            </div>
-            <div className="item" onClick={handleAllTimeClick}>
-              <WalletIcon /> <h4 className='mt-2'>All time</h4>
-            </div>
-            <div className="item" onClick={handleDefaultClick}>
-              <WalletIcon /> <h4 className='mt-2'>Default</h4>
-            </div>
-            <div className="item" onClick={handleWeekClick}>
-              <WalletIcon /> <h4 className='mt-2'>Week</h4>
-            </div>
-            <div className="item" onClick={handleTodayClick}>
-              <WalletIcon /> <h4 className='mt-2'>Today</h4>
-            </div>
-            <div className="item" onClick={handleYearClick}>
-              <WalletIcon /> <h4 className='mt-2'>Year</h4>
-            </div>
-            <div className="item" onClick={handleMonthClick}>
-              <WalletIcon /> <h4 className='mt-2'>Month</h4>
-            </div>
+            {buttonData.map((button) => (
+              <button key={button.id} type="button" className={button.className} onClick={button.onClick}>
+                {button.icon} <h4 className={button.className.includes('item-wide') ? '' : 'mt-2'}>{button.text}</h4>
+              </button>
+            ))}
           </div>
         </MenuProvider.Container>
       </Modal>
 
-      {dateRangeModal &&
+      {dateRangeModal && (
         <Modal active={dateRangeModal} setActive={setDateRangeModal}>
           <MenuProvider.Container>
             <Suspense fallback={<h2>Loading</h2>}>
               <div className="w-100 d-flex justify-content-center">
                 <DateRange
-                  editableDateInputs={true}
+                  editableDateInputs
                   onChange={handleDateRangePickerChange}
                   moveRangeOnFirstSelection={false}
                   ranges={dateRange}
@@ -223,9 +241,9 @@ const DatePickerProvider = observer(({ dateRange, setDateRange }) => {
             </Suspense>
           </MenuProvider.Container>
         </Modal>
-      }
+      )}
     </>
-  )
-})
+  );
+});
 
-export default DatePickerProvider
+export default DatePickerProvider;
