@@ -3,10 +3,8 @@ import React, { Suspense, lazy, useContext, useEffect, useState } from 'react';
 import { Col } from 'react-bootstrap';
 
 import { endOfMonth, startOfMonth } from 'date-fns';
-import { runInAction } from 'mobx';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
-import { fetchCategory } from '../../http/categoryApi';
 import { CategoryDispatchContext } from '../../pages/Category';
 import PageProvider from '../../pages/PageProvider';
 import { useStore } from '../../store';
@@ -14,6 +12,7 @@ import CategoryStore from '../../store/CategoryStore';
 import { Icons } from '../../ui/Icons/CategoryIcons/CategoryIcons';
 import { SettingsBackgroundIcon } from '../../ui/Icons/ControlIcons/ControlIcons';
 import DatePickerProvider from '../date-picker/DatePickerProvider';
+import Loader from '../loader/Loader';
 import CategoriesChart from './CategoriesChart';
 import './CategoryStyle.css';
 
@@ -45,24 +44,16 @@ const Categories = observer(() => {
 
   useEffect(() => {
     try {
-      fetchCategory()
-        .then((categoryData) => {
-          runInAction(() => {
-            category.setCategories(categoryData);
-          });
-        })
-        .then(async () => {
-          await CategoryStore.fetchCategoryPeriod(dateRange)
-            .then((data) => category.parseCategories(data))
-            .finally(() => setLoading(false));
-        });
+      CategoryStore.fetchCategoryPeriod(dateRange)
+        .then((data) => category.parseCategories(data))
+        .finally(() => setLoading(false));
     } catch (e) {
       alert(e.response.data.message);
     }
   }, [category, dateRange]);
 
   if (loading) {
-    return <h2>loading</h2>;
+    return <Loader />;
   }
 
   const [firstCategories, otherCategories] = [
@@ -103,7 +94,7 @@ const Categories = observer(() => {
           <div className="category d-flex justify-content-center" key={categoryMap.id}>
             <button
               type="button"
-              className="mb-2 d-flex flex-column align-items-center cursor-pointer position-relative w-fit-content h-fit-content"
+              className="mb-2 px-0 d-flex flex-column align-items-center cursor-pointer position-relative w-fit-content h-fit-content"
               onClick={() => {
                 setCalculatorModal({ active: true, categoryId: categoryMap.id });
               }}
@@ -145,7 +136,7 @@ const Categories = observer(() => {
           </div>
         </div>
       </Col>
-      <Suspense fallback={<h2>Loading</h2>}>
+      <Suspense fallback={<Loader />}>
         {otherCategoriesModal && (
           <CategoryOtherCategoryModal
             otherCategories={otherCategories}

@@ -4,7 +4,7 @@ import { changeWallet, createWallet, deleteWallet } from '../http/walletApi';
 export default class WalletStore {
   constructor(rootStore) {
     this.rootStore = rootStore;
-    this._wallets = [{ name: '', balance: '', currency: '', id: 0 }];
+    this._wallets = [];
 
     this._selectedWallet = {};
     makeAutoObservable(this);
@@ -27,7 +27,6 @@ export default class WalletStore {
   }
 
   getWalletById(id) {
-    if (id === -1 || !Number.isFinite(id)) return this.wallets[0];
     return this.wallets.find((wallet) => wallet.id === id);
   }
 

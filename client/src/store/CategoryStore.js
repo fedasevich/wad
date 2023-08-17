@@ -226,7 +226,7 @@ export default class CategoryStore {
       return changeCategory(id, parseFloat(editCategory.spent), editCategory.name, editCategory.icon.id).then(
         (data) => {
           runInAction(() => {
-            const categoryToEdit = this.getCategoryById(id);
+            const categoryToEdit = this.getRegularCategoryById(id);
             Object.assign(categoryToEdit, data);
           });
         }

@@ -2,6 +2,7 @@ import { format } from 'date-fns';
 import { observer } from 'mobx-react-lite';
 import React, { Suspense, lazy } from 'react';
 import MenuProvider from '../MenuProvider';
+import Loader from '../loader/Loader';
 import Modal from '../modal/modal';
 
 const Calculator = lazy(() => import('../calculator/calculator'));
@@ -16,7 +17,7 @@ const CategoryCalculatorModal = observer(({ categoryId, calculatorModal, setCalc
       <MenuProvider.Header.Straight>
         <h2>Categories</h2>
       </MenuProvider.Header.Straight>
-      <Suspense fallback={<h2>Loading</h2>}>
+      <Suspense fallback={<Loader />}>
         <Calculator categoryId={categoryId} onSubmit={handleClose} />
       </Suspense>
       <h6 className="text-center py-2 fw-light"> {format(new Date(), 'd MMMM y')}</h6>
