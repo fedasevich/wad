@@ -1,8 +1,10 @@
 import { ReactComponent as Cancel } from './Cancel.svg';
+import { ReactComponent as ArrowDown } from './CaretDown.svg';
 import { ReactComponent as ArrowLeft } from './CaretLeft.svg';
 import { ReactComponent as ArrowRight } from './CaretRight.svg';
 import { ReactComponent as CheckMark } from './CheckMark.svg';
 import { ReactComponent as GearSix } from './GearSixBackground.svg';
+import { ReactComponent as Loader } from './Loader.svg';
 import { ReactComponent as ShowMore } from './ShowMore.svg';
 import { ReactComponent as Delete } from './Trash.svg';
 import { ReactComponent as DeleteCircle } from './TrashCircle.svg';
@@ -14,6 +16,10 @@ export function CancelIcon() {
 
 export function ArrowLeftIcon() {
   return <ArrowLeft />;
+}
+
+export function ArrowDownIcon() {
+  return <ArrowDown />;
 }
 
 export function ArrowRightIcon() {
@@ -42,4 +48,8 @@ export function SettingsBackgroundIcon() {
 
 export function ShowMoreIcon() {
   return <ShowMore />;
+}
+
+export function LoaderIcon() {
+  return <Loader />;
 }

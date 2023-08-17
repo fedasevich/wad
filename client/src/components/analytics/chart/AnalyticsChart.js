@@ -5,6 +5,7 @@ import { Button } from 'react-bootstrap';
 import { Bar } from 'react-chartjs-2';
 import { useStore } from '../../../store';
 import { getCategoryBackgroundColorByIconId } from '../../../ui/Icons/CategoryIcons/CategoryIcons';
+import { ArrowDownIcon } from '../../../ui/Icons/ControlIcons/ControlIcons';
 import { getDateRangeOptions } from '../../../utils/constants';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip);
@@ -24,10 +25,6 @@ export const options = {
 
 export const AnalyticsChart = observer(({ transactions, chartRange }) => {
   const { category } = useStore();
-
-  if (!category.categories.length) {
-    return <h2>loading</h2>;
-  }
 
   const [expanded, setExpanded] = useState(false);
 
@@ -92,7 +89,7 @@ export const AnalyticsChart = observer(({ transactions, chartRange }) => {
       </div>
       <div className="d-flex d-md-none justify-content-end expand-button">
         <Button className="bg-light-blue border-0" onClick={handleExpandedToggle}>
-          ⌄
+          <ArrowDownIcon />
         </Button>
       </div>
     </div>
