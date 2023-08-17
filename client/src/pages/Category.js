@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import React, { Suspense, lazy, useReducer } from 'react';
 import { Col } from 'react-bootstrap';
+import Loader from '../components/loader/Loader';
 import PageProvider from './PageProvider';
 
 const Categories = lazy(() => import('../components/category/Categories'));
@@ -25,7 +26,7 @@ const Category = observer(() => {
 
   return (
     <PageProvider pageName={selectedPage && 'Categories'}>
-      <Suspense fallback={<h2>Loading</h2>}>
+      <Suspense fallback={<Loader />}>
         <CategoryDispatchContext.Provider value={dispatch}>
           {selectedPage || (
             <Col xl={12} className="px-0 px-md-0 vh-80">

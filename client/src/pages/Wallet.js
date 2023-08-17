@@ -3,6 +3,7 @@ import { observer } from 'mobx-react-lite';
 import React, { useEffect, useState } from 'react';
 import { Button, Col, Container, Row } from 'react-bootstrap';
 import NavBar from '../components/NavBar';
+import Loader from '../components/loader/Loader';
 import Modal from '../components/modal/modal';
 import { changeWallet, createWallet, deleteWallet, fetchWallet } from '../http/walletApi';
 import { useStore } from '../store';
@@ -37,7 +38,7 @@ const Wallet = observer(() => {
   }, []);
 
   if (loading) {
-    return <h2>loading</h2>;
+    return <Loader />;
   }
 
   const handleClickOnWalletToChange = (Wallet) => {

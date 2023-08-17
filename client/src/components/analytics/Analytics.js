@@ -7,6 +7,7 @@ import { useStore } from '../../store';
 import CategoryStore from '../../store/CategoryStore';
 import MenuProvider from '../MenuProvider';
 import DatePickerProvider from '../date-picker/DatePickerProvider';
+import Loader from '../loader/Loader';
 import { AnalyticsSelect } from './AnalyticsSelect';
 import './AnalyticsStyle.css';
 import { AnalyticsChart } from './chart/AnalyticsChart';
@@ -51,7 +52,7 @@ export const Analytics = observer(() => {
   }, [category, dateRange]);
 
   if (loading || !category.categories.length) {
-    return <h2>loading</h2>;
+    return <Loader />;
   }
 
   const HOCAnalyticsPercentage = AnalyticsHOC(AnalyticsPercentage);

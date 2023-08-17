@@ -1,0 +1,34 @@
+.loader_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  max-height: 100vh;
+  margin-inline: 0px;
+  background-color: var(--background-grey);
+  position: relative;
+}
+
+.loader {
+  display: flex;
+  position: relative;
+}
+
+.loader svg {
+  animation: 3s cubic-bezier(0.09, 0.57, 0.49, 0.9) 0.1s infinite normal both running react-spinners-SkewLoader-skew;
+}
+
+@keyframes react-spinners-SkewLoader-skew {
+  25% {
+    transform: perspective(200px) rotateX(180deg) rotateY(0deg);
+  }
+  50% {
+    transform: perspective(200px) rotateX(180deg) rotateY(180deg);
+  }
+  75% {
+    transform: perspective(200px) rotateX(0deg) rotateY(180deg);
+  }
+  100% {
+    transform: perspective(200px) rotateX(0deg) rotateY(0deg);
+  }
+}
