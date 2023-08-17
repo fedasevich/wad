@@ -32,6 +32,7 @@ import {
 import { dateRangeOptions, getDateRangeOptions } from '../../utils/constants';
 import ArrowSelect from '../ArrowSelect';
 import MenuProvider from '../MenuProvider';
+import Loader from '../loader/Loader';
 import Modal from '../modal/modal';
 import './style.css';
 
@@ -229,7 +230,7 @@ const DatePickerProvider = observer(({ dateRange, setDateRange }) => {
       {dateRangeModal && (
         <Modal active={dateRangeModal} setActive={setDateRangeModal}>
           <MenuProvider.Container>
-            <Suspense fallback={<h2>Loading</h2>}>
+            <Suspense fallback={<Loader />}>
               <div className="w-100 d-flex justify-content-center">
                 <DateRange
                   editableDateInputs

@@ -1,5 +1,6 @@
 .categories {
   display: grid;
+  margin-inline: -12px;
   grid-template-columns: repeat(3, 1fr);
   gap: calc(30vh - 195px) 5vw;
   overflow-wrap: break-word;

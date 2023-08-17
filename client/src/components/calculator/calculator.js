@@ -149,17 +149,17 @@ const Calculator = observer(({ walletId, categoryId, onSubmit }) => {
   const { wallet, category, userSettings } = useStore();
   const [walletModalActive, setWalletModalActive] = useState(false);
   const [categoryModalActive, setCategoryModalActive] = useState(false);
-  const [selectedWallet, setSelectedWallet] = useState({ name: '', balance: '', currency: '', id: 0 });
-  const [selectedCategory, setSelectedCategory] = useState({ name: '' });
+  const [selectedWallet, setSelectedWallet] = useState({});
+  const [selectedCategory, setSelectedCategory] = useState({});
   const [{ currentOperand = '0', previousOperand, operation }, dispatch] = useReducer(reducer, {});
   const [description, setDescription] = useState('');
 
   useEffect(() => {
-    setSelectedWallet(wallet.getWalletById(walletId || -1) || { name: '', balance: '', currency: '', id: 0 });
+    setSelectedWallet(wallet.getWalletById(walletId) || wallet.wallets[0]);
   }, [walletId, wallet]);
 
   useEffect(() => {
-    setSelectedCategory(category.getRegularCategoryById(categoryId || -1) || { name: '' });
+    setSelectedCategory(category.getRegularCategoryById(categoryId) || category.categories[0]);
   }, [categoryId, category]);
 
   const handleWalletClick = () => setWalletModalActive(true);

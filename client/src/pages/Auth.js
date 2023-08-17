@@ -7,7 +7,7 @@ import { useStore } from '../store';
 import { LOGIN_ROUTE, REGISTRATION_ROUTE } from '../utils/constants';
 
 function Auth() {
-  const { user, userSettings } = useStore();
+  const { user, userSettings, rootStore } = useStore();
   const location = useLocation();
   const navigate = useNavigate();
   const isLogin = location.pathname === LOGIN_ROUTE;
@@ -23,6 +23,8 @@ function Auth() {
       } else {
         data = await registration(email, password);
       }
+
+      await rootStore.initializeCategoriesAndWallets();
 
       user.setUser(data);
       user.setIsAuth(true);

@@ -2,6 +2,7 @@ import { observer } from 'mobx-react-lite';
 import React, { Suspense, lazy, useReducer } from 'react';
 import { Col } from 'react-bootstrap';
 
+import Loader from '../components/loader/Loader';
 import TransactionsColumn from '../components/transaction/TransactionsColumn';
 import Wallets from '../components/wallet/Wallets';
 import PageProvider from './PageProvider';
@@ -46,7 +47,7 @@ const MainPage = observer(() => {
     <DispatchContext.Provider value={dispatch}>
       <PageProvider pageName="Accounts">
         {state === 'CREATE_WALLET' ? (
-          <Suspense fallback={<h2>Loading</h2>}>
+          <Suspense fallback={<Loader />}>
             <CreateWallet />
           </Suspense>
         ) : (
@@ -56,7 +57,7 @@ const MainPage = observer(() => {
             </Col>
 
             <Col xl={{ span: 5, offset: 1 }}>
-              <Suspense fallback={<h2>Loading</h2>}>{state}</Suspense>
+              <Suspense fallback={<Loader />}>{state}</Suspense>
             </Col>
           </>
         )}
