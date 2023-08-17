@@ -262,24 +262,26 @@ export function AllIcons({ selectedIcon, setSelectedIcon }) {
   return (
     <Container fluid>
       <Row>
-        {icons.map((icon) => (
-          <Col
-            md={3}
-            lg={{ span: 3, offset: 1 }}
-            key={icon.id}
-            className="mb-2 d-flex justify-content-center align-items-center text-center bg-main-blue component-one-third-border-radius"
-            style={{ outline: icon.id === selectedIcon?.id ? '2px solid black' : null }}
-          >
-            <button
-              type="button"
-              onClick={() => {
-                setSelectedIcon(icon);
-              }}
+        {icons
+          .filter((icon) => icon.id > 0)
+          .map((icon) => (
+            <Col
+              md={3}
+              lg={{ span: 3, offset: 1 }}
+              key={icon.id}
+              className="mb-2 d-flex justify-content-center align-items-center text-center bg-main-blue component-one-third-border-radius"
+              style={{ outline: icon.id === selectedIcon?.id ? '2px solid black' : null }}
             >
-              {icon.svg}
-            </button>
-          </Col>
-        ))}
+              <button
+                type="button"
+                onClick={() => {
+                  setSelectedIcon(icon);
+                }}
+              >
+                {icon.svg}
+              </button>
+            </Col>
+          ))}
       </Row>
     </Container>
   );
