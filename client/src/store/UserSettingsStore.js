@@ -10,7 +10,7 @@ export default class UserSettingsStore {
     this._persistTransactionFilter = false;
     this._persistAnalyticsChartRange = false;
     this._chartRange = undefined;
-    this._theme = 'dark';
+    this._theme = 'light';
 
     makeAutoObservable(this);
     makePersistable(
