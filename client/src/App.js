@@ -23,7 +23,7 @@ const App = observer(() => {
         user.setUser(data);
         user.setIsAuth(true);
 
-        rootStore.initializeCategoriesAndWallets();
+        await rootStore.initializeCategoriesAndWallets();
       })
       .finally(() => {
         setLoading(false);
