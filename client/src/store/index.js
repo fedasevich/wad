@@ -16,7 +16,6 @@ export class RootStore {
 
   async initializeCategoriesAndWallets() {
     const [categoryData, walletData] = await Promise.all([fetchCategory(), fetchWallet()]);
-
     this.category.setCategories(categoryData);
     this.wallet.setWallet(walletData);
   }
