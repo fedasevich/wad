@@ -15,7 +15,7 @@ const Header = observer(({ pageName, children }) => (
 
 const PageProvider = observer(({ pageName, children }) => {
   return (
-    <Col xs="12" md="9" xxl="10" className="px-0">
+    <Col xs="12" md="9" xxl="10" className="px-0 bg-grey flex-fill">
       <Container fluid className="desktop-height-100vh bg-grey">
         {pageName && <Header pageName={pageName} />}
         <main>
