@@ -20,6 +20,8 @@ const AnalyticsHOC = (WrappedComponent) => {
     if (props.transactions.length) {
       return <WrappedComponent {...props} />;
     }
+
+    return <p>There is no statistics</p>;
   };
 };
 
