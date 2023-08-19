@@ -8,7 +8,7 @@ const DEFAULT_CATEGORIES = [
     { name: "Health", iconId: 2 },
     { name: "Sport", iconId: 3 },
     { name: "Transport", iconId: 4 },
-    { name: "Cosmetics", iconId: 5 },
+    { name: "Leisure", iconId: 5 },
     { name: "Shopping", iconId: 6 },
     { name: "Education", iconId: 7 }
 ]

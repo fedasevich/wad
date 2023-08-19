@@ -3,12 +3,17 @@ const ApiError = require('../error/ApiError')
 
 const { Category, Transaction } = require('../models/models')
 
+const MAX_CATEGORY_NAME_LENGTH = 8
+
 class CategoryController {
     async create(req, res, next) {
         const { name, iconId } = req.body
         const userId = req.user.id
         if (!name || !iconId) {
             return next(ApiError.badRequest('Wrong data'))
+        }
+        if (name.length > MAX_CATEGORY_NAME_LENGTH) {
+            `Category name can't be longer than ${MAX_CATEGORY_NAME_LENGTH} symbols`
         }
         const category = await Category.create({ name, userId, iconId })
         return res.json(category)
@@ -35,7 +40,9 @@ class CategoryController {
         if ((!newSpent && !newName && !newIconId) || !id) {
             return next(ApiError.badRequest('Not enough data'));
         }
-
+        if (newName.length > MAX_CATEGORY_NAME_LENGTH) {
+            `Category name can't be longer than ${MAX_CATEGORY_NAME_LENGTH} symbols`
+        }
         const userId = req.user.id;
         const update = {};
 

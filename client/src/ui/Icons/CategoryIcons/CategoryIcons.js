@@ -164,7 +164,7 @@ export const icons = [
 
   {
     id: 5,
-    backgroundColor: categoryIconsColors.COSMETICS,
+    backgroundColor: categoryIconsColors.LEISURE,
     svg: (
       <svg width="50" height="50" viewBox="0 0 51 54" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path

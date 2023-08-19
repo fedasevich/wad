@@ -94,12 +94,12 @@ const Categories = observer(() => {
           <div className="category d-flex justify-content-center" key={categoryMap.id}>
             <button
               type="button"
-              className="mb-2 px-0 d-flex flex-column align-items-center cursor-pointer position-relative w-fit-content h-fit-content"
+              className="mb-2 px-0 d-flex mw-100 flex-column align-items-center cursor-pointer position-relative w-fit-content h-fit-content"
               onClick={() => {
                 setCalculatorModal({ active: true, categoryId: categoryMap.id });
               }}
             >
-              <h4 className="mb-3 fw-medium">{categoryMap.name}</h4>
+              <h4 className="mb-3 fw-medium categoryName">{categoryMap.name}</h4>
               <div className="position-relative categoryIcon">
                 <Icons iconId={categoryMap.iconId} />
                 <span
@@ -114,7 +114,7 @@ const Categories = observer(() => {
                   <SettingsBackgroundIcon />
                 </span>
               </div>
-              <h4 className="mt-3 fw-bold">{categoryMap.spent}</h4>
+              <h4 className="mt-3 fw-bold ">{categoryMap.spent}</h4>
             </button>
           </div>
         ))}

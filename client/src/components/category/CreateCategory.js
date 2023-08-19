@@ -4,6 +4,7 @@ import { Col, Form } from 'react-bootstrap';
 import { CategoryDispatchContext } from '../../pages/Category';
 import { useStore } from '../../store';
 import { AllIcons } from '../../ui/Icons/CategoryIcons/CategoryIcons';
+import { MAX_CATEGORY_NAME_LENGTH } from '../../utils/constants';
 import MenuProvider from '../MenuProvider';
 
 const CreateCategory = observer(() => {
@@ -19,6 +20,9 @@ const CreateCategory = observer(() => {
   const handleCommit = async () => {
     if (!newCategoryName) {
       return alert("name can't be empty");
+    }
+    if (newCategoryName.length > MAX_CATEGORY_NAME_LENGTH) {
+      return alert(`Category name can't be longer than ${MAX_CATEGORY_NAME_LENGTH} symbols`);
     }
     if (!newCategorySelectedIcon.id) {
       return alert('please select icon');

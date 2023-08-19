@@ -18,6 +18,14 @@
   max-height: 250px;
 }
 
+.categoryName {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  word-break: keep-all;
+  text-wrap: nowrap;
+  width: 100%;
+}
+
 .category .gear {
   opacity: 0;
   transition: 0.3s all;
@@ -37,7 +45,7 @@
   }
 
   .categories {
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: repeat(3, 1fr);
     gap: calc(30vh - 185px) 0vw;
   }
 

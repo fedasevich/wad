@@ -5,6 +5,7 @@ import { CategoryDispatchContext } from '../../pages/Category';
 import { useStore } from '../../store';
 import { AllIcons } from '../../ui/Icons/CategoryIcons/CategoryIcons';
 import { DeleteIcon } from '../../ui/Icons/ControlIcons/ControlIcons';
+import { MAX_CATEGORY_NAME_LENGTH } from '../../utils/constants';
 import MenuProvider from '../MenuProvider';
 
 const EditCategory = observer(({ id }) => {
@@ -18,6 +19,9 @@ const EditCategory = observer(({ id }) => {
   };
 
   const handleCommit = async () => {
+    if (editCategory.name.length > MAX_CATEGORY_NAME_LENGTH) {
+      return alert(`Category name can't be longer than ${MAX_CATEGORY_NAME_LENGTH} symbols`);
+    }
     await category.changeCategory(id, editCategory).finally(() => {
       handleClose();
     });

@@ -45,7 +45,7 @@ export const categoryIconsColors = {
   DELETED: '#999999',
   CLOTHES: '#80FBDB',
   EDUCATION: '#412285',
-  COSMETICS: '#FA0834',
+  LEISURE: '#FA0834',
   SPORTS: '#D27AFC',
   TRANSPORT: '#AF0C5B',
   HEALTH: '#7AAFFC',
@@ -122,3 +122,5 @@ export const themes = {
   DARK: 'dark',
   LIGHT: 'light'
 };
+
+export const MAX_CATEGORY_NAME_LENGTH = 8;
