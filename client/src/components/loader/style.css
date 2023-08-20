@@ -9,6 +9,10 @@
   position: relative;
 }
 
+main .loader_container {
+  height: 100%;
+}
+
 .loader {
   display: flex;
   position: relative;
