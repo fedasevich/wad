@@ -57,6 +57,8 @@ const ChangeTransactionModal = observer(({ changeTransactionModal, setChangeTran
             <Form.Control
               className="mb-3 component-half-border-radius"
               type="number"
+              inputMode="numeric"
+              pattern="[0-9]*"
               name="spent"
               id="spent"
               value={newSum}

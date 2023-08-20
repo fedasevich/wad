@@ -93,6 +93,8 @@ function EditWallet({ id }) {
         </Form.Label>
         <Form.Control
           className="mb-2 component-half-border-radius"
+          inputMode="numeric"
+          pattern="[0-9]*"
           type="number"
           name="balance"
           onKeyDown={handleKeyDown}
