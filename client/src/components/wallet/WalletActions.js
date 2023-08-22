@@ -1,22 +1,14 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { Col, Row } from 'react-bootstrap';
-import {
-  BalanceIcon,
-  EditIcon,
-  RechargeIcon,
-  TransactionsIcon,
-  TransferIcon,
-  WithdrawIcon
-} from '../../ui/Icons/WalletIcons/WalletIcons';
+import { EditIcon, TransactionsIcon, TransferIcon, WithdrawIcon } from '../../ui/Icons/WalletIcons/WalletIcons';
+import { WALLET_PAGE_STATE } from '../../utils/constants';
 
 const WALLET_ACTIONS_AND_ICONS = [
-  { id: 1, icon: <EditIcon />, action: 'EDIT_WALLET', name: 'Edit' },
-  { id: 2, icon: <RechargeIcon />, action: 'RECHARGE_WALLET', name: 'Recharge' },
-  { id: 3, icon: <BalanceIcon />, action: 'BALANCE_WALLET', name: 'Balance' },
-  { id: 4, icon: <WithdrawIcon />, action: 'WITHDRAW_WALLET', name: 'Withdraw' },
-  { id: 5, icon: <TransactionsIcon />, action: 'TRANSACTIONS_WALLET', name: 'Transactions' },
-  { id: 6, icon: <TransferIcon />, action: 'TRANSFER_WALLET', name: 'Transfer' }
+  { id: 1, icon: <EditIcon />, action: WALLET_PAGE_STATE.EDIT_WALLET, name: 'Edit' },
+  { id: 2, icon: <WithdrawIcon />, action: WALLET_PAGE_STATE.WITHDRAW_WALLET, name: 'Withdraw' },
+  { id: 3, icon: <TransactionsIcon />, action: WALLET_PAGE_STATE.TRANSACTIONS_WALLET, name: 'Transactions' },
+  { id: 4, icon: <TransferIcon />, action: WALLET_PAGE_STATE.TRANSFER_WALLET, name: 'Transfer' }
 ];
 
 const WalletActions = observer(({ dispatch, id }) => {
