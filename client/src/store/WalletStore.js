@@ -1,5 +1,5 @@
 import { makeAutoObservable, runInAction } from 'mobx';
-import { changeWallet, createWallet, deleteWallet } from '../http/walletApi';
+import { changeWallet, createWallet, deleteWallet, transferWallet } from '../http/walletApi';
 
 export default class WalletStore {
   constructor(rootStore) {
@@ -87,4 +87,28 @@ export default class WalletStore {
     const wallet = this.getWalletById(id);
     return wallet?.currency;
   };
+
+  static transferWallet(fromSelectedWallet, toSelectedWallet, transferAmount) {
+    const { id: fromWalletId } = fromSelectedWallet;
+    const { id: toWalletId } = toSelectedWallet;
+
+    if (!transferAmount) {
+      return alert('Please provide amount.');
+    }
+
+    if (fromWalletId === toWalletId) {
+      return alert("Cant't transfer to same wallet.");
+    }
+
+    try {
+      transferWallet(fromWalletId, toWalletId, transferAmount).then(() => {
+        runInAction(() => {
+          Object.assign(fromSelectedWallet, { balance: fromSelectedWallet.balance - transferAmount });
+          Object.assign(toSelectedWallet, { balance: toSelectedWallet.balance + transferAmount });
+        });
+      });
+    } catch (e) {
+      alert(e.response.data.message);
+    }
+  }
 }
