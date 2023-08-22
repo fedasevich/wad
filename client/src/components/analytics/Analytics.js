@@ -54,7 +54,7 @@ export const Analytics = observer(() => {
   }, [category, dateRange]);
 
   if (loading || !category.categories.length) {
-    return <Loader />;
+    return <Loader isFullHeight />;
   }
 
   const HOCAnalyticsPercentage = AnalyticsHOC(AnalyticsPercentage);

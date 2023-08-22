@@ -33,7 +33,7 @@ const App = observer(() => {
   useTheme();
 
   if (loading) {
-    return <Loader />;
+    return <Loader isFullHeight />;
   }
 
   return (
