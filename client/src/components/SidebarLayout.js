@@ -14,7 +14,7 @@ export function SidebarLayout() {
         <Suspense
           fallback={
             <Col xs="12" md="9" xxl="10" className="px-0">
-              <Loader />
+              <Loader isFullHeight />
             </Col>
           }
         >

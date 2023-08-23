@@ -15,6 +15,11 @@ export const changeWallet = async (walletId, newName, newBalance, newCurrency) =
   return data;
 };
 
+export const transferWallet = async (fromWalletId, toWalletId, amount) => {
+  const { data } = await $authHost.post(`api/wallet/transfer/from/${fromWalletId}/to/${toWalletId}`, { amount });
+  return data;
+};
+
 export const deleteWallet = async (walletId) => {
   const { data } = await $authHost.delete(`api/wallet/${walletId}`);
   return data;

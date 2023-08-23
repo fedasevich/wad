@@ -2,15 +2,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 100%;
   max-height: 100vh;
   margin-inline: 0px;
   background-color: var(--background-grey);
   position: relative;
-}
-
-main .loader_container {
-  height: 100%;
 }
 
 .loader {

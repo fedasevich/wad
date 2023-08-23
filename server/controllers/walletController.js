@@ -68,7 +68,6 @@ class WalletController {
         }
     }
 
-
     async delete(req, res, next) {
         const id = req.params.id;
 
@@ -93,6 +92,53 @@ class WalletController {
             return next(ApiError.badRequest("Error deleting wallet"));
         }
     }
+
+    async transfer(req, res, next) {
+        const fromId = req.params.fromId;
+        const toId = req.params.toId;
+
+        const { amount } = req.body;
+
+        if (!amount || !toId || !fromId) {
+            return next(ApiError.badRequest("All fields must be filled"));
+        }
+
+        const userId = req.user.id;
+
+        if (!userId) {
+            return next(ApiError.badRequest('Wrong data'));
+        }
+
+        const transactionOptions = {
+            transaction: await sequelize.transaction()
+        };
+
+        try {
+            const [updatedFromWalletCount, updatedToWalletCount] = await Promise.all([
+                Wallet.update({ balance: sequelize.literal(`balance - ${amount}`) }, {
+                    where: { userId, id: fromId },
+                    ...transactionOptions
+                }),
+                Wallet.update({ balance: sequelize.literal(`balance + ${amount}`) }, {
+                    where: { userId, id: toId },
+                    ...transactionOptions
+                }),
+            ]);
+
+            if (updatedFromWalletCount[0] !== 1 || updatedToWalletCount[0] !== 1) {
+                await transactionOptions.transaction.rollback();
+                return next(ApiError.badRequest('Failed to update wallets'));
+            }
+
+            await transactionOptions.transaction.commit();
+
+            return res.json([1]);
+        } catch (error) {
+            await transactionOptions.transaction.rollback();
+            return next(ApiError.badRequest('Failed to update wallets'));
+        }
+    }
+
 }
 
 module.exports = new WalletController()

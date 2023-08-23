@@ -6,6 +6,7 @@ import { fetchWallet } from '../../http/walletApi';
 import { DispatchContext } from '../../pages/MainPage';
 import { useStore } from '../../store';
 import WalletActions from './WalletActions';
+import { WalletItem } from './WalletItem';
 
 function WalletToggle({ children, eventKey }) {
   const decoratedOnClick = useAccordionButton(eventKey);
@@ -47,15 +48,11 @@ const Wallets = observer(() => {
     <Row className="fw-medium">
       <Accordion>
         {wallet.wallets.map((walletsMap, index) => (
-          <Col md="12" className="mb-4 wallet " key={walletsMap.id}>
+          <Col md="12" className="mb-4 wallet" key={walletsMap.id}>
             <Card className="component-shadow">
               <Card.Header>
                 <WalletToggle eventKey={index}>
-                  {' '}
-                  <h4 className="m-0">{walletsMap.name}</h4>
-                  <h6 className="m-0">
-                    {walletsMap.balance} {walletsMap.currency}
-                  </h6>
+                  <WalletItem wallet={walletsMap} />
                 </WalletToggle>
               </Card.Header>
               <Accordion.Collapse eventKey={index}>
@@ -71,8 +68,7 @@ const Wallets = observer(() => {
       <Col md="12">
         <button
           type="button"
-          className="w-100 p-4 mb-2 component-shadow bg-light-blue text-center component-border-radius "
-          style={{ cursor: 'pointer', color: 'white' }}
+          className="w-100 p-4 mb-2 component-shadow bg-light-blue text-center component-border-radius cursor-pointer text-white"
           onClick={handleAddWalletClick}
         >
           <span>Add wallet</span>

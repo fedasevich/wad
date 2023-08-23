@@ -26,7 +26,7 @@ const Category = observer(() => {
 
   return (
     <PageProvider pageName={selectedPage && 'Categories'}>
-      <Suspense fallback={<Loader />}>
+      <Suspense fallback={<Loader isFullHeight={!selectedPage} />}>
         <CategoryDispatchContext.Provider value={dispatch}>
           {selectedPage || (
             <Col xl={12} className="px-0 px-md-0 vh-80">

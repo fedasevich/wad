@@ -4,7 +4,9 @@ import { Col } from 'react-bootstrap';
 
 import Loader from '../components/loader/Loader';
 import TransactionsColumn from '../components/transaction/TransactionsColumn';
+
 import Wallets from '../components/wallet/Wallets';
+import { WALLET_PAGE_STATE } from '../utils/constants';
 import PageProvider from './PageProvider';
 
 const EditWallet = lazy(() => import('../components/wallet/EditWallet'));
@@ -12,27 +14,24 @@ const NotImplemented = lazy(() => import('../components/NotImplemented'));
 const WalletWithdraw = lazy(() => import('../components/wallet/WalletWithdraw'));
 const WalletTransactions = lazy(() => import('../components/wallet/WalletTransactions'));
 const CreateWallet = lazy(() => import('../components/wallet/CreateWallet'));
+const WalletTransfer = lazy(() => import('../components/wallet/WalletTransfer'));
 
 export const defaultPage = <TransactionsColumn />;
 
 function reducer(page, { operation, id }) {
   switch (operation) {
-    case 'EDIT_WALLET':
+    case WALLET_PAGE_STATE.EDIT_WALLET:
       return <EditWallet id={id} />;
-    case 'RECHARGE_WALLET':
-      return <NotImplemented />;
-    case 'BALANCE_WALLET':
-      return <NotImplemented />;
-    case 'WITHDRAW_WALLET':
+    case WALLET_PAGE_STATE.WITHDRAW_WALLET:
       return <WalletWithdraw id={id} />;
-    case 'TRANSACTIONS_WALLET':
+    case WALLET_PAGE_STATE.TRANSACTIONS_WALLET:
       return <WalletTransactions id={id} />;
-    case 'TRANSFER_WALLET':
-      return <NotImplemented />;
-    case 'DEFAULT_WALLET':
+    case WALLET_PAGE_STATE.TRANSFER_WALLET:
+      return <WalletTransfer id={id} />;
+    case WALLET_PAGE_STATE.DEFAULT_WALLET:
       return defaultPage;
-    case 'CREATE_WALLET':
-      return 'CREATE_WALLET';
+    case WALLET_PAGE_STATE.CREATE_WALLET:
+      return WALLET_PAGE_STATE.CREATE_WALLET;
     default:
       return <NotImplemented />;
   }
@@ -46,7 +45,7 @@ const MainPage = observer(() => {
   return (
     <DispatchContext.Provider value={dispatch}>
       <PageProvider pageName="Accounts">
-        {state === 'CREATE_WALLET' ? (
+        {state === WALLET_PAGE_STATE.CREATE_WALLET ? (
           <Suspense fallback={<Loader />}>
             <CreateWallet />
           </Suspense>

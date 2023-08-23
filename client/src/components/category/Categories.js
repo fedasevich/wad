@@ -53,7 +53,7 @@ const Categories = observer(() => {
   }, [category, dateRange]);
 
   if (loading) {
-    return <Loader />;
+    return <Loader isFullHeight />;
   }
 
   const [firstCategories, otherCategories] = [
@@ -136,7 +136,7 @@ const Categories = observer(() => {
           </div>
         </div>
       </Col>
-      <Suspense fallback={<Loader />}>
+      <Suspense>
         {otherCategoriesModal && (
           <CategoryOtherCategoryModal
             otherCategories={otherCategories}
