@@ -2,6 +2,7 @@ import { runInAction } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import React, { useEffect, useState } from 'react';
 import { Button, Col, Container, Row } from 'react-bootstrap';
+import { toast } from 'react-hot-toast';
 import NavBar from '../components/NavBar';
 import Loader from '../components/loader/Loader';
 import Modal from '../components/modal/modal';
@@ -32,7 +33,7 @@ const Wallet = observer(() => {
           setLoading(false);
         });
       } catch (e) {
-        alert(e.response.data.message);
+        toast.error(e.response.data.message);
       }
     }
   }, []);
@@ -114,7 +115,7 @@ const Wallet = observer(() => {
           <Button
             onClick={() => {
               if (!createWalletName || !createWalletCurrency) {
-                return alert("Inputs can't be empty");
+                return toast.error('Please fill in all required fields.');
               }
 
               try {
@@ -123,7 +124,7 @@ const Wallet = observer(() => {
                   setCreateWalletModal(false);
                 });
               } catch (e) {
-                alert(e.response.data.message);
+                toast.error(e.response.data.message);
               }
             }}
           >
@@ -164,7 +165,7 @@ const Wallet = observer(() => {
             className="mb-2"
             onClick={() => {
               if (!newCurrency && !newName && !newBalance) {
-                return alert(`Not enough data`);
+                return toast.error(`Not enough data`);
               }
               try {
                 changeWallet(
@@ -188,7 +189,7 @@ const Wallet = observer(() => {
                   setChangeWalletModal(false);
                 });
               } catch (e) {
-                alert(e.response.data.message);
+                toast.error(e.response.data.message);
               }
             }}
           >
@@ -205,7 +206,7 @@ const Wallet = observer(() => {
                   setChangeWalletModal(false);
                 });
               } catch (e) {
-                alert(e.response.data.message);
+                toast.error(e.response.data.message);
               }
             }}
           >

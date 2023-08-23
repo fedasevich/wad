@@ -2,6 +2,7 @@ import { endOfMonth, startOfMonth } from 'date-fns';
 import { observer } from 'mobx-react-lite';
 import React, { useEffect, useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
+import { toast } from 'react-hot-toast';
 import PageProvider from '../../pages/PageProvider';
 import { useStore } from '../../store';
 import CategoryStore from '../../store/CategoryStore';
@@ -49,7 +50,7 @@ export const Analytics = observer(() => {
         })
         .finally(() => setLoading(false));
     } catch (e) {
-      alert(e.response.data.message);
+      toast.error(e.response.data.message);
     }
   }, [category, dateRange]);
 

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import { Button, Card, Container, Form, Row } from 'react-bootstrap';
+import { toast } from 'react-hot-toast';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { login, registration } from '../http/userApi';
 import { useStore } from '../store';
@@ -30,7 +31,7 @@ function Auth() {
       user.setIsAuth(true);
       navigate(userSettings.startPage);
     } catch (e) {
-      alert(e.response.data.message);
+      toast.error(e.response.data.message);
     }
   };
 

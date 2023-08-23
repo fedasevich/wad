@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import React, { useEffect } from 'react';
+import { toast } from 'react-hot-toast';
 import { fetchWalletTransactionByWalletId } from '../../http/transactionApi';
 import { useStore } from '../../store';
 import MenuProvider from '../MenuProvider';
@@ -19,7 +20,7 @@ const WalletTransactions = observer(({ id }) => {
         category.setTransactions(data.rows);
       });
     } catch (e) {
-      alert(e.response.data.message);
+      toast.error(e.response.data.message);
     }
   }, [id, category]);
 

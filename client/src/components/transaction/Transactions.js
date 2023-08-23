@@ -3,6 +3,7 @@ import { runInAction } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import React, { useEffect, useState } from 'react';
 import { Accordion, Row } from 'react-bootstrap';
+import { toast } from 'react-hot-toast';
 import { fetchTransaction } from '../../http/transactionApi';
 import { useStore } from '../../store';
 import ChangeTransactionModal from './ChangeTransactionModal';
@@ -21,7 +22,7 @@ const Transactions = observer(({ actions }) => {
         }
       );
     } catch (e) {
-      alert(e.response.data.message);
+      toast.error(e.response.data.message);
     }
   }, [category.transactionsLimit, category.transactionsSort, category]);
 
@@ -58,7 +59,7 @@ const Transactions = observer(({ actions }) => {
         }
       );
     } catch (e) {
-      alert(e.response.data.message);
+      toast.error(e.response.data.message);
     }
   };
 
