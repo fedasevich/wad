@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import React, { useEffect, useState } from 'react';
+import { Toaster } from 'react-hot-toast';
 import { BrowserRouter } from 'react-router-dom';
 import AppRouter from './components/AppRouter';
 import ErrorBoundary from './components/ErrorBoundary';
@@ -41,6 +42,7 @@ const App = observer(() => {
       <BrowserRouter>
         <AppRouter />
       </BrowserRouter>
+      <Toaster position="top-right" reverseOrder={false} />
     </ErrorBoundary>
   );
 });
