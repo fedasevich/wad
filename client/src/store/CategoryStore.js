@@ -179,6 +179,7 @@ export default class CategoryStore {
     try {
       return createCategory(newCategoryName, newCategorySelectedIcon.id).then((data) => {
         runInAction(() => {
+          this.categories.push(data);
           this.parsedCategories.push(data);
         });
       });
@@ -288,7 +289,8 @@ export default class CategoryStore {
       await deleteCategory(id).then(() => {
         runInAction(() => {
           const categoryIndex = this._parsedCategories.findIndex((category) => category.id === id);
-          this._parsedCategories.splice(categoryIndex, 1);
+          this.categories.splice(categoryIndex, 1);
+          this.parsedCategories.splice(categoryIndex, 1);
         });
       });
     } catch (e) {

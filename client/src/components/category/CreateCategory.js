@@ -46,12 +46,12 @@ const CreateCategory = observer(() => {
             <h4>Create category</h4>
           </MenuProvider.Actions>
           <MenuProvider.Container>
-            <Form.Label htmlFor="test">Enter name:</Form.Label>
+            <Form.Label htmlFor="categoryName">Enter name:</Form.Label>
             <Form.Control
               className="mb-3 component-half-border-radius"
               type="text"
-              id="test"
-              name="test"
+              id="categoryName"
+              name="categoryName"
               value={newCategoryName}
               onChange={handleCategoryNameChange}
             />
