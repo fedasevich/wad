@@ -1,4 +1,5 @@
 import { makeAutoObservable, runInAction } from 'mobx';
+import { toast } from 'react-hot-toast';
 import { changeWallet, createWallet, deleteWallet, transferWallet } from '../http/walletApi';
 
 export default class WalletStore {
@@ -32,7 +33,7 @@ export default class WalletStore {
 
   editWallet(id, newCurrency, newName, newBalance) {
     if (!newCurrency && !newName && !newBalance) {
-      return alert(`Not enough data`);
+      return toast.error(`Not enough data`);
     }
     try {
       changeWallet(id, newName || null, newBalance ? parseFloat(newBalance) : null, newCurrency || null).then(() => {
@@ -50,13 +51,13 @@ export default class WalletStore {
         });
       });
     } catch (e) {
-      alert(e.response.data.message);
+      toast.error(e.response.data.message);
     }
   }
 
   createWallet(createWalletCurrency, createWalletName) {
     if (!createWalletName || !createWalletCurrency) {
-      return alert("Inputs can't be empty");
+      return toast.error("Inputs can't be empty");
     }
 
     try {
@@ -66,7 +67,7 @@ export default class WalletStore {
         });
       });
     } catch (e) {
-      alert(e.response.data.message);
+      toast.error(e.response.data.message);
     }
   }
 
@@ -79,7 +80,7 @@ export default class WalletStore {
         });
       });
     } catch (e) {
-      alert(e.response.data.message);
+      toast.error(e.response.data.message);
     }
   }
 
@@ -93,11 +94,11 @@ export default class WalletStore {
     const { id: toWalletId } = toSelectedWallet;
 
     if (!transferAmount) {
-      return alert('Please provide amount.');
+      return toast.error('Please provide amount.');
     }
 
     if (fromWalletId === toWalletId) {
-      return alert("Cant't transfer to same wallet.");
+      return toast.error("Cant't transfer to same wallet.");
     }
 
     try {
@@ -108,7 +109,7 @@ export default class WalletStore {
         });
       });
     } catch (e) {
-      alert(e.response.data.message);
+      toast.error(e.response.data.message);
     }
   }
 }

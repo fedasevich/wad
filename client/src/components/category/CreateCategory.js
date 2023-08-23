@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import React, { useContext, useState } from 'react';
 import { Col, Form } from 'react-bootstrap';
+import { toast } from 'react-hot-toast';
 import { CategoryDispatchContext } from '../../pages/Category';
 import { useStore } from '../../store';
 import { AllIcons } from '../../ui/Icons/CategoryIcons/CategoryIcons';
@@ -19,14 +20,17 @@ const CreateCategory = observer(() => {
 
   const handleCommit = async () => {
     if (!newCategoryName) {
-      return alert("name can't be empty");
+      return toast.error('Category name cannot be empty.');
     }
+
     if (newCategoryName.length > MAX_CATEGORY_NAME_LENGTH) {
-      return alert(`Category name can't be longer than ${MAX_CATEGORY_NAME_LENGTH} symbols`);
+      return toast.error(`Category name should not exceed ${MAX_CATEGORY_NAME_LENGTH} characters.`);
     }
+
     if (!newCategorySelectedIcon.id) {
-      return alert('please select icon');
+      return toast.error('Please select an icon for the category.');
     }
+
     await category.createCategory(newCategoryName, newCategorySelectedIcon).finally(() => {
       handleClose();
     });

@@ -1,5 +1,6 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 import { clearPersistedStore, makePersistable, pausePersisting, startPersisting } from 'mobx-persist-store';
+import { toast } from 'react-hot-toast';
 import {
   changeCategory,
   createCategory,
@@ -133,7 +134,7 @@ export default class CategoryStore {
         });
       });
     } catch (e) {
-      alert(e.response.data.message);
+      toast.error(e.response.data.message);
     }
   }
 
@@ -152,7 +153,7 @@ export default class CategoryStore {
         });
       });
     } catch (e) {
-      alert(e.response.data.message);
+      toast.error(e.response.data.message);
     }
   }
 
@@ -182,13 +183,13 @@ export default class CategoryStore {
         });
       });
     } catch (e) {
-      alert(e.response.data.message);
+      toast.error(e.response.data.message);
     }
   }
 
   changeTransaction(id, newSum, newDescription) {
     if (!newSum && !newDescription) {
-      return alert(`Not enough data`);
+      return toast.error(`Not enough data`);
     }
     const transaction = this.getTransactionById(id);
     try {
@@ -214,13 +215,13 @@ export default class CategoryStore {
         });
       });
     } catch (e) {
-      alert(e.response.data.message);
+      toast.error(e.response.data.message);
     }
   }
 
   changeCategory(id, editCategory) {
     if ((editCategory || !editCategory.spent) && !editCategory.name && !Object.keys(editCategory.icon).length) {
-      return alert(`Not enough data`);
+      return toast.error(`Not enough data`);
     }
     try {
       return changeCategory(id, parseFloat(editCategory.spent), editCategory.name, editCategory.icon.id).then(
@@ -232,7 +233,7 @@ export default class CategoryStore {
         }
       );
     } catch (e) {
-      alert(e.response.data.message);
+      toast.error(e.response.data.message);
     }
   }
 
@@ -247,7 +248,7 @@ export default class CategoryStore {
         return data;
       })
       .catch((error) => {
-        alert(error.message);
+        toast.error(error.message);
       });
   }
 
@@ -278,7 +279,7 @@ export default class CategoryStore {
         });
       });
     } catch (e) {
-      alert(e.response.data.message);
+      toast.error(e.response.data.message);
     }
   }
 
@@ -291,7 +292,7 @@ export default class CategoryStore {
         });
       });
     } catch (e) {
-      alert(e.response.data.message);
+      toast.error(e.response.data.message);
     }
   }
 }

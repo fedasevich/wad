@@ -5,6 +5,7 @@ import { Col } from 'react-bootstrap';
 import { endOfMonth, startOfMonth } from 'date-fns';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
+import { toast } from 'react-hot-toast';
 import { CategoryDispatchContext } from '../../pages/Category';
 import PageProvider from '../../pages/PageProvider';
 import { useStore } from '../../store';
@@ -48,7 +49,7 @@ const Categories = observer(() => {
         .then((data) => category.parseCategories(data))
         .finally(() => setLoading(false));
     } catch (e) {
-      alert(e.response.data.message);
+      toast.error(e.response.data.message);
     }
   }, [category, dateRange]);
 

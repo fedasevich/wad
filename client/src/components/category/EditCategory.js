@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import React, { useContext, useState } from 'react';
 import { Col, Form } from 'react-bootstrap';
+import { toast } from 'react-hot-toast';
 import { CategoryDispatchContext } from '../../pages/Category';
 import { useStore } from '../../store';
 import { AllIcons } from '../../ui/Icons/CategoryIcons/CategoryIcons';
@@ -20,7 +21,7 @@ const EditCategory = observer(({ id }) => {
 
   const handleCommit = async () => {
     if (editCategory.name.length > MAX_CATEGORY_NAME_LENGTH) {
-      return alert(`Category name can't be longer than ${MAX_CATEGORY_NAME_LENGTH} symbols`);
+      return toast.error(`Category name can't be longer than ${MAX_CATEGORY_NAME_LENGTH} symbols`);
     }
     await category.changeCategory(id, editCategory).finally(() => {
       handleClose();

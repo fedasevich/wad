@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import React, { useEffect, useReducer, useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { useStore } from '../../store';
 import CalculatorCategoryModal from './CalculatorCategoryModal';
 import './CalculatorStyle.css';
@@ -173,7 +174,7 @@ const Calculator = observer(({ walletId, categoryId, onSubmit }) => {
 
   const handleSubmit = () => {
     if (currentOperand === '0') {
-      return alert('sum cant be 0');
+      return toast.error('Amount spent cannot be 0.');
     }
     category.createTransaction(currentOperand, selectedCategory, selectedWallet, description, wallet);
     setDescription('');

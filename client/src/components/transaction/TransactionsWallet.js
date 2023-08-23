@@ -3,6 +3,7 @@ import { runInAction } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import React, { useEffect, useState } from 'react';
 import { Accordion, Row, useAccordionButton } from 'react-bootstrap';
+import { toast } from 'react-hot-toast';
 import { fetchWalletTransactionByWalletId } from '../../http/transactionApi';
 import { useStore } from '../../store';
 import TransactionProvider from './TransactionProvider';
@@ -31,7 +32,7 @@ const TransactionsWallet = observer(({ id }) => {
         });
       });
     } catch (e) {
-      alert(e.response.data.message);
+      toast.error(e.response.data.message);
     }
   }, [category.transactionsLimit, category.transactionsSort, category, id]);
 
@@ -66,7 +67,7 @@ const TransactionsWallet = observer(({ id }) => {
         });
       });
     } catch (e) {
-      alert(e.response.data.message);
+      toast.error(e.response.data.message);
     }
   };
 

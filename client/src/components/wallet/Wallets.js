@@ -2,6 +2,7 @@ import { runInAction } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import React, { useContext, useEffect } from 'react';
 import { Accordion, Card, Col, Row, useAccordionButton } from 'react-bootstrap';
+import { toast } from 'react-hot-toast';
 import { fetchWallet } from '../../http/walletApi';
 import { DispatchContext } from '../../pages/MainPage';
 import { useStore } from '../../store';
@@ -36,7 +37,7 @@ const Wallets = observer(() => {
         });
       });
     } catch (e) {
-      alert(e.response.data.message);
+      toast.error(e.response.data.message);
     }
   }, []);
 
