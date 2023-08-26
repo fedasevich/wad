@@ -15,24 +15,42 @@ function Auth() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const submit = async (event) => {
-    event.preventDefault();
+  const handleSuccessfulAuth = async (data) => {
+    await rootStore.initializeCategoriesAndWallets();
+    user.setUser(data);
+    user.setIsAuth(true);
+    navigate(userSettings.startPage);
+  };
+
+  const handleAuthError = (error) => {
+    console.error(error);
+    toast.error(error.response.data.message);
+  };
+
+  const handleLogin = async () => {
     try {
-      let data;
-      if (isLogin) {
-        data = await login(email, password);
-      } else {
-        data = await registration(email, password);
-      }
-
-      await rootStore.initializeCategoriesAndWallets();
-
-      user.setUser(data);
-      user.setIsAuth(true);
-      navigate(userSettings.startPage);
-    } catch (e) {
-      toast.error(e.response.data.message);
+      const data = await login(email, password);
+      await handleSuccessfulAuth(data);
+    } catch (error) {
+      handleAuthError(error);
     }
+  };
+
+  const handleRegistration = async () => {
+    try {
+      const data = await registration(email, password);
+      await handleSuccessfulAuth(data);
+    } catch (error) {
+      handleAuthError(error);
+    }
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (isLogin) {
+      return handleLogin();
+    }
+    return handleRegistration();
   };
 
   return (
@@ -40,7 +58,7 @@ function Auth() {
       <Row>
         <Card className="p-5 col-md-12">
           <h2 className="m-auto">{isLogin ? 'Authorization' : 'Registration'}</h2>
-          <Form className="d-flex flex-column" onSubmit={(event) => submit(event)}>
+          <Form className="d-flex flex-column" onSubmit={(event) => handleSubmit(event)}>
             <Form.Control
               value={email}
               onChange={(e) => setEmail(e.target.value)}
