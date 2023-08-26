@@ -83,8 +83,8 @@ export const Analytics = observer(() => {
           </MenuProvider.Container>
         </MenuProvider>
       </Col>
-      <Col md={{ span: 4 }}>
-        <MenuProvider>
+      <Col md={{ span: 4 }} className="statistics">
+        <MenuProvider className="statistics-menu">
           <MenuProvider.Container>
             <HOCAnalyticsStatistics transactions={transactions} chartRange={chartRange} />
           </MenuProvider.Container>

@@ -49,8 +49,8 @@ function Container({ children, className }) {
   return <div className={`menu-container d-flex flex-column ${className}`}>{children}</div>;
 }
 
-const MenuProvider = observer(({ children }) => {
-  return <div className="menu mb-3">{children}</div>;
+const MenuProvider = observer(({ children, className }) => {
+  return <div className={`${className} menu mb-3`}>{children}</div>;
 });
 
 MenuProvider.Header = Header;
