@@ -15,6 +15,15 @@ p {
   margin-bottom: 0;
 }
 
+.statistics {
+  display: flex;
+  max-height: 276px;
+}
+
+.statistics-menu {
+  flex: 0 0 100%;
+}
+
 /*responsive*/
 @media screen and (max-width: 768px) {
   .analytics-chart {
