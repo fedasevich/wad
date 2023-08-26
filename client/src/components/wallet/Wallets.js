@@ -1,11 +1,9 @@
-import { runInAction } from 'mobx';
 import { observer } from 'mobx-react-lite';
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { Accordion, Card, Col, Row, useAccordionButton } from 'react-bootstrap';
-import { toast } from 'react-hot-toast';
-import { fetchWallet } from '../../http/walletApi';
 import { DispatchContext } from '../../pages/MainPage';
 import { useStore } from '../../store';
+import { WALLET_PAGE_STATE } from '../../utils/constants';
 import WalletActions from './WalletActions';
 import { WalletItem } from './WalletItem';
 
@@ -29,20 +27,8 @@ const Wallets = observer(() => {
   const { wallet } = useStore();
   const dispatch = useContext(DispatchContext);
 
-  useEffect(() => {
-    try {
-      fetchWallet().then((data) => {
-        runInAction(() => {
-          wallet.setWallet(data);
-        });
-      });
-    } catch (e) {
-      toast.error(e.response.data.message);
-    }
-  }, []);
-
   const handleAddWalletClick = () => {
-    dispatch({ operation: 'CREATE_WALLET', id: -1 });
+    dispatch({ operation: WALLET_PAGE_STATE.CREATE_WALLET, id: -1 });
   };
 
   return (

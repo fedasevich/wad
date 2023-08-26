@@ -4,7 +4,7 @@ import { Col, Row } from 'react-bootstrap';
 import { EditIcon, TransactionsIcon, TransferIcon, WithdrawIcon } from '../../ui/Icons/WalletIcons/WalletIcons';
 import { WALLET_PAGE_STATE } from '../../utils/constants';
 
-const WALLET_ACTIONS_AND_ICONS = [
+export const WALLET_ACTIONS_AND_ICONS = [
   { id: 1, icon: <EditIcon />, action: WALLET_PAGE_STATE.EDIT_WALLET, name: 'Edit' },
   { id: 2, icon: <WithdrawIcon />, action: WALLET_PAGE_STATE.WITHDRAW_WALLET, name: 'Withdraw' },
   { id: 3, icon: <TransactionsIcon />, action: WALLET_PAGE_STATE.TRANSACTIONS_WALLET, name: 'Transactions' },
