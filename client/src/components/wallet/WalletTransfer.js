@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { observer } from 'mobx-react-lite';
 import { useEffect, useState } from 'react';
 import { Form } from 'react-bootstrap';
@@ -45,11 +44,11 @@ const WalletTransfer = observer(({ id }) => {
           <WalletCarousel selectedWallet={toSelectedWallet} setSelectedWallet={setToSelectedWallet} />
         </div>
         <div className="mb-3">
-          <p>Amount:</p>
+          <Form.Label htmlFor="transferAmount">Amount:</Form.Label>
           <Form.Control
             className="mb-3 component-half-border-radius"
             type="number"
-            inputMode="numeric"
+            inputMode="decimal"
             pattern="[0-9]*"
             name="transferAmount"
             id="transferAmount"
