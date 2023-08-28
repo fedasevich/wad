@@ -9,7 +9,7 @@ jest.mock('../../components/settings/Settings', () => {
   };
 });
 
-describe('SettingsPage Component', () => {
+describe('SettingsPage.js', () => {
   beforeEach(() => render(<SettingsPage />));
 
   it('renders page name', () => {

@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import React from 'react';
 import PageProvider from '../PageProvider';
 
-describe('PageProvider Component', () => {
+describe('PageProvider.js', () => {
   it('renders without crashing', () => {
     render(<PageProvider />);
   });
