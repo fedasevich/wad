@@ -17,7 +17,7 @@ app.use(express.json())
 app.use('/api', router)
 app.use(express.static(path.resolve(__dirname, 'static')))
 
-// error handling
+
 app.use(errorHandler)
 const start = async () => {
     try {

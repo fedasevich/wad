@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { Col, Form } from 'react-bootstrap';
 import { DispatchContext } from '../../pages/MainPage';
 import { useStore } from '../../store';
+import { WALLET_PAGE_STATE } from '../../utils/constants';
 import Currencies from '../Currencies';
 import MenuProvider from '../MenuProvider';
 
@@ -15,7 +16,7 @@ function CreateWallet() {
   const dispatch = useContext(DispatchContext);
 
   const handleClose = () => {
-    dispatch({ operation: 'DEFAULT_WALLET', id: -1 });
+    dispatch({ operation: WALLET_PAGE_STATE.DEFAULT_WALLET, id: -1 });
   };
 
   const handleCommit = () => {
@@ -56,6 +57,7 @@ function CreateWallet() {
             </Form.Label>
             <Form.Control
               className="mb-2 component-half-border-radius"
+              id="name"
               type="text"
               name="name"
               onKeyDown={handleKeyDown}

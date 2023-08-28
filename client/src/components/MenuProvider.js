@@ -17,12 +17,12 @@ function Actions({ children, close, commit }) {
 
   return (
     <div className="menu-colored-header bg-secondary-blue component-border-radius d-flex flex-row justify-content-between">
-      <button type="button" className="cursor-pointer" onClick={handleClose}>
+      <button type="button" className="cursor-pointer" onClick={handleClose} data-testid="menu-cancel-button">
         {close && <CancelIcon />}
       </button>
       <div className="">{children}</div>
 
-      <button type="button" className="cursor-pointer" onClick={handleCommit}>
+      <button type="button" className="cursor-pointer" onClick={handleCommit} data-testid="menu-commit-button">
         {commit && <CheckMarkIcon />}
       </button>
     </div>
@@ -45,12 +45,12 @@ function Straight({ children }) {
   );
 }
 
-function Container({ children, className }) {
+function Container({ children, className = '' }) {
   return <div className={`menu-container d-flex flex-column ${className}`}>{children}</div>;
 }
 
-const MenuProvider = observer(({ children }) => {
-  return <div className="menu mb-3">{children}</div>;
+const MenuProvider = observer(({ children, className }) => {
+  return <div className={`${className} menu mb-3`}>{children}</div>;
 });
 
 MenuProvider.Header = Header;

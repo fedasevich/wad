@@ -4,6 +4,7 @@ import { Form } from 'react-bootstrap';
 import { DispatchContext } from '../../pages/MainPage';
 import { useStore } from '../../store';
 import { DeleteIcon } from '../../ui/Icons/ControlIcons/ControlIcons';
+import { WALLET_PAGE_STATE } from '../../utils/constants';
 import Currencies from '../Currencies';
 import MenuProvider from '../MenuProvider';
 
@@ -26,7 +27,7 @@ function EditWallet({ id }) {
   };
 
   const handleClose = () => {
-    dispatch({ operation: 'DEFAULT_WALLET', id: -1 });
+    dispatch({ operation: WALLET_PAGE_STATE.DEFAULT_WALLET, id: -1 });
   };
 
   useEffect(() => {
@@ -83,6 +84,7 @@ function EditWallet({ id }) {
         <Form.Control
           className="mb-2 component-half-border-radius"
           type="text"
+          id="name"
           name="name"
           onKeyDown={handleKeyDown}
           value={editWallet.name}
@@ -96,6 +98,7 @@ function EditWallet({ id }) {
           inputMode="numeric"
           pattern="[0-9]*"
           type="number"
+          id="balance"
           name="balance"
           onKeyDown={handleKeyDown}
           value={editWallet.balance}

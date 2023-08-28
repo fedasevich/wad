@@ -1,0 +1,78 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WalletActions.js matches snapshot 1`] = `
+<div>
+  <div
+    class="row"
+  >
+    <div
+      class="mb-3 px-xl-2 d-flex justify-content-xl-center justify-content-xxl-start col-md-6 col-sm-6"
+    >
+      <button
+        class="cursor-pointer d-flex align-items-center flex-lg-row flex-xl-column flex-xxl-row justify-content-center text-center"
+        type="button"
+      >
+        <svg>
+          Icon-1.svg
+        </svg>
+        <span
+          class="ms-2"
+        >
+          Edit
+        </span>
+      </button>
+    </div>
+    <div
+      class="mb-3 px-xl-2 d-flex justify-content-xl-center justify-content-xxl-start col-md-6 col-sm-6"
+    >
+      <button
+        class="cursor-pointer d-flex align-items-center flex-lg-row flex-xl-column flex-xxl-row justify-content-center text-center"
+        type="button"
+      >
+        <svg>
+          Icon-3.svg
+        </svg>
+        <span
+          class="ms-2"
+        >
+          Withdraw
+        </span>
+      </button>
+    </div>
+    <div
+      class="mb-3 px-xl-2 d-flex justify-content-xl-center justify-content-xxl-start col-md-6 col-sm-6"
+    >
+      <button
+        class="cursor-pointer d-flex align-items-center flex-lg-row flex-xl-column flex-xxl-row justify-content-center text-center"
+        type="button"
+      >
+        <svg>
+          Icon-2.svg
+        </svg>
+        <span
+          class="ms-2"
+        >
+          Transactions
+        </span>
+      </button>
+    </div>
+    <div
+      class="mb-3 px-xl-2 d-flex justify-content-xl-center justify-content-xxl-start col-md-6 col-sm-6"
+    >
+      <button
+        class="cursor-pointer d-flex align-items-center flex-lg-row flex-xl-column flex-xxl-row justify-content-center text-center"
+        type="button"
+      >
+        <svg>
+          Icon-5.svg
+        </svg>
+        <span
+          class="ms-2"
+        >
+          Transfer
+        </span>
+      </button>
+    </div>
+  </div>
+</div>
+`;
