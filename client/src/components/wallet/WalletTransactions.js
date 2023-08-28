@@ -1,28 +1,11 @@
 import { observer } from 'mobx-react-lite';
-import React, { useEffect } from 'react';
-import { toast } from 'react-hot-toast';
-import { fetchWalletTransactionByWalletId } from '../../http/transactionApi';
+import React from 'react';
 import { useStore } from '../../store';
 import MenuProvider from '../MenuProvider';
 import TransactionsWallet from '../transaction/TransactionsWallet';
 
 const WalletTransactions = observer(({ id }) => {
-  const { wallet, category } = useStore();
-
-  useEffect(() => {
-    try {
-      fetchWalletTransactionByWalletId(
-        category.transactionsPage,
-        category.transactionsLimit,
-        category.transactionsSort,
-        id
-      ).then((data) => {
-        category.setTransactions(data.rows);
-      });
-    } catch (e) {
-      toast.error(e.response.data.message);
-    }
-  }, [id, category]);
+  const { wallet } = useStore();
 
   return (
     <MenuProvider>
