@@ -23,7 +23,7 @@ jobs:
       - name: cd client
         run: cd client
       - name: npm install
-        run: npm ci
+        run: npm install
       - name: npm run build
         run: npm run build --if-present
       - name: npm run test
