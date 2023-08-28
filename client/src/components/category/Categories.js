@@ -105,6 +105,7 @@ const Categories = observer(() => {
                 <Icons iconId={categoryMap.iconId} />
                 <span
                   role="button"
+                  data-testid={`category-settings-${categoryMap.id}`}
                   onKeyDown={() => undefined}
                   tabIndex={0}
                   className="position-absolute top-0 start-100 translate-middle p-2 gear"
@@ -130,7 +131,7 @@ const Categories = observer(() => {
                 <h1>...</h1>
               </button>
             ) : (
-              <button type="button" onClick={handlePlusClick}>
+              <button type="button" onClick={handlePlusClick} data-testid="category-create-icon">
                 <h1>+</h1>
               </button>
             )}
