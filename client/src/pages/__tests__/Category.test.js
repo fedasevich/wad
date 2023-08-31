@@ -3,7 +3,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 
 import { act } from 'react-dom/test-utils';
-import { awaitAllLoaders, mockCategory1 } from '../../../setupTests';
+import { awaitAllLoaders, mockCategories } from '../../../setupTests';
 import Category from '../Category';
 
 jest.mock('../../components/transaction/TransactionsColumn', () => () => <div>Recent activity</div>);
@@ -11,7 +11,14 @@ jest.mock('../../components/category/CategoriesChart', () => () => <div>Chart Ca
 jest.mock('../../components/category/EditCategory', () => () => <div>Edit Category Component Mock</div>);
 jest.mock('../../components//category/CreateCategory', () => () => <div>Create Category Component Mock</div>);
 
-jest.mock('../../store');
+jest.mock('../../store', () => ({
+  useStore: () => ({
+    category: {
+      parsedCategories: [mockCategories[0]],
+      parseCategories: jest.fn()
+    }
+  })
+}));
 
 describe('Category.js', () => {
   beforeEach(async () => {
@@ -30,7 +37,7 @@ describe('Category.js', () => {
     it('switches active page state to Edit Category', async () => {
       await awaitAllLoaders(() => undefined);
 
-      const settingsIcon = screen.getByTestId(`category-settings-${mockCategory1.id}`);
+      const settingsIcon = screen.getByTestId(`category-settings-${mockCategories[0].id}`);
       await act(() => {
         fireEvent.click(settingsIcon);
       });
