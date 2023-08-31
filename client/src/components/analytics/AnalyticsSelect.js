@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { dateRangeOptions } from '../../utils/constants';
 import ArrowSelect from '../ArrowSelect';
 
-const analyticsDateRangeOptions = Object.values(dateRangeOptions).filter(
+export const analyticsDateRangeOptions = Object.values(dateRangeOptions).filter(
   (option) => option !== dateRangeOptions.ALL_TIME && option !== dateRangeOptions.TODAY
 );
 
