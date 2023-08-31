@@ -4,7 +4,7 @@ import { useStore } from '../../../store';
 import { AnalyticsPercentageItem } from './AnalyticsPercentageItem';
 import { AnalyticsShowMore } from './AnalyticsShowMore';
 
-const CATEGORIES_TO_SHOW = 2;
+export const ANALYTICS_CATEGORIES_TO_SHOW = 2;
 
 const getProgressBarPercentage = (spent, totalSpent) => ((spent / totalSpent) * 100).toFixed(1);
 
@@ -21,7 +21,10 @@ export const AnalyticsPercentage = observer(() => {
   );
 
   const [firstCategories, otherCategories] = useMemo(
-    () => [sortedParsedCategories.slice(0, CATEGORIES_TO_SHOW), sortedParsedCategories.slice(CATEGORIES_TO_SHOW)],
+    () => [
+      sortedParsedCategories.slice(0, ANALYTICS_CATEGORIES_TO_SHOW),
+      sortedParsedCategories.slice(ANALYTICS_CATEGORIES_TO_SHOW)
+    ],
     [sortedParsedCategories]
   );
 
