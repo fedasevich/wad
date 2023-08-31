@@ -51,30 +51,284 @@ export const mockWallet3 = {
 
 export const mockWallets = [mockWallet1, mockWallet2, mockWallet3];
 
-export const mockCategory1 = {
-  id: 1,
-  name: 'Groceries',
-  spent: 1337,
-  iconId: 5,
-  createdAt: '2022-07-23T10:41:50.397Z',
-  updatedAt: '2023-08-16T13:34:03.161Z',
-  userId: mockUserId
-};
+export const mockCategories = [
+  {
+    id: 61,
+    name: 'Groceries',
+    spent: 1337,
+    iconId: 5,
+    createdAt: '2022-07-23T10:41:50.397Z',
+    updatedAt: '2023-08-16T13:34:03.161Z',
+    userId: 9
+  },
+  {
+    id: 62,
+    name: 'Gifts',
+    spent: 516,
+    iconId: 2,
+    createdAt: '2022-07-23T10:41:51.026Z',
+    updatedAt: '2023-08-16T13:42:11.242Z',
+    userId: 9
+  },
+  {
+    id: 63,
+    name: 'Transport',
+    spent: 103,
+    iconId: 3,
+    createdAt: '2022-07-23T10:41:51.280Z',
+    updatedAt: '2023-07-20T10:08:23.850Z',
+    userId: 9
+  },
+  {
+    id: 64,
+    name: 'Health',
+    spent: 121,
+    iconId: 2,
+    createdAt: '2022-07-23T10:41:51.373Z',
+    updatedAt: '2023-08-12T20:05:56.932Z',
+    userId: 9
+  },
+  {
+    id: 65,
+    name: 'Leisure',
+    spent: 36,
+    iconId: 4,
+    createdAt: '2022-07-23T10:41:51.531Z',
+    updatedAt: '2023-08-23T20:30:29.032Z',
+    userId: 9
+  },
+  {
+    id: 66,
+    name: 'Shopping',
+    spent: 535,
+    iconId: 5,
+    createdAt: '2022-07-23T10:41:51.543Z',
+    updatedAt: '2023-08-12T20:06:23.252Z',
+    userId: 9
+  },
+  {
+    id: 67,
+    name: 'Family',
+    spent: 924,
+    iconId: 6,
+    createdAt: '2022-07-23T10:41:51.553Z',
+    updatedAt: '2023-08-20T16:58:28.862Z',
+    userId: 9
+  },
+  {
+    id: 68,
+    name: 'test',
+    spent: 812,
+    iconId: 7,
+    createdAt: '2022-07-29T21:34:24.198Z',
+    updatedAt: '2023-01-03T19:29:58.075Z',
+    userId: 9
+  },
+  {
+    id: 71,
+    name: 'ggg',
+    spent: 1700,
+    iconId: 2,
+    createdAt: '2022-08-16T14:57:48.230Z',
+    updatedAt: '2023-07-20T11:20:06.177Z',
+    userId: 9
+  },
+  {
+    id: 203,
+    name: 'asdasd',
+    spent: 0,
+    iconId: 3,
+    createdAt: '2023-08-23T20:06:44.952Z',
+    updatedAt: '2023-08-23T20:06:44.952Z',
+    userId: 9
+  }
+];
 
-export const mockCategories = [mockCategory1];
+export const mockTransactions = [
+  {
+    id: 442,
+    description: 'Leisure',
+    sum: '1',
+    walletId: 15,
+    userId: 9,
+    createdAt: '2023-08-23T20:30:29.033Z',
+    updatedAt: '2023-08-23T20:30:29.033Z',
+    categoryId: 65
+  },
+  {
+    id: 441,
+    description: 'Family',
+    sum: '1',
+    walletId: 16,
+    userId: 9,
+    createdAt: '2023-08-20T16:58:28.864Z',
+    updatedAt: '2023-08-20T16:58:28.864Z',
+    categoryId: 67
+  },
+  {
+    id: 434,
+    description: 'Groceries',
+    sum: '2',
+    walletId: 17,
+    userId: 9,
+    createdAt: '2023-08-16T13:34:03.163Z',
+    updatedAt: '2023-08-16T13:34:03.163Z',
+    categoryId: 61
+  },
+  {
+    id: 432,
+    description: 'Gifts',
+    sum: '3',
+    walletId: 15,
+    userId: 9,
+    createdAt: '2023-08-15T09:45:59.881Z',
+    updatedAt: '2023-08-15T09:45:59.881Z',
+    categoryId: 62
+  },
+  {
+    id: 431,
+    description: 'Groceries',
+    sum: '10',
+    walletId: 15,
+    userId: 9,
+    createdAt: '2023-08-15T09:45:58.181Z',
+    updatedAt: '2023-08-15T09:45:58.181Z',
+    categoryId: 61
+  },
+  {
+    id: 414,
+    description: 'Groceries',
+    sum: '2',
+    walletId: 15,
+    userId: 9,
+    createdAt: '2023-08-14T19:12:02.965Z',
+    updatedAt: '2023-08-14T19:12:02.965Z',
+    categoryId: 61
+  },
+  {
+    id: 413,
+    description: 'Groceries',
+    sum: '1',
+    walletId: 15,
+    userId: 9,
+    createdAt: '2023-08-14T19:12:01.612Z',
+    updatedAt: '2023-08-14T19:12:01.612Z',
+    categoryId: 61
+  },
+  {
+    id: 398,
+    description: 'фыв',
+    sum: '20',
+    walletId: 15,
+    userId: 9,
+    createdAt: '2023-08-12T11:50:26.432Z',
+    updatedAt: '2023-08-12T11:50:26.432Z',
+    categoryId: 64
+  },
+  {
+    id: 395,
+    description: 'Family',
+    sum: '20',
+    walletId: 17,
+    userId: 9,
+    createdAt: '2023-08-25T17:25:36.561Z',
+    updatedAt: '2023-08-07T17:25:36.561Z',
+    categoryId: 67
+  }
+];
 
-export const mockTransaction1 = {
-  id: 1,
-  description: 'Leisure',
-  sum: 100,
-  walletId: mockWallet1.id,
-  userId: mockUserId,
-  createdAt: '2023-08-23T20:30:29.033Z',
-  updatedAt: '2023-08-23T20:30:29.033Z',
-  categoryId: mockCategory1.id
-};
-
-export const mockTransactions = [mockTransaction1];
+export const mockParsedCategories = [
+  {
+    id: 61,
+    name: 'Groceries',
+    spent: 15,
+    iconId: 5,
+    createdAt: '2022-07-23T10:41:50.397Z',
+    updatedAt: '2023-08-16T13:34:03.161Z',
+    userId: 9
+  },
+  {
+    id: 62,
+    name: 'Gifts',
+    spent: 3,
+    iconId: 2,
+    createdAt: '2022-07-23T10:41:51.026Z',
+    updatedAt: '2023-08-16T13:42:11.242Z',
+    userId: 9
+  },
+  {
+    id: 63,
+    name: 'Transport',
+    spent: 0,
+    iconId: 3,
+    createdAt: '2022-07-23T10:41:51.280Z',
+    updatedAt: '2023-07-20T10:08:23.850Z',
+    userId: 9
+  },
+  {
+    id: 64,
+    name: 'Health',
+    spent: 20,
+    iconId: 2,
+    createdAt: '2022-07-23T10:41:51.373Z',
+    updatedAt: '2023-08-12T20:05:56.932Z',
+    userId: 9
+  },
+  {
+    id: 65,
+    name: 'Leisure',
+    spent: 1,
+    iconId: 4,
+    createdAt: '2022-07-23T10:41:51.531Z',
+    updatedAt: '2023-08-23T20:30:29.032Z',
+    userId: 9
+  },
+  {
+    id: 66,
+    name: 'Shopping',
+    spent: 0,
+    iconId: 5,
+    createdAt: '2022-07-23T10:41:51.543Z',
+    updatedAt: '2023-08-12T20:06:23.252Z',
+    userId: 9
+  },
+  {
+    id: 67,
+    name: 'Family',
+    spent: 21,
+    iconId: 6,
+    createdAt: '2022-07-23T10:41:51.553Z',
+    updatedAt: '2023-08-20T16:58:28.862Z',
+    userId: 9
+  },
+  {
+    id: 68,
+    name: 'test',
+    spent: 0,
+    iconId: 7,
+    createdAt: '2022-07-29T21:34:24.198Z',
+    updatedAt: '2023-01-03T19:29:58.075Z',
+    userId: 9
+  },
+  {
+    id: 71,
+    name: 'ggg',
+    spent: 0,
+    iconId: 2,
+    createdAt: '2022-08-16T14:57:48.230Z',
+    updatedAt: '2023-07-20T11:20:06.177Z',
+    userId: 9
+  },
+  {
+    id: 203,
+    name: 'asdasd',
+    spent: 0,
+    iconId: 3,
+    createdAt: '2023-08-23T20:06:44.952Z',
+    updatedAt: '2023-08-23T20:06:44.952Z',
+    userId: 9
+  }
+];
 
 export const awaitAllLoaders = async (cb) => {
   await waitForElementToBeRemoved(() => document.querySelector('.loader'), { timeout: 30000 }).then(async () => {

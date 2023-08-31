@@ -1,4 +1,4 @@
-import { mockCategories, mockCategory1, mockTransactions, mockWallet1, mockWallets } from '../../../setupTests';
+import { mockCategories, mockParsedCategories, mockTransactions, mockWallet1, mockWallets } from '../../../setupTests';
 import { MAIN_ROUTE } from '../../utils/constants';
 
 const mockStore = {
@@ -21,8 +21,9 @@ const mockStore = {
   category: {
     parsedCategories: mockCategories,
     categories: mockCategories,
-    parseCategories: jest.fn(),
-    getCategoryById: () => mockCategory1,
+    parseCategories: () => mockParsedCategories,
+    getCategoryById: () => mockCategories[0],
+    getIconIdFromCategoryById: () => mockCategories[0].iconId,
     transactions: mockTransactions
   }
 };

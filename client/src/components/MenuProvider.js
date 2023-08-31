@@ -49,7 +49,7 @@ function Container({ children, className = '' }) {
   return <div className={`menu-container d-flex flex-column ${className}`}>{children}</div>;
 }
 
-const MenuProvider = observer(({ children, className }) => {
+const MenuProvider = observer(({ children, className = '' }) => {
   return <div className={`${className} menu mb-3`}>{children}</div>;
 });
 

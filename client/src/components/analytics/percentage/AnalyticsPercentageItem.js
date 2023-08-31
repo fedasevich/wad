@@ -2,9 +2,16 @@ import { observer } from 'mobx-react-lite';
 import { Icons } from '../../../ui/Icons/CategoryIcons/CategoryIcons';
 import { AnalyticsProgressBar } from './AnalyticsProgressBar';
 
+const MAXIMUM_PERCENTAGE = 100;
+
 export const AnalyticsPercentageItem = observer(({ categoryItem, icon, progressBarPercentage, onClick }) => {
   return (
-    <button type="button" className="mt-2 d-flex flex-row align-items-center justify-content-center" onClick={onClick}>
+    <button
+      type="button"
+      className="mt-2 d-flex flex-row align-items-center justify-content-center"
+      onClick={onClick}
+      data-testid="percentage-item"
+    >
       <div className=" position-relative categoryIcon me-3">
         {!icon && <Icons iconId={categoryItem.iconId} />}
         {icon}
@@ -17,7 +24,7 @@ export const AnalyticsPercentageItem = observer(({ categoryItem, icon, progressB
         <div className="d-flex w-100 justify-content-between">
           <AnalyticsProgressBar
             className="mt-1 me-4"
-            max={100}
+            max={MAXIMUM_PERCENTAGE}
             value={progressBarPercentage}
             iconId={categoryItem.iconId}
           />
