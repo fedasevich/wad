@@ -3,28 +3,22 @@ import { runInAction } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import React, { useEffect, useState } from 'react';
 import { Accordion, Row } from 'react-bootstrap';
-import { toast } from 'react-hot-toast';
-import { fetchTransaction } from '../../http/transactionApi';
 import { useStore } from '../../store';
 import ChangeTransactionModal from './ChangeTransactionModal';
 import TransactionProvider from './TransactionProvider';
 
-const Transactions = observer(({ actions }) => {
+const Transactions = observer(({ actions, handleFetchTransactions, walletId }) => {
   const { category } = useStore();
   const [buttonVisible, setButtonVisible] = useState(true);
   const [changeTransactionModal, setChangeTransactionModal] = useState(false);
 
   useEffect(() => {
-    try {
-      fetchTransaction(category.transactionsPage, category.transactionsLimit, category.transactionsSort).then(
-        (data) => {
-          category.setTransactions(data.rows);
-        }
-      );
-    } catch (e) {
-      toast.error(e.response.data.message);
-    }
-  }, [category.transactionsLimit, category.transactionsSort, category]);
+    handleFetchTransactions().then((data) => {
+      runInAction(() => {
+        category.setTransactions(data.rows);
+      });
+    });
+  }, [category.transactionsLimit, category.transactionsSort, category, walletId]);
 
   const data = category.transactions;
 
@@ -44,23 +38,17 @@ const Transactions = observer(({ actions }) => {
     };
   });
 
-  const loadMoreTransactions = () => {
+  const loadMoreTransactions = async () => {
     category.modifyTransactionsFilter({ page: category.transactionsPage + 1 });
 
-    try {
-      fetchTransaction(category.transactionsPage, category.transactionsLimit, category.transactionsSort).then(
-        (data) => {
-          if (!data.rows.length) {
-            setButtonVisible(false);
-          }
-          runInAction(() => {
-            category.transactions.push(...data.rows);
-          });
-        }
-      );
-    } catch (e) {
-      toast.error(e.response.data.message);
-    }
+    await handleFetchTransactions().then((data) => {
+      if (!data.rows.length) {
+        setButtonVisible(false);
+      }
+      runInAction(() => {
+        category.transactions.push(...data.rows);
+      });
+    });
   };
 
   return (
