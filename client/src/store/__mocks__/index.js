@@ -15,16 +15,25 @@ const mockStore = {
   wallet: {
     wallets: mockWallets,
     createWallet: jest.fn(),
+    getCurrencyFromWalletById: jest.fn(),
     editWallet: jest.fn(),
     getWalletById: () => mockWallet1
   },
   category: {
     parsedCategories: mockCategories,
     categories: mockCategories,
+    changeTransaction: jest.fn(),
+    getTransactionById: () => mockTransactions[0],
     parseCategories: () => mockParsedCategories,
     getCategoryById: () => mockCategories[0],
     getIconIdFromCategoryById: () => mockCategories[0].iconId,
-    transactions: mockTransactions
+    transactions: mockTransactions,
+    transactionsSort: 'DESC',
+    modifyTransactionsFilter: jest.fn(),
+    deleteTransaction: jest.fn(),
+    transactionsLimit: 10,
+    transactionsPage: 1,
+    setTransactions: jest.fn()
   }
 };
 
