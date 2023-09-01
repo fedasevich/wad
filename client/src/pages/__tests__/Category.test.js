@@ -42,7 +42,6 @@ describe('Category.js', () => {
         fireEvent.click(settingsIcon);
       });
 
-      screen.debug(undefined, Infinity);
       expect(screen.getByText(/edit category component mock/i)).toBeInTheDocument();
     });
 
