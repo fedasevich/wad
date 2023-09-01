@@ -1,7 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { Accordion, Button, ButtonGroup, ButtonToolbar, Card, Col, Row, useAccordionButton } from 'react-bootstrap';
-import { toast } from 'react-hot-toast';
 import { useStore } from '../../store';
 import { Icons } from '../../ui/Icons/CategoryIcons/CategoryIcons';
 import { DeleteCircleIcon } from '../../ui/Icons/ControlIcons/ControlIcons';
@@ -37,16 +36,9 @@ function Actions({ setButtonVisible, category }) {
   );
 }
 
-function LoadMore({ buttonVisible, setButtonVisible, fetchTransaction }) {
+function LoadMore({ buttonVisible, fetchTransaction }) {
   const handleLoadMoreClick = async () => {
-    try {
-      const data = await fetchTransaction();
-      if (!data.rows.length) {
-        setButtonVisible(false);
-      }
-    } catch (e) {
-      toast.error(e.response.data.message);
-    }
+    await fetchTransaction();
   };
 
   return (
