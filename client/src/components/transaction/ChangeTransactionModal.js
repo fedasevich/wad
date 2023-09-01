@@ -40,7 +40,7 @@ const ChangeTransactionModal = observer(({ changeTransactionModal, setChangeTran
         </MenuProvider.Actions>
         <MenuProvider.Container>
           <div className="d-flex align-items-center flex-column ">
-            <Form.Label className="mb-2" htmlFor="name">
+            <Form.Label className="mb-2" htmlFor="description">
               Enter new description:
             </Form.Label>
             <Form.Control
