@@ -17,7 +17,7 @@ describe('WalletTransfer.js', () => {
     render(<WalletTransfer id={mockWallet.id} />);
   });
 
-  test('renders transfer form with initial values', () => {
+  it('renders transfer form with initial values', () => {
     expect(screen.getByText(/From:/i)).toBeInTheDocument();
     expect(screen.getByText(/To:/i)).toBeInTheDocument();
     expect(screen.getByText(/Amount:/i)).toBeInTheDocument();
@@ -28,7 +28,7 @@ describe('WalletTransfer.js', () => {
     ).toBeInTheDocument();
   });
 
-  test('handles transfer amount change', () => {
+  it('handles transfer amount change', () => {
     const amountInput = screen.getByLabelText(/Amount:/i);
 
     fireEvent.change(amountInput, { target: { value: '100' } });
@@ -36,7 +36,7 @@ describe('WalletTransfer.js', () => {
     expect(amountInput.value).toBe('100');
   });
 
-  test('handles transfer button click', () => {
+  it('handles transfer button click', () => {
     const transferButton = screen.getByRole('button', {
       name: /transfer/i
     });
@@ -45,7 +45,6 @@ describe('WalletTransfer.js', () => {
     fireEvent.click(nextButton);
 
     fireEvent.click(transferButton);
-    screen.debug(undefined, Infinity);
     expect(WalletStore.transferWallet).toHaveBeenCalledWith(mockWallet, mockWallet1, '');
   });
 });
