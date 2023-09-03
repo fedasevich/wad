@@ -10,7 +10,14 @@ const mockStore = {
     initializeCategoriesAndWallets: jest.fn()
   },
   userSettings: {
-    startPage: MAIN_ROUTE
+    startPage: MAIN_ROUTE,
+    setCloseCalculatorOnSubmit: jest.fn(),
+    setTheme: jest.fn(),
+    setPersistAnalyticsChartRange: jest.fn(),
+    persistTransactionFilter: false,
+    setPersistTransactionFilter: jest.fn(),
+    setStartPage: jest.fn(),
+    closeCalculatorOnSubmit: false
   },
   wallet: {
     wallets: mockWallets,
