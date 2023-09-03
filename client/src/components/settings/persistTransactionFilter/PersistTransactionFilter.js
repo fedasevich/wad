@@ -13,6 +13,8 @@ export const PersistTransactionFilter = observer(() => {
     <Form.Check
       type="checkbox"
       label="Persist transaction filter"
+      name="persistTransactionFilter"
+      id="persistTransactionFilter"
       onChange={handleCheckBoxClick}
       checked={userSettings.persistTransactionFilter}
     />
