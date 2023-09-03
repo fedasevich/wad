@@ -13,6 +13,8 @@ export const CloseCalculatorOnSubmit = observer(() => {
     <Form.Check
       type="checkbox"
       label="Close calculator on submit"
+      name="closeCalculatorOnSubmit"
+      id="closeCalculatorOnSubmit"
       onChange={handleCheckBoxClick}
       checked={userSettings.closeCalculatorOnSubmit}
     />
