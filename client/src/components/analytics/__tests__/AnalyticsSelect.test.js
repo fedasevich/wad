@@ -38,7 +38,7 @@ function loopChartRange(dateRangeOptions, direction) {
   });
 }
 
-describe('AnalyticsSelect component', () => {
+describe('AnalyticsSelect.js', () => {
   it('updates chart range when left arrow is clicked', () => {
     updateChartRangeOnClick('left', analyticsDateRangeOptions[analyticsDateRangeOptions.length - 1]);
   });

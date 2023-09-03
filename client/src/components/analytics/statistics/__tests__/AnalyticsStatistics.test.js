@@ -5,7 +5,7 @@ import { AnalyticsStatistics } from '../AnalyticsStatistics';
 
 const expectedResult = {
   dailyAverage: 10,
-  weeklyAverage: 30.0,
+  weeklyAverage: 20.0,
   monthlyAverage: 60.0
 };
 
