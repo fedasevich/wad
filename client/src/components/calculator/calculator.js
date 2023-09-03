@@ -176,6 +176,11 @@ const Calculator = observer(({ walletId, categoryId, onSubmit }) => {
     if (currentOperand === '0') {
       return toast.error('Amount spent cannot be 0.');
     }
+
+    if (currentOperand < 0) {
+      return toast.error('Amount spent cannot be negative.');
+    }
+
     category.createTransaction(currentOperand, selectedCategory, selectedWallet, description, wallet);
     setDescription('');
     dispatch({ type: ACTIONS.CLEAR });
