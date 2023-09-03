@@ -1,0 +1,161 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Settings.js renders without errors 1`] = `
+<div>
+  <div
+    class="vh-80 row"
+  >
+    <div
+      class="col-md-10 offset-md-1"
+    >
+      <div
+        class=" menu mb-3"
+      >
+        <div
+          class="menu-container d-flex flex-column "
+        >
+          <div
+            class="mb-3"
+          >
+            <h4
+              class="mb-2"
+            >
+              Start page
+            </h4>
+            <select
+              class="form-select"
+            >
+              <option
+                selected=""
+                value="/main"
+              >
+                /main
+              </option>
+              <option
+                value="/category"
+              >
+                /category
+              </option>
+              <option
+                value="/analytics"
+              >
+                /analytics
+              </option>
+              <option
+                value="/settings"
+              >
+                /settings
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div
+        class=" menu mb-3"
+      >
+        <div
+          class="menu-container d-flex flex-column "
+        >
+          <div
+            class="mb-3"
+          >
+            <h4
+              class="mb-2"
+            >
+              Calculator
+            </h4>
+            <div
+              class="form-check"
+            >
+              <input
+                class="form-check-input"
+                id="closeCalculatorOnSubmit"
+                name="closeCalculatorOnSubmit"
+                type="checkbox"
+              />
+              <label
+                class="form-check-label"
+                for="closeCalculatorOnSubmit"
+                title=""
+              >
+                Close calculator on submit
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class=" menu mb-3"
+      >
+        <div
+          class="menu-container d-flex flex-column "
+        >
+          <div
+            class="mb-3"
+          >
+            <h4
+              class="mb-2"
+            >
+              Transaction
+            </h4>
+            <div
+              class="form-check"
+            >
+              <input
+                class="form-check-input"
+                id="persistTransactionFilter"
+                name="persistTransactionFilter"
+                type="checkbox"
+              />
+              <label
+                class="form-check-label"
+                for="persistTransactionFilter"
+                title=""
+              >
+                Persist transaction filter
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class=" menu mb-3"
+      >
+        <div
+          class="menu-container d-flex flex-column "
+        >
+          <div
+            class="mb-3"
+          >
+            <h4
+              class="mb-2"
+            >
+              Theme
+            </h4>
+            <select
+              class="form-select"
+            >
+              <option
+                value="default"
+              >
+                default
+              </option>
+              <option
+                value="dark"
+              >
+                dark
+              </option>
+              <option
+                selected=""
+                value="light"
+              >
+                light
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
