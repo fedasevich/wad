@@ -76,8 +76,8 @@ export const Analytics = observer(() => {
           </MenuProvider.Container>
         </MenuProvider>
       </Col>
-      <Col md={{ offset: 1, span: 6 }}>
-        <MenuProvider>
+      <Col md={{ offset: 1, span: 6 }} className="percentage">
+        <MenuProvider className="percentage-menu">
           <MenuProvider.Container>
             <HOCAnalyticsPercentage transactions={transactions} />
           </MenuProvider.Container>
