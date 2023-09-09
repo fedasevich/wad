@@ -17,6 +17,7 @@ const mockStore = {
     persistTransactionFilter: false,
     setPersistTransactionFilter: jest.fn(),
     setStartPage: jest.fn(),
+    isThemeDark: jest.fn(),
     closeCalculatorOnSubmit: false
   },
   wallet: {
