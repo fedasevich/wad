@@ -34,7 +34,7 @@ const CalculatorWalletModal = observer(({ walletModalActive, setWalletModalActiv
                 key={walletsMap.id}
               >
                 <WalletIcon />
-                <h3 className="mt-1">{walletsMap.name}</h3>
+                <h4 className="mt-1">{walletsMap.name}</h4>
                 <h6>
                   {walletsMap.balance} {walletsMap.currency}
                 </h6>
