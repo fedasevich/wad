@@ -85,18 +85,18 @@ const Transaction = observer(({ transaction, index, setChangeTransactionModal })
   };
 
   return (
-    <Col md="12" className="d-inline-flex justify-content-between mt-3 w-100">
+    <Col md="12" className="d-inline-flex justify-content-between my-1 w-100">
       <Card className={`border-0 w-100 ${isDeleted ? 'text-decoration-line-through' : ''}`}>
         <Card.Header className="bg-none d-flex w-100 justify-content-between border-0">
           <TransactionToggle eventKey={index}>
             <div className="d-flex flex-row align-items-center justify-content-between">
               <div className="d-flex flex-row align-items-center">
                 <Icons iconId={category.getIconIdFromCategoryById(transaction.categoryId)} />
-                <h4 className="ms-3 mb-0">{transaction.description}</h4>
+                <h5 className="ms-3 mb-0">{transaction.description}</h5>
               </div>
-              <h4>
+              <h5>
                 -{transaction.sum} {wallet.getCurrencyFromWalletById(transaction.walletId)}
-              </h4>
+              </h5>
             </div>
           </TransactionToggle>
         </Card.Header>
@@ -122,7 +122,7 @@ const Transaction = observer(({ transaction, index, setChangeTransactionModal })
 });
 
 function TransactionDate({ date }) {
-  return <h3>{date}</h3>;
+  return <h4 className="fw-medium">{date}</h4>;
 }
 
 const TransactionProvider = observer(({ children }) => {

@@ -20,7 +20,7 @@ const TransactionsColumn = observer(() => {
   return (
     <MenuProvider>
       <MenuProvider.Header>
-        <h3 className="fw-bold">Recent activity</h3>
+        <h2 className="fw-medium">Recent activity</h2>
       </MenuProvider.Header>
 
       <MenuProvider.Container>
