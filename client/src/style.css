@@ -146,11 +146,11 @@ button {
 
 /* Bootstrap */
 .card {
-  background: var(--menu-bg-color);
+  background-color: var(--menu-bg-color);
 }
 
 .form-select {
-  background: var(--menu-bg-color);
+  background-color: var(--menu-bg-color);
 }
 
 /* Scroll */
