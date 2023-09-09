@@ -39,7 +39,7 @@ export const AnalyticsStatistics = observer(({ transactions }) => {
 
   return (
     <>
-      <h2>Statistics</h2>
+      <h3 className="fw-medium">Statistics</h3>
       <p>Daily Average: {groupTransactions.dailyAverage}</p>
       <p>Weekly Average: {groupTransactions.weeklyAverage}</p>
       <p>Monthly Average: {groupTransactions.monthlyAverage}</p>
