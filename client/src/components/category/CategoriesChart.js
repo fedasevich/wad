@@ -4,7 +4,6 @@ import React from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import { useStore } from '../../store';
 import { parseCategoriesIcons } from '../../ui/Icons/CategoryIcons/CategoryIcons';
-import { themes } from '../../utils/constants';
 
 ChartJS.register(ArcElement, Tooltip);
 
@@ -21,7 +20,7 @@ const CategoriesChart = observer(() => {
       const { ctx, data } = chart;
       ctx.save();
       ctx.font = 'bold 28px Segoe UI Variable';
-      ctx.fillStyle = userSettings.theme === themes.DARK ? 'white' : 'black';
+      ctx.fillStyle = userSettings.isThemeDark() ? 'white' : 'black';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.fillText(
