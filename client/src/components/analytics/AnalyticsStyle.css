@@ -17,10 +17,19 @@ p {
 
 .statistics {
   display: flex;
-  max-height: 276px;
+  max-height: 310px;
 }
 
 .statistics-menu {
+  flex: 0 0 100%;
+}
+
+.percentage:has(button) {
+  display: flex;
+  min-height: 156px;
+}
+
+.percentage-menu {
   flex: 0 0 100%;
 }
 
