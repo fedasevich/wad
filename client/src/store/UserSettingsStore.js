@@ -1,6 +1,6 @@
 import { makeAutoObservable } from 'mobx';
 import { makePersistable } from 'mobx-persist-store';
-import { MAIN_ROUTE } from '../utils/constants';
+import { MAIN_ROUTE, themes } from '../utils/constants';
 
 export default class UserSettingsStore {
   constructor(rootStore) {
@@ -72,5 +72,9 @@ export default class UserSettingsStore {
 
   get theme() {
     return this._theme;
+  }
+
+  isThemeDark() {
+    return this.theme === themes.DARK;
   }
 }
