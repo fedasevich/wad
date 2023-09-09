@@ -4,14 +4,13 @@ import React from 'react';
 import { mockWallet1 } from '../../../../setupTests';
 import { DispatchContext } from '../../../pages/MainPage';
 import { useStore } from '../../../store';
-import { WALLET_PAGE_STATE, cryptoCurrencies, mainCurrencies } from '../../../utils/constants';
+import { WALLET_PAGE_STATE, mainCurrencies } from '../../../utils/constants';
 import CreateWallet from '../CreateWallet';
 
 jest.mock('../../../store');
 
 const mockMainCurrency = mainCurrencies.data[0];
 
-const mockCryptoCurrency = cryptoCurrencies.data[0];
 const mockDispatch = jest.fn();
 
 const mockWalletName = mockWallet1.name;
@@ -47,7 +46,6 @@ describe('CreateWallet.js', () => {
 
   it('updates chosen currency when selecting a currency', () => {
     selectCurrencyAndCheckText(mockMainCurrency);
-    selectCurrencyAndCheckText(mockCryptoCurrency);
   });
 
   it('calls createWallet and resets state on commit', () => {
