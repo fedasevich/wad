@@ -2,6 +2,7 @@ import { observer } from 'mobx-react-lite';
 import React, { useEffect, useReducer, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useStore } from '../../store';
+import { getCategoryBackgroundColorByIconId } from '../../ui/Icons/CategoryIcons/CategoryIcons';
 import CalculatorCategoryModal from './CalculatorCategoryModal';
 import './CalculatorStyle.css';
 import CalculatorWalletModal from './CalculatorWalletModal';
@@ -199,7 +200,16 @@ const Calculator = observer(({ walletId, categoryId, onSubmit }) => {
             {selectedWallet.balance} {selectedWallet.currency}
           </h5>
         </button>
-        <button type="button" className="item category" onClick={handleCategoryClick}>
+        <button
+          type="button"
+          className="item category"
+          onClick={handleCategoryClick}
+          style={{
+            backgroundColor: getCategoryBackgroundColorByIconId(
+              selectedCategory.iconId || category.categories[0].iconId
+            )
+          }}
+        >
           <h4>{selectedCategory.name}</h4>
         </button>
         <div className="item sum">
