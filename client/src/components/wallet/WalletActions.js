@@ -29,7 +29,7 @@ const WalletActions = observer(({ dispatch, id }) => {
             }}
           >
             {walletActionAndIcon.icon}
-            <span className="ms-2">{walletActionAndIcon.name}</span>
+            <span className="ms-2 ms-md-2 ms-xl-0 ms-xxl-2">{walletActionAndIcon.name}</span>
           </button>
         </Col>
       ))}
