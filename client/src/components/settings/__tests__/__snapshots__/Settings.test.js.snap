@@ -17,11 +17,11 @@ exports[`Settings.js renders without errors 1`] = `
           <div
             class="mb-3"
           >
-            <h4
-              class="mb-2"
+            <h3
+              class="mb-2 fw-medium"
             >
               Start page
-            </h4>
+            </h3>
             <select
               class="form-select"
             >
@@ -59,11 +59,11 @@ exports[`Settings.js renders without errors 1`] = `
           <div
             class="mb-3"
           >
-            <h4
-              class="mb-2"
+            <h3
+              class="mb-2 fw-medium"
             >
               Calculator
-            </h4>
+            </h3>
             <div
               class="form-check"
             >
@@ -93,11 +93,11 @@ exports[`Settings.js renders without errors 1`] = `
           <div
             class="mb-3"
           >
-            <h4
-              class="mb-2"
+            <h3
+              class="mb-2 fw-medium"
             >
               Transaction
-            </h4>
+            </h3>
             <div
               class="form-check"
             >
@@ -127,11 +127,11 @@ exports[`Settings.js renders without errors 1`] = `
           <div
             class="mb-3"
           >
-            <h4
-              class="mb-2"
+            <h3
+              class="mb-2 fw-medium"
             >
               Theme
-            </h4>
+            </h3>
             <select
               class="form-select"
             >

@@ -5,14 +5,16 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
   <div
     class="row"
   >
-    <h3>
+    <h4
+      class="fw-medium"
+    >
       23 August 2023
-    </h3>
+    </h4>
     <div
       class="accordion"
     >
       <div
-        class="d-inline-flex justify-content-between mt-3 w-100 col-md-12"
+        class="d-inline-flex justify-content-between my-1 w-100 col-md-12"
       >
         <div
           class="border-0 w-100  card"
@@ -74,17 +76,17 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
                       />
                     </svg>
                   </div>
-                  <h4
+                  <h5
                     class="ms-3 mb-0"
                   >
                     Leisure
-                  </h4>
+                  </h5>
                 </div>
-                <h4>
+                <h5>
                   -
                   1
                    
-                </h4>
+                </h5>
               </div>
             </div>
           </div>
@@ -127,7 +129,7 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
         </div>
       </div>
       <div
-        class="d-inline-flex justify-content-between mt-3 w-100 col-md-12"
+        class="d-inline-flex justify-content-between my-1 w-100 col-md-12"
       >
         <div
           class="border-0 w-100  card"
@@ -189,17 +191,17 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
                       />
                     </svg>
                   </div>
-                  <h4
+                  <h5
                     class="ms-3 mb-0"
                   >
                     Mock Transaction
-                  </h4>
+                  </h5>
                 </div>
-                <h4>
+                <h5>
                   -
                   1
                    
-                </h4>
+                </h5>
               </div>
             </div>
           </div>
@@ -246,14 +248,16 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
   <div
     class="row"
   >
-    <h3>
+    <h4
+      class="fw-medium"
+    >
       20 August 2023
-    </h3>
+    </h4>
     <div
       class="accordion"
     >
       <div
-        class="d-inline-flex justify-content-between mt-3 w-100 col-md-12"
+        class="d-inline-flex justify-content-between my-1 w-100 col-md-12"
       >
         <div
           class="border-0 w-100  card"
@@ -315,17 +319,17 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
                       />
                     </svg>
                   </div>
-                  <h4
+                  <h5
                     class="ms-3 mb-0"
                   >
                     Family
-                  </h4>
+                  </h5>
                 </div>
-                <h4>
+                <h5>
                   -
                   1
                    
-                </h4>
+                </h5>
               </div>
             </div>
           </div>
@@ -372,14 +376,16 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
   <div
     class="row"
   >
-    <h3>
+    <h4
+      class="fw-medium"
+    >
       16 August 2023
-    </h3>
+    </h4>
     <div
       class="accordion"
     >
       <div
-        class="d-inline-flex justify-content-between mt-3 w-100 col-md-12"
+        class="d-inline-flex justify-content-between my-1 w-100 col-md-12"
       >
         <div
           class="border-0 w-100  card"
@@ -441,17 +447,17 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
                       />
                     </svg>
                   </div>
-                  <h4
+                  <h5
                     class="ms-3 mb-0"
                   >
                     Groceries
-                  </h4>
+                  </h5>
                 </div>
-                <h4>
+                <h5>
                   -
                   2
                    
-                </h4>
+                </h5>
               </div>
             </div>
           </div>
@@ -498,14 +504,16 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
   <div
     class="row"
   >
-    <h3>
+    <h4
+      class="fw-medium"
+    >
       15 August 2023
-    </h3>
+    </h4>
     <div
       class="accordion"
     >
       <div
-        class="d-inline-flex justify-content-between mt-3 w-100 col-md-12"
+        class="d-inline-flex justify-content-between my-1 w-100 col-md-12"
       >
         <div
           class="border-0 w-100  card"
@@ -567,17 +575,17 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
                       />
                     </svg>
                   </div>
-                  <h4
+                  <h5
                     class="ms-3 mb-0"
                   >
                     Gifts
-                  </h4>
+                  </h5>
                 </div>
-                <h4>
+                <h5>
                   -
                   3
                    
-                </h4>
+                </h5>
               </div>
             </div>
           </div>
@@ -620,7 +628,7 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
         </div>
       </div>
       <div
-        class="d-inline-flex justify-content-between mt-3 w-100 col-md-12"
+        class="d-inline-flex justify-content-between my-1 w-100 col-md-12"
       >
         <div
           class="border-0 w-100  card"
@@ -682,17 +690,17 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
                       />
                     </svg>
                   </div>
-                  <h4
+                  <h5
                     class="ms-3 mb-0"
                   >
                     Groceries
-                  </h4>
+                  </h5>
                 </div>
-                <h4>
+                <h5>
                   -
                   10
                    
-                </h4>
+                </h5>
               </div>
             </div>
           </div>
@@ -739,14 +747,16 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
   <div
     class="row"
   >
-    <h3>
+    <h4
+      class="fw-medium"
+    >
       14 August 2023
-    </h3>
+    </h4>
     <div
       class="accordion"
     >
       <div
-        class="d-inline-flex justify-content-between mt-3 w-100 col-md-12"
+        class="d-inline-flex justify-content-between my-1 w-100 col-md-12"
       >
         <div
           class="border-0 w-100  card"
@@ -808,17 +818,17 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
                       />
                     </svg>
                   </div>
-                  <h4
+                  <h5
                     class="ms-3 mb-0"
                   >
                     Groceries
-                  </h4>
+                  </h5>
                 </div>
-                <h4>
+                <h5>
                   -
                   2
                    
-                </h4>
+                </h5>
               </div>
             </div>
           </div>
@@ -861,7 +871,7 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
         </div>
       </div>
       <div
-        class="d-inline-flex justify-content-between mt-3 w-100 col-md-12"
+        class="d-inline-flex justify-content-between my-1 w-100 col-md-12"
       >
         <div
           class="border-0 w-100  card"
@@ -923,17 +933,17 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
                       />
                     </svg>
                   </div>
-                  <h4
+                  <h5
                     class="ms-3 mb-0"
                   >
                     Groceries
-                  </h4>
+                  </h5>
                 </div>
-                <h4>
+                <h5>
                   -
                   1
                    
-                </h4>
+                </h5>
               </div>
             </div>
           </div>
@@ -980,14 +990,16 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
   <div
     class="row"
   >
-    <h3>
+    <h4
+      class="fw-medium"
+    >
       12 August 2023
-    </h3>
+    </h4>
     <div
       class="accordion"
     >
       <div
-        class="d-inline-flex justify-content-between mt-3 w-100 col-md-12"
+        class="d-inline-flex justify-content-between my-1 w-100 col-md-12"
       >
         <div
           class="border-0 w-100  card"
@@ -1049,17 +1061,17 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
                       />
                     </svg>
                   </div>
-                  <h4
+                  <h5
                     class="ms-3 mb-0"
                   >
                     фыв
-                  </h4>
+                  </h5>
                 </div>
-                <h4>
+                <h5>
                   -
                   20
                    
-                </h4>
+                </h5>
               </div>
             </div>
           </div>
@@ -1106,14 +1118,16 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
   <div
     class="row"
   >
-    <h3>
+    <h4
+      class="fw-medium"
+    >
       25 August 2023
-    </h3>
+    </h4>
     <div
       class="accordion"
     >
       <div
-        class="d-inline-flex justify-content-between mt-3 w-100 col-md-12"
+        class="d-inline-flex justify-content-between my-1 w-100 col-md-12"
       >
         <div
           class="border-0 w-100  card"
@@ -1175,17 +1189,17 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
                       />
                     </svg>
                   </div>
-                  <h4
+                  <h5
                     class="ms-3 mb-0"
                   >
                     Family
-                  </h4>
+                  </h5>
                 </div>
-                <h4>
+                <h5>
                   -
                   20
                    
-                </h4>
+                </h5>
               </div>
             </div>
           </div>

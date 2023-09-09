@@ -116,17 +116,23 @@ exports[`Analytics.js matches snapshot 1`] = `
       </div>
     </div>
     <div
-      class="col-md-6 offset-md-1"
+      class="percentage col-md-6 offset-md-1"
     >
       <div
-        class=" menu mb-3"
+        class="percentage-menu menu mb-3"
       >
         <div
           class="menu-container d-flex flex-column "
         >
+          <h3
+            class="fw-medium"
+          >
+            Percentage
+          </h3>
           <button
             class="mt-2 d-flex flex-row align-items-center justify-content-center"
             data-testid="percentage-item"
+            disabled=""
             type="button"
           >
             <div
@@ -175,12 +181,12 @@ exports[`Analytics.js matches snapshot 1`] = `
                 class="d-flex justify-content-between"
               >
                 <p
-                  class="fs-4 mb-0 fw-medium"
+                  class="fs-4 mb-0"
                 >
                   ggg
                 </p>
                 <p
-                  class="fs-4 mb-0 fw-bold "
+                  class="fs-4 mb-0 fw-medium"
                 >
                   1700
                 </p>
@@ -211,6 +217,7 @@ exports[`Analytics.js matches snapshot 1`] = `
           <button
             class="mt-2 d-flex flex-row align-items-center justify-content-center"
             data-testid="percentage-item"
+            disabled=""
             type="button"
           >
             <div
@@ -267,12 +274,12 @@ exports[`Analytics.js matches snapshot 1`] = `
                 class="d-flex justify-content-between"
               >
                 <p
-                  class="fs-4 mb-0 fw-medium"
+                  class="fs-4 mb-0"
                 >
                   Groceries
                 </p>
                 <p
-                  class="fs-4 mb-0 fw-bold "
+                  class="fs-4 mb-0 fw-medium"
                 >
                   1337
                 </p>
@@ -319,12 +326,12 @@ exports[`Analytics.js matches snapshot 1`] = `
                 class="d-flex justify-content-between"
               >
                 <p
-                  class="fs-4 mb-0 fw-medium"
+                  class="fs-4 mb-0"
                 >
                   Show more
                 </p>
                 <p
-                  class="fs-4 mb-0 fw-bold "
+                  class="fs-4 mb-0 fw-medium"
                 >
                   3047
                 </p>
@@ -364,9 +371,11 @@ exports[`Analytics.js matches snapshot 1`] = `
         <div
           class="menu-container d-flex flex-column "
         >
-          <h2>
+          <h3
+            class="fw-medium"
+          >
             Statistics
-          </h2>
+          </h3>
           <p>
             Daily Average: 
             8.57
