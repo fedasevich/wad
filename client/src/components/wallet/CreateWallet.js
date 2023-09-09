@@ -64,7 +64,7 @@ function CreateWallet() {
               value={newWallet.name}
               onChange={handleChange}
             />
-            <h4 className="mb-2">Chosen currency: {newWallet.currency}</h4>
+            <h5 className="mb-2">Chosen currency: {newWallet.currency}</h5>
           </MenuProvider.Container>
         </MenuProvider>
       </Col>
