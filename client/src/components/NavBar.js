@@ -64,7 +64,7 @@ const NavBar = observer(() => {
 
   return (
     <aside className="d-flex justify-content-between flex-column desktop-height-100vh px-2 bg-main-blue px-lg-0 ps-md-4 ps-lg-4 fw-medium fs-6">
-      <div>
+      <div className="h-100">
         <LogoIcon />
         <Nav
           variant="pills"
