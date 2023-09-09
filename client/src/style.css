@@ -5,6 +5,7 @@
   --secondary-blue: #4a90ff;
   --anakiwa: #a7cbff;
   --cyan: #75deff;
+  --menu-bg-color: #fff;
   --text-color-white: #fff;
   --text-color-hover: #dbdbdb;
   --background-grey: #f4f4f4;
@@ -12,6 +13,14 @@
   --component-shadow: 0px 30px 45px rgba(21, 21, 21, 0.1);
   --component-border-radius: 20px;
   --component-padding: 25px;
+  --black: #000;
+}
+
+body {
+  font-family:
+    Segoe UI Variable,
+    sans-serif;
+  color: var(--black);
 }
 
 h1,
@@ -100,34 +109,48 @@ button {
 }
 
 @font-face {
-  font-family: Poppins-Medium;
-  src: url(./ui/fonts/Poppins-Medium.ttf);
+  font-weight: 700;
+  font-family: Segoe UI Variable;
+  font-style: normal;
+  src: url('./ui/fonts/Segoe-UI-Variable-Static-Text-Bold.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: Poppins-Light;
-  src: url(./ui/fonts/Poppins-Light.ttf);
+  font-weight: 600;
+  font-family: Segoe UI Variable;
+  font-style: normal;
+  src: url('./ui/fonts/Segoe-UI-Variable-Static-Text-Semibold.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: Poppins-Bold;
-  src: url(./ui/fonts/Poppins-Bold.ttf);
+  font-weight: 400;
+  font-family: Segoe UI Variable;
+  font-style: normal;
+  src: url('./ui/fonts/Segoe-UI-Variable-Static-Text.ttf') format('truetype');
+}
+
+@font-face {
+  font-weight: 300;
+  font-family: Segoe UI Variable;
+  font-style: normal;
+  src: url('./ui/fonts/Segoe-UI-Variable-Static-Text-Light.ttf') format('truetype');
 }
 
 .fw-medium {
-  font-family: Poppins-Medium, sans-serif;
-}
-
-.fw-light {
-  font-family: Poppins-Light, sans-serif;
-}
-
-.fw-bold {
-  font-family: Poppins-Bold, sans-serif;
+  font-weight: 600;
 }
 
 .desktop-height-100vh {
   height: max(100vh, 100%);
+}
+
+/* Bootstrap */
+.card {
+  background: var(--menu-bg-color);
+}
+
+.form-select {
+  background: var(--menu-bg-color);
 }
 
 /* Scroll */
@@ -158,6 +181,10 @@ button {
 
 /* Navbar */
 
+aside .nav {
+  height: calc(100% - 3rem - 80px);
+}
+
 .nav-item a {
   color: var(--text-color-white);
   text-decoration: none;
@@ -172,16 +199,26 @@ button {
 }
 
 .nav-item:hover a {
+  transition: color 150ms;
   color: var(--text-color-hover);
   text-decoration: none;
 }
 
 .nav-item:hover svg path {
+  transition: stroke 150ms;
   stroke: var(--text-color-hover);
+}
+
+.nav-item:hover .active span {
+  border-color: var(--text-color-hover);
 }
 
 .nav-item .active span {
   border-bottom: 2px solid white;
+}
+
+.nav .nav-item:last-child {
+  margin-top: auto;
 }
 
 /* wallet */
@@ -189,7 +226,7 @@ button {
 .wallet .card {
   border-radius: var(--component-border-radius);
   border: 0;
-  background-color: var(--text-color-white);
+  background-color: var(--menu-bg-color);
 }
 
 .wallet .card-header {
@@ -211,13 +248,23 @@ button {
   background-color: var(--cyan);
 }
 
+.wallet-carousel .carousel-control-prev,
+.wallet-carousel .carousel-control-next {
+  width: 20px;
+}
+
 /* menu */
 
 .menu {
-  background-color: var(--text-color-white);
+  background-color: var(--menu-bg-color);
   border-radius: var(--component-border-radius);
   box-shadow: var(--component-shadow);
-  font-family: Poppins-Medium, sans-serif;
+}
+
+.menu-container input {
+  color: var(--text-color-white);
+  border-color: var(--text-color-white);
+  background-color: var(--menu-bg-color);
 }
 
 .menu-colored-header {
@@ -242,7 +289,6 @@ button {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1px;
-
   border-radius: var(--component-border-radius);
   background-color: var(--background-grey-light);
 }
@@ -250,7 +296,7 @@ button {
 .date-picker .item {
   text-align: center;
   cursor: pointer;
-  background-color: white;
+  background-color: var(--menu-bg-color);
   padding: var(--component-padding);
 }
 
@@ -270,14 +316,25 @@ button {
   }
 }
 
-/* 
-// TODO: dark theme
-@media (prefers-color-scheme: dark) {
-  :root {
-  }
-} */
+/* dark theme */
 
-/* TODO: Replace with proper dark theme */
 body.dark {
-  filter: invert(1) hue-rotate(160deg);
+  --main-blue: #0c78b0;
+  --light-blue: #1287c3;
+  --dark-blue: #283f7a;
+  --secondary-blue: #2f5ca3;
+  --anakiwa: #668abe;
+  --cyan: #0091bf;
+  --menu-bg-color: #374151;
+  --background-grey: #161f2f;
+  --component-shadow: 0px 30px 45px rgba(219, 219, 219, 0.1);
+  color: var(--text-color-white);
+}
+
+body.dark button {
+  color: var(--text-color-white);
+}
+
+body.dark .form-select {
+  color: var(--text-color-white);
 }
