@@ -8,7 +8,7 @@ import { parseCategoriesIcons } from '../../ui/Icons/CategoryIcons/CategoryIcons
 ChartJS.register(ArcElement, Tooltip);
 
 const CategoriesChart = observer(() => {
-  const { category } = useStore();
+  const { category, userSettings } = useStore();
 
   const options = {
     cutout: '85%'
@@ -19,8 +19,8 @@ const CategoriesChart = observer(() => {
     beforeDatasetsDraw(chart, _args, _pluginOptions) {
       const { ctx, data } = chart;
       ctx.save();
-      ctx.font = 'bold 28px Poppins-Bold';
-      ctx.fillStyle = 'black';
+      ctx.font = 'bold 28px Segoe UI Variable';
+      ctx.fillStyle = userSettings.isThemeDark() ? 'white' : 'black';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.fillText(

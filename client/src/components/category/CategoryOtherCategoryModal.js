@@ -63,7 +63,7 @@ const CategoryOtherCategoryModal = observer(function CategoryOtherCategoryModal(
               className="w-100 p-3 mb-2 modal_item bg-main-blue component-border-radius d-flex flex-row justify-content-center"
               onClick={handleAddCategoryClick}
             >
-              <h3 className="mt-1">+</h3>
+              <h3>+</h3>
             </button>
           </Col>
         </Row>

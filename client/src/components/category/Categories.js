@@ -100,7 +100,7 @@ const Categories = observer(() => {
                 setCalculatorModal({ active: true, categoryId: categoryMap.id });
               }}
             >
-              <h4 className="mb-3 fw-medium categoryName">{categoryMap.name}</h4>
+              <h4 className="mb-3 categoryName">{categoryMap.name}</h4>
               <div className="position-relative categoryIcon">
                 <Icons iconId={categoryMap.iconId} />
                 <span

@@ -3,11 +3,11 @@ import { observer } from 'mobx-react-lite';
 import { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { Bar } from 'react-chartjs-2';
+import { useStore } from '../../../store';
 import { ArrowDownIcon } from '../../../ui/Icons/ControlIcons/ControlIcons';
 import { processChartData } from './libs/helpers/processChartData';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip);
-
 const options = {
   responsive: true,
   scales: {
@@ -22,8 +22,14 @@ const options = {
 };
 
 export const AnalyticsChart = observer(({ transactions, chartRange }) => {
-  const [expanded, setExpanded] = useState(false);
+  const { userSettings } = useStore();
 
+  const isThemeDark = userSettings.isThemeDark();
+  const darkChartColor = isThemeDark ? '#fff' : '#666';
+  ChartJS.defaults.color = darkChartColor;
+  ChartJS.defaults.borderColor = darkChartColor;
+
+  const [expanded, setExpanded] = useState(false);
   const handleExpandedToggle = () => {
     setExpanded((prev) => !prev);
   };

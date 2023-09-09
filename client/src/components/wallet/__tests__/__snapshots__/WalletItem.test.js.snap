@@ -2,13 +2,13 @@
 
 exports[`WalletItem.js matches snapshot 1`] = `
 <div>
-  <h4
-    class="m-0"
+  <h5
+    class="m-0 fw-medium"
   >
     Card 0
-  </h4>
+  </h5>
   <h6
-    class="m-0"
+    class="m-0 fw-medium"
   >
     1000
      

@@ -1,3 +1,17 @@
 .rdrMonth {
-    width: 100%;
+  width: 100%;
+}
+
+body.dark .rdrCalendarWrapper,
+.rdrDateDisplayWrapper {
+  background-color: var(--menu-bg-color);
+}
+
+body.dark .rdrMonthAndYearPickers select {
+  color: var(--text-color-white);
+}
+
+body.dark .rdrMonthAndYearPickers select option {
+  color: var(--text-color-white);
+  background-color: var(--menu-bg-color);
 }

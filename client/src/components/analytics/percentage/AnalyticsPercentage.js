@@ -44,6 +44,7 @@ export const AnalyticsPercentage = observer(() => {
 
   return (
     <>
+      <h3 className="fw-medium">Percentage</h3>
       {firstCategories.map((categoryItem) => (
         <AnalyticsPercentageItem
           key={categoryItem.id}

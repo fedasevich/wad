@@ -18,13 +18,14 @@ export const WalletCarousel = observer(({ selectedWallet, setSelectedWallet }) =
       <Carousel
         activeIndex={defaultActiveIndex}
         interval={null}
+        className="wallet-carousel"
         indicators={false}
         variant="dark"
         onSelect={handleSelect}
       >
         {wallet.wallets.map((wallet) => (
           <Carousel.Item key={wallet.id} className="wallet">
-            <Card className="mx-5">
+            <Card className="mx-4">
               <Card.Header className="d-flex mx-xxl-4 mx-lg-4 mx-xl-0 mx-0 mx-sm-2 flex-row justify-content-between align-items-center">
                 <WalletItem wallet={wallet} />
               </Card.Header>

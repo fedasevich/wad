@@ -58,7 +58,7 @@ const Wallets = observer(() => {
           className="w-100 p-4 mb-2 component-shadow bg-light-blue text-center component-border-radius cursor-pointer text-white"
           onClick={handleAddWalletClick}
         >
-          <span>Add wallet</span>
+          <span className="fw-medium">Add wallet</span>
         </button>
       </Col>
     </Row>

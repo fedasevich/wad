@@ -3,7 +3,7 @@
 exports[`TransactionProvider.js Transaction component matches snapshot 1`] = `
 <div>
   <div
-    class="d-inline-flex justify-content-between mt-3 w-100 col-md-12"
+    class="d-inline-flex justify-content-between my-1 w-100 col-md-12"
   >
     <div
       class="border-0 w-100  card"
@@ -65,17 +65,17 @@ exports[`TransactionProvider.js Transaction component matches snapshot 1`] = `
                   />
                 </svg>
               </div>
-              <h4
+              <h5
                 class="ms-3 mb-0"
               >
                 Leisure
-              </h4>
+              </h5>
             </div>
-            <h4>
+            <h5>
               -
               1
                
-            </h4>
+            </h5>
           </div>
         </div>
       </div>

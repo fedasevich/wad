@@ -16,7 +16,7 @@ exports[`WalletActions.js matches snapshot 1`] = `
           Icon-1.svg
         </svg>
         <span
-          class="ms-2"
+          class="ms-2 ms-md-2 ms-xl-0 ms-xxl-2"
         >
           Edit
         </span>
@@ -33,7 +33,7 @@ exports[`WalletActions.js matches snapshot 1`] = `
           Icon-3.svg
         </svg>
         <span
-          class="ms-2"
+          class="ms-2 ms-md-2 ms-xl-0 ms-xxl-2"
         >
           Withdraw
         </span>
@@ -50,7 +50,7 @@ exports[`WalletActions.js matches snapshot 1`] = `
           Icon-2.svg
         </svg>
         <span
-          class="ms-2"
+          class="ms-2 ms-md-2 ms-xl-0 ms-xxl-2"
         >
           Transactions
         </span>
@@ -67,7 +67,7 @@ exports[`WalletActions.js matches snapshot 1`] = `
           Icon-5.svg
         </svg>
         <span
-          class="ms-2"
+          class="ms-2 ms-md-2 ms-xl-0 ms-xxl-2"
         >
           Transfer
         </span>
