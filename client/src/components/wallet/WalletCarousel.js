@@ -21,7 +21,7 @@ export const WalletCarousel = observer(({ selectedWallet, setSelectedWallet }) =
         interval={null}
         className="wallet-carousel"
         indicators={false}
-        variant={userSettings.isThemeDark ? themes.LIGHT : themes.DARK}
+        variant={userSettings.isThemeDark() ? themes.LIGHT : themes.DARK}
         onSelect={handleSelect}
       >
         {wallet.wallets.map((wallet) => (

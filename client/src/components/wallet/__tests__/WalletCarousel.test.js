@@ -3,6 +3,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 import { mockWallet2, mockWallet3, mockWallets } from '../../../../setupTests';
 import { useStore } from '../../../store';
+import { themes } from '../../../utils/constants';
 import { WalletCarousel } from '../WalletCarousel';
 
 jest.mock('../../../store', () => ({
@@ -11,7 +12,10 @@ jest.mock('../../../store', () => ({
 
 describe('WalletCarousel.js', () => {
   const mockUseStore = () => ({
-    wallet: { wallets: mockWallets }
+    wallet: { wallets: mockWallets },
+    userSettings: {
+      isThemeDark: () => themes.LIGHT
+    }
   });
   beforeEach(() => {
     useStore.mockImplementation(mockUseStore);
@@ -50,6 +54,9 @@ describe('WalletCarousel.js', () => {
     useStore.mockReturnValue({
       wallet: {
         wallets: []
+      },
+      userSettings: {
+        isThemeDark: () => themes.LIGHT
       }
     });
 
