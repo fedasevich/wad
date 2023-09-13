@@ -1,5 +1,6 @@
 import { makeAutoObservable } from 'mobx';
 import { makePersistable } from 'mobx-persist-store';
+import { isBrowserDefaultDark } from '../ui/hooks/useTheme';
 import { MAIN_ROUTE, themes } from '../utils/constants';
 
 export default class UserSettingsStore {
@@ -75,6 +76,9 @@ export default class UserSettingsStore {
   }
 
   isThemeDark() {
+    if (this.theme === themes.DEFAULT) {
+      return isBrowserDefaultDark();
+    }
     return this.theme === themes.DARK;
   }
 }

@@ -263,7 +263,6 @@ aside .nav {
 
 .menu-container input {
   color: var(--text-color-white);
-  border-color: var(--text-color-white);
   background-color: var(--menu-bg-color);
 }
 
@@ -337,4 +336,9 @@ body.dark button {
 
 body.dark .form-select {
   color: var(--text-color-white);
+}
+
+body.dark .menu-container input[type='radio'],
+body.dark .menu-container input[type='checkbox'] {
+  border-color: var(--text-color-white);
 }
