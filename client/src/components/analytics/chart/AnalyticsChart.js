@@ -25,9 +25,9 @@ export const AnalyticsChart = observer(({ transactions, chartRange }) => {
   const { userSettings } = useStore();
 
   const isThemeDark = userSettings.isThemeDark();
-  const darkChartColor = isThemeDark ? '#fff' : '#666';
-  ChartJS.defaults.color = darkChartColor;
-  ChartJS.defaults.borderColor = darkChartColor;
+
+  ChartJS.defaults.color = isThemeDark ? '#fff' : '#676767';
+  ChartJS.defaults.borderColor = isThemeDark ? '#fff' : '#cecece';
 
   const [expanded, setExpanded] = useState(false);
   const handleExpandedToggle = () => {
