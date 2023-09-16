@@ -2,22 +2,22 @@ import { useEffect } from 'react';
 import { useStore } from '../../store';
 import { themes } from '../../utils/constants';
 
-const colorScheme = window.matchMedia('(prefers-color-scheme: dark)');
+export const preferredColorScheme = window.matchMedia('(prefers-color-scheme: dark)');
+export const isBrowserDefaultDark = () => preferredColorScheme.matches;
 
 export const useTheme = () => {
   const { userSettings } = useStore();
 
   const handleThemeChange = () => {
-    const isBrowserDefaultDark = () => colorScheme.matches;
     const getDefaultTheme = () => {
       const localStorageTheme = userSettings.theme;
-      const browserDefault = isBrowserDefaultDark() ? 'dark' : 'light';
+      const browserDefault = isBrowserDefaultDark() ? themes.DARK : themes.LIGHT;
       if (localStorageTheme === themes.DEFAULT) {
         return browserDefault;
       }
       return localStorageTheme || browserDefault;
     };
-    document.body.classList.remove(document.body.classList.contains('dark') ? 'dark' : 'light');
+    document.body.classList.remove(document.body.classList.contains(themes.DARK) ? themes.DARK : themes.LIGHT);
     document.body.classList.add(getDefaultTheme());
   };
 
@@ -26,9 +26,9 @@ export const useTheme = () => {
   }, [userSettings.theme]);
 
   useEffect(() => {
-    colorScheme.addEventListener('change', handleThemeChange);
+    preferredColorScheme.addEventListener('change', handleThemeChange);
     return () => {
-      colorScheme.removeEventListener('change', handleThemeChange);
+      preferredColorScheme.removeEventListener('change', handleThemeChange);
     };
   }, []);
 };

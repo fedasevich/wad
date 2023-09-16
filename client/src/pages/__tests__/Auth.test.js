@@ -40,19 +40,19 @@ describe('Auth.js', () => {
         </MemoryRouter>
       );
 
-      const authorizationHeader = screen.getByText(/Authorization/i);
+      const authorizationHeader = screen.getByText(/Sign in/i);
       expect(authorizationHeader).toBeInTheDocument();
 
-      const emailInput = screen.getByPlaceholderText(/Enter your email.../i);
+      const emailInput = screen.getByPlaceholderText(/Enter your e-mail/i);
       expect(emailInput).toBeInTheDocument();
 
-      const passwordInput = screen.getByPlaceholderText(/Enter your password.../i);
+      const passwordInput = screen.getByPlaceholderText(/Enter your password/i);
       expect(passwordInput).toBeInTheDocument();
 
       const loginButton = screen.getByText(/Login/i);
       expect(loginButton).toBeInTheDocument();
 
-      const createAccountLink = screen.getByText(/Create account/i);
+      const createAccountLink = screen.getByText(/Sign up/i);
       expect(createAccountLink).toBeInTheDocument();
     });
 
@@ -63,8 +63,8 @@ describe('Auth.js', () => {
         </MemoryRouter>
       );
 
-      const emailInput = screen.getByPlaceholderText(/Enter your email.../i);
-      const passwordInput = screen.getByPlaceholderText(/Enter your password.../i);
+      const emailInput = screen.getByPlaceholderText(/Enter your e-mail/i);
+      const passwordInput = screen.getByPlaceholderText(/Enter your password/i);
       const loginButton = screen.getByText(/Login/i);
 
       fireEvent.change(emailInput, { target: { value: mockEmail } });
@@ -96,19 +96,19 @@ describe('Auth.js', () => {
         </MemoryRouter>
       );
 
-      const authorizationHeader = screen.getByText(/Registration/i);
+      const authorizationHeader = screen.getByText(/Sign up/i);
       expect(authorizationHeader).toBeInTheDocument();
 
-      const emailInput = screen.getByPlaceholderText(/Enter your email.../i);
+      const emailInput = screen.getByPlaceholderText(/Enter your e-mail/i);
       expect(emailInput).toBeInTheDocument();
 
-      const passwordInput = screen.getByPlaceholderText(/Enter your password.../i);
+      const passwordInput = screen.getByPlaceholderText(/Enter your password/i);
       expect(passwordInput).toBeInTheDocument();
 
       const registerButton = screen.getByText(/Register/i);
       expect(registerButton).toBeInTheDocument();
 
-      const loginAccountLink = screen.getByText(/Login/i);
+      const loginAccountLink = screen.getByText(/Sign in/i);
       expect(loginAccountLink).toBeInTheDocument();
     });
 
@@ -119,8 +119,8 @@ describe('Auth.js', () => {
         </MemoryRouter>
       );
 
-      const emailInput = screen.getByPlaceholderText(/Enter your email.../i);
-      const passwordInput = screen.getByPlaceholderText(/Enter your password.../i);
+      const emailInput = screen.getByPlaceholderText(/Enter your e-mail/i);
+      const passwordInput = screen.getByPlaceholderText(/Enter your password/i);
       const registerButton = screen.getByText(/Register/i);
 
       fireEvent.change(emailInput, { target: { value: mockEmail } });

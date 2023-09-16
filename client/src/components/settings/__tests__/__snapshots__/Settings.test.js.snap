@@ -26,7 +26,6 @@ exports[`Settings.js renders without errors 1`] = `
               class="form-select"
             >
               <option
-                selected=""
                 value="/main"
               >
                 /main
@@ -146,7 +145,6 @@ exports[`Settings.js renders without errors 1`] = `
                 dark
               </option>
               <option
-                selected=""
                 value="light"
               >
                 light

@@ -146,11 +146,11 @@ button {
 
 /* Bootstrap */
 .card {
-  background: var(--menu-bg-color);
+  background-color: var(--menu-bg-color);
 }
 
 .form-select {
-  background: var(--menu-bg-color);
+  background-color: var(--menu-bg-color);
 }
 
 /* Scroll */
@@ -179,7 +179,49 @@ button {
   background: #555;
 }
 
+#logo {
+  width: 180px;
+}
+
+/* Auth */
+.auth-container {
+  --light-blue: #8fcaf5;
+  background: linear-gradient(116deg, #468cfd -0.4%, #94b8ff 47.93%, #a7e2df 110.47%, var(--main-blue) 181.54%);
+  color: white;
+}
+
+.auth-container #logo {
+  width: 220px;
+}
+.auth-form {
+  width: clamp(250px, 100%, 350px);
+}
+
+.auth-container #wad {
+  display: block;
+}
+
+.auth-form-container {
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.2);
+  padding-inline: 100px;
+}
+
+.auth-form-nav-link {
+  color: var(--text-color-white);
+}
+
+.auth-form-nav-link:hover {
+  color: var(--text-color-hover);
+}
+
 /* Navbar */
+
+aside #logo {
+  width: 100px;
+}
 
 aside .nav {
   height: calc(100% - 3rem - 80px);
@@ -263,7 +305,6 @@ aside .nav {
 
 .menu-container input {
   color: var(--text-color-white);
-  border-color: var(--text-color-white);
   background-color: var(--menu-bg-color);
 }
 
@@ -337,4 +378,9 @@ body.dark button {
 
 body.dark .form-select {
   color: var(--text-color-white);
+}
+
+body.dark .menu-container input[type='radio'],
+body.dark .menu-container input[type='checkbox'] {
+  border-color: var(--text-color-white);
 }

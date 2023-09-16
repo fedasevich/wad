@@ -2,10 +2,11 @@ import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { Card, Carousel } from 'react-bootstrap';
 import { useStore } from '../../store';
+import { themes } from '../../utils/constants';
 import { WalletItem } from './WalletItem';
 
 export const WalletCarousel = observer(({ selectedWallet, setSelectedWallet }) => {
-  const { wallet } = useStore();
+  const { wallet, userSettings } = useStore();
 
   const handleSelect = (index) => {
     setSelectedWallet(wallet.wallets[index]);
@@ -20,7 +21,7 @@ export const WalletCarousel = observer(({ selectedWallet, setSelectedWallet }) =
         interval={null}
         className="wallet-carousel"
         indicators={false}
-        variant="dark"
+        variant={userSettings.isThemeDark() ? themes.LIGHT : themes.DARK}
         onSelect={handleSelect}
       >
         {wallet.wallets.map((wallet) => (

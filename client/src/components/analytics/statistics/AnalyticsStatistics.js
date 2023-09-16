@@ -1,4 +1,4 @@
-import { differenceInDays, differenceInMonths, differenceInWeeks, parseISO } from 'date-fns';
+import { parseISO, startOfDay, startOfMonth, startOfWeek } from 'date-fns';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 
@@ -11,10 +11,9 @@ export const AnalyticsStatistics = observer(({ transactions }) => {
 
     transactions.forEach((transaction) => {
       const date = parseISO(transaction.createdAt);
-      const dayDiff = differenceInDays(new Date(), date);
-      const weekDiff = differenceInWeeks(new Date(), date);
-      const monthDiff = differenceInMonths(new Date(), date);
-
+      const dayDiff = startOfDay(date);
+      const weekDiff = startOfWeek(date);
+      const monthDiff = startOfMonth(date);
       if (!dailyGroup[dayDiff]) dailyGroup[dayDiff] = [];
       if (!weeklyGroup[weekDiff]) weeklyGroup[weekDiff] = [];
       if (!monthlyGroup[monthDiff]) monthlyGroup[monthDiff] = [];

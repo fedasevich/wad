@@ -1,5 +1,5 @@
 import { mockCategories, mockParsedCategories, mockTransactions, mockWallet1, mockWallets } from '../../../setupTests';
-import { MAIN_ROUTE } from '../../utils/constants';
+import { MAIN_ROUTE, themes } from '../../utils/constants';
 
 const mockStore = {
   user: {
@@ -17,7 +17,7 @@ const mockStore = {
     persistTransactionFilter: false,
     setPersistTransactionFilter: jest.fn(),
     setStartPage: jest.fn(),
-    isThemeDark: jest.fn(),
+    isThemeDark: () => themes.LIGHT,
     closeCalculatorOnSubmit: false
   },
   wallet: {
