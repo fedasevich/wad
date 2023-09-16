@@ -5,9 +5,7 @@ import React from 'react';
 import { mockTransactions } from '../../../../../setupTests';
 import { AnalyticsChart } from '../AnalyticsChart';
 
-jest.mock('../libs/helpers/processChartData', () => ({
-  processChartData: jest.fn()
-}));
+jest.mock('../../../../store');
 
 const transactions = mockTransactions;
 const chartRange = 'week';
