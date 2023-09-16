@@ -11,10 +11,9 @@ export const AnalyticsStatistics = observer(({ transactions }) => {
 
     transactions.forEach((transaction) => {
       const date = parseISO(transaction.createdAt);
-      const dayDiff = differenceInDays(new Date(), date);
-      const weekDiff = differenceInWeeks(new Date(), date);
-      const monthDiff = differenceInMonths(new Date(), date);
-
+      const dayDiff = differenceInDays(new Date('2023-09-16T12:00:00'), date);
+      const weekDiff = differenceInWeeks(new Date('2023-09-16T12:00:00'), date);
+      const monthDiff = differenceInMonths(new Date('2023-09-16T12:00:00'), date);
       if (!dailyGroup[dayDiff]) dailyGroup[dayDiff] = [];
       if (!weeklyGroup[weekDiff]) weeklyGroup[weekDiff] = [];
       if (!monthlyGroup[monthDiff]) monthlyGroup[monthDiff] = [];

@@ -378,15 +378,15 @@ exports[`Analytics.js matches snapshot 1`] = `
           </h3>
           <p>
             Daily Average: 
-            8.57
+            10.00
           </p>
           <p>
             Weekly Average: 
-            20.00
+            30.00
           </p>
           <p>
             Monthly Average: 
-            60.00
+            30.00
           </p>
         </div>
       </div>
