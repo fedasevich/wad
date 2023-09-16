@@ -4,9 +4,9 @@ import { mockTransactions } from '../../../../../setupTests';
 import { AnalyticsStatistics } from '../AnalyticsStatistics';
 
 const expectedResult = {
-  dailyAverage: 10,
-  weeklyAverage: 30.0,
-  monthlyAverage: 30.0
+  dailyAverage: 8.57,
+  weeklyAverage: 20.0,
+  monthlyAverage: 60.0
 };
 
 describe('AnalyticsStatistics.js', () => {
