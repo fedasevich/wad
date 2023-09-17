@@ -13,6 +13,7 @@
   --component-shadow: 0px 30px 45px rgba(21, 21, 21, 0.1);
   --component-border-radius: 20px;
   --component-padding: 25px;
+  --category-icon-size: 50px;
   --black: #000;
 }
 
@@ -217,6 +218,16 @@ button {
   color: var(--text-color-hover);
 }
 
+/* Category global */
+
+.categoryIcon {
+  height: var(--category-icon-size);
+  width: var(--category-icon-size);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 /* Navbar */
 
 aside #logo {
@@ -388,5 +399,11 @@ body.dark .menu-container input[type='checkbox'] {
 @media screen and (max-width: 425px) {
   body {
     --component-padding: 20px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  body {
+    --category-icon-size: 40px;
   }
 }
