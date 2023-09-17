@@ -45,7 +45,7 @@ export const categoryIconsColors = {
   DELETED: '#999999',
   CLOTHES: '#80fbdb',
   EDUCATION: '#412285',
-  LEISURE: '#fa0834',
+  COSMETICS: '#fa0834',
   SPORTS: '#d27afc',
   TRANSPORT: '#af0c5b',
   HEALTH: '#7aaffc',
