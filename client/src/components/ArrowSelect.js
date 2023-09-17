@@ -11,7 +11,9 @@ function ArrowSelect({
   handleArrowRightClick
 }) {
   return (
-    <div className={`${className} d-flex fw-medium justify-content-evenly cursor-pointer align-items-center`}>
+    <div
+      className={`${className} d-flex fw-medium justify-content-evenly cursor-pointer align-items-center arrow-select`}
+    >
       {leftArrowShow && (
         <button type="button" className="px-1" onClick={handleArrowLeftClick}>
           <ArrowLeftIcon />
@@ -19,7 +21,7 @@ function ArrowSelect({
       )}
 
       <button type="button" className="px-1" onClick={handleTextClick}>
-        <h3 className="fs-5 fs-sm-3">{textToPrint}</h3>
+        <h3>{textToPrint}</h3>
       </button>
 
       {rightArrowShow && (

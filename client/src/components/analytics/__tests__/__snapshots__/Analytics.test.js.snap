@@ -22,7 +22,7 @@ exports[`Analytics.js matches snapshot 1`] = `
           class="d-flex align-items-center justify-content-center flex-column col-5 offset-2"
         >
           <div
-            class="undefined d-flex fw-medium justify-content-evenly cursor-pointer align-items-center"
+            class="undefined d-flex fw-medium justify-content-evenly cursor-pointer align-items-center arrow-select"
           >
             <button
               class="px-1"
@@ -36,9 +36,7 @@ exports[`Analytics.js matches snapshot 1`] = `
               class="px-1"
               type="button"
             >
-              <h3
-                class="fs-5 fs-sm-3"
-              >
+              <h3>
                 August 2023
               </h3>
             </button>
@@ -52,7 +50,7 @@ exports[`Analytics.js matches snapshot 1`] = `
             </button>
           </div>
           <div
-            class="undefined d-flex fw-medium justify-content-evenly cursor-pointer align-items-center"
+            class="undefined d-flex fw-medium justify-content-evenly cursor-pointer align-items-center arrow-select"
           >
             <button
               class="px-1"
@@ -66,9 +64,7 @@ exports[`Analytics.js matches snapshot 1`] = `
               class="px-1"
               type="button"
             >
-              <h3
-                class="fs-5 fs-sm-3"
-              >
+              <h3>
                 week
               </h3>
             </button>
