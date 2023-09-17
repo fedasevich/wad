@@ -31,12 +31,24 @@
   transition: 0.3s all;
 }
 
-.category .categoryIcon:hover .gear {
+.category .categoryIconContainer:hover .gear {
   opacity: 1;
 }
 
-.categoryIcon .gear:focus {
+.categoryIconContainer .gear:focus {
   opacity: 1;
+}
+
+.all-icons-row {
+  padding: 16px;
+  max-height: 226px;
+  overflow-y: scroll;
+}
+
+.chosen-icon {
+  height: 50px;
+  display: flex;
+  align-items: center;
 }
 
 @media screen and (max-width: 768px) {
@@ -62,11 +74,6 @@
 }
 
 @media screen and (max-width: 375px) {
-  .categories svg {
-    width: 45px;
-    height: 45px;
-  }
-
   .category .gear svg {
     width: 20px;
     height: 20px;
