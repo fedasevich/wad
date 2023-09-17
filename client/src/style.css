@@ -180,8 +180,10 @@ button {
   background: #555;
 }
 
+/* logo */
+
 #logo {
-  width: 180px;
+  width: 170px;
 }
 
 /* Auth */
@@ -229,10 +231,6 @@ button {
 }
 
 /* Navbar */
-
-aside #logo {
-  width: 100px;
-}
 
 aside .nav {
   height: calc(100% - 3rem - 80px);
@@ -386,6 +384,7 @@ body.dark .menu-container input[type='checkbox'] {
 }
 
 /* responsive */
+
 @media screen and (max-width: 768px) {
   .desktop-height-100vh {
     height: 100%;
@@ -393,6 +392,11 @@ body.dark .menu-container input[type='checkbox'] {
 
   .vh-80 {
     min-height: 80vh;
+  }
+  /* Navbar */
+
+  aside #logo {
+    width: 100px;
   }
 }
 
@@ -405,5 +409,11 @@ body.dark .menu-container input[type='checkbox'] {
 @media screen and (max-width: 375px) {
   body {
     --category-icon-size: 40px;
+  }
+
+  /* arrow-select */
+
+  .arrow-select h3 {
+    font-size: 18px;
   }
 }
