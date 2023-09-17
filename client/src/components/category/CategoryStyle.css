@@ -60,3 +60,20 @@
     max-height: 200px;
   }
 }
+
+@media screen and (max-width: 375px) {
+  .categories svg {
+    width: 45px;
+    height: 45px;
+  }
+
+  .category .gear svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .categories .chart canvas {
+    max-width: 130px;
+    max-height: 130px;
+  }
+}
