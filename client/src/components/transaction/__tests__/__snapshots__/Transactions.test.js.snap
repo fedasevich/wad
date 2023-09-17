@@ -38,7 +38,7 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
                     style="background-color: rgb(250, 8, 52);"
                   >
                     <svg>
-                      cinema.svg
+                      palette.svg
                     </svg>
                   </div>
                   <h5
@@ -118,7 +118,7 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
                     style="background-color: rgb(250, 8, 52);"
                   >
                     <svg>
-                      cinema.svg
+                      palette.svg
                     </svg>
                   </div>
                   <h5
@@ -211,7 +211,7 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
                     style="background-color: rgb(250, 8, 52);"
                   >
                     <svg>
-                      cinema.svg
+                      palette.svg
                     </svg>
                   </div>
                   <h5
@@ -304,7 +304,7 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
                     style="background-color: rgb(250, 8, 52);"
                   >
                     <svg>
-                      cinema.svg
+                      palette.svg
                     </svg>
                   </div>
                   <h5
@@ -397,7 +397,7 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
                     style="background-color: rgb(250, 8, 52);"
                   >
                     <svg>
-                      cinema.svg
+                      palette.svg
                     </svg>
                   </div>
                   <h5
@@ -477,7 +477,7 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
                     style="background-color: rgb(250, 8, 52);"
                   >
                     <svg>
-                      cinema.svg
+                      palette.svg
                     </svg>
                   </div>
                   <h5
@@ -570,7 +570,7 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
                     style="background-color: rgb(250, 8, 52);"
                   >
                     <svg>
-                      cinema.svg
+                      palette.svg
                     </svg>
                   </div>
                   <h5
@@ -650,7 +650,7 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
                     style="background-color: rgb(250, 8, 52);"
                   >
                     <svg>
-                      cinema.svg
+                      palette.svg
                     </svg>
                   </div>
                   <h5
@@ -743,7 +743,7 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
                     style="background-color: rgb(250, 8, 52);"
                   >
                     <svg>
-                      cinema.svg
+                      palette.svg
                     </svg>
                   </div>
                   <h5
@@ -836,7 +836,7 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
                     style="background-color: rgb(250, 8, 52);"
                   >
                     <svg>
-                      cinema.svg
+                      palette.svg
                     </svg>
                   </div>
                   <h5

@@ -205,7 +205,7 @@ exports[`Analytics.js matches snapshot 1`] = `
                 style="background-color: rgb(250, 8, 52);"
               >
                 <svg>
-                  cinema.svg
+                  palette.svg
                 </svg>
               </div>
             </div>
