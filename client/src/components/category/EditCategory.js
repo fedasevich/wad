@@ -78,7 +78,7 @@ const EditCategory = observer(({ id }) => {
                   style={{
                     backgroundColor: editCategory.icon.backgroundColor
                   }}
-                  className="bg-main-blue component-one-third-border-radius category-icon"
+                  className="bg-main-blue component-one-third-border-radius categoryIcon"
                 >
                   {editCategory.icon?.svg}
                 </div>
