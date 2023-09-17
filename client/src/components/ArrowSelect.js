@@ -19,7 +19,7 @@ function ArrowSelect({
       )}
 
       <button type="button" className="px-1" onClick={handleTextClick}>
-        <h3>{textToPrint}</h3>
+        <h3 className="fs-5 fs-sm-3">{textToPrint}</h3>
       </button>
 
       {rightArrowShow && (

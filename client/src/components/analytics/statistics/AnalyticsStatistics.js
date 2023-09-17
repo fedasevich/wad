@@ -28,11 +28,12 @@ export const AnalyticsStatistics = observer(({ transactions }) => {
     const dailyAverage = (totalSpent / Object.keys(dailyGroup).length).toFixed(2);
     const weeklyAverage = (totalSpent / Object.keys(weeklyGroup).length).toFixed(2);
     const monthlyAverage = (totalSpent / Object.keys(monthlyGroup).length).toFixed(2);
-
+    const fixedTotalSpent = totalSpent.toFixed(2);
     return {
       dailyAverage,
       weeklyAverage,
-      monthlyAverage
+      monthlyAverage,
+      fixedTotalSpent
     };
   }, [transactions]);
 
@@ -42,6 +43,7 @@ export const AnalyticsStatistics = observer(({ transactions }) => {
       <p>Daily Average: {groupTransactions.dailyAverage}</p>
       <p>Weekly Average: {groupTransactions.weeklyAverage}</p>
       <p>Monthly Average: {groupTransactions.monthlyAverage}</p>
+      <p>Total Spent: {groupTransactions.fixedTotalSpent}</p>
     </>
   );
 });

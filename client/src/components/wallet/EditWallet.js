@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { Suspense, lazy, useContext, useEffect, useRef, useState } from 'react';
 
 import { Form } from 'react-bootstrap';
 import { DispatchContext } from '../../pages/MainPage';
@@ -8,6 +8,8 @@ import { WALLET_PAGE_STATE } from '../../utils/constants';
 import Currencies from '../Currencies';
 import MenuProvider from '../MenuProvider';
 
+const DeleteConfirmModal = lazy(() => import('../modal/delete-confirm-modal/DeleteConfirmModal'));
+
 function EditWallet({ id }) {
   const { wallet } = useStore();
   const dispatch = useContext(DispatchContext);
@@ -16,7 +18,12 @@ function EditWallet({ id }) {
     currency: '',
     balance: ''
   });
+
+  const [deleteWalletModal, setDeleteWalletModal] = useState(false);
+
   const scrollRef = useRef(null);
+
+  const selectedWalletToEdit = wallet.getWalletById(id);
 
   const eraseState = () => {
     setEditWallet({
@@ -62,57 +69,74 @@ function EditWallet({ id }) {
     });
   };
 
-  const handleDoubleClick = (id) => {
+  const handleModalOpen = () => {
+    setDeleteWalletModal(true);
+  };
+
+  const handleDelete = () => {
     wallet.deleteWallet(id);
     eraseState();
     handleClose();
   };
 
   return (
-    <MenuProvider>
-      <MenuProvider.Actions close={handleClose} commit={handleCommit}>
-        <h5 ref={scrollRef} className="scroll-margin">
-          Edit wallet
-        </h5>
-        <h6>Wallet: {wallet.getWalletById(id).name}</h6>
-      </MenuProvider.Actions>
+    <>
+      <MenuProvider>
+        <MenuProvider.Actions close={handleClose} commit={handleCommit}>
+          <h5 ref={scrollRef} className="scroll-margin">
+            Edit wallet
+          </h5>
+          <h6>Wallet: {wallet.getWalletById(id).name}</h6>
+        </MenuProvider.Actions>
 
-      <MenuProvider.Container>
-        <Form.Label className="mb-2" htmlFor="name">
-          Enter new name:
-        </Form.Label>
-        <Form.Control
-          className="mb-2 component-half-border-radius"
-          type="text"
-          id="name"
-          name="name"
-          onKeyDown={handleKeyDown}
-          value={editWallet.name}
-          onChange={handleChange}
-        />
-        <Form.Label className="mb-2" htmlFor="balance">
-          Enter new balance:
-        </Form.Label>
-        <Form.Control
-          className="mb-2 component-half-border-radius"
-          inputMode="numeric"
-          pattern="[0-9]*"
-          type="number"
-          id="balance"
-          name="balance"
-          onKeyDown={handleKeyDown}
-          value={editWallet.balance}
-          onChange={handleChange}
-        />
-        <h4 className="mb-2">Choose new currency:</h4>
-        <Currencies setCurrency={handleChange} walletDefaultCurrency={wallet.getWalletById(id).currency} />
-        <button onDoubleClick={() => handleDoubleClick(id)} type="button">
-          <h6 className="text-danger mb-0 btn">
-            <DeleteIcon /> Delete wallet
-          </h6>
-        </button>
-      </MenuProvider.Container>
-    </MenuProvider>
+        <MenuProvider.Container>
+          <Form.Label className="mb-2" htmlFor="name">
+            Enter new name:
+          </Form.Label>
+          <Form.Control
+            className="mb-2 component-half-border-radius"
+            type="text"
+            id="name"
+            name="name"
+            onKeyDown={handleKeyDown}
+            value={editWallet.name}
+            onChange={handleChange}
+          />
+          <Form.Label className="mb-2" htmlFor="balance">
+            Enter new balance:
+          </Form.Label>
+          <Form.Control
+            className="mb-2 component-half-border-radius"
+            inputMode="numeric"
+            pattern="[0-9]*"
+            type="number"
+            id="balance"
+            name="balance"
+            onKeyDown={handleKeyDown}
+            value={editWallet.balance}
+            onChange={handleChange}
+          />
+          <h4 className="mb-2">Choose new currency:</h4>
+          <Currencies setCurrency={handleChange} walletDefaultCurrency={selectedWalletToEdit.currency} />
+          <button onClick={handleModalOpen} type="button">
+            <h6 className="text-danger mb-0 btn">
+              <DeleteIcon /> Delete wallet
+            </h6>
+          </button>
+        </MenuProvider.Container>
+      </MenuProvider>
+
+      <Suspense>
+        {deleteWalletModal && (
+          <DeleteConfirmModal
+            deleteConfirmModal={deleteWalletModal}
+            setDeleteConfirmModal={setDeleteWalletModal}
+            nameToCheck={selectedWalletToEdit.name}
+            onDelete={handleDelete}
+          />
+        )}
+      </Suspense>
+    </>
   );
 }
 

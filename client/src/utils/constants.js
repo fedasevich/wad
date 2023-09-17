@@ -43,13 +43,36 @@ export const cryptoCurrencies = {
 
 export const categoryIconsColors = {
   DELETED: '#999999',
-  CLOTHES: '#80FBDB',
+  CLOTHES: '#80fbdb',
   EDUCATION: '#412285',
-  LEISURE: '#FA0834',
-  SPORTS: '#D27AFC',
-  TRANSPORT: '#AF0C5B',
-  HEALTH: '#7AAFFC',
-  GROCERIES: '#88E268'
+  COSMETICS: '#fa0834',
+  SPORTS: '#d27afc',
+  TRANSPORT: '#af0c5b',
+  HEALTH: '#7aaffc',
+  GROCERIES: '#88e268',
+  HOUSE: '#ff5c00',
+  OFFICE: '#ff4f6c',
+  FLOWERS: '#cf5bca',
+  HOUSEHOLD_APPLIANCES: '#d2b48c',
+  BOOKS: '#00008b',
+  GIFTS: '#ff4500',
+  CINEMA: '#9b64e6',
+  FUEL: '#556b2f',
+  AIR_TRAVEL: '#add8e6',
+  INSURANCE: '#ffaf14',
+  LOAN_REPAYMENT: '#45956e',
+  INVESTMENTS: '#14cf5c',
+  ENTERTAINMENT: '#24ce9d',
+  CHARITY: '#00c1af',
+  TAXI: '#fdb813',
+  PHONE: '#8ca3b3',
+  JEWELRY: '#00ced1',
+  INTERNET: '#008b8b',
+  TRAVELS: '#4186ee',
+  RENTAL_HOUSING: '#139bd5',
+  ANIMALS: '#fb7f25',
+  CAR: '#8c736c',
+  CAFES_AND_RESTAURANTS: '#9b64e6'
 };
 
 export const TRANSACTION_LIMITS = [5, 10, 20, 30];

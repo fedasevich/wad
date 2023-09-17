@@ -4,7 +4,7 @@ import { Col, Form } from 'react-bootstrap';
 import { toast } from 'react-hot-toast';
 import { CategoryDispatchContext } from '../../pages/Category';
 import { useStore } from '../../store';
-import { AllIcons } from '../../ui/Icons/CategoryIcons/CategoryIcons';
+import { AllCategoryIcons } from '../../ui/Icons/CategoryIcons/CategoryIcons';
 import { MAX_CATEGORY_NAME_LENGTH } from '../../utils/constants';
 import MenuProvider from '../MenuProvider';
 
@@ -57,7 +57,14 @@ const CreateCategory = observer(() => {
             />
             <div className="d-flex align-items-center">
               <h4 className="me-2">Chosen icon: </h4>
-              <div className="bg-main-blue component-one-third-border-radius">{newCategorySelectedIcon.svg}</div>
+              <div
+                style={{
+                  backgroundColor: newCategorySelectedIcon.backgroundColor
+                }}
+                className="bg-main-blue component-one-third-border-radius"
+              >
+                {newCategorySelectedIcon.svg}
+              </div>
             </div>
           </MenuProvider.Container>
         </MenuProvider>
@@ -69,7 +76,7 @@ const CreateCategory = observer(() => {
             <h2>Select icon</h2>
           </MenuProvider.Header>
           <MenuProvider.Container>
-            <AllIcons selectedIcon={newCategorySelectedIcon} setSelectedIcon={setNewCategorySelectedIcon} />
+            <AllCategoryIcons selectedIcon={newCategorySelectedIcon} setSelectedIcon={setNewCategorySelectedIcon} />
           </MenuProvider.Container>
         </MenuProvider>
       </Col>
