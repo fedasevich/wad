@@ -1,247 +1,191 @@
 import { Col, Container, Row } from 'react-bootstrap';
 import { categoryIconsColors } from '../../../utils/constants';
+import { ReactComponent as Airplane } from './airplane-outline.svg';
+import { ReactComponent as Barbell } from './barbell.svg';
+import { ReactComponent as Bus } from './bus.svg';
+import { ReactComponent as Car } from './car-outline.svg';
+import { ReactComponent as Charity } from './charity.svg';
+import { ReactComponent as Cinema } from './cinema.svg';
+import { ReactComponent as Earth } from './earth-outline.svg';
+import { ReactComponent as EmiInsurance } from './emi-insurance.svg';
+import { ReactComponent as Fitness } from './fitness-outline.svg';
+import { ReactComponent as Fuel } from './fuel.svg';
+import { ReactComponent as GameController } from './game-controller.svg';
+import { ReactComponent as Gifts } from './gifts.svg';
+import { ReactComponent as Home } from './home.svg';
+import { ReactComponent as Household } from './household.svg';
+import { ReactComponent as Investment } from './investment.svg';
+import { ReactComponent as Jewelry } from './jewelry.svg';
+import { ReactComponent as Library } from './library-outline.svg';
+import { ReactComponent as Loan } from './loan.svg';
+import { ReactComponent as Office } from './office.svg';
+import { ReactComponent as Palette } from './palette.svg';
+import { ReactComponent as Paw } from './paw-outline.svg';
+import { ReactComponent as Phone } from './phone.svg';
+import { ReactComponent as Pizza } from './pizza.svg';
+import { ReactComponent as Rent } from './rent.svg';
+import { ReactComponent as Restaurant } from './restaurant-outline.svg';
+import { ReactComponent as Rose } from './rose-outline.svg';
+import { ReactComponent as Taxi } from './taxi.svg';
+import { ReactComponent as Tshirt } from './tshirt.svg';
+import { ReactComponent as University } from './university.svg';
+import { ReactComponent as Wifi } from './wifi-outline.svg';
 
 export const icons = [
   {
     id: -1,
     backgroundColor: categoryIconsColors.DELETED,
-    svg: (
-      <svg width="50" height="53" viewBox="0 0 50 53" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="50" height="53" rx="10" fill="none" />
-        <path
-          d="M22.5 13.8125C21.9822 13.8125 21.5625 14.2322 21.5625 14.75V15.6875H16.25C15.7322 15.6875 15.3125 16.1072 15.3125 16.625C15.3125 17.1428 15.7322 17.5625 16.25 17.5625H33.75C34.2678 17.5625 34.6875 17.1428 34.6875 16.625C34.6875 16.1072 34.2678 15.6875 33.75 15.6875H28.4375V14.75C28.4375 14.2322 28.0178 13.8125 27.5 13.8125H22.5Z"
-          fill="white"
-        />
-        <path
-          d="M22.5 24.3125C23.0178 24.3125 23.4375 24.7322 23.4375 25.25L23.4375 34C23.4375 34.5178 23.0178 34.9375 22.5 34.9375C21.9822 34.9375 21.5625 34.5178 21.5625 34L21.5625 25.25C21.5625 24.7322 21.9822 24.3125 22.5 24.3125Z"
-          fill="white"
-        />
-        <path
-          d="M28.4375 25.25C28.4375 24.7322 28.0178 24.3125 27.5 24.3125C26.9822 24.3125 26.5625 24.7322 26.5625 25.25V34C26.5625 34.5178 26.9822 34.9375 27.5 34.9375C28.0178 34.9375 28.4375 34.5178 28.4375 34V25.25Z"
-          fill="white"
-        />
-        <path
-          fillRule="evenodd"
-          clipRule="evenodd"
-          d="M17.4893 20.8965C17.542 20.4217 17.9433 20.0625 18.421 20.0625H31.5789C32.0566 20.0625 32.458 20.4217 32.5107 20.8965L32.7609 23.1482C33.2144 27.2298 33.2144 31.3491 32.7609 35.4308L32.7363 35.6525C32.5562 37.2727 31.3006 38.5646 29.6861 38.7906C26.5772 39.2258 23.4228 39.2258 20.3138 38.7906C18.6994 38.5646 17.4437 37.2727 17.2637 35.6525L17.2391 35.4308C16.7856 31.3491 16.7856 27.2298 17.2391 23.1482L17.4893 20.8965ZM19.2601 21.9375L19.1026 23.3552C18.6644 27.2992 18.6644 31.2797 19.1026 35.2237L19.1273 35.4454C19.2126 36.2138 19.8082 36.8265 20.5738 36.9337C23.5103 37.3448 26.4897 37.3448 29.4262 36.9337C30.1918 36.8265 30.7874 36.2138 30.8727 35.4454L30.8974 35.2237C31.3356 31.2797 31.3356 27.2993 30.8974 23.3552L30.7398 21.9375H19.2601Z"
-          fill="white"
-        />
-      </svg>
-    )
+    svg: 'deleted'
   },
   {
     id: 1,
     backgroundColor: categoryIconsColors.GROCERIES,
-    svg: (
-      <svg width="50" height="50" viewBox="0 0 51 51" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path
-          fillRule="evenodd"
-          clipRule="evenodd"
-          d="M11.0917 21.3833L12.6782 40.4211C12.9449 43.6216 15.6203 46.0833 18.8318 46.0833H32.1682C35.3797 46.0833 38.0552 43.6216 38.3219 40.4211L39.9083 21.3833H11.0917ZM15.5657 25.5L16.7806 40.0793C16.8695 41.1461 17.7613 41.9667 18.8318 41.9667H32.1682C33.2387 41.9667 34.1305 41.1461 34.2194 40.0793L35.4343 25.5H15.5657Z"
-          fill="#F2F2F2"
-        />
-        <path
-          d="M29.6167 33.7333C29.6167 36.0069 27.7736 37.85 25.5 37.85C23.2264 37.85 21.3833 36.0069 21.3833 33.7333C21.3833 31.4598 23.2264 29.6167 25.5 29.6167C27.7736 29.6167 29.6167 31.4598 29.6167 33.7333Z"
-          fill="#F2F2F2"
-        />
-        <path
-          fillRule="evenodd"
-          clipRule="evenodd"
-          d="M11.5817 14.3267L12.29 10.0765C12.7863 7.09898 15.3624 4.91666 18.381 4.91666H32.619C35.6376 4.91666 38.2137 7.09898 38.71 10.0765L39.4183 14.3267C40.9627 15.4491 41.9667 17.2698 41.9667 19.325C41.9667 22.7353 39.202 25.5 35.7917 25.5H15.2083C11.798 25.5 9.03334 22.7353 9.03334 19.325C9.03334 17.2698 10.0374 15.4491 11.5817 14.3267ZM18.381 9.03332H32.619C33.6252 9.03332 34.4839 9.76077 34.6493 10.7533L35.0488 13.15H15.9512L16.3507 10.7533C16.5161 9.76077 17.3748 9.03332 18.381 9.03332ZM15.2083 17.2667C14.0716 17.2667 13.15 18.1882 13.15 19.325C13.15 20.4618 14.0716 21.3833 15.2083 21.3833H35.7917C36.9285 21.3833 37.85 20.4618 37.85 19.325C37.85 18.1882 36.9285 17.2667 35.7917 17.2667H15.2083Z"
-          fill="#F2F2F2"
-        />
-      </svg>
-    )
+    svg: <Pizza />
   },
   {
     id: 2,
     backgroundColor: categoryIconsColors.HEALTH,
-    svg: (
-      <svg width="50" height="50" viewBox="0 0 43 43" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path
-          d="M8.7275 16.0725C7.83123 15.0833 7.34967 13.7874 7.38253 12.453C7.41538 11.1185 7.96013 9.84786 8.904 8.904C9.84786 7.96013 11.1185 7.41538 12.453 7.38253C13.7874 7.34967 15.0833 7.83123 16.0725 8.7275L34.2725 26.9275C35.1688 27.9167 35.6503 29.2126 35.6175 30.547C35.5846 31.8815 35.0399 33.1521 34.096 34.096C33.1521 35.0399 31.8815 35.5846 30.547 35.6175C29.2126 35.6503 27.9167 35.1688 26.9275 34.2725L8.7275 16.0725Z"
-          stroke="white"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M26.9275 8.7275C27.9167 7.83123 29.2126 7.34967 30.547 7.38253C31.8815 7.41538 33.1521 7.96013 34.096 8.904C35.0399 9.84786 35.5846 11.1185 35.6175 12.453C35.6503 13.7874 35.1688 15.0833 34.2725 16.0725L16.0725 34.2725C15.0833 35.1688 13.7874 35.6503 12.453 35.6175C11.1185 35.5846 9.84786 35.0399 8.904 34.096C7.96013 33.1521 7.41538 31.8815 7.38253 30.547C7.34967 29.2126 7.83123 27.9167 8.7275 26.9275L26.9275 8.7275Z"
-          stroke="white"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          opacity="0.5"
-          d="M21.5 22.15C21.859 22.15 22.15 21.859 22.15 21.5C22.15 21.141 21.859 20.85 21.5 20.85C21.141 20.85 20.85 21.141 20.85 21.5C20.85 21.859 21.141 22.15 21.5 22.15Z"
-          stroke="white"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    )
+    svg: <Barbell />
   },
   {
     id: 3,
     backgroundColor: categoryIconsColors.SPORTS,
-    svg: (
-      <svg width="50" height="50" viewBox="0 0 43 43" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path
-          d="M15 9.8H11.1C10.382 9.8 9.8 10.382 9.8 11.1V31.9C9.8 32.618 10.382 33.2 11.1 33.2H15C15.718 33.2 16.3 32.618 16.3 31.9V11.1C16.3 10.382 15.718 9.8 15 9.8Z"
-          stroke="white"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M31.9 9.8H28C27.282 9.8 26.7 10.382 26.7 11.1V31.9C26.7 32.618 27.282 33.2 28 33.2H31.9C32.618 33.2 33.2 32.618 33.2 31.9V11.1C33.2 10.382 32.618 9.8 31.9 9.8Z"
-          stroke="white"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M33.2 13.7H37.1C37.4448 13.7 37.7754 13.837 38.0192 14.0808C38.263 14.3246 38.4 14.6552 38.4 15V28C38.4 28.3448 38.263 28.6754 38.0192 28.9192C37.7754 29.163 37.4448 29.3 37.1 29.3H33.2"
-          stroke="white"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M9.79999 29.3H5.89999C5.55521 29.3 5.22455 29.163 4.98075 28.9192C4.73695 28.6754 4.59999 28.3448 4.59999 28V15C4.59999 14.6552 4.73695 14.3246 4.98075 14.0808C5.22455 13.837 5.55521 13.7 5.89999 13.7H9.79999"
-          stroke="white"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path d="M16.3 21.5H26.7" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-        <path d="M38.4 21.5H41" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-        <path d="M2 21.5H4.6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    )
+    svg: <Fitness />
   },
   {
     id: 4,
     backgroundColor: categoryIconsColors.TRANSPORT,
-    svg: (
-      <svg width="50" height="50" viewBox="0 0 43 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M7.52502 11.7H35.475" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-        <path d="M7.52502 19.5H35.475" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-        <path
-          d="M35.475 31.2H7.525V10.4C7.52285 9.88725 7.62226 9.37914 7.81749 8.905C8.01272 8.43086 8.29991 8.00007 8.66249 7.63749C9.02506 7.27492 9.45585 6.98773 9.92999 6.79249C10.4041 6.59726 10.9122 6.49785 11.425 6.5H31.575C32.0878 6.49785 32.5959 6.59726 33.07 6.79249C33.5441 6.98773 33.9749 7.27492 34.3375 7.63749C34.7001 8.00007 34.9873 8.43086 35.1825 8.905C35.3777 9.37914 35.4771 9.88725 35.475 10.4V31.2Z"
-          stroke="white"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M35.475 31.2V35.1C35.475 35.4448 35.338 35.7754 35.0942 36.0192C34.8504 36.263 34.5198 36.4 34.175 36.4H30.275C29.9302 36.4 29.5996 36.263 29.3558 36.0192C29.112 35.7754 28.975 35.4448 28.975 35.1V31.2"
-          stroke="white"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M14.025 31.2V35.1C14.025 35.4448 13.8881 35.7754 13.6443 36.0192C13.4005 36.263 13.0698 36.4 12.725 36.4H8.82502C8.48024 36.4 8.14958 36.263 7.90579 36.0192C7.66199 35.7754 7.52502 35.4448 7.52502 35.1V31.2"
-          stroke="white"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M14.35 27.3C15.427 27.3 16.3 26.427 16.3 25.35C16.3 24.273 15.427 23.4 14.35 23.4C13.2731 23.4 12.4 24.273 12.4 25.35C12.4 26.427 13.2731 27.3 14.35 27.3Z"
-          fill="white"
-        />
-        <path
-          d="M28.65 27.3C29.727 27.3 30.6 26.427 30.6 25.35C30.6 24.273 29.727 23.4 28.65 23.4C27.5731 23.4 26.7 24.273 26.7 25.35C26.7 26.427 27.5731 27.3 28.65 27.3Z"
-          fill="white"
-        />
-      </svg>
-    )
+    svg: <Bus />
   },
-
   {
     id: 5,
-    backgroundColor: categoryIconsColors.LEISURE,
-    svg: (
-      <svg width="50" height="50" viewBox="0 0 51 54" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path
-          d="M19.0987 34.4061C17.9703 34.5524 17.1675 35.6406 17.3055 36.8366C17.4434 38.0327 18.47 38.8838 19.5984 38.7375C20.7268 38.5912 21.5297 37.503 21.3917 36.3069C21.2537 35.1108 20.2271 34.2598 19.0987 34.4061Z"
-          fill="white"
-        />
-        <path
-          d="M12.2198 28.7036C12.0818 27.5075 12.8847 26.4193 14.013 26.273C15.1414 26.1267 16.168 26.9778 16.306 28.1739C16.444 29.3699 15.6412 30.4581 14.5128 30.6044C13.3844 30.7507 12.3578 29.8996 12.2198 28.7036Z"
-          fill="white"
-        />
-        <path
-          d="M17.0998 17.0805C15.9714 17.2268 15.1685 18.315 15.3065 19.5111C15.4445 20.7072 16.4711 21.5582 17.5995 21.4119C18.7279 21.2656 19.5308 20.1774 19.3928 18.9814C19.2548 17.7853 18.2282 16.9342 17.0998 17.0805Z"
-          fill="white"
-        />
-        <path
-          d="M33.1102 21.0498C32.9722 19.8537 33.7751 18.7655 34.9035 18.6192C36.0319 18.4729 37.0585 19.324 37.1965 20.5201C37.3345 21.7161 36.5316 22.8043 35.4032 22.9506C34.2748 23.0969 33.2482 22.2459 33.1102 21.0498Z"
-          fill="white"
-        />
-        <path
-          d="M25.4848 24.5353C24.3564 24.6816 23.5535 25.7698 23.6915 26.9659C23.8295 28.1619 24.8561 29.013 25.9845 28.8667C27.1129 28.7204 27.9157 27.6322 27.7777 26.4361C27.6397 25.2401 26.6131 24.389 25.4848 24.5353Z"
-          fill="white"
-        />
-        <path
-          d="M24.2507 16.1535C24.1127 14.9574 24.9156 13.8692 26.0439 13.7229C27.1723 13.5767 28.1989 14.4277 28.3369 15.6238C28.4749 16.8199 27.6721 17.9081 26.5437 18.0543C25.4153 18.2006 24.3887 17.3496 24.2507 16.1535Z"
-          fill="white"
-        />
-        <path
-          fillRule="evenodd"
-          clipRule="evenodd"
-          d="M5.43716 26.4664C5.70577 14.7212 14.906 5.43059 25.9864 5.71531C37.0668 6.00003 45.8315 15.7522 45.5629 27.4975C45.5459 28.2413 45.31 28.9209 44.8754 29.4804C44.4598 30.0156 43.9217 30.3665 43.3907 30.6014C42.3574 31.0586 41.0622 31.2021 39.7805 31.2112C34.2463 31.2509 29.4394 36.2967 29.1252 42.2476C29.0519 43.636 28.8285 45.0482 28.2649 46.1578C27.973 46.7323 27.5631 47.279 26.9888 47.6747C26.401 48.0798 25.7268 48.2669 25.0137 48.2486C13.9333 47.9638 5.16856 38.2116 5.43716 26.4664ZM25.9115 8.9871C16.5358 8.74618 8.75104 16.6074 8.52376 26.5457C8.29648 36.484 15.7128 44.7359 25.0885 44.9768C25.2287 44.9804 25.2805 44.9484 25.3059 44.9309C25.345 44.9039 25.4357 44.8242 25.5464 44.6062C25.788 44.1307 25.9777 43.2927 26.0425 42.0648C26.4428 34.4832 32.5075 27.9906 39.7596 27.9386C40.9165 27.9303 41.7284 27.7905 42.2013 27.5812C42.3683 27.5074 42.4464 27.4449 42.4763 27.4165C42.7027 17.4789 35.2868 9.228 25.9115 8.9871Z"
-          fill="white"
-        />
-      </svg>
-    )
+    backgroundColor: categoryIconsColors.COSMETICS,
+    svg: <Palette />
   },
   {
     id: 6,
     backgroundColor: categoryIconsColors.CLOTHES,
-    svg: (
-      <svg width="50" height="50" viewBox="0 0 51 51" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path
-          d="M37.85 23.9562H43.0795C43.3644 23.9569 43.6437 23.8777 43.8859 23.7276C44.1281 23.5775 44.3233 23.3626 44.4495 23.1072L48.0002 16.0059C48.1761 15.6503 48.2101 15.241 48.0955 14.8612C47.9808 14.4814 47.726 14.1594 47.3827 13.9605L37.85 8.51874"
-          stroke="white"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M13.15 23.9562H7.92055C7.63566 23.9569 7.35629 23.8777 7.11412 23.7276C6.87196 23.5775 6.67669 23.3626 6.55047 23.1072L2.99985 16.0059C2.82394 15.6503 2.78986 15.241 2.90453 14.8612C3.0192 14.4814 3.27403 14.1594 3.61735 13.9605L13.15 8.51874"
-          stroke="white"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M31.675 8.51874C31.675 10.1564 31.0244 11.7271 29.8664 12.8851C28.7084 14.0432 27.1377 14.6937 25.5 14.6937C23.8623 14.6937 22.2917 14.0432 21.1336 12.8851C19.9756 11.7271 19.325 10.1564 19.325 8.51874H13.15V40.9375C13.15 41.3469 13.3127 41.7396 13.6022 42.0291C13.8917 42.3186 14.2843 42.4812 14.6938 42.4812H36.3063C36.7157 42.4812 37.1083 42.3186 37.3979 42.0291C37.6874 41.7396 37.85 41.3469 37.85 40.9375V8.51874H31.675Z"
-          stroke="white"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    )
+    svg: <Tshirt />
   },
   {
     id: 7,
     backgroundColor: categoryIconsColors.EDUCATION,
-    svg: (
-      <svg width="50" height="50" viewBox="0 0 51 54" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path
-          fillRule="evenodd"
-          clipRule="evenodd"
-          d="M24.7633 8.09486C25.2659 7.94328 25.7959 7.94314 26.2983 8.09428C27.3664 8.41557 28.4443 8.71356 29.5258 9.01256C34.6043 10.4166 39.7621 11.8425 44.3508 15.8042L46.464 17.6286C47.3211 18.3686 47.7499 19.464 47.7503 20.5596V35.8726C47.7503 36.7788 47.0573 37.5133 46.2025 37.5133C45.3477 37.5133 44.6547 36.7788 44.6547 35.8726V25.0587L44.3184 25.3496C42.7284 26.7249 41.0695 27.7929 39.3691 28.6599C39.4503 28.8592 39.4953 29.079 39.4953 29.3099V38.7032C39.4953 41.1823 38.0605 43.4076 35.8815 44.3081L27.6265 47.7196C26.3007 48.2674 24.8292 48.2674 23.5035 47.7196L15.2485 44.3081C13.0694 43.4076 11.6347 41.1823 11.6347 38.7032V29.3099C11.6347 29.0731 11.682 28.8481 11.7671 28.6448C10.0535 27.7728 8.38165 26.6985 6.77918 25.315L4.66602 23.4906C2.95175 22.0106 2.95085 19.1091 4.66364 17.6275L6.81155 15.7696C11.3671 11.8291 16.4885 10.4117 21.5294 9.01654C22.6132 8.71657 23.6934 8.41763 24.7633 8.09486ZM44.6547 20.5609C44.6546 20.3638 44.5795 20.2337 44.509 20.1728L42.3959 18.3484C37.9475 15.0907 33.9838 13.6539 28.9493 12.2515C27.8423 11.9432 26.704 11.6261 25.5319 11.2746C24.3546 11.6287 23.2121 11.9473 22.1014 12.257C17.1073 13.6497 12.7558 14.8632 8.76872 18.3119L6.62081 20.1699C6.55025 20.2309 6.47523 20.3612 6.47531 20.5583C6.47538 20.7554 6.5505 20.8855 6.62098 20.9464L8.73414 22.7708C12.755 26.2422 17.1462 27.4654 22.1807 28.8677C23.2877 29.176 24.4259 29.4931 25.5981 29.8446C26.7753 29.4906 27.9177 29.172 29.0283 28.8623C34.0224 27.4696 38.3742 26.256 42.3613 22.8073L44.5092 20.9494C44.5797 20.8884 44.6546 20.7577 44.6547 20.5609ZM29.6006 32.1027C31.8703 31.4745 34.1563 30.8418 36.3997 29.9763V38.7032C36.3997 39.8301 35.7475 40.8416 34.757 41.2509L26.502 44.6623C25.8994 44.9113 25.2306 44.9113 24.628 44.6623L16.373 41.2509C15.3825 40.8416 14.7303 39.8301 14.7303 38.7032V29.9577C16.9979 30.8332 19.3091 31.4722 21.6042 32.1066C22.6857 32.4056 23.7636 32.7036 24.8317 33.0249C25.3341 33.1761 25.8641 33.1759 26.3666 33.0243C27.4366 32.7016 28.5168 32.4026 29.6006 32.1027Z"
-          fill="white"
-        />
-      </svg>
-    )
+    svg: <University />
+  },
+  {
+    id: 8,
+    backgroundColor: categoryIconsColors.HOUSE,
+    svg: <Home />
+  },
+  {
+    id: 9,
+    backgroundColor: categoryIconsColors.OFFICE,
+    svg: <Office />
+  },
+  {
+    id: 10,
+    backgroundColor: categoryIconsColors.ANIMALS,
+    svg: <Paw />
+  },
+  {
+    id: 11,
+    backgroundColor: categoryIconsColors.FLOWERS,
+    svg: <Rose />
+  },
+  {
+    id: 12,
+    backgroundColor: categoryIconsColors.BOOKS,
+    svg: <Library />
+  },
+  {
+    id: 13,
+    backgroundColor: categoryIconsColors.CINEMA,
+    svg: <Cinema />
+  },
+  {
+    id: 14,
+    backgroundColor: categoryIconsColors.AIR_TRAVEL,
+    svg: <Airplane />
+  },
+  {
+    id: 15,
+    backgroundColor: categoryIconsColors.LOAN_REPAYMENT,
+    svg: <Loan />
+  },
+  {
+    id: 16,
+    backgroundColor: categoryIconsColors.ENTERTAINMENT,
+    svg: <GameController />
+  },
+  {
+    id: 17,
+    backgroundColor: categoryIconsColors.TAXI,
+    svg: <Taxi />
+  },
+  {
+    id: 18,
+    backgroundColor: categoryIconsColors.JEWELRY,
+    svg: <Jewelry />
+  },
+  {
+    id: 19,
+    backgroundColor: categoryIconsColors.TRAVELS,
+    svg: <Earth />
+  },
+  {
+    id: 20,
+    backgroundColor: categoryIconsColors.CAR,
+    svg: <Car />
+  },
+  {
+    id: 21,
+    backgroundColor: categoryIconsColors.HOUSEHOLD_APPLIANCES,
+    svg: <Household />
+  },
+  {
+    id: 22,
+    backgroundColor: categoryIconsColors.GIFTS,
+    svg: <Gifts />
+  },
+  {
+    id: 23,
+    backgroundColor: categoryIconsColors.FUEL,
+    svg: <Fuel />
+  },
+  {
+    id: 24,
+    backgroundColor: categoryIconsColors.INSURANCE,
+    svg: <EmiInsurance />
+  },
+  {
+    id: 25,
+    backgroundColor: categoryIconsColors.INVESTMENTS,
+    svg: <Investment />
+  },
+  {
+    id: 26,
+    backgroundColor: categoryIconsColors.CHARITY,
+    svg: <Charity />
+  },
+  {
+    id: 27,
+    backgroundColor: categoryIconsColors.PHONE,
+    svg: <Phone />
+  },
+  {
+    id: 28,
+    backgroundColor: categoryIconsColors.INTERNET,
+    svg: <Wifi />
+  },
+  {
+    id: 29,
+    backgroundColor: categoryIconsColors.RENTAL_HOUSING,
+    svg: <Rent />
+  },
+  {
+    id: 30,
+    backgroundColor: categoryIconsColors.CAFES_AND_RESTAURANTS,
+    svg: <Restaurant />
   }
 ];
 
@@ -251,17 +195,17 @@ export function Icons({ iconId }) {
   return (
     <div
       style={{ backgroundColor: icons[index].backgroundColor }}
-      className="bg-main-blue component-one-third-border-radius"
+      className="bg-main-blue component-one-third-border-radius categoryIcon"
     >
       {icons[index].svg}
     </div>
   );
 }
 
-export function AllIcons({ selectedIcon, setSelectedIcon }) {
+export function AllCategoryIcons({ selectedIcon, setSelectedIcon }) {
   return (
     <Container fluid>
-      <Row>
+      <Row className="all-icons-row">
         {icons
           .filter((icon) => icon.id > 0)
           .map((icon) => (
@@ -273,13 +217,11 @@ export function AllIcons({ selectedIcon, setSelectedIcon }) {
               xl={3}
               key={icon.id}
               className="mb-2 d-flex justify-content-center align-items-center text-center "
-              style={{
-                outline: icon.id === selectedIcon?.id ? '2px solid black' : null
-              }}
             >
               <div
-                className="component-one-third-border-radius"
+                className="component-one-third-border-radius categoryIcon"
                 style={{
+                  outline: icon.id === selectedIcon?.id ? '2px solid black' : null,
                   backgroundColor: icon.backgroundColor
                 }}
               >
