@@ -101,7 +101,7 @@ const Categories = observer(() => {
               }}
             >
               <h4 className="mb-3 categoryName">{categoryMap.name}</h4>
-              <div className="position-relative categoryIcon">
+              <div className="position-relative categoryIconContainer">
                 <Icons iconId={categoryMap.iconId} />
                 <span
                   role="button"
