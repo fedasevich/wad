@@ -346,17 +346,6 @@ aside .nav {
   grid-row: 1;
 }
 
-/* responsive */
-@media screen and (max-width: 768px) {
-  .desktop-height-100vh {
-    height: 100%;
-  }
-
-  .vh-80 {
-    min-height: 80vh;
-  }
-}
-
 /* dark theme */
 
 body.dark {
@@ -383,4 +372,21 @@ body.dark .form-select {
 body.dark .menu-container input[type='radio'],
 body.dark .menu-container input[type='checkbox'] {
   border-color: var(--text-color-white);
+}
+
+/* responsive */
+@media screen and (max-width: 768px) {
+  .desktop-height-100vh {
+    height: 100%;
+  }
+
+  .vh-80 {
+    min-height: 80vh;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  body {
+    --component-padding: 20px;
+  }
 }
