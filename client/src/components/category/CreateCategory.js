@@ -57,7 +57,14 @@ const CreateCategory = observer(() => {
             />
             <div className="d-flex align-items-center">
               <h4 className="me-2">Chosen icon: </h4>
-              <div className="bg-main-blue component-one-third-border-radius">{newCategorySelectedIcon.svg}</div>
+              <div
+                style={{
+                  backgroundColor: newCategorySelectedIcon.backgroundColor
+                }}
+                className="bg-main-blue component-one-third-border-radius"
+              >
+                {newCategorySelectedIcon.svg}
+              </div>
             </div>
           </MenuProvider.Container>
         </MenuProvider>
