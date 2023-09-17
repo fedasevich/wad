@@ -4,7 +4,7 @@ import { Col, Form } from 'react-bootstrap';
 import { toast } from 'react-hot-toast';
 import { CategoryDispatchContext } from '../../pages/Category';
 import { useStore } from '../../store';
-import { AllIcons } from '../../ui/Icons/CategoryIcons/CategoryIcons';
+import { AllCategoryIcons } from '../../ui/Icons/CategoryIcons/CategoryIcons';
 import { DeleteIcon } from '../../ui/Icons/ControlIcons/ControlIcons';
 import { MAX_CATEGORY_NAME_LENGTH } from '../../utils/constants';
 import MenuProvider from '../MenuProvider';
@@ -72,15 +72,17 @@ const EditCategory = observer(({ id }) => {
               onChange={handleCategoryNameChange}
             />
             <div className="d-flex align-items-center">
-              <h4 className="me-2">Chosen icon: </h4>
-              <div
-                style={{
-                  backgroundColor: editCategory.icon.backgroundColor
-                }}
-                className="bg-main-blue component-one-third-border-radius"
-              >
-                {editCategory.icon?.svg}
-              </div>
+              <h4 className="me-2 chosen-icon">Chosen icon: </h4>
+              {editCategory.icon.svg && (
+                <div
+                  style={{
+                    backgroundColor: editCategory.icon.backgroundColor
+                  }}
+                  className="bg-main-blue component-one-third-border-radius category-icon"
+                >
+                  {editCategory.icon?.svg}
+                </div>
+              )}
             </div>
             <button type="button" onClick={handleModalOpen}>
               <h6 className="text-danger mb-0 mt-3 btn">
@@ -97,7 +99,7 @@ const EditCategory = observer(({ id }) => {
             <h2>Select icon</h2>
           </MenuProvider.Header>
           <MenuProvider.Container>
-            <AllIcons selectedIcon={editCategory.icon} setSelectedIcon={handleEditCategoryIconChange} />
+            <AllCategoryIcons selectedIcon={editCategory.icon} setSelectedIcon={handleEditCategoryIconChange} />
           </MenuProvider.Container>
         </MenuProvider>
       </Col>
