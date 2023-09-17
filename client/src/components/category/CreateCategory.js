@@ -4,7 +4,7 @@ import { Col, Form } from 'react-bootstrap';
 import { toast } from 'react-hot-toast';
 import { CategoryDispatchContext } from '../../pages/Category';
 import { useStore } from '../../store';
-import { AllIcons } from '../../ui/Icons/CategoryIcons/CategoryIcons';
+import { AllCategoryIcons } from '../../ui/Icons/CategoryIcons/CategoryIcons';
 import { MAX_CATEGORY_NAME_LENGTH } from '../../utils/constants';
 import MenuProvider from '../MenuProvider';
 
@@ -76,7 +76,7 @@ const CreateCategory = observer(() => {
             <h2>Select icon</h2>
           </MenuProvider.Header>
           <MenuProvider.Container>
-            <AllIcons selectedIcon={newCategorySelectedIcon} setSelectedIcon={setNewCategorySelectedIcon} />
+            <AllCategoryIcons selectedIcon={newCategorySelectedIcon} setSelectedIcon={setNewCategorySelectedIcon} />
           </MenuProvider.Container>
         </MenuProvider>
       </Col>
