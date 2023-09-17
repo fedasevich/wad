@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import React, { useContext, useState } from 'react';
+import React, { Suspense, lazy, useContext, useState } from 'react';
 import { Col, Form } from 'react-bootstrap';
 import { toast } from 'react-hot-toast';
 import { CategoryDispatchContext } from '../../pages/Category';
@@ -9,11 +9,15 @@ import { DeleteIcon } from '../../ui/Icons/ControlIcons/ControlIcons';
 import { MAX_CATEGORY_NAME_LENGTH } from '../../utils/constants';
 import MenuProvider from '../MenuProvider';
 
+const DeleteConfirmModal = lazy(() => import('../modal/delete-confirm-modal/DeleteConfirmModal'));
+
 const EditCategory = observer(({ id }) => {
   const [editCategory, setEditCategory] = useState({ name: '', icon: {} });
-
+  const [deleteCategoryModal, setDeleteCategoryModal] = useState(false);
   const { category } = useStore();
   const dispatch = useContext(CategoryDispatchContext);
+
+  const selectedCategoryToEdit = category.getCategoryById(id);
 
   const handleClose = () => {
     dispatch({ operation: null });
@@ -36,7 +40,7 @@ const EditCategory = observer(({ id }) => {
     setEditCategory({ ...editCategory, icon: value });
   };
 
-  const handleDoubleClickToDeleteCategory = async () => {
+  const handleDeleteCategory = async () => {
     await category.deleteCategory(id).finally(() => {
       handleClose();
     });
@@ -44,13 +48,17 @@ const EditCategory = observer(({ id }) => {
 
   const handleCategoryNameChange = (e) => handleEditCategoryNameChange(e.target.value);
 
+  const handleModalOpen = () => {
+    setDeleteCategoryModal(true);
+  };
+
   return (
     <>
       <Col xl={{ span: 5, offset: 1 }}>
         <MenuProvider>
           <MenuProvider.Actions close={handleClose} commit={handleCommit}>
             <h4>Edit category</h4>
-            <h6>Category: {category.getCategoryById(id).name}</h6>
+            <h6>Category: {selectedCategoryToEdit.name}</h6>
           </MenuProvider.Actions>
           <MenuProvider.Container>
             <Form.Label className="mb-2" htmlFor="name">
@@ -65,9 +73,16 @@ const EditCategory = observer(({ id }) => {
             />
             <div className="d-flex align-items-center">
               <h4 className="me-2">Chosen icon: </h4>
-              <div className="bg-main-blue component-one-third-border-radius">{editCategory.icon?.svg}</div>
+              <div
+                style={{
+                  backgroundColor: editCategory.icon.backgroundColor
+                }}
+                className="bg-main-blue component-one-third-border-radius"
+              >
+                {editCategory.icon?.svg}
+              </div>
             </div>
-            <button type="button" onDoubleClick={handleDoubleClickToDeleteCategory}>
+            <button type="button" onClick={handleModalOpen}>
               <h6 className="text-danger mb-0 mt-3 btn">
                 <DeleteIcon /> Delete category
               </h6>
@@ -86,6 +101,16 @@ const EditCategory = observer(({ id }) => {
           </MenuProvider.Container>
         </MenuProvider>
       </Col>
+      <Suspense>
+        {deleteCategoryModal && (
+          <DeleteConfirmModal
+            deleteConfirmModal={deleteCategoryModal}
+            setDeleteConfirmModal={setDeleteCategoryModal}
+            nameToCheck={selectedCategoryToEdit.name}
+            onDelete={handleDeleteCategory}
+          />
+        )}
+      </Suspense>
     </>
   );
 });
