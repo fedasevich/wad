@@ -6,6 +6,8 @@ import { ReactComponent as CheckMark } from './CheckMark.svg';
 import { ReactComponent as GearSix } from './GearSixBackground.svg';
 import { ReactComponent as Loader } from './Loader.svg';
 import { ReactComponent as ShowMore } from './ShowMore.svg';
+import { ReactComponent as SortDown } from './SortDown.svg';
+import { ReactComponent as SortUp } from './SortUp.svg';
 import { ReactComponent as Delete } from './Trash.svg';
 import { ReactComponent as DeleteCircle } from './TrashCircle.svg';
 import { ReactComponent as Wallet } from './Wallet-icon.svg';
@@ -52,4 +54,12 @@ export function ShowMoreIcon() {
 
 export function LoaderIcon() {
   return <Loader />;
+}
+
+export function SortUpIcon() {
+  return <SortUp />;
+}
+
+export function SortDownIcon() {
+  return <SortDown />;
 }
