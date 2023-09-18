@@ -3,7 +3,7 @@ import React from 'react';
 import { Accordion, Button, ButtonGroup, ButtonToolbar, Card, Col, Row, useAccordionButton } from 'react-bootstrap';
 import { useStore } from '../../store';
 import { Icons } from '../../ui/Icons/CategoryIcons/CategoryIcons';
-import { DeleteCircleIcon } from '../../ui/Icons/ControlIcons/ControlIcons';
+import { DeleteCircleIcon, SortDownIcon, SortUpIcon } from '../../ui/Icons/ControlIcons/ControlIcons';
 import { EditIcon } from '../../ui/Icons/WalletIcons/WalletIcons';
 import { TRANSACTION_LIMITS } from '../../utils/constants';
 
@@ -21,12 +21,19 @@ function Actions({ setButtonVisible, category }) {
   return (
     <Row>
       <ButtonToolbar className="justify-content-between mb-3" aria-label="Toolbar with button groups">
-        <Button className="bg-light-blue border-0" onClick={handleSortClick}>
-          Sort
+        <Button className="bg-none border-0 p-0" onClick={handleSortClick}>
+          {category.transactionsSort === 'DESC' ? <SortDownIcon /> : <SortUpIcon />}
         </Button>
-        <ButtonGroup className="me-2" aria-label="First group">
+        <ButtonGroup className="me-2 bg-light-blue component-half-border-radius" aria-label="Amount group">
           {TRANSACTION_LIMITS.map((limit) => (
-            <Button key={limit} className="bg-light-blue border-0" onClick={() => handleTransactionsLimitClick(limit)}>
+            <Button
+              key={limit}
+              className={`bg-light-blue 
+              border-0 px-2
+              py-0
+              rounded-3 ${category.transactionsLimit === limit ? 'active' : ''}`}
+              onClick={() => handleTransactionsLimitClick(limit)}
+            >
               {limit}
             </Button>
           ))}
