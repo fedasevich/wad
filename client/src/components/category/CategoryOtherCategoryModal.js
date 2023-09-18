@@ -38,11 +38,11 @@ const CategoryOtherCategoryModal = observer(function CategoryOtherCategoryModal(
             {otherCategories.map((categoryMap) => (
               <button
                 type="button"
-                className="w-100 p-3 mb-2 modal_item d-flex flex-row justify-content-between category align-items-center"
+                className="w-100 p-3 mb-2 modal_item d-flex flex-row justify-content-between category align-items-center categoryIconContainer"
                 onClick={() => handleCategoryClick(categoryMap)}
                 key={categoryMap.id}
               >
-                <div className="position-relative categoryIcon">
+                <div className="position-relative categoryIconContainer">
                   <Icons iconId={categoryMap.iconId} />
                   <span
                     role="button"
