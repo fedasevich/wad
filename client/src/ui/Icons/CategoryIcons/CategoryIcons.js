@@ -4,6 +4,8 @@ import { ReactComponent as Airplane } from './airplane-outline.svg';
 import { ReactComponent as Barbell } from './barbell.svg';
 import { ReactComponent as Bus } from './bus.svg';
 import { ReactComponent as Car } from './car-outline.svg';
+import { ReactComponent as CategoryPlus } from './category-plus.svg';
+import { ReactComponent as CategoryThreeDots } from './category-three-dots.svg';
 import { ReactComponent as Charity } from './charity.svg';
 import { ReactComponent as Cinema } from './cinema.svg';
 import { ReactComponent as Earth } from './earth-outline.svg';
@@ -188,6 +190,14 @@ export const icons = [
     svg: <Restaurant />
   }
 ];
+
+export function CategoryPlusIcon() {
+  return <CategoryPlus />;
+}
+
+export function CategoryThreeDotsIcon() {
+  return <CategoryThreeDots />;
+}
 
 export function Icons({ iconId }) {
   const index = icons.findIndex((icon) => icon.id === iconId);
