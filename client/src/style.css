@@ -10,6 +10,7 @@
   --text-color-hover: #dbdbdb;
   --background-grey: #f4f4f4;
   --background-grey-light: #d9d9d9;
+  --background-grey-dark: #c4c4c4;
   --component-shadow: 0px 30px 45px rgba(21, 21, 21, 0.1);
   --component-border-radius: 20px;
   --component-padding: 25px;
@@ -61,6 +62,10 @@ button {
 
 .bg-grey {
   background-color: var(--background-grey);
+}
+
+.bg-grey-dark {
+  background-color: var(--background-grey-dark);
 }
 
 .bg-none {
