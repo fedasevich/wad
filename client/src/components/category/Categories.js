@@ -10,7 +10,7 @@ import { CategoryDispatchContext } from '../../pages/Category';
 import PageProvider from '../../pages/PageProvider';
 import { useStore } from '../../store';
 import CategoryStore from '../../store/CategoryStore';
-import { Icons } from '../../ui/Icons/CategoryIcons/CategoryIcons';
+import { CategoryPlusIcon, CategoryThreeDotsIcon, Icons } from '../../ui/Icons/CategoryIcons/CategoryIcons';
 import { SettingsBackgroundIcon } from '../../ui/Icons/ControlIcons/ControlIcons';
 import DatePickerProvider from '../date-picker/DatePickerProvider';
 import Loader from '../loader/Loader';
@@ -127,12 +127,21 @@ const Categories = observer(() => {
         <div className="p-4 mb-2 d-flex text-center justify-content-center">
           <div className="d-flex justify-content-center cursor-pointer align-items-center h-100 w-fit-content h-fit-content">
             {otherCategories.length ? (
-              <button type="button" onClick={handleThreeDotsClick}>
-                <h1>...</h1>
+              <button
+                type="button"
+                onClick={handleThreeDotsClick}
+                className="bg-grey-dark categoryIcon component-one-third-border-radius"
+              >
+                <CategoryThreeDotsIcon />
               </button>
             ) : (
-              <button type="button" onClick={handlePlusClick} data-testid="category-create-icon">
-                <h1>+</h1>
+              <button
+                type="button"
+                onClick={handlePlusClick}
+                className="bg-grey-dark categoryIcon component-one-third-border-radius"
+                data-testid="category-create-icon"
+              >
+                <CategoryPlusIcon />
               </button>
             )}
           </div>
