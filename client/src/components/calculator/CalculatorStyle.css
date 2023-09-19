@@ -48,6 +48,7 @@
 .calculator .sum {
   color: var(--black);
   flex-direction: column;
+  padding: 0px;
   grid-column: 1/-1;
   background-color: var(--menu-bg-color);
 }
@@ -56,9 +57,20 @@ body.dark .calculator .sum {
   color: var(--text-color-white);
 }
 
+body.dark .calculator .sum input {
+  color: var(--text-color-white);
+}
+
+body.dark .calculator .sum ::placeholder {
+  color: var(--text-color-white);
+}
+
 .calculator .sum input {
   background-color: var(--menu-bg-color);
-  border: 0;
+  border: 0px;
+  border-radius: 0;
+  padding: 10px;
+  border-top: 1px solid;
 }
 
 .calculator .back {
