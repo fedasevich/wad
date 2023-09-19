@@ -1,5 +1,8 @@
 #modal-root .custom_modal.active:nth-child(2) {
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
   z-index: 1000000000000;
+  opacity: 0.9999999999;
 }
 
 .custom_modal {
