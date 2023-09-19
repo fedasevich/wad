@@ -250,10 +250,6 @@ aside .nav {
   margin-left: 10px;
 }
 
-.nav-item {
-  margin-bottom: 20px;
-}
-
 .nav-item:hover a {
   transition: color 150ms;
   color: var(--text-color-hover);
@@ -318,6 +314,11 @@ aside .nav {
 }
 
 .menu-container input {
+  color: var(--text-color-white);
+  background-color: var(--menu-bg-color);
+}
+
+.menu-container input:focus {
   color: var(--text-color-white);
   background-color: var(--menu-bg-color);
 }
@@ -401,7 +402,7 @@ body.dark .menu-container input[type='checkbox'] {
   /* Navbar */
 
   aside #logo {
-    width: 100px;
+    display: none;
   }
 }
 
