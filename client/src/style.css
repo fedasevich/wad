@@ -363,7 +363,9 @@ aside .nav {
 
 /* transactions */
 
-.sortButton {
+.sortButton,
+.sortButton:focus {
+  border-radius: 6px;
   color: #000;
 }
 
