@@ -361,6 +361,12 @@ aside .nav {
   grid-row: 1;
 }
 
+/* transactions */
+
+.sortButton {
+  color: #000;
+}
+
 /* dark theme */
 
 body.dark {
