@@ -55,7 +55,7 @@ function LoadMore({ buttonVisible, fetchTransaction }) {
           Load More
         </Button>
       ) : (
-        <h2 className="text-center">There is nothing to load...</h2>
+        <h4 className="text-center">There is nothing to load...</h4>
       )}
     </>
   );
