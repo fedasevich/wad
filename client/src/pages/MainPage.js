@@ -51,7 +51,7 @@ const MainPage = observer(() => {
           </Suspense>
         ) : (
           <>
-            <Col xl={{ span: 4, offset: 1 }}>
+            <Col xl={{ span: 4, offset: 1 }} className="mb-4">
               <Wallets />
             </Col>
 
