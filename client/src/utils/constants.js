@@ -43,7 +43,7 @@ export const cryptoCurrencies = {
 
 export const categoryIconsColors = {
   DELETED: '#999999',
-  CLOTHES: '#80fbdb',
+  CLOTHES: '#73e1c4',
   EDUCATION: '#412285',
   COSMETICS: '#fa0834',
   SPORTS: '#d27afc',
