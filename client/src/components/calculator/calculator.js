@@ -213,7 +213,7 @@ const Calculator = observer(({ walletId, categoryId, onSubmit }) => {
           <h4>{selectedCategory.name}</h4>
         </button>
         <div className="item sum">
-          <h6 className="mt-3">Expense</h6>
+          <h6 className="mt-3 fw-light">Expense</h6>
           <p className="fs-3 text-break">
             {formatOperand(previousOperand)} {operation} {formatOperand(currentOperand)}{' '}
             {wallet.getCurrencyFromWalletById(selectedWallet.id)}
@@ -221,7 +221,7 @@ const Calculator = observer(({ walletId, categoryId, onSubmit }) => {
           <input
             type="text"
             name="description"
-            className="w-100 text-center p-1"
+            className="w-100 text-center"
             placeholder="Description"
             onChange={handleDescriptionChange}
             value={description}
