@@ -16,7 +16,7 @@ import { ANALYTICS_ROUTE, CATEGORY_ROUTE, LOGIN_ROUTE, MAIN_ROUTE, SETTINGS_ROUT
 
 function NavItem({ to, children, icon, ...rest }) {
   return (
-    <Nav.Item>
+    <Nav.Item className="mb-0 mb-md-4">
       <NavLink to={to} {...rest}>
         {icon}
         <span className="d-none d-md-inline">{children}</span>
@@ -68,7 +68,7 @@ const NavBar = observer(() => {
         <LogoIcon />
         <Nav
           variant="pills"
-          className="flex-row flex-md-column mb-4 mb-lg-0 mt-md-5 text-center mt-md-0 text-md-start justify-content-between"
+          className="flex-row flex-md-column my-5 mb-lg-0 mt-md-5 text-center mt-md-0 text-md-start justify-content-between"
         >
           {navigationItems.map((item) => (
             <NavItem key={item.to} {...item}>
