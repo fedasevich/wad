@@ -21,7 +21,7 @@ function Actions({ setButtonVisible, category }) {
   return (
     <Row>
       <ButtonToolbar className="justify-content-between mb-3" aria-label="Toolbar with button groups">
-        <Button className="bg-none border-0 p-0" onClick={handleSortClick}>
+        <Button className="bg-none border-0 p-0 sortButton" onClick={handleSortClick}>
           {category.transactionsSort === 'DESC' ? <SortDownIcon /> : <SortUpIcon />}
         </Button>
         <ButtonGroup className="me-2 bg-light-blue component-half-border-radius" aria-label="Amount group">

@@ -85,3 +85,9 @@ body.dark .calculator .sum ::placeholder {
 .calculator .zero {
   grid-column: 1/3;
 }
+
+@media screen and (max-width: 768px) {
+  .calculator .sum input {
+    border-color: var(--background-grey-light);
+  }
+}

@@ -66,3 +66,9 @@
 .modal_item {
   transition: 0.2s all;
 }
+
+@media screen and (max-width: 768px) {
+  .custom_modal_content.active {
+    top: calc(50% - var(--mobile-navbar-height) / 2);
+  }
+}

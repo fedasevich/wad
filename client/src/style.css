@@ -15,6 +15,7 @@
   --component-border-radius: 20px;
   --component-padding: 25px;
   --category-icon-size: 50px;
+  --mobile-navbar-height: 60px;
   --black: #000;
 }
 
@@ -191,6 +192,12 @@ button {
   width: 170px;
 }
 
+/* page provider */
+
+.page-container {
+  margin-bottom: var(--mobile-navbar-height);
+}
+
 /* Auth */
 .auth-container {
   --light-blue: #8fcaf5;
@@ -237,7 +244,7 @@ button {
 
 /* Navbar */
 
-aside .nav {
+.navbar-aside .nav {
   height: calc(100% - 3rem - 80px);
 }
 
@@ -361,6 +368,19 @@ aside .nav {
   grid-row: 1;
 }
 
+/* transactions */
+
+.sortButton,
+.sortButton:focus {
+  border-radius: 6px;
+  color: #000;
+}
+
+body.dark .sortButton:focus {
+  border-radius: 6px;
+  color: white;
+}
+
 /* dark theme */
 
 body.dark {
@@ -391,7 +411,7 @@ body.dark .menu-container input[type='checkbox'] {
 
 /* responsive */
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
   .desktop-height-100vh {
     height: 100%;
   }
@@ -399,9 +419,37 @@ body.dark .menu-container input[type='checkbox'] {
   .vh-80 {
     min-height: 80vh;
   }
-  /* Navbar */
 
-  aside #logo {
+  /* Auth */
+
+  .auth-form-container {
+    padding-bottom: 140px;
+  }
+
+  /* Navbar */
+  .navbar-aside .nav {
+    height: 100%;
+  }
+
+  .navbar-aside {
+    height: var(--mobile-navbar-height);
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 2;
+  }
+
+  .nav .nav-item {
+    font-size: 12px;
+    min-height: 45px;
+  }
+
+  .nav .nav-item:last-child {
+    margin-top: 0;
+  }
+
+  .navbar-aside #logo {
     display: none;
   }
 }
