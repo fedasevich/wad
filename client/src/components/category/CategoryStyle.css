@@ -58,7 +58,7 @@
 
   .categories {
     grid-template-columns: repeat(3, 1fr);
-    gap: calc(30vh - 185px) 0vw;
+    gap: clamp(20px, calc(30vh - 185px - 30px), 60px) 0vw;
   }
 
   .categories .chart {
