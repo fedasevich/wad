@@ -40,7 +40,7 @@ const CreateCategory = observer(() => {
 
   return (
     <>
-      <Col xl={{ span: 5, offset: 1 }}>
+      <Col xl={{ span: 4, offset: 1 }}>
         <MenuProvider>
           <MenuProvider.Actions close={handleClose} commit={handleCommit}>
             <h4>Create category</h4>
@@ -56,15 +56,17 @@ const CreateCategory = observer(() => {
               onChange={handleCategoryNameChange}
             />
             <div className="d-flex align-items-center">
-              <h4 className="me-2">Chosen icon: </h4>
-              <div
-                style={{
-                  backgroundColor: newCategorySelectedIcon.backgroundColor
-                }}
-                className="bg-main-blue component-one-third-border-radius"
-              >
-                {newCategorySelectedIcon.svg}
-              </div>
+              <h4 className="me-2 chosen-icon">Chosen icon: </h4>
+              {newCategorySelectedIcon?.svg && (
+                <div
+                  style={{
+                    backgroundColor: newCategorySelectedIcon.backgroundColor
+                  }}
+                  className="bg-main-blue component-one-third-border-radius categoryIcon"
+                >
+                  {newCategorySelectedIcon.svg}
+                </div>
+              )}
             </div>
           </MenuProvider.Container>
         </MenuProvider>
