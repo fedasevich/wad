@@ -69,7 +69,7 @@ function CreateWallet() {
         </MenuProvider>
       </Col>
 
-      <Col xl={{ span: 6, offset: 1 }}>
+      <Col xl={{ span: 5, offset: 1 }}>
         <MenuProvider>
           <MenuProvider.Header>
             <h2>Choose currency:</h2>
