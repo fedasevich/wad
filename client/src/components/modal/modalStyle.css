@@ -35,7 +35,7 @@
 
 .custom_modal_content.active {
   margin-top: 0vh;
-  top: 50%;
+  top: calc(50% - var(--mobile-navbar-height) / 2);
   transform: translateY(-50%);
   transition: 0.3s;
 }
@@ -67,8 +67,8 @@
   transition: 0.2s all;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (min-width: 768px) {
   .custom_modal_content.active {
-    top: calc(50% - var(--mobile-navbar-height) / 2);
+    top: 50%;
   }
 }

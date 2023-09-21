@@ -1,6 +1,6 @@
 .analytics-chart {
   width: 100%;
-  height: 45vh;
+  height: 28vh;
 }
 
 .analytics-chart-container .expand-button {
@@ -33,12 +33,17 @@ p {
   flex: 0 0 100%;
 }
 
+.analytics-chart.expanded {
+  height: 61vh;
+}
+
 /*responsive*/
-@media screen and (max-width: 768px) {
+@media screen and (min-width: 768px) {
   .analytics-chart {
-    height: 28vh;
+    height: 45vh;
   }
+
   .analytics-chart.expanded {
-    height: 61vh;
+    height: unset;
   }
 }
