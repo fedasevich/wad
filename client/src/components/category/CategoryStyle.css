@@ -2,7 +2,7 @@
   display: grid;
   margin-inline: -12px;
   grid-template-columns: repeat(3, 1fr);
-  gap: calc(30vh - 195px) 5vw;
+  gap: clamp(20px, calc(30vh - 185px - 30px), 60px) 0vw;
   overflow-wrap: break-word;
 }
 
@@ -10,12 +10,8 @@
   grid-row: 2/2;
   grid-column: 2;
   display: flex;
+  max-height: 200px;
   justify-content: center;
-}
-
-.categories .chart canvas {
-  max-width: 250px;
-  max-height: 250px;
 }
 
 .categoryName {
@@ -24,11 +20,6 @@
   word-break: keep-all;
   text-wrap: nowrap;
   width: 100%;
-}
-
-.category .gear {
-  opacity: 0;
-  transition: 0.3s all;
 }
 
 .category .categoryIconContainer:hover .gear {
@@ -51,20 +42,24 @@
   align-items: center;
 }
 
-@media screen and (max-width: 768px) {
-  .category .gear {
-    opacity: 1;
-  }
+.category .gear {
+  opacity: 1;
+}
 
-  .categories {
-    grid-template-columns: repeat(3, 1fr);
-    gap: clamp(20px, calc(30vh - 185px - 30px), 60px) 0vw;
-  }
+.categories .chart canvas {
+  max-width: 130px;
+  max-height: 130px;
+}
 
-  .categories .chart {
-    grid-row: 2/2;
-    grid-column: 2;
-    max-height: 200px;
+.category .gear svg {
+  width: 20px;
+  height: 20px;
+}
+
+@media screen and (min-width: 375px) {
+  .category .gear svg {
+    width: 25px;
+    height: 25px;
   }
 
   .categories .chart canvas {
@@ -73,14 +68,22 @@
   }
 }
 
-@media screen and (max-width: 375px) {
-  .category .gear svg {
-    width: 20px;
-    height: 20px;
+@media screen and (min-width: 768px) {
+  .category .gear {
+    opacity: 0;
+    transition: 0.3s all;
+  }
+
+  .categories {
+    gap: calc(30vh - 195px) 5vw;
   }
 
   .categories .chart canvas {
-    max-width: 130px;
-    max-height: 130px;
+    max-width: 250px;
+    max-height: 250px;
+  }
+
+  .categories .chart {
+    max-height: unset;
   }
 }
