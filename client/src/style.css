@@ -345,14 +345,15 @@ button {
   box-shadow: var(--component-shadow);
 }
 
-.menu-container input {
-  color: var(--text-color-white);
+.menu-container input,
+.menu-container input:focus {
+  color: black;
   background-color: var(--menu-bg-color);
 }
 
-.menu-container input:focus {
+body.dark .menu-container input,
+body.dark .menu-container input:focus {
   color: var(--text-color-white);
-  background-color: var(--menu-bg-color);
 }
 
 .menu-colored-header {
