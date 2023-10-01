@@ -1,4 +1,13 @@
-import { mockCategories, mockParsedCategories, mockTransactions, mockWallet1, mockWallets } from '../../../setupTests';
+import {
+  mockCategories,
+  mockExchangeRates,
+  mockExchangeRatesDate,
+  mockParsedCategories,
+  mockTransactions,
+  mockUserCurrency,
+  mockWallet1,
+  mockWallets
+} from '../../../setupTests';
 import { MAIN_ROUTE, themes } from '../../utils/constants';
 
 const mockStore = {
@@ -17,6 +26,7 @@ const mockStore = {
     persistTransactionFilter: false,
     setPersistTransactionFilter: jest.fn(),
     setStartPage: jest.fn(),
+    changeCurrencyId: jest.fn(),
     isThemeDark: () => themes.LIGHT,
     closeCalculatorOnSubmit: false
   },
@@ -25,7 +35,7 @@ const mockStore = {
     createWallet: jest.fn(),
     getCurrencyFromWalletById: jest.fn(),
     editWallet: jest.fn(),
-    getWalletById: () => mockWallet1
+    getWalletById: (id) => (id === -1 ? undefined : mockWallet1)
   },
   category: {
     parsedCategories: mockCategories,
@@ -34,7 +44,7 @@ const mockStore = {
     getTransactionById: () => mockTransactions[0],
     parseCategories: () => mockParsedCategories,
     getCategoryById: () => mockCategories[0],
-    getIconIdFromCategoryById: () => mockCategories[0].iconId,
+    getIconIdFromCategoryById: (id) => (id === -1 ? -1 : mockCategories[0].iconId),
     transactions: mockTransactions,
     transactionsSort: 'DESC',
     modifyTransactionsFilter: jest.fn(),
@@ -42,6 +52,11 @@ const mockStore = {
     transactionsLimit: 10,
     transactionsPage: 1,
     setTransactions: jest.fn()
+  },
+  currency: {
+    exchangeRates: mockExchangeRates,
+    userCurrency: mockUserCurrency,
+    exchangeRatesDate: mockExchangeRatesDate
   }
 };
 
