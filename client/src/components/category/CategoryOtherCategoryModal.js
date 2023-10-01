@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { Col, Row } from 'react-bootstrap';
+import { useStore } from '../../store';
 import { Icons } from '../../ui/Icons/CategoryIcons/CategoryIcons';
 import { SettingsBackgroundIcon } from '../../ui/Icons/ControlIcons/ControlIcons';
 import MenuProvider from '../MenuProvider';
@@ -14,6 +15,7 @@ const CategoryOtherCategoryModal = observer(function CategoryOtherCategoryModal(
   dispatch,
   handleGearClick
 }) {
+  const { currency } = useStore();
   const handleCategoryClick = (categoryMap) => {
     setCalculatorModal({ active: true, categoryId: categoryMap.id });
     setOtherCategoriesModal(false);
@@ -55,7 +57,9 @@ const CategoryOtherCategoryModal = observer(function CategoryOtherCategoryModal(
                   </span>
                 </div>
                 <h3 className="mt-1">{categoryMap.name}</h3>
-                <h6>{categoryMap.spent}</h6>
+                <h6>
+                  {categoryMap.spent} {currency.userCurrency.symbol}
+                </h6>
               </button>
             ))}
             <button

@@ -1,3 +1,4 @@
+import { ReactComponent as Convert } from './Convert.svg';
 import { ReactComponent as Edit } from './Icon-1.svg';
 import { ReactComponent as Transactions } from './Icon-2.svg';
 import { ReactComponent as Withdraw } from './Icon-3.svg';
@@ -14,6 +15,11 @@ export function WithdrawIcon() {
 export function TransactionsIcon() {
   return <Transactions />;
 }
+
 export function TransferIcon() {
   return <Transfer />;
+}
+
+export function ConvertIcon() {
+  return <Convert />;
 }

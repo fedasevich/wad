@@ -19,3 +19,10 @@ export const check = async () => {
   localStorage.setItem('token', data.token);
   return jwt_decode(data.token);
 };
+
+export const changeCurrencyId = async (currencyId, newCurrencyRate, convert) => {
+  const { data } = await $authHost.put('api/user/currency', { currencyId, convert, newCurrencyRate });
+  localStorage.setItem('token', data.token);
+  console.log(data);
+  return { user: jwt_decode(data.token), exchangeRates: data.rates, updatedWallets: data.updatedWallets };
+};

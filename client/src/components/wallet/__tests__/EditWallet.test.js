@@ -50,6 +50,6 @@ describe('EditWallet.js', () => {
     setInputAndCheckValue(/Enter new balance:/i, balance);
 
     fireEvent.click(commitButton);
-    expect(useStore().wallet.editWallet).toHaveBeenCalledWith(1, '', 'Card 0', '1000');
+    expect(useStore().wallet.editWallet).toHaveBeenCalledWith(1, 'Card 0', '1000');
   });
 });

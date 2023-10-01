@@ -78,11 +78,16 @@ function TransactionToggle({ children, eventKey }) {
 }
 
 const Transaction = observer(({ transaction, index, setChangeTransactionModal }) => {
-  const { category, wallet } = useStore();
-  const isDeleted = transaction.categoryId === -1 || transaction.walletId === -1;
+  const { category, currency, wallet } = useStore();
+
+  const categoryIconId = category.getIconIdFromCategoryById(transaction.categoryId);
+
+  const transactionWallet = wallet.getWalletById(transaction.walletId);
+
+  const isDeleted = categoryIconId === -1 || !transactionWallet;
 
   const handleDeleteClick = () => {
-    category.deleteTransaction(transaction.id, transaction.categoryId, transaction.walletId);
+    category.deleteTransaction(transaction.id, transaction.walletId);
   };
 
   const handleChangeClick = () => {
@@ -94,15 +99,15 @@ const Transaction = observer(({ transaction, index, setChangeTransactionModal })
   return (
     <Col md="12" className="d-inline-flex justify-content-between my-1 w-100">
       <Card className={`border-0 w-100 ${isDeleted ? 'text-decoration-line-through' : ''}`}>
-        <Card.Header className="bg-none d-flex w-100 justify-content-between border-0">
+        <Card.Header className="bg-none px-0 px-sm-3 d-flex w-100 justify-content-between border-0">
           <TransactionToggle eventKey={index}>
             <div className="d-flex flex-row align-items-center justify-content-between">
               <div className="d-flex flex-row align-items-center">
-                <Icons iconId={category.getIconIdFromCategoryById(transaction.categoryId)} />
+                <Icons iconId={categoryIconId} />
                 <h5 className="ms-3 mb-0">{transaction.description}</h5>
               </div>
               <h5>
-                -{transaction.sum} {wallet.getCurrencyFromWalletById(transaction.walletId)}
+                -{transaction.sum.toFixed(2)} {currency.userCurrency.symbol}
               </h5>
             </div>
           </TransactionToggle>

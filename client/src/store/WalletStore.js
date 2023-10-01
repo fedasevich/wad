@@ -31,22 +31,20 @@ export default class WalletStore {
     return this.wallets.find((wallet) => wallet.id === id);
   }
 
-  editWallet(id, newCurrency, newName, newBalance) {
-    if (!newCurrency && !newName && !newBalance) {
+  editWallet(id, newName, newBalance) {
+    if (!newName && !newBalance) {
       return toast.error(`Not enough data`);
     }
+    const parsedNewBalance = parseFloat(newBalance);
     try {
-      changeWallet(id, newName || null, newBalance ? parseFloat(newBalance) : null, newCurrency || null).then(() => {
+      changeWallet(id, newName || null, newBalance ? parsedNewBalance : null).then(() => {
         runInAction(() => {
           const wallet = this.wallets.find((wallet) => wallet.id === id);
           if (newName) {
             wallet.name = newName;
           }
           if (newBalance) {
-            wallet.balance = newBalance;
-          }
-          if (newCurrency) {
-            wallet.currency = newCurrency;
+            wallet.balance = parsedNewBalance;
           }
         });
       });
@@ -55,13 +53,13 @@ export default class WalletStore {
     }
   }
 
-  createWallet(createWalletCurrency, createWalletName) {
-    if (!createWalletName || !createWalletCurrency) {
+  createWallet(createWalletName) {
+    if (!createWalletName) {
       return toast.error("Inputs can't be empty");
     }
 
     try {
-      createWallet(createWalletName, createWalletCurrency).then((data) => {
+      createWallet(createWalletName).then((data) => {
         runInAction(() => {
           this.wallets.push(data);
         });
@@ -83,11 +81,6 @@ export default class WalletStore {
       toast.error(e.response.data.message);
     }
   }
-
-  getCurrencyFromWalletById = (id) => {
-    const wallet = this.getWalletById(id);
-    return wallet?.currency;
-  };
 
   static transferWallet(fromSelectedWallet, toSelectedWallet, transferAmount) {
     const { id: fromWalletId } = fromSelectedWallet;

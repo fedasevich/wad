@@ -5,14 +5,14 @@ const { Wallet, Transaction } = require('../models/models')
 
 class WalletController {
     async create(req, res, next) {
-        const { name, currency } = req.body
+        const { name } = req.body
         const userId = req.user.id
 
-        if (!name || !currency) {
+        if (!name) {
             next(ApiError.badRequest('Wrong data'))
         }
 
-        const wallet = await Wallet.create({ name, userId, currency })
+        const wallet = await Wallet.create({ name, userId })
         return res.json(wallet)
     }
 
@@ -32,10 +32,10 @@ class WalletController {
     }
 
     async change(req, res, next) {
-        const { newCurrency, newName, newBalance } = req.body;
+        const { newName, newBalance } = req.body;
         const id = req.params.id;
 
-        if (!id || (!newBalance && newCurrency && newName)) {
+        if (!id || (!newBalance && !newName)) {
             return next(ApiError.badRequest('Wrong data'));
         }
 
@@ -49,7 +49,6 @@ class WalletController {
 
             const updatedFields = {
                 balance: Number.isInteger(newBalance) ? newBalance : oldWallet.balance,
-                currency: newCurrency || oldWallet.currency,
                 name: newName || oldWallet.name
             };
 
@@ -76,16 +75,10 @@ class WalletController {
         }
 
         const userId = req.user.id;
-        const update = {
-            walletId: -1
-        };
 
         try {
             await sequelize.transaction(async (transaction) => {
                 const deletedWallet = await Wallet.destroy({ where: { userId, id }, transaction });
-
-                await Transaction.update(update, { where: { walletId: id, userId }, transaction });
-
                 res.json(deletedWallet);
             });
         } catch (error) {
@@ -99,7 +92,7 @@ class WalletController {
 
         const { amount } = req.body;
 
-        if (!amount || !toId || !fromId) {
+        if (typeof amount !== 'number' || !toId || !fromId) {
             return next(ApiError.badRequest("All fields must be filled"));
         }
 

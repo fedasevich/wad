@@ -1,6 +1,18 @@
 import { waitFor, waitForElementToBeRemoved } from '@testing-library/react';
 
-export const TEST_CONST = 'help me please';
+Object.defineProperty(window, 'matchMedia', {
+  writable: true,
+  value: jest.fn().mockImplementation((query) => ({
+    matches: false,
+    media: query,
+    onchange: null,
+    addListener: jest.fn(), // Deprecated
+    removeListener: jest.fn(), // Deprecated
+    addEventListener: jest.fn(),
+    removeEventListener: jest.fn(),
+    dispatchEvent: jest.fn()
+  }))
+});
 
 export const mockEmail = 'test@example.com';
 export const mockPassword = 'password123';
@@ -24,7 +36,6 @@ export const mockWallet1 = {
   id: 1,
   name: 'Card 0',
   balance: 1000,
-  currency: '₴',
   createdAt: '2022-07-23T10:41:50.398Z',
   updatedAt: '2023-08-23T20:30:29.032Z',
   userId: mockUserId
@@ -34,7 +45,6 @@ export const mockWallet2 = {
   id: 2,
   name: 'Card 1',
   balance: 500,
-  currency: 'USDT',
   createdAt: '2022-07-23T10:41:51.521Z',
   updatedAt: '2023-08-22T21:42:59.585Z',
   userId: mockUserId
@@ -43,7 +53,6 @@ export const mockWallet3 = {
   id: 3,
   name: 'Cash',
   balance: 100,
-  currency: 'BTC',
   createdAt: '2022-07-29T21:49:21.027Z',
   updatedAt: '2023-08-22T21:42:59.586Z',
   userId: mockUserId
@@ -148,7 +157,7 @@ export const mockTransactions = [
   {
     id: 442,
     description: 'Leisure',
-    sum: '1',
+    sum: 1,
     walletId: 15,
     userId: 9,
     createdAt: '2023-08-23T20:30:29.033Z',
@@ -158,7 +167,7 @@ export const mockTransactions = [
   {
     id: 441,
     description: 'Family',
-    sum: '1',
+    sum: 1,
     walletId: 16,
     userId: 9,
     createdAt: '2023-08-20T16:58:28.864Z',
@@ -168,7 +177,7 @@ export const mockTransactions = [
   {
     id: 434,
     description: 'Groceries',
-    sum: '2',
+    sum: 2,
     walletId: 17,
     userId: 9,
     createdAt: '2023-08-16T13:34:03.163Z',
@@ -178,7 +187,7 @@ export const mockTransactions = [
   {
     id: 432,
     description: 'Gifts',
-    sum: '3',
+    sum: 3,
     walletId: 15,
     userId: 9,
     createdAt: '2023-08-15T09:45:59.881Z',
@@ -188,7 +197,7 @@ export const mockTransactions = [
   {
     id: 431,
     description: 'Groceries',
-    sum: '10',
+    sum: 10,
     walletId: 15,
     userId: 9,
     createdAt: '2023-08-15T09:45:58.181Z',
@@ -198,7 +207,7 @@ export const mockTransactions = [
   {
     id: 414,
     description: 'Groceries',
-    sum: '2',
+    sum: 2,
     walletId: 15,
     userId: 9,
     createdAt: '2023-08-14T19:12:02.965Z',
@@ -208,7 +217,7 @@ export const mockTransactions = [
   {
     id: 413,
     description: 'Groceries',
-    sum: '1',
+    sum: 1,
     walletId: 15,
     userId: 9,
     createdAt: '2023-08-14T19:12:01.612Z',
@@ -218,7 +227,7 @@ export const mockTransactions = [
   {
     id: 398,
     description: 'фыв',
-    sum: '20',
+    sum: 20,
     walletId: 15,
     userId: 9,
     createdAt: '2023-08-12T11:50:26.432Z',
@@ -228,7 +237,7 @@ export const mockTransactions = [
   {
     id: 395,
     description: 'Family',
-    sum: '20',
+    sum: 20,
     walletId: 17,
     userId: 9,
     createdAt: '2023-08-25T17:25:36.561Z',
@@ -329,6 +338,58 @@ export const mockParsedCategories = [
     userId: 9
   }
 ];
+
+export const mockExchangeRates = [
+  {
+    id: 1,
+    currency: 'United States Dolar',
+    code: 'USD',
+    symbol: '$',
+    createdAt: '2023-09-23T19:53:35.000Z',
+    updatedAt: '2023-09-23T19:53:35.000Z',
+    rate: 0.027345865031748545
+  },
+  {
+    id: 2,
+    currency: 'Euro',
+    code: 'EUR',
+    symbol: '€',
+    createdAt: '2023-09-23T19:53:35.000Z',
+    updatedAt: '2023-09-23T19:53:35.000Z',
+    rate: 0.02593744407238622
+  },
+  {
+    id: 3,
+    currency: 'Czech koruna',
+    code: 'CZK',
+    symbol: 'Kč',
+    createdAt: '2023-09-23T19:53:35.000Z',
+    updatedAt: '2023-09-23T19:53:35.000Z',
+    rate: 0.6323510813203491
+  },
+  {
+    id: 4,
+    currency: 'Ukrainian hrivnia',
+    code: 'UAH',
+    symbol: '₴',
+    createdAt: '2023-09-23T19:53:35.000Z',
+    updatedAt: '2023-09-23T19:53:35.000Z',
+    rate: 1
+  },
+  {
+    id: 5,
+    currency: 'Polish złoty',
+    code: 'PLN',
+    symbol: 'zł',
+    createdAt: '2023-09-23T19:53:35.000Z',
+    updatedAt: '2023-09-23T19:53:35.000Z',
+    rate: 0.12024289063909097
+  }
+];
+
+export const mockUserCurrency = mockExchangeRates[3];
+
+export const mockExchangeRatesDate = '30.09.2023';
 
 export const awaitAllLoaders = async (cb) => {
   await waitForElementToBeRemoved(() => document.querySelector('.loader'), { timeout: 30000 }).then(async () => {

@@ -1,7 +1,7 @@
 import { $authHost } from './index';
 
-export const createWallet = async (name, currency) => {
-  const { data } = await $authHost.post('api/wallet', { name, currency });
+export const createWallet = async (name) => {
+  const { data } = await $authHost.post('api/wallet', { name });
   return data;
 };
 
@@ -10,8 +10,8 @@ export const fetchWallet = async () => {
   return data;
 };
 
-export const changeWallet = async (walletId, newName, newBalance, newCurrency) => {
-  const { data } = await $authHost.put(`api/wallet/${walletId}`, { newName, newBalance, newCurrency });
+export const changeWallet = async (walletId, newName, newBalance) => {
+  const { data } = await $authHost.put(`api/wallet/${walletId}`, { newName, newBalance });
   return data;
 };
 

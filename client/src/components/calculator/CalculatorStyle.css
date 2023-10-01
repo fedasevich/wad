@@ -49,8 +49,13 @@
   color: var(--black);
   flex-direction: column;
   padding: 0px;
+  cursor: unset;
   grid-column: 1/-1;
   background-color: var(--menu-bg-color);
+}
+
+.calculator .sum .spent {
+  cursor: pointer;
 }
 
 body.dark .calculator .sum {

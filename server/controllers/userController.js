@@ -1,12 +1,14 @@
 const ApiError = require('../error/ApiError')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
-const { User, Category, Wallet } = require('../models/models')
+const { User, Category, Wallet, Transaction } = require('../models/models')
+const currencyController = require('./currencyController')
+const sequelize = require('../db')
 
 const DEFAULT_CATEGORIES = [
     { name: "Groceries", iconId: 1 },
-    { name: "Health", iconId: 2 },
-    { name: "Sport", iconId: 3 },
+    { name: "Sport", iconId: 2 },
+    { name: "Health", iconId: 3 },
     { name: "Transport", iconId: 4 },
     { name: "Leisure", iconId: 5 },
     { name: "Shopping", iconId: 6 },
@@ -14,22 +16,20 @@ const DEFAULT_CATEGORIES = [
 ]
 
 const DEFAULT_WALLETS = [
-    { name: "Cash", currency: "USD" },
-    { name: "Card", currency: "USD" }
+    { name: "Cash" },
+    { name: "Card" }
 ]
 
-
-async function createAllCategories(userId) {
+function createAllCategories(userId) {
     return Promise.all(DEFAULT_CATEGORIES.map(category => Category.create({ ...category, userId })));
 }
 
-async function createAllWallets(userId) {
+function createAllWallets(userId) {
     return Promise.all(DEFAULT_WALLETS.map(wallet => Wallet.create({ ...wallet, userId })));
 }
 
-const generateJWT = (id, email, subscriber) => {
-    return jwt.sign({ id, email, subscriber }, process.env.SECRET_KEY, { expiresIn: '24h' })
-
+const generateJWT = (id, email, currencyId) => {
+    return jwt.sign({ id, email, currencyId }, process.env.SECRET_KEY, { expiresIn: '24h' })
 }
 
 class UserController {
@@ -50,7 +50,7 @@ class UserController {
             const hashPassword = await bcrypt.hash(password, 5);
             const user = await User.create({ email, password: hashPassword });
 
-            const token = generateJWT(user.id, email, user.subscriber);
+            const token = generateJWT(user.id, email, user.currencyId);
 
             Promise.all([
                 createAllCategories(user.id),
@@ -59,7 +59,7 @@ class UserController {
 
             return res.json({ token });
         } catch (error) {
-            return next(ApiError.internalServerError(error.message));
+            return next(ApiError.internal(error.message));
         }
     }
 
@@ -76,17 +76,71 @@ class UserController {
         if (!compare) {
             return next(ApiError.badRequest("Wrong password"))
         }
-        const token = generateJWT(user.id, user.email, user.subscriber)
+        const token = generateJWT(user.id, user.email, user.currencyId)
         return res.json({ token })
     }
 
     async check(req, res, next) {
-        const token = generateJWT(req.user.id, req.user.email, req.user.subscriber)
+        const token = generateJWT(req.user.id, req.user.email, req.user.currencyId)
         return res.json({ token })
     }
 
-    async change(req, res, next) {
+    async changeCurrencyId(req, res, next) {
+        const { id: userId } = req.user;
+        const { currencyId, convert, newCurrencyRate } = req.body;
 
+        if (!currencyId || !userId || typeof newCurrencyRate !== 'number') {
+            return next(ApiError.badRequest('Not enough data'));
+        }
+
+        let transaction;
+        try {
+            transaction = await sequelize.transaction();
+
+
+            const updatedUserCount = await User.update({ currencyId }, { where: { id: userId }, returning: true });
+
+            const user = updatedUserCount[1][0];
+            console.log(user)
+            if (updatedUserCount[0] !== 1) {
+                return next(ApiError.badRequest('Something went wrong'));
+            }
+
+            const newExchangeRates = await currencyController.currencyService.getExchangeRates(userId)
+
+
+
+            const updatedTransactionCount = await Transaction.update({ sum: sequelize.literal(`sum * ${newCurrencyRate}`) }, {
+                where: { userId },
+                transaction
+            })
+
+            if (updatedTransactionCount[0] === 0) {
+                await transaction.rollback();
+                return next(ApiError.badRequest('Something went wrong'));
+            }
+
+            let updatedWallets
+            if (convert) {
+                updatedWallets = await Wallet.update({ balance: sequelize.literal(`balance * ${newCurrencyRate}`) }, {
+                    where: { userId },
+                    returning: true,
+                    transaction
+                })
+            }
+            debugger;
+            await transaction.commit();
+            console.log(user.get(), user, user.id, user.email, user.currencyId)
+            const token = generateJWT(user.id, user.email, user.currencyId);
+
+            return res.json({ rates: newExchangeRates, token, updatedWallets: updatedWallets[1] });
+        } catch (error) {
+            console.log(error)
+            if (transaction) {
+                await transaction.rollback();
+            }
+            return next(ApiError.badRequest(error));
+        }
     }
 
 }

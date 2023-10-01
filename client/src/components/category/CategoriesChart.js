@@ -8,7 +8,7 @@ import { parseCategoriesIcons } from '../../ui/Icons/CategoryIcons/CategoryIcons
 ChartJS.register(ArcElement, Tooltip);
 
 const CategoriesChart = observer(() => {
-  const { category, userSettings } = useStore();
+  const { category, userSettings, currency } = useStore();
 
   const options = {
     cutout: '85%'
@@ -24,7 +24,7 @@ const CategoriesChart = observer(() => {
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.fillText(
-        data.datasets[0].data.reduce((acc, item) => acc + item, 0),
+        `${data.datasets[0].data.reduce((acc, item) => acc + item, 0).toFixed(2)} ${currency.userCurrency.symbol}`,
         chart.getDatasetMeta(0).data[0].x,
         chart.getDatasetMeta(0).data[0].y
       );

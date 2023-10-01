@@ -1,8 +1,10 @@
 import { parseISO, startOfDay, startOfMonth, startOfWeek } from 'date-fns';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
+import { useStore } from '../../../store';
 
 export const AnalyticsStatistics = observer(({ transactions }) => {
+  const { currency } = useStore();
   const groupTransactions = React.useMemo(() => {
     const dailyGroup = {};
     const weeklyGroup = {};
@@ -40,10 +42,22 @@ export const AnalyticsStatistics = observer(({ transactions }) => {
   return (
     <>
       <h3 className="fw-medium">Statistics</h3>
-      <p>Daily Average: {groupTransactions.dailyAverage}</p>
-      <p>Weekly Average: {groupTransactions.weeklyAverage}</p>
-      <p>Monthly Average: {groupTransactions.monthlyAverage}</p>
-      <p>Total Spent: {groupTransactions.fixedTotalSpent}</p>
+      <p>
+        Daily Average: {groupTransactions.dailyAverage}
+        {currency.userCurrency.symbol}
+      </p>
+      <p>
+        Weekly Average: {groupTransactions.weeklyAverage}
+        {currency.userCurrency.symbol}
+      </p>
+      <p>
+        Monthly Average: {groupTransactions.monthlyAverage}
+        {currency.userCurrency.symbol}
+      </p>
+      <p>
+        Total Spent: {groupTransactions.fixedTotalSpent}
+        {currency.userCurrency.symbol}
+      </p>
     </>
   );
 });

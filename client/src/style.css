@@ -238,6 +238,7 @@ button {
 .categoryIcon {
   height: var(--category-icon-size);
   width: var(--category-icon-size);
+  min-width: var(--category-icon-size);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -345,14 +346,26 @@ button {
   box-shadow: var(--component-shadow);
 }
 
-.menu-container input {
-  color: var(--text-color-white);
+.menu-container input,
+.menu-container input:focus {
+  color: black;
   background-color: var(--menu-bg-color);
 }
 
-.menu-container input:focus {
-  color: var(--text-color-white);
+.menu-container input[type='radio']:focus {
+  background-color: white;
+}
+.menu-container input[type='radio']:checked {
+  background-color: #0d6efd;
+}
+
+body.dark .menu-container input[type='radio']:focus {
   background-color: var(--menu-bg-color);
+}
+
+body.dark .menu-container input,
+body.dark .menu-container input:focus {
+  color: var(--text-color-white);
 }
 
 .menu-colored-header {

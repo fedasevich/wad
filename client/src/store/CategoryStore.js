@@ -125,12 +125,12 @@ export default class CategoryStore {
         selectedCategory.id,
         selectedWallet.id,
         description || selectedCategory.name,
-        parseFloat(currentOperand)
+        currentOperand
       ).then((data) => {
         runInAction(() => {
           this.transactions.unshift(data);
-          selectedWallet.balance -= parseFloat(currentOperand);
-          this.getCategoryById(selectedCategory.id).spent += parseFloat(currentOperand);
+          selectedWallet.balance -= currentOperand;
+          this.getCategoryById(selectedCategory.id).spent += currentOperand;
         });
       });
     } catch (e) {
@@ -138,17 +138,15 @@ export default class CategoryStore {
     }
   }
 
-  deleteTransaction(transactionId, categoryId, walletId) {
+  deleteTransaction(transactionId, walletId) {
     try {
       deleteTransaction(transactionId).then(() => {
         runInAction(() => {
           const transaction = this.getTransactionById(transactionId);
-          const category = this.getCategoryById(categoryId) || this.getRegularCategoryById(categoryId);
-          if (walletId !== -1) {
-            const foundWallet = this.rootStore.wallet.getWalletById(walletId);
-            foundWallet.balance += parseFloat(transaction.sum);
+          const wallet = this.rootStore.wallet.getWalletById(walletId);
+          if (wallet) {
+            wallet.balance += parseFloat(transaction.sum);
           }
-          category.spent -= parseFloat(transaction.sum);
           this.transactions.splice(this.transactions.indexOf(transaction), 1);
         });
       });
@@ -193,24 +191,22 @@ export default class CategoryStore {
       return toast.error(`Not enough data`);
     }
     const transaction = this.getTransactionById(id);
+    const parsedNewSum = parseFloat(newSum);
+
     try {
-      changeTransaction(transaction.id, parseFloat(newSum), newDescription).then(() => {
+      changeTransaction(transaction.id, parsedNewSum, newDescription).then(() => {
         runInAction(() => {
-          const categoryToChange = this.getRegularCategoryById(transaction.categoryId);
           const walletToChange = this.rootStore.wallet.getWalletById(transaction.walletId);
+
           if (newSum) {
-            if (transaction.walletId !== -1) {
-              walletToChange.balance =
-                parseFloat(walletToChange.balance) + parseFloat(transaction.sum) - parseFloat(newSum);
+            if (walletToChange) {
+              walletToChange.balance = walletToChange.balance + transaction.sum - parsedNewSum;
             }
-            if (categoryToChange.id !== -1) {
-              categoryToChange.spent =
-                parseFloat(categoryToChange.spent) - parseFloat(transaction.sum) + parseFloat(newSum);
-            }
-            transaction.sum = newSum;
+
+            transaction.sum = parsedNewSum;
           }
+
           if (newDescription) {
-            categoryToChange.description = newDescription;
             transaction.description = newDescription;
           }
         });

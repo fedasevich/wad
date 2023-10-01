@@ -1,13 +1,16 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 import { act } from 'react-dom/test-utils';
-import { mockParsedCategories } from '../../../../../setupTests';
+import { mockParsedCategories, mockUserCurrency } from '../../../../../setupTests';
 import { ANALYTICS_CATEGORIES_TO_SHOW, AnalyticsPercentage } from '../AnalyticsPercentage';
 
 jest.mock('../../../../ui/Icons/CategoryIcons/CategoryIcons');
 
 jest.mock('../../../../store', () => ({
-  useStore: () => ({ category: { parsedCategories: mockParsedCategories } })
+  useStore: () => ({
+    category: { parsedCategories: mockParsedCategories },
+    currency: { userCurrency: mockUserCurrency }
+  })
 }));
 
 describe('AnalyticsPercentage.js', () => {

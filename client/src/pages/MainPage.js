@@ -10,7 +10,6 @@ import { WALLET_PAGE_STATE } from '../utils/constants';
 import PageProvider from './PageProvider';
 
 const EditWallet = lazy(() => import('../components/wallet/EditWallet'));
-const NotImplemented = lazy(() => import('../components/NotImplemented'));
 const WalletWithdraw = lazy(() => import('../components/wallet/WalletWithdraw'));
 const WalletTransactions = lazy(() => import('../components/wallet/WalletTransactions'));
 const CreateWallet = lazy(() => import('../components/wallet/CreateWallet'));
@@ -33,7 +32,7 @@ function reducer(page, { operation, id }) {
     case WALLET_PAGE_STATE.CREATE_WALLET:
       return WALLET_PAGE_STATE.CREATE_WALLET;
     default:
-      return <NotImplemented />;
+      return null;
   }
 }
 

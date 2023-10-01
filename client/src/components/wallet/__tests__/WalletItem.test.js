@@ -1,12 +1,10 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import React from 'react';
-import { mockWallet1 } from '../../../../setupTests';
+import { mockUserCurrency, mockWallet1 } from '../../../../setupTests';
 import { WalletItem } from '../WalletItem';
 
-jest.mock('../../../store', () => ({
-  useStore: jest.fn()
-}));
+jest.mock('../../../store');
 
 const mockWallet = mockWallet1;
 
@@ -19,7 +17,7 @@ describe('WalletItem.js', () => {
 
   it('renders wallet balance and currency', () => {
     render(<WalletItem wallet={mockWallet} />);
-    const balanceElement = screen.getByText(`${mockWallet.balance} ${mockWallet.currency}`);
+    const balanceElement = screen.getByText(`${mockWallet.balance.toFixed(2)} ${mockUserCurrency.symbol}`);
     expect(balanceElement).toBeInTheDocument();
   });
 

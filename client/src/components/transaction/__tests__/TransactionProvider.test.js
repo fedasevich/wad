@@ -81,7 +81,7 @@ describe('TransactionProvider.js', () => {
       fireEvent.click(deleteButton);
       fireEvent.click(changeButton);
 
-      expect(category.deleteTransaction).toHaveBeenCalledWith(id, categoryId, walletId);
+      expect(category.deleteTransaction).toHaveBeenCalledWith(id, walletId);
       expect(setChangeTransactionModal).toHaveBeenCalledWith({ active: true, id });
     });
 

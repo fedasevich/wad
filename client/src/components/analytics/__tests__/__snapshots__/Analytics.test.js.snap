@@ -161,7 +161,8 @@ exports[`Analytics.js matches snapshot 1`] = `
                 <p
                   class="fs-4 mb-0 fw-medium"
                 >
-                  1700
+                  1700.00
+                  ₴
                 </p>
               </div>
               <div
@@ -219,7 +220,8 @@ exports[`Analytics.js matches snapshot 1`] = `
                 <p
                   class="fs-4 mb-0 fw-medium"
                 >
-                  1337
+                  1337.00
+                  ₴
                 </p>
               </div>
               <div
@@ -271,7 +273,8 @@ exports[`Analytics.js matches snapshot 1`] = `
                 <p
                   class="fs-4 mb-0 fw-medium"
                 >
-                  3047
+                  3047.00
+                  ₴
                 </p>
               </div>
               <div
@@ -317,18 +320,22 @@ exports[`Analytics.js matches snapshot 1`] = `
           <p>
             Daily Average: 
             8.57
+            ₴
           </p>
           <p>
             Weekly Average: 
             20.00
+            ₴
           </p>
           <p>
             Monthly Average: 
             60.00
+            ₴
           </p>
           <p>
             Total Spent: 
             60.00
+            ₴
           </p>
         </div>
       </div>

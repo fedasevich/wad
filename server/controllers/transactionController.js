@@ -4,12 +4,11 @@ const { Op } = require("sequelize");
 const { Transaction, Category, Wallet } = require('../models/models')
 
 class TransactionController {
-
   async create(req, res, next) {
     const { description, sum, categoryId, walletId } = req.body;
     const userId = req.user.id;
 
-    if (!description || !sum || !userId || !categoryId || !walletId) {
+    if (!description || typeof sum !== 'number' || !userId || !categoryId || !walletId) {
       return next(ApiError.badRequest('Wrong data'));
     }
 
@@ -18,19 +17,19 @@ class TransactionController {
     };
 
     try {
-      const [updatedCategoryCount, updatedWalletCount, newTransaction] = await Promise.all([
-        Category.update({ spent: sequelize.literal(`spent + ${sum}`) }, {
-          where: { id: categoryId, userId },
-          ...transactionOptions
-        }),
-        Wallet.update({ balance: sequelize.literal(`balance - ${sum}`) }, {
-          where: { userId, id: walletId },
-          ...transactionOptions
-        }),
+      const [updatedWalletCount, newTransaction] = await Promise.all([
+
+        Wallet.decrement(
+          { balance: sum },
+          {
+            where: { userId, id: walletId },
+            ...transactionOptions
+          }
+        ),
         Transaction.create({ description, sum, categoryId, walletId, userId }, transactionOptions)
       ]);
 
-      if (updatedCategoryCount[0] !== 1 || updatedWalletCount[0] !== 1) {
+      if (!newTransaction || updatedWalletCount[0][1] !== 1) {
         await transactionOptions.transaction.rollback();
         return next(ApiError.badRequest('Failed to update category or wallet'));
       }
@@ -39,6 +38,7 @@ class TransactionController {
 
       return res.json(newTransaction);
     } catch (error) {
+      console.log(error)
       await transactionOptions.transaction.rollback();
       return next(ApiError.badRequest('Failed to create transaction'));
     }

@@ -20,7 +20,7 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
           class="border-0 w-100  card"
         >
           <div
-            class="bg-none d-flex w-100 justify-content-between border-0 card-header"
+            class="bg-none px-0 px-sm-3 d-flex w-100 justify-content-between border-0 card-header"
           >
             <div
               class="w-100 cursor-pointer"
@@ -49,8 +49,9 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
                 </div>
                 <h5>
                   -
-                  1
+                  1.00
                    
+                  ₴
                 </h5>
               </div>
             </div>
@@ -100,7 +101,7 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
           class="border-0 w-100  card"
         >
           <div
-            class="bg-none d-flex w-100 justify-content-between border-0 card-header"
+            class="bg-none px-0 px-sm-3 d-flex w-100 justify-content-between border-0 card-header"
           >
             <div
               class="w-100 cursor-pointer"
@@ -129,8 +130,9 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
                 </div>
                 <h5>
                   -
-                  1
+                  1.00
                    
+                  ₴
                 </h5>
               </div>
             </div>
@@ -193,7 +195,7 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
           class="border-0 w-100  card"
         >
           <div
-            class="bg-none d-flex w-100 justify-content-between border-0 card-header"
+            class="bg-none px-0 px-sm-3 d-flex w-100 justify-content-between border-0 card-header"
           >
             <div
               class="w-100 cursor-pointer"
@@ -222,8 +224,9 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
                 </div>
                 <h5>
                   -
-                  1
+                  1.00
                    
+                  ₴
                 </h5>
               </div>
             </div>
@@ -286,7 +289,7 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
           class="border-0 w-100  card"
         >
           <div
-            class="bg-none d-flex w-100 justify-content-between border-0 card-header"
+            class="bg-none px-0 px-sm-3 d-flex w-100 justify-content-between border-0 card-header"
           >
             <div
               class="w-100 cursor-pointer"
@@ -315,8 +318,9 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
                 </div>
                 <h5>
                   -
-                  2
+                  2.00
                    
+                  ₴
                 </h5>
               </div>
             </div>
@@ -379,7 +383,7 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
           class="border-0 w-100  card"
         >
           <div
-            class="bg-none d-flex w-100 justify-content-between border-0 card-header"
+            class="bg-none px-0 px-sm-3 d-flex w-100 justify-content-between border-0 card-header"
           >
             <div
               class="w-100 cursor-pointer"
@@ -408,8 +412,9 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
                 </div>
                 <h5>
                   -
-                  3
+                  3.00
                    
+                  ₴
                 </h5>
               </div>
             </div>
@@ -459,7 +464,7 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
           class="border-0 w-100  card"
         >
           <div
-            class="bg-none d-flex w-100 justify-content-between border-0 card-header"
+            class="bg-none px-0 px-sm-3 d-flex w-100 justify-content-between border-0 card-header"
           >
             <div
               class="w-100 cursor-pointer"
@@ -488,8 +493,9 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
                 </div>
                 <h5>
                   -
-                  10
+                  10.00
                    
+                  ₴
                 </h5>
               </div>
             </div>
@@ -552,7 +558,7 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
           class="border-0 w-100  card"
         >
           <div
-            class="bg-none d-flex w-100 justify-content-between border-0 card-header"
+            class="bg-none px-0 px-sm-3 d-flex w-100 justify-content-between border-0 card-header"
           >
             <div
               class="w-100 cursor-pointer"
@@ -581,8 +587,9 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
                 </div>
                 <h5>
                   -
-                  2
+                  2.00
                    
+                  ₴
                 </h5>
               </div>
             </div>
@@ -632,7 +639,7 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
           class="border-0 w-100  card"
         >
           <div
-            class="bg-none d-flex w-100 justify-content-between border-0 card-header"
+            class="bg-none px-0 px-sm-3 d-flex w-100 justify-content-between border-0 card-header"
           >
             <div
               class="w-100 cursor-pointer"
@@ -661,8 +668,9 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
                 </div>
                 <h5>
                   -
-                  1
+                  1.00
                    
+                  ₴
                 </h5>
               </div>
             </div>
@@ -725,7 +733,7 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
           class="border-0 w-100  card"
         >
           <div
-            class="bg-none d-flex w-100 justify-content-between border-0 card-header"
+            class="bg-none px-0 px-sm-3 d-flex w-100 justify-content-between border-0 card-header"
           >
             <div
               class="w-100 cursor-pointer"
@@ -754,8 +762,9 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
                 </div>
                 <h5>
                   -
-                  20
+                  20.00
                    
+                  ₴
                 </h5>
               </div>
             </div>
@@ -818,7 +827,7 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
           class="border-0 w-100  card"
         >
           <div
-            class="bg-none d-flex w-100 justify-content-between border-0 card-header"
+            class="bg-none px-0 px-sm-3 d-flex w-100 justify-content-between border-0 card-header"
           >
             <div
               class="w-100 cursor-pointer"
@@ -847,8 +856,9 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
                 </div>
                 <h5>
                   -
-                  20
+                  20.00
                    
+                  ₴
                 </h5>
               </div>
             </div>

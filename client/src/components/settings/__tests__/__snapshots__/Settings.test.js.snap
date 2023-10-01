@@ -20,6 +20,54 @@ exports[`Settings.js renders without errors 1`] = `
             <h3
               class="mb-2 fw-medium"
             >
+              Currency
+            </h3>
+            <select
+              class="form-select"
+            >
+              <option
+                value="1"
+              >
+                United States Dolar
+                 - 
+                $
+              </option>
+              <option
+                value="2"
+              >
+                Euro
+                 - 
+                €
+              </option>
+              <option
+                value="3"
+              >
+                Czech koruna
+                 - 
+                Kč
+              </option>
+              <option
+                value="4"
+              >
+                Ukrainian hrivnia
+                 - 
+                ₴
+              </option>
+              <option
+                value="5"
+              >
+                Polish złoty
+                 - 
+                zł
+              </option>
+            </select>
+          </div>
+          <div
+            class="mb-3"
+          >
+            <h3
+              class="mb-2 fw-medium"
+            >
               Start page
             </h3>
             <select
@@ -47,14 +95,6 @@ exports[`Settings.js renders without errors 1`] = `
               </option>
             </select>
           </div>
-        </div>
-      </div>
-      <div
-        class=" menu mb-3"
-      >
-        <div
-          class="menu-container d-flex flex-column "
-        >
           <div
             class="mb-3"
           >
@@ -81,14 +121,6 @@ exports[`Settings.js renders without errors 1`] = `
               </label>
             </div>
           </div>
-        </div>
-      </div>
-      <div
-        class=" menu mb-3"
-      >
-        <div
-          class="menu-container d-flex flex-column "
-        >
           <div
             class="mb-3"
           >
@@ -115,14 +147,6 @@ exports[`Settings.js renders without errors 1`] = `
               </label>
             </div>
           </div>
-        </div>
-      </div>
-      <div
-        class=" menu mb-3"
-      >
-        <div
-          class="menu-container d-flex flex-column "
-        >
           <div
             class="mb-3"
           >

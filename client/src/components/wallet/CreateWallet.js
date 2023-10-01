@@ -3,14 +3,11 @@ import { Col, Form } from 'react-bootstrap';
 import { DispatchContext } from '../../pages/MainPage';
 import { useStore } from '../../store';
 import { WALLET_PAGE_STATE } from '../../utils/constants';
-import Currencies from '../Currencies';
 import MenuProvider from '../MenuProvider';
 
 function CreateWallet() {
   const [newWallet, setNewWallet] = useState({
-    name: '',
-    currency: '',
-    balance: ''
+    name: ''
   });
   const { wallet } = useStore();
   const dispatch = useContext(DispatchContext);
@@ -20,10 +17,9 @@ function CreateWallet() {
   };
 
   const handleCommit = () => {
-    wallet.createWallet(newWallet.currency, newWallet.name);
+    wallet.createWallet(newWallet.name);
     setNewWallet({
-      name: '',
-      currency: ''
+      name: ''
     });
     handleClose();
   };
@@ -64,18 +60,6 @@ function CreateWallet() {
               value={newWallet.name}
               onChange={handleChange}
             />
-            <h5 className="mb-2">Chosen currency: {newWallet.currency}</h5>
-          </MenuProvider.Container>
-        </MenuProvider>
-      </Col>
-
-      <Col xl={{ span: 5, offset: 1 }}>
-        <MenuProvider>
-          <MenuProvider.Header>
-            <h2>Choose currency:</h2>
-          </MenuProvider.Header>
-          <MenuProvider.Container>
-            <Currencies setCurrency={handleChange} />
           </MenuProvider.Container>
         </MenuProvider>
       </Col>
