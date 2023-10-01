@@ -10,7 +10,7 @@ exports[`WalletItem.js matches snapshot 1`] = `
   <h6
     class="m-0 fw-medium"
   >
-    1000
+    1000.00
      
     ₴
   </h6>

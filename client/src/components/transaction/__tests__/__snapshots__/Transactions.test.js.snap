@@ -49,8 +49,9 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
                 </div>
                 <h5>
                   -
-                  1
+                  1.00
                    
+                  ₴
                 </h5>
               </div>
             </div>
@@ -129,8 +130,9 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
                 </div>
                 <h5>
                   -
-                  1
+                  1.00
                    
+                  ₴
                 </h5>
               </div>
             </div>
@@ -222,8 +224,9 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
                 </div>
                 <h5>
                   -
-                  1
+                  1.00
                    
+                  ₴
                 </h5>
               </div>
             </div>
@@ -315,8 +318,9 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
                 </div>
                 <h5>
                   -
-                  2
+                  2.00
                    
+                  ₴
                 </h5>
               </div>
             </div>
@@ -408,8 +412,9 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
                 </div>
                 <h5>
                   -
-                  3
+                  3.00
                    
+                  ₴
                 </h5>
               </div>
             </div>
@@ -488,8 +493,9 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
                 </div>
                 <h5>
                   -
-                  10
+                  10.00
                    
+                  ₴
                 </h5>
               </div>
             </div>
@@ -581,8 +587,9 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
                 </div>
                 <h5>
                   -
-                  2
+                  2.00
                    
+                  ₴
                 </h5>
               </div>
             </div>
@@ -661,8 +668,9 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
                 </div>
                 <h5>
                   -
-                  1
+                  1.00
                    
+                  ₴
                 </h5>
               </div>
             </div>
@@ -754,8 +762,9 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
                 </div>
                 <h5>
                   -
-                  20
+                  20.00
                    
+                  ₴
                 </h5>
               </div>
             </div>
@@ -847,8 +856,9 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
                 </div>
                 <h5>
                   -
-                  20
+                  20.00
                    
+                  ₴
                 </h5>
               </div>
             </div>
