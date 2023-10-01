@@ -1,10 +1,12 @@
 import { observer } from 'mobx-react-lite';
+import { useStore } from '../../../store';
 import { Icons } from '../../../ui/Icons/CategoryIcons/CategoryIcons';
 import { AnalyticsProgressBar } from './AnalyticsProgressBar';
 
 const MAXIMUM_PERCENTAGE = 100;
 
 export const AnalyticsPercentageItem = observer(({ categoryItem, icon, progressBarPercentage, onClick }) => {
+  const { currency } = useStore();
   return (
     <button
       type="button"
@@ -20,7 +22,10 @@ export const AnalyticsPercentageItem = observer(({ categoryItem, icon, progressB
       <div className="d-flex flex-column w-100">
         <div className="d-flex justify-content-between">
           <p className="fs-4 mb-0">{categoryItem.name}</p>
-          <p className="fs-4 mb-0 fw-medium">{categoryItem.spent}</p>
+          <p className="fs-4 mb-0 fw-medium">
+            {categoryItem.spent.toFixed(2)}
+            {currency.userCurrency.symbol}
+          </p>
         </div>
         <div className="d-flex w-100 justify-content-between">
           <AnalyticsProgressBar

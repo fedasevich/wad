@@ -32,7 +32,7 @@ const ChangeTransactionModal = observer(({ changeTransactionModal, setChangeTran
           <h4>Change transaction</h4>
           <h6>Description: {selectedTransaction?.description}</h6>
           <h6>Id: {selectedTransaction?.id}</h6>
-          <h6>Sum: {selectedTransaction?.sum}</h6>
+          <h6>Sum: {selectedTransaction?.sum.toFixed(2)}</h6>
           <h6>
             Time: {getHours(new Date(selectedTransaction?.createdAt))}:
             {getMinutes(new Date(selectedTransaction?.createdAt))}

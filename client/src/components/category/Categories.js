@@ -23,7 +23,7 @@ const CategoryOtherCategoryModal = lazy(() => import('./CategoryOtherCategoryMod
 const MAIN_CATEGORIES_LENGTH = 7;
 
 const Categories = observer(() => {
-  const { category } = useStore();
+  const { category, currency } = useStore();
   const [calculatorModal, setCalculatorModal] = useState({
     active: false,
     categoryId: null
@@ -116,7 +116,9 @@ const Categories = observer(() => {
                   <SettingsBackgroundIcon />
                 </span>
               </div>
-              <h4 className="mt-3 fw-bold ">{categoryMap.spent}</h4>
+              <h4 className="mt-3 fw-bold ">
+                {categoryMap.spent.toFixed(2)} {currency.userCurrency.symbol}
+              </h4>
             </button>
           </div>
         ))}
