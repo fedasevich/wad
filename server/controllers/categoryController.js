@@ -47,7 +47,6 @@ class CategoryController {
         const update = {};
 
         if (newName) update.name = newName;
-        if (newSpent) update.spent = newSpent;
         if (newIconId) update.iconId = newIconId;
 
         let transaction;
@@ -77,16 +76,12 @@ class CategoryController {
         if (!id) {
             return next(ApiError.badRequest('Wrong data'))
         }
-        const update = {
-            categoryId: -1
-        }
+
         const userId = req.user.id
 
-        await Transaction.update(update, { where: { categoryId: id, userId } })
-
         try {
-            await sequelize.transaction(async (SequelizeTransaction) => {
-                const deletedCategory = await Category.destroy({ where: { userId, id } })
+            await sequelize.transaction(async (transaction) => {
+                const deletedCategory = await Category.destroy({ where: { userId, id }, transaction })
                 return res.json(deletedCategory)
             })
         } catch (error) {
