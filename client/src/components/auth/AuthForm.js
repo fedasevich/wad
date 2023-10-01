@@ -14,9 +14,9 @@ export function AuthForm({ isLogin }) {
   const [password, setPassword] = useState('');
 
   const handleSuccessfulAuth = async (data) => {
-    await rootStore.initializeCategoriesAndWallets();
     user.setUser(data);
     user.setIsAuth(true);
+    await rootStore.initializeCategoriesAndWallets();
     navigate(userSettings.startPage);
   };
 
