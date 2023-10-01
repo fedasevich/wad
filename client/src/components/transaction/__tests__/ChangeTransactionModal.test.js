@@ -33,7 +33,7 @@ describe('ChangeTransactionModal.js', () => {
     expect(screen.getByLabelText(/enter spent:/i)).toBeInTheDocument();
   });
 
-  it('handles description and soent changes', () => {
+  it('handles description and spent changes', () => {
     const descriptionInput = screen.getByLabelText(/enter new description:/i);
     const sumInput = screen.getByLabelText(/enter spent:/i);
 
