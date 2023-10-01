@@ -71,7 +71,6 @@ const CreateCategory = observer(() => {
           </MenuProvider.Container>
         </MenuProvider>
       </Col>
-
       <Col xl={{ span: 5, offset: 1 }}>
         <MenuProvider>
           <MenuProvider.Header>
