@@ -21,6 +21,18 @@ class CurrencyController {
 
 }
 
+const getCorrectDateForCurrencyService = () => {
+  const now = new Date();
+  if (now.getHours() < 12) {
+    now.setDate(now.getDate() - 1);
+  }
+
+  const day = String(now.getDate()).padStart(2, '0');
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const year = now.getFullYear();
+
+  return `${day}.${month}.${year}`;
+}
 
 class PrivatCurrencyService {
   _apiUrl = "https://api.privatbank.ua/p24api/exchange_rates"
@@ -30,19 +42,13 @@ class PrivatCurrencyService {
 
   async getExchangeRates(userId) {
     try {
-      const now = new Date();
-      if (now.getHours() < 12) {
-        now.setDate(now.getDate() - 1);
-      }
-      const previousDay = now.toLocaleDateString()
 
       const [currencies, exchangeRates] = await Promise.all([
         Currency.findAll(),
-        axios.get(this._apiUrl, { params: { date: previousDay } })
+        axios.get(this._apiUrl, { params: { date: getCorrectDateForCurrencyService() } })
       ]);
 
       const currencyMap = new Map(currencies.map(currency => [currency.id, currency]));
-      console.log(exchangeRates)
       const exchangeRateMap = new Map(exchangeRates.data.exchangeRate.map(rate => [rate.currency, rate]));
 
       Object.assign(exchangeRateMap.get("UAH"), {
