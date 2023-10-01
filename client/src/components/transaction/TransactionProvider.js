@@ -99,7 +99,7 @@ const Transaction = observer(({ transaction, index, setChangeTransactionModal })
   return (
     <Col md="12" className="d-inline-flex justify-content-between my-1 w-100">
       <Card className={`border-0 w-100 ${isDeleted ? 'text-decoration-line-through' : ''}`}>
-        <Card.Header className="bg-none d-flex w-100 justify-content-between border-0">
+        <Card.Header className="bg-none px-0 px-sm-3 d-flex w-100 justify-content-between border-0">
           <TransactionToggle eventKey={index}>
             <div className="d-flex flex-row align-items-center justify-content-between">
               <div className="d-flex flex-row align-items-center">
