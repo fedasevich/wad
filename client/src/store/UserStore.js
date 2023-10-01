@@ -53,5 +53,6 @@ export default class UserStore {
     this._isAuth = false;
     this._user = {};
     localStorage.removeItem('token');
+    localStorage.removeItem('currencies');
   }
 }
