@@ -73,7 +73,7 @@ const Transactions = observer(({ actions, handleFetchTransactions, walletId }) =
       })}
       <Row>
         <TransactionProvider.LoadMore
-          buttonVisible={buttonVisible}
+          buttonVisible={buttonVisible && category.transactions.length}
           setButtonVisible={setButtonVisible}
           fetchTransaction={loadMoreTransactions}
         />
