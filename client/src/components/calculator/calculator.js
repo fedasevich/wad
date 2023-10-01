@@ -3,7 +3,9 @@ import React, { useEffect, useReducer, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useStore } from '../../store';
 import { getCategoryBackgroundColorByIconId } from '../../ui/Icons/CategoryIcons/CategoryIcons';
+import { ArrowDownIcon } from '../../ui/Icons/ControlIcons/ControlIcons';
 import CalculatorCategoryModal from './CalculatorCategoryModal';
+import CalculatorCurrencyModal from './CalculatorCurrencyModal';
 import './CalculatorStyle.css';
 import CalculatorWalletModal from './CalculatorWalletModal';
 import DigitButton from './DigitButtons';
@@ -148,9 +150,12 @@ const formatOperand = (operand) => {
 };
 
 const Calculator = observer(({ walletId, categoryId, onSubmit }) => {
-  const { wallet, category, userSettings } = useStore();
+  const { wallet, category, userSettings, currency } = useStore();
   const [walletModalActive, setWalletModalActive] = useState(false);
   const [categoryModalActive, setCategoryModalActive] = useState(false);
+  const [calculatorCurrencyModalActive, setCalculatorCurrencyModalActive] = useState(false);
+
+  const [selectedCurrency, setSelectedCurrency] = useState(currency.userCurrency);
   const [selectedWallet, setSelectedWallet] = useState({});
   const [selectedCategory, setSelectedCategory] = useState({});
   const [{ currentOperand = '0', previousOperand, operation }, dispatch] = useReducer(reducer, {});
@@ -166,6 +171,7 @@ const Calculator = observer(({ walletId, categoryId, onSubmit }) => {
 
   const handleWalletClick = () => setWalletModalActive(true);
   const handleCategoryClick = () => setCategoryModalActive(true);
+  const handleCurrencyClick = () => setCalculatorCurrencyModalActive(true);
 
   const handleDescriptionChange = (e) => {
     setDescription(e.target.value);
@@ -182,7 +188,9 @@ const Calculator = observer(({ walletId, categoryId, onSubmit }) => {
       return toast.error('Amount spent cannot be negative.');
     }
 
-    category.createTransaction(currentOperand, selectedCategory, selectedWallet, description, wallet);
+    const exchangedCurrentOperand = Number(currentOperand) / selectedCurrency.rate;
+
+    category.createTransaction(exchangedCurrentOperand, selectedCategory, selectedWallet, description, wallet);
     setDescription('');
     dispatch({ type: ACTIONS.CLEAR });
     if (userSettings.closeCalculatorOnSubmit) {
@@ -197,7 +205,7 @@ const Calculator = observer(({ walletId, categoryId, onSubmit }) => {
           <h4> {selectedWallet.name}</h4>
           {'\n'}
           <h5>
-            {selectedWallet.balance} {selectedWallet.currency}
+            {selectedWallet.balance && selectedWallet.balance.toFixed(2)} {currency.userCurrency.symbol}
           </h5>
         </button>
         <button
@@ -214,10 +222,12 @@ const Calculator = observer(({ walletId, categoryId, onSubmit }) => {
         </button>
         <div className="item sum">
           <h6 className="mt-3 fw-light">Expense</h6>
-          <p className="fs-3 text-break">
-            {formatOperand(previousOperand)} {operation} {formatOperand(currentOperand)}{' '}
-            {wallet.getCurrencyFromWalletById(selectedWallet.id)}
-          </p>
+          <button type="button" className="p-0 ps-2" onClick={handleCurrencyClick}>
+            <p className="fs-3 text-break spent">
+              {formatOperand(previousOperand)} {operation} {formatOperand(currentOperand)} {selectedCurrency.symbol}
+              <ArrowDownIcon />
+            </p>
+          </button>
           <input
             type="text"
             name="description"
@@ -270,6 +280,13 @@ const Calculator = observer(({ walletId, categoryId, onSubmit }) => {
           categoryModalActive={categoryModalActive}
           setCategoryModalActive={setCategoryModalActive}
           setSelectedCategory={setSelectedCategory}
+        />
+      )}
+      {calculatorCurrencyModalActive && (
+        <CalculatorCurrencyModal
+          calculatorCurrencyModalActive={calculatorCurrencyModalActive}
+          setCalculatorCurrencyModalActive={setCalculatorCurrencyModalActive}
+          setSelectedCurrency={setSelectedCurrency}
         />
       )}
     </div>
