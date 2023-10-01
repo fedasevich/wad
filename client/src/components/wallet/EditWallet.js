@@ -5,7 +5,6 @@ import { DispatchContext } from '../../pages/MainPage';
 import { useStore } from '../../store';
 import { DeleteIcon } from '../../ui/Icons/ControlIcons/ControlIcons';
 import { WALLET_PAGE_STATE } from '../../utils/constants';
-import Currencies from '../Currencies';
 import MenuProvider from '../MenuProvider';
 
 const DeleteConfirmModal = lazy(() => import('../modal/delete-confirm-modal/DeleteConfirmModal'));
@@ -15,7 +14,6 @@ function EditWallet({ id }) {
   const dispatch = useContext(DispatchContext);
   const [editWallet, setEditWallet] = useState({
     name: '',
-    currency: '',
     balance: ''
   });
 
@@ -28,7 +26,6 @@ function EditWallet({ id }) {
   const eraseState = () => {
     setEditWallet({
       name: '',
-      currency: '',
       balance: ''
     });
   };
@@ -48,7 +45,7 @@ function EditWallet({ id }) {
   }, []);
 
   const handleCommit = () => {
-    wallet.editWallet(id, editWallet.currency, editWallet.name, editWallet.balance);
+    wallet.editWallet(id, editWallet.name, editWallet.balance);
     eraseState();
     handleClose();
   };
@@ -116,8 +113,6 @@ function EditWallet({ id }) {
             value={editWallet.balance}
             onChange={handleChange}
           />
-          <h4 className="mb-2">Choose new currency:</h4>
-          <Currencies setCurrency={handleChange} walletDefaultCurrency={selectedWalletToEdit.currency} />
           <button onClick={handleModalOpen} type="button">
             <h6 className="text-danger mb-0 btn">
               <DeleteIcon /> Delete wallet
