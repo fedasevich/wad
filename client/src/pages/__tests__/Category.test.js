@@ -3,7 +3,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 
 import { act } from 'react-dom/test-utils';
-import { awaitAllLoaders, mockCategories } from '../../../setupTests';
+import { awaitAllLoaders, mockCategories, mockUserCurrency } from '../../../setupTests';
 import Category from '../Category';
 
 jest.mock('../../components/transaction/TransactionsColumn', () => () => <div>Recent activity</div>);
@@ -16,6 +16,9 @@ jest.mock('../../store', () => ({
     category: {
       parsedCategories: [mockCategories[0]],
       parseCategories: jest.fn()
+    },
+    currency: {
+      userCurrency: mockUserCurrency
     }
   })
 }));

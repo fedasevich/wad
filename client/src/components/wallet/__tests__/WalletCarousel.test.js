@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom';
 import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
-import { mockWallet2, mockWallet3, mockWallets } from '../../../../setupTests';
+import { mockUserCurrency, mockWallet2, mockWallet3, mockWallets } from '../../../../setupTests';
 import { useStore } from '../../../store';
 import { themes } from '../../../utils/constants';
 import { WalletCarousel } from '../WalletCarousel';
@@ -15,6 +15,9 @@ describe('WalletCarousel.js', () => {
     wallet: { wallets: mockWallets },
     userSettings: {
       isThemeDark: () => themes.LIGHT
+    },
+    currency: {
+      userCurrency: mockUserCurrency
     }
   });
   beforeEach(() => {
