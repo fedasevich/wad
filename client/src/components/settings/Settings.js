@@ -4,6 +4,7 @@ import { Col, Row } from 'react-bootstrap';
 import MenuProvider from '../MenuProvider';
 import { SettingGroup } from './SettingGroup';
 import { CloseCalculatorOnSubmit } from './closeCalculatorOnSubmit/CloseCalculatorOnSubmit';
+import { UserCurrencySettings } from './currency/UserCurrencySettings';
 import { PersistTransactionFilter } from './persistTransactionFilter/PersistTransactionFilter';
 import { StartPageSettings } from './startPage/StartPageSettings';
 import { Theme } from './theme/Theme';
@@ -14,27 +15,22 @@ export const Settings = observer(() => {
       <Col md={{ offset: 1, span: 10 }}>
         <MenuProvider>
           <MenuProvider.Container>
+            <SettingGroup name="Currency">
+              <UserCurrencySettings />
+            </SettingGroup>
+
             <SettingGroup name="Start page">
               <StartPageSettings />
             </SettingGroup>
-          </MenuProvider.Container>
-        </MenuProvider>
-        <MenuProvider>
-          <MenuProvider.Container>
+
             <SettingGroup name="Calculator">
               <CloseCalculatorOnSubmit />
             </SettingGroup>
-          </MenuProvider.Container>
-        </MenuProvider>
-        <MenuProvider>
-          <MenuProvider.Container>
+
             <SettingGroup name="Transaction">
               <PersistTransactionFilter />
             </SettingGroup>
-          </MenuProvider.Container>
-        </MenuProvider>
-        <MenuProvider>
-          <MenuProvider.Container>
+
             <SettingGroup name="Theme">
               <Theme />
             </SettingGroup>
