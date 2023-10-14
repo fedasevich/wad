@@ -38,7 +38,6 @@ class TransactionController {
 
       return res.json(newTransaction);
     } catch (error) {
-      console.log(error)
       await transactionOptions.transaction.rollback();
       return next(ApiError.badRequest('Failed to create transaction'));
     }

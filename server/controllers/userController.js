@@ -101,7 +101,7 @@ class UserController {
             const updatedUserCount = await User.update({ currencyId }, { where: { id: userId }, returning: true });
 
             const user = updatedUserCount[1][0];
-            console.log(user)
+
             if (updatedUserCount[0] !== 1) {
                 return next(ApiError.badRequest('Something went wrong'));
             }
@@ -112,10 +112,11 @@ class UserController {
 
             const updatedTransactionCount = await Transaction.update({ sum: sequelize.literal(`sum * ${newCurrencyRate}`) }, {
                 where: { userId },
+                returning: true,
                 transaction
             })
 
-            if (updatedTransactionCount[0] === 0) {
+            if (updatedTransactionCount[0] === 0 && updatedTransactionCount[0] !== updatedTransactionCount[1].length) {
                 await transaction.rollback();
                 return next(ApiError.badRequest('Something went wrong'));
             }
@@ -128,12 +129,14 @@ class UserController {
                     transaction
                 })
             }
-            debugger;
+
             await transaction.commit();
-            console.log(user.get(), user, user.id, user.email, user.currencyId)
             const token = generateJWT(user.id, user.email, user.currencyId);
 
-            return res.json({ rates: newExchangeRates, token, updatedWallets: updatedWallets[1] });
+            return res.json({
+                rates: newExchangeRates, token,
+                ...(updatedWallets && updatedWallets.length > 0 && { updatedWallets: updatedWallets[1] })
+            });
         } catch (error) {
             console.log(error)
             if (transaction) {
