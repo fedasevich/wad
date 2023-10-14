@@ -79,7 +79,7 @@ function EditWallet({ id }) {
   return (
     <>
       <MenuProvider>
-        <MenuProvider.Actions close={handleClose} commit={handleCommit}>
+        <MenuProvider.Actions onClose={handleClose} onCommit={handleCommit}>
           <h5 ref={scrollRef} className="scroll-margin">
             Edit wallet
           </h5>

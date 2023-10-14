@@ -28,7 +28,7 @@ const ChangeTransactionModal = observer(({ changeTransactionModal, setChangeTran
   return (
     <Modal active={changeTransactionModal} setActive={setChangeTransactionModal}>
       <MenuProvider>
-        <MenuProvider.Actions close={handleClose} commit={handleCommit}>
+        <MenuProvider.Actions onClose={handleClose} onCommit={handleCommit}>
           <h4>Change transaction</h4>
           <h6>Description: {selectedTransaction?.description}</h6>
           <h6>Id: {selectedTransaction?.id}</h6>

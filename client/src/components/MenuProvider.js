@@ -10,20 +10,20 @@ function HeaderBorderBottom({ children }) {
   return <div className="menu-header border-bottom">{children}</div>;
 }
 
-function Actions({ children, close, commit }) {
-  const handleClose = () => close();
+function Actions({ children, onClose, onCommit }) {
+  const handleClose = () => onClose();
 
-  const handleCommit = () => commit();
+  const handleCommit = () => onCommit();
 
   return (
     <div className="menu-colored-header bg-secondary-blue component-border-radius d-flex flex-row justify-content-between">
       <button type="button" className="cursor-pointer" onClick={handleClose} data-testid="menu-cancel-button">
-        {close && <CancelIcon />}
+        {onClose && <CancelIcon />}
       </button>
       <div className="">{children}</div>
 
       <button type="button" className="cursor-pointer" onClick={handleCommit} data-testid="menu-commit-button">
-        {commit && <CheckMarkIcon />}
+        {onCommit && <CheckMarkIcon />}
       </button>
     </div>
   );

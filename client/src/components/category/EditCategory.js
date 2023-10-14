@@ -56,7 +56,7 @@ const EditCategory = observer(({ id }) => {
     <>
       <Col xl={{ span: 4, offset: 1 }}>
         <MenuProvider>
-          <MenuProvider.Actions close={handleClose} commit={handleCommit}>
+          <MenuProvider.Actions onClose={handleClose} onCommit={handleCommit}>
             <h4>Edit category</h4>
             <h6>Category: {selectedCategoryToEdit.name}</h6>
           </MenuProvider.Actions>

@@ -42,7 +42,7 @@ const CreateCategory = observer(() => {
     <>
       <Col xl={{ span: 4, offset: 1 }}>
         <MenuProvider>
-          <MenuProvider.Actions close={handleClose} commit={handleCommit}>
+          <MenuProvider.Actions onClose={handleClose} onCommit={handleCommit}>
             <h4>Create category</h4>
           </MenuProvider.Actions>
           <MenuProvider.Container>
