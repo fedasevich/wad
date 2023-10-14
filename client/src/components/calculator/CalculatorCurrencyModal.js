@@ -1,14 +1,16 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
+import { Form } from 'react-bootstrap';
 import { useStore } from '../../store';
 import MenuProvider from '../MenuProvider';
 import Modal from '../modal/modal';
 
 const CalculatorCurrencyModal = observer(
-  ({ calculatorCurrencyModalActive, setCalculatorCurrencyModalActive, setSelectedCurrency }) => {
+  ({ calculatorCurrencyModalActive, setCalculatorCurrencyModalActive, setSelectedCurrency, selectedCurrency }) => {
     const { currency } = useStore();
-    const handleCurrencySelect = (rate) => {
-      setSelectedCurrency(rate);
+    const handleCurrencySelect = (event) => {
+      const selectedCurrency = currency.exchangeRates.find((rate) => rate.id === Number(event.target.value));
+      setSelectedCurrency(selectedCurrency);
       setCalculatorCurrencyModalActive(false);
     };
 
@@ -18,19 +20,22 @@ const CalculatorCurrencyModal = observer(
           <h2>Choose currency</h2>
         </MenuProvider.Header>
         <MenuProvider.Container>
-          <div className="overflow-auto vh-50 ">
+          <div>
             {currency.exchangeRates.map((rate) => (
-              <button
-                type="button"
-                className="d-flex align-items-center justify-content-start w-100 text-start mb-2 modal_item  p-2"
-                onClick={() => handleCurrencySelect(rate)}
-                key={rate.id}
-              >
-                <div className="categoryIcon bg-main-blue text-white component-one-third-border-radius">
-                  {rate.symbol}
-                </div>
-                <p className="ms-3 mb-0 fs-6">{rate.currency}</p>
-              </button>
+              <div className="d-flex flex-row mb-2" key={rate.id}>
+                <Form.Check
+                  type="radio"
+                  id={rate.id}
+                  name={rate.id}
+                  value={rate.id}
+                  checked={rate.id === selectedCurrency.id}
+                  onChange={handleCurrencySelect}
+                />
+                <Form.Label className="ms-2" htmlFor={rate.symbol}>
+                  {rate.currency}
+                </Form.Label>
+                <p className="mb-0 ms-auto">{rate.symbol}</p>
+              </div>
             ))}
           </div>
         </MenuProvider.Container>
