@@ -12,7 +12,8 @@ const DEFAULT_CATEGORIES = [
     { name: "Transport", iconId: 4 },
     { name: "Leisure", iconId: 5 },
     { name: "Shopping", iconId: 6 },
-    { name: "Education", iconId: 7 }
+    { name: "Education", iconId: 7 },
+    { name: "Income", iconId: -2, isIncome: true }
 ]
 
 const DEFAULT_WALLETS = [
