@@ -17,14 +17,9 @@ function Actions({ children, onClose, onCommit }) {
 
   return (
     <div className="menu-colored-header bg-secondary-blue component-border-radius d-flex flex-row justify-content-between">
-      <button type="button" className="cursor-pointer" onClick={handleClose} data-testid="menu-cancel-button">
-        {onClose && <CancelIcon />}
-      </button>
+      {onClose && <CancelButton onClose={handleClose} />}
       <div className="">{children}</div>
-
-      <button type="button" className="cursor-pointer" onClick={handleCommit} data-testid="menu-commit-button">
-        {onCommit && <CheckMarkIcon />}
-      </button>
+      {onCommit && <CommitButton onCommit={handleCommit} />}
     </div>
   );
 }
@@ -49,6 +44,22 @@ function Container({ children, className = '' }) {
   return <div className={`menu-container d-flex flex-column ${className}`}>{children}</div>;
 }
 
+function CancelButton({ onClose }) {
+  return (
+    <button type="button" className="cursor-pointer" onClick={onClose} data-testid="menu-cancel-button">
+      <CancelIcon />
+    </button>
+  );
+}
+
+function CommitButton({ onCommit }) {
+  return (
+    <button type="button" className="cursor-pointer" onClick={onCommit} data-testid="menu-commit-button">
+      <CheckMarkIcon />
+    </button>
+  );
+}
+
 const MenuProvider = observer(({ children, className = '' }) => {
   return <div className={`${className} menu mb-3`}>{children}</div>;
 });
@@ -56,6 +67,8 @@ const MenuProvider = observer(({ children, className = '' }) => {
 MenuProvider.Header = Header;
 MenuProvider.Container = Container;
 MenuProvider.Actions = Actions;
+MenuProvider.Actions.Cancel = CancelButton;
+MenuProvider.Actions.Commit = CommitButton;
 MenuProvider.Header.Rounded = Rounded;
 MenuProvider.Header.Straight = Straight;
 MenuProvider.Header.BorderBottom = HeaderBorderBottom;
