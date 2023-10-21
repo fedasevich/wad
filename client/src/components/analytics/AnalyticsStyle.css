@@ -3,6 +3,14 @@
   height: 28vh;
 }
 
+.analytics-chart .tab-content {
+  height: calc(100% - 60px);
+}
+
+.analytics-chart .tab-pane {
+  height: 100%;
+}
+
 .analytics-chart-container .expand-button {
   display: none;
 }

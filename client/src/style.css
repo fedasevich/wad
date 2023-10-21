@@ -244,6 +244,13 @@ button {
   align-items: center;
 }
 
+/* Calculator global */
+
+.calculatorTopButtons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
 /* Navbar */
 
 .nav-item a {
@@ -287,7 +294,7 @@ button {
   z-index: 2;
 }
 
-.nav .nav-item {
+.navbar-aside .nav .nav-item {
   font-size: 12px;
   min-height: 45px;
 }
@@ -419,6 +426,10 @@ body.dark .sortButton:focus {
   color: white;
 }
 
+.positive {
+  color: #309b58;
+}
+
 /* dark theme */
 
 body.dark {
@@ -462,7 +473,7 @@ body.dark .menu-container input[type='checkbox'] {
     display: block;
   }
 
-  .nav .nav-item {
+  .navbar-aside .nav .nav-item {
     font-size: unset;
     min-height: unset;
   }
