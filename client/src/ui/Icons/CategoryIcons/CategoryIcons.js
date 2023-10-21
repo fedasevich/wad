@@ -17,6 +17,7 @@ import { ReactComponent as GameController } from './game-controller.svg';
 import { ReactComponent as Gifts } from './gifts.svg';
 import { ReactComponent as Home } from './home.svg';
 import { ReactComponent as Household } from './household.svg';
+import { ReactComponent as Income } from './income.svg';
 import { ReactComponent as Investment } from './investment.svg';
 import { ReactComponent as Jewelry } from './jewelry.svg';
 import { ReactComponent as Library } from './library-outline.svg';
@@ -35,6 +36,11 @@ import { ReactComponent as University } from './university.svg';
 import { ReactComponent as Wifi } from './wifi-outline.svg';
 
 export const icons = [
+  {
+    id: -2,
+    backgroundColor: categoryIconsColors.INCOME,
+    svg: <Income />
+  },
   {
     id: -1,
     backgroundColor: categoryIconsColors.DELETED,
