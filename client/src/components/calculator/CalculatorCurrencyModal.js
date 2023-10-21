@@ -31,7 +31,7 @@ const CalculatorCurrencyModal = observer(
                   checked={rate.id === selectedCurrency.id}
                   onChange={handleCurrencySelect}
                 />
-                <Form.Label className="ms-2" htmlFor={rate.symbol}>
+                <Form.Label className="ms-2" htmlFor={rate.id}>
                   {rate.currency}
                 </Form.Label>
                 <p className="mb-0 ms-auto">{rate.symbol}</p>
