@@ -26,7 +26,7 @@ const Categories = observer(() => {
   const { category, currency } = useStore();
   const [calculatorModal, setCalculatorModal] = useState({
     active: false,
-    categoryId: null
+    selectedCategory: null
   });
   const [loading, setLoading] = useState(true);
 
@@ -57,9 +57,11 @@ const Categories = observer(() => {
     return <Loader isFullHeight />;
   }
 
+  const filteredParsedCategories = category.parsedCategories.filter((category) => category.isIncome === false);
+
   const [firstCategories, otherCategories] = [
-    category.parsedCategories.slice(0, MAIN_CATEGORIES_LENGTH),
-    category.parsedCategories.slice(MAIN_CATEGORIES_LENGTH, category.parsedCategories.length)
+    filteredParsedCategories.slice(0, MAIN_CATEGORIES_LENGTH),
+    filteredParsedCategories.slice(MAIN_CATEGORIES_LENGTH, filteredParsedCategories.length)
   ];
 
   const handlePlusClick = () => {
@@ -75,10 +77,10 @@ const Categories = observer(() => {
     setOtherCategoriesModal(true);
   };
 
-  const handleCalculatorModalChange = ({ categoryId, active }) => {
+  const handleCalculatorModalChange = ({ selectedCategory, active }) => {
     setCalculatorModal((prev) => ({
       ...prev,
-      categoryId,
+      selectedCategory,
       active
     }));
   };
@@ -97,7 +99,7 @@ const Categories = observer(() => {
               type="button"
               className="mb-2 px-0 d-flex mw-100 flex-column align-items-center cursor-pointer position-relative w-fit-content h-fit-content"
               onClick={() => {
-                setCalculatorModal({ active: true, categoryId: categoryMap.id });
+                setCalculatorModal({ active: true, selectedCategory: categoryMap });
               }}
             >
               <h4 className="mb-3 categoryName">{categoryMap.name}</h4>
@@ -165,7 +167,7 @@ const Categories = observer(() => {
       <Suspense>
         {calculatorModal.active && (
           <CategoryCalculatorModal
-            categoryId={calculatorModal.categoryId}
+            selectedCategory={calculatorModal.selectedCategory}
             calculatorModal={calculatorModal.active}
             setCalculatorModal={setCalculatorModal}
           />
