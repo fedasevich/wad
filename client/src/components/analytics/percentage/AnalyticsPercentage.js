@@ -1,6 +1,8 @@
 import { observer } from 'mobx-react-lite';
 import { useMemo, useState } from 'react';
 import { useStore } from '../../../store';
+import { negateNumber } from '../../../utils/constants';
+import { ANALYTICS_CHART_TABS } from '../Analytics';
 import { AnalyticsPercentageItem } from './AnalyticsPercentageItem';
 import { AnalyticsShowMore } from './AnalyticsShowMore';
 
@@ -8,17 +10,31 @@ export const ANALYTICS_CATEGORIES_TO_SHOW = 2;
 
 const getProgressBarPercentage = (spent, totalSpent) => ((spent / totalSpent) * 100).toFixed(1);
 
-export const AnalyticsPercentage = observer(() => {
+export const AnalyticsPercentage = observer(({ selectedTab }) => {
   const { category } = useStore();
   const [showMore, setShowMore] = useState(false);
 
-  const sortedParsedCategories = useMemo(
-    () =>
-      [...category.parsedCategories]
-        .filter((category) => category.spent > 0)
-        .sort((first, second) => second.spent - first.spent),
-    [category.parsedCategories]
-  );
+  const sortedParsedCategories = useMemo(() => {
+    const filteredCategories = [...category.parsedCategories]
+      .filter((category) => {
+        if (selectedTab === ANALYTICS_CHART_TABS.EXPENSE) {
+          return category.spent > 0;
+        }
+
+        if (selectedTab === ANALYTICS_CHART_TABS.INCOME && category.isIncome) {
+          return true;
+        }
+
+        return false;
+      })
+      .sort((first, second) => second.spent - first.spent);
+
+    if (selectedTab === ANALYTICS_CHART_TABS.INCOME) {
+      return filteredCategories.map((category) => ({ ...category, spent: negateNumber(category.spent) }));
+    }
+
+    return filteredCategories;
+  }, [category.parsedCategories]);
 
   const [firstCategories, otherCategories] = useMemo(
     () => [

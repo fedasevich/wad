@@ -46,9 +46,11 @@ export const processChartData = (data, chartRange) => {
         });
       }
       const dataIndex = chartData.labels.indexOf(dateKey);
-      chartData.datasets.find((dataset) => dataset.label === categoryData.label).data[dataIndex] +=
-        categoryData.data.reduce((total, value) => total + value, 0);
+      chartData.datasets.find((dataset) => dataset.label === categoryData.label).data[dataIndex] += Number(
+        categoryData.data.reduce((total, value) => total - value, 0).toFixed(2)
+      );
     }
   }
+
   return chartData;
 };

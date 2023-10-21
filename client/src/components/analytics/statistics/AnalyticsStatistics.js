@@ -9,7 +9,7 @@ export const AnalyticsStatistics = observer(({ transactions }) => {
     const dailyGroup = {};
     const weeklyGroup = {};
     const monthlyGroup = {};
-    let totalSpent = 0;
+    let total = 0;
 
     transactions.forEach((transaction) => {
       const date = parseISO(transaction.createdAt);
@@ -24,18 +24,18 @@ export const AnalyticsStatistics = observer(({ transactions }) => {
       weeklyGroup[weekDiff].push(transaction);
       monthlyGroup[monthDiff].push(transaction);
 
-      totalSpent += parseFloat(transaction.sum);
+      total -= parseFloat(transaction.sum);
     });
 
-    const dailyAverage = (totalSpent / Object.keys(dailyGroup).length).toFixed(2);
-    const weeklyAverage = (totalSpent / Object.keys(weeklyGroup).length).toFixed(2);
-    const monthlyAverage = (totalSpent / Object.keys(monthlyGroup).length).toFixed(2);
-    const fixedTotalSpent = totalSpent.toFixed(2);
+    const dailyAverage = (total / Object.keys(dailyGroup).length).toFixed(2);
+    const weeklyAverage = (total / Object.keys(weeklyGroup).length).toFixed(2);
+    const monthlyAverage = (total / Object.keys(monthlyGroup).length).toFixed(2);
+    const fixedTotal = total.toFixed(2);
     return {
       dailyAverage,
       weeklyAverage,
       monthlyAverage,
-      fixedTotalSpent
+      fixedTotal
     };
   }, [transactions]);
 
@@ -55,7 +55,7 @@ export const AnalyticsStatistics = observer(({ transactions }) => {
         {currency.userCurrency.symbol}
       </p>
       <p>
-        Total Spent: {groupTransactions.fixedTotalSpent}
+        Total: {groupTransactions.fixedTotal}
         {currency.userCurrency.symbol}
       </p>
     </>
