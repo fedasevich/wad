@@ -1,18 +1,20 @@
 import { observer } from 'mobx-react-lite';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Form } from 'react-bootstrap';
+import { DispatchContext } from '../../pages/MainPage';
 import { useStore } from '../../store';
 import WalletStore from '../../store/WalletStore';
+import { WALLET_PAGE_STATE } from '../../utils/constants';
 import MenuProvider from '../MenuProvider';
 import { WalletCarousel } from './WalletCarousel';
 
 const WalletTransfer = observer(({ id }) => {
   const { wallet } = useStore();
+  const dispatch = useContext(DispatchContext);
 
   const [fromSelectedWallet, setFromSelectedWallet] = useState(null);
   const [toSelectedWallet, setToSelectedWallet] = useState(null);
   const [transferAmount, setTransferAmount] = useState('');
-
   useEffect(() => {
     setFromSelectedWallet(wallet.getWalletById(id));
   }, [id]);
@@ -29,11 +31,14 @@ const WalletTransfer = observer(({ id }) => {
     WalletStore.transferWallet(fromSelectedWallet, toSelectedWallet, transferAmount);
   };
 
+  const handleClose = () => {
+    dispatch({ operation: WALLET_PAGE_STATE.DEFAULT_WALLET, id: -1 });
+  };
   return (
     <MenuProvider>
-      <MenuProvider.Header.Straight>
+      <MenuProvider.Actions onClose={handleClose}>
         <h5>Transfer</h5>
-      </MenuProvider.Header.Straight>
+      </MenuProvider.Actions>
       <MenuProvider.Container>
         <div className="mb-3">
           <p>From:</p>
