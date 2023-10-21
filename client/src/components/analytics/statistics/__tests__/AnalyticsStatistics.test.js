@@ -7,7 +7,7 @@ const expectedResult = {
   dailyAverage: 8.57,
   weeklyAverage: 20.0,
   monthlyAverage: 60.0,
-  totalSpent: 60
+  total: 60
 };
 
 describe('AnalyticsStatistics.js', () => {
@@ -16,7 +16,7 @@ describe('AnalyticsStatistics.js', () => {
   });
 
   it('processes category statistics correctly', () => {
-    render(<AnalyticsStatistics transactions={mockTransactions} />);
+    render(<AnalyticsStatistics transactions={mockTransactions.filter((transaction) => transaction.sum < 0)} />);
 
     expect(
       screen.getByRole('heading', {
@@ -27,6 +27,6 @@ describe('AnalyticsStatistics.js', () => {
     expect(screen.getByText(new RegExp(`Daily Average: ${expectedResult.dailyAverage}`, 'i'))).toBeInTheDocument();
     expect(screen.getByText(new RegExp(`Weekly Average: ${expectedResult.weeklyAverage}`, 'i'))).toBeInTheDocument();
     expect(screen.getByText(new RegExp(`Monthly Average: ${expectedResult.monthlyAverage}`, 'i'))).toBeInTheDocument();
-    expect(screen.getByText(new RegExp(`Total Spent: ${expectedResult.totalSpent}`, 'i'))).toBeInTheDocument();
+    expect(screen.getByText(new RegExp(`Total: ${expectedResult.total}`, 'i'))).toBeInTheDocument();
   });
 });

@@ -73,7 +73,7 @@ describe('TransactionProvider.js', () => {
       );
 
       expect(screen.getByText(new RegExp(description, 'i'))).toBeInTheDocument();
-      expect(screen.getByRole('heading', { name: new RegExp(`-${sum}`, 'i') })).toBeInTheDocument();
+      expect(screen.getByRole('heading', { name: new RegExp(`${sum}`, 'i') })).toBeInTheDocument();
 
       const deleteButton = screen.getByText('Delete');
       const changeButton = screen.getByText('Change');

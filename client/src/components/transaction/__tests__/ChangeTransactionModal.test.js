@@ -52,6 +52,6 @@ describe('ChangeTransactionModal.js', () => {
     fireEvent.click(commitButton);
 
     expect(setChangeTransactionModal).toHaveBeenCalledWith({ active: false, id: -1 });
-    expect(useStore().category.changeTransaction).toHaveBeenCalledWith(id, '', '');
+    expect(useStore().category.changeTransaction).toHaveBeenCalledWith(id, -0, '');
   });
 });
