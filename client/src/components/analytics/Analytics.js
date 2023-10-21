@@ -12,8 +12,14 @@ import Loader from '../loader/Loader';
 import { AnalyticsSelect } from './AnalyticsSelect';
 import './AnalyticsStyle.css';
 import { AnalyticsChart } from './chart/AnalyticsChart';
+import { filterTransactionsByTab } from './libs/helpers/filterTransactionsByTab';
 import { AnalyticsPercentage } from './percentage/AnalyticsPercentage';
 import { AnalyticsStatistics } from './statistics/AnalyticsStatistics';
+
+export const ANALYTICS_CHART_TABS = {
+  EXPENSE: 'expense',
+  INCOME: 'income'
+};
 
 const AnalyticsHOC = (WrappedComponent) => {
   return (props) => {
@@ -38,8 +44,10 @@ export const Analytics = observer(() => {
       action: 'month'
     }
   ]);
+
   const [chartRange, setChartRange] = useState('');
   const [transactions, setTransactions] = useState([]);
+  const [selectedAnalyticsChartTab, setSelectedAnalyticsChartTab] = useState(ANALYTICS_CHART_TABS.EXPENSE);
 
   useEffect(() => {
     try {
@@ -58,6 +66,8 @@ export const Analytics = observer(() => {
     return <Loader isFullHeight />;
   }
 
+  const filteredTransactions = filterTransactionsByTab(transactions, selectedAnalyticsChartTab);
+
   const HOCAnalyticsPercentage = AnalyticsHOC(AnalyticsPercentage);
   const HOCAnalyticsStatistics = AnalyticsHOC(AnalyticsStatistics);
 
@@ -72,21 +82,26 @@ export const Analytics = observer(() => {
       <Col md={{ offset: 1, span: 10 }}>
         <MenuProvider>
           <MenuProvider.Container>
-            <AnalyticsChart transactions={transactions} chartRange={chartRange} />
+            <AnalyticsChart
+              transactions={filteredTransactions}
+              chartRange={chartRange}
+              selectedTab={selectedAnalyticsChartTab}
+              setSelectedTab={setSelectedAnalyticsChartTab}
+            />
           </MenuProvider.Container>
         </MenuProvider>
       </Col>
       <Col md={{ offset: 1, span: 6 }} className="percentage">
         <MenuProvider className="percentage-menu">
           <MenuProvider.Container>
-            <HOCAnalyticsPercentage transactions={transactions} />
+            <HOCAnalyticsPercentage selectedTab={selectedAnalyticsChartTab} transactions={filteredTransactions} />
           </MenuProvider.Container>
         </MenuProvider>
       </Col>
       <Col md={{ span: 4 }} className="statistics">
         <MenuProvider className="statistics-menu">
           <MenuProvider.Container>
-            <HOCAnalyticsStatistics transactions={transactions} chartRange={chartRange} />
+            <HOCAnalyticsStatistics transactions={filteredTransactions} chartRange={chartRange} />
           </MenuProvider.Container>
         </MenuProvider>
       </Col>

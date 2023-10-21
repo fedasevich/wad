@@ -1,4 +1,4 @@
-#modal-root .custom_modal.active:nth-child(2) {
+#modal-root .custom_modal.active ~ .custom_modal.active {
   -webkit-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
   z-index: 1000000000000;

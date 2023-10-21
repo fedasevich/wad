@@ -20,31 +20,10 @@ export const WALLET_ROUTE = '/wallet';
 export const SETTINGS_ROUTE = '/settings';
 export const NOT_IMPLEMENTED_ROUTE = '/not-implemented';
 
-export const mainCurrencies = {
-  name: 'Main currencies',
-  data: [
-    { currency: 'Euro', symbol: '€' },
-    { currency: 'United States dollar', symbol: '$' },
-    { currency: 'Ukrainian hryvnia', symbol: '₴' },
-    { currency: 'Czech koruna', symbol: 'Kč' },
-    { currency: 'Polish złoty', symbol: 'zł' }
-  ]
-};
-
-export const cryptoCurrencies = {
-  name: 'Crypto currencies',
-  data: [
-    { currency: 'Bitcoin', symbol: 'BTC' },
-    { currency: 'Ethereum', symbol: 'ETH' },
-    { currency: 'NXT', symbol: 'NXT' },
-    { currency: 'USD Tether', symbol: 'USDT' }
-  ]
-};
-
 export const categoryIconsColors = {
   DELETED: '#999999',
   CLOTHES: '#73e1c4',
-  EDUCATION: '#412285',
+  EDUCATION: '#7340e3',
   COSMETICS: '#fa0834',
   SPORTS: '#d27afc',
   TRANSPORT: '#af0c5b',
@@ -72,7 +51,8 @@ export const categoryIconsColors = {
   RENTAL_HOUSING: '#139bd5',
   ANIMALS: '#fb7f25',
   CAR: '#8c736c',
-  CAFES_AND_RESTAURANTS: '#9b64e6'
+  CAFES_AND_RESTAURANTS: '#9b64e6',
+  INCOME: '#009788'
 };
 
 export const TRANSACTION_LIMITS = [5, 10, 20, 30];
@@ -150,10 +130,14 @@ export const MAX_CATEGORY_NAME_LENGTH = 8;
 
 export const WALLET_PAGE_STATE = {
   EDIT_WALLET: 'EDIT_WALLET',
-  WITHDRAW_WALLET: 'WITHDRAW_WALLET',
+  RECHARGE_WALLET: 'RECHARGE_WALLET',
   TRANSACTIONS_WALLET: 'TRANSACTIONS_WALLET',
   TRANSFER_WALLET: 'TRANSFER_WALLET',
   DEFAULT_WALLET: 'DEFAULT_WALLET',
   CREATE_WALLET: 'CREATE_WALLET',
   DEFAULT: 'DEFAULT'
+};
+
+export const negateNumber = (number) => {
+  return -number;
 };

@@ -38,7 +38,6 @@ class TransactionController {
 
       return res.json(newTransaction);
     } catch (error) {
-      console.log(error)
       await transactionOptions.transaction.rollback();
       return next(ApiError.badRequest('Failed to create transaction'));
     }
@@ -63,11 +62,6 @@ class TransactionController {
       userId,
     };
 
-    if (fromDate && toDate) {
-      whereClause.createdAt = {
-        [Op.between]: [fromDate, toDate],
-      };
-    }
 
     if (categoryId) {
       whereClause.categoryId = categoryId;
@@ -77,13 +71,24 @@ class TransactionController {
       whereClause.walletId = walletId;
     }
 
+    const queryOptions = {
+      where: whereClause,
+      order: [['id', sort]],
+      limit,
+      offset
+    };
+
+    if (fromDate && toDate) {
+      whereClause.createdAt = {
+        [Op.between]: [fromDate, toDate],
+      };
+      queryOptions.limit = undefined;
+      queryOptions.offset = undefined;
+    }
+
+
     try {
-      const transactions = await Transaction.findAndCountAll({
-        where: whereClause,
-        order: [['id', sort]],
-        limit,
-        offset
-      });
+      const transactions = await Transaction.findAndCountAll(queryOptions);
 
       return res.json(transactions);
     } catch (error) {
@@ -110,7 +115,7 @@ class TransactionController {
           return next(ApiError.notFound('Transaction not found'));
         }
 
-        const { walletId, categoryId, sum: oldSum } = oldTransaction;
+        const { walletId, sum: oldSum } = oldTransaction;
 
         let update = {};
 
@@ -135,28 +140,14 @@ class TransactionController {
           return res.json(updatedTransaction);
         }
 
-        if (categoryId !== -1) {
-          const category = await Category.findOne({ where: { id: categoryId, userId } });
+        const wallet = await Wallet.findOne({ where: { userId, id: walletId } });
 
-          if (category) {
-            const categoryNewSum = category.spent - oldSum + newSum;
-            await Category.update({ spent: categoryNewSum }, {
-              where: { id: categoryId, userId },
-              transaction
-            });
-          }
-        }
-
-        if (walletId !== -1) {
-          const wallet = await Wallet.findOne({ where: { userId, id: walletId } });
-
-          if (wallet) {
-            const walletSpent = parseFloat(wallet.balance) + parseFloat(oldSum) - parseFloat(newSum);
-            await Wallet.update({ balance: walletSpent }, {
-              where: { userId, id: walletId },
-              transaction
-            });
-          }
+        if (wallet) {
+          const walletSpent = parseFloat(wallet.balance) - parseFloat(oldSum) + parseFloat(newSum);
+          await Wallet.update({ balance: walletSpent }, {
+            where: { userId, id: walletId },
+            transaction
+          });
         }
 
         return res.json(updatedTransaction);
@@ -193,24 +184,17 @@ class TransactionController {
       }
 
 
-      const { categoryId, walletId, sum } = transaction
+      const { walletId, sum } = transaction
 
 
       const deletePromises = []
 
-      if (categoryId !== -1) {
-        deletePromises.push(Category.update({ spent: sequelize.literal(`spent - ${sum}`) }, {
-          where: { id: categoryId, userId },
-          ...transactionOptions
-        }))
-      }
 
-      if (walletId !== -1) {
-        deletePromises.push(Wallet.update({ balance: sequelize.literal(`balance + ${sum}`) }, {
-          where: { userId, id: walletId },
-          ...transactionOptions
-        }))
-      }
+      deletePromises.push(Wallet.update({ balance: sequelize.literal(`balance - ${sum}`) }, {
+        where: { userId, id: walletId },
+        ...transactionOptions
+      }))
+
 
 
       deletePromises.push(transaction.destroy(transactionOptions))

@@ -34,15 +34,17 @@ class CategoryController {
     }
 
     async change(req, res, next) {
-        const { newName, newSpent, newIconId } = req.body;
+        const { newName, newIconId } = req.body;
         const id = req.params.id;
 
-        if ((!newSpent && !newName && !newIconId) || !id) {
+        if ((!newName && !newIconId) || !id) {
             return next(ApiError.badRequest('Not enough data'));
         }
-        if (newName.length > MAX_CATEGORY_NAME_LENGTH) {
-            `Category name can't be longer than ${MAX_CATEGORY_NAME_LENGTH} symbols`
+
+        if (newName && newName.length > MAX_CATEGORY_NAME_LENGTH) {
+            return next(ApiError.badRequest(`Category name can't be longer than ${MAX_CATEGORY_NAME_LENGTH} symbols`))
         }
+
         const userId = req.user.id;
         const update = {};
 
@@ -57,6 +59,10 @@ class CategoryController {
             await Category.update(update, { where: { id, userId }, transaction });
 
             const updatedCategory = await Category.findOne({ where: { id, userId }, transaction });
+
+            if (updatedCategory.isIncome) {
+                throw "Can't change income category"
+            }
 
             await transaction.commit();
 
@@ -81,7 +87,11 @@ class CategoryController {
 
         try {
             await sequelize.transaction(async (transaction) => {
-                const deletedCategory = await Category.destroy({ where: { userId, id }, transaction })
+                const deletedCategory = await Category.destroy({ where: { userId, id, isIncome: false }, transaction })
+                if (deletedCategory === 0) {
+                    throw "Can't delete income category"
+                }
+
                 return res.json(deletedCategory)
             })
         } catch (error) {

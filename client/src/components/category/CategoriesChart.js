@@ -57,7 +57,7 @@ const CategoriesChart = observer(() => {
     labels: category.parsedCategories.map((category) => `${category.name} spent`),
     datasets: [
       {
-        data: category.parsedCategories.map((item) => item.spent),
+        data: category.parsedCategories.filter((item) => item.isIncome === false).map((item) => item.spent),
         backgroundColor: parseCategoriesIcons(category.parsedCategories),
         borderWidth: 0,
         borderRadius: 10

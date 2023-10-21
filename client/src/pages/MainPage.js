@@ -10,7 +10,7 @@ import { WALLET_PAGE_STATE } from '../utils/constants';
 import PageProvider from './PageProvider';
 
 const EditWallet = lazy(() => import('../components/wallet/EditWallet'));
-const WalletWithdraw = lazy(() => import('../components/wallet/WalletWithdraw'));
+const WalletRecharge = lazy(() => import('../components/wallet/WalletRecharge'));
 const WalletTransactions = lazy(() => import('../components/wallet/WalletTransactions'));
 const CreateWallet = lazy(() => import('../components/wallet/CreateWallet'));
 const WalletTransfer = lazy(() => import('../components/wallet/WalletTransfer'));
@@ -21,8 +21,8 @@ function reducer(page, { operation, id }) {
   switch (operation) {
     case WALLET_PAGE_STATE.EDIT_WALLET:
       return <EditWallet id={id} />;
-    case WALLET_PAGE_STATE.WITHDRAW_WALLET:
-      return <WalletWithdraw id={id} />;
+    case WALLET_PAGE_STATE.RECHARGE_WALLET:
+      return <WalletRecharge id={id} />;
     case WALLET_PAGE_STATE.TRANSACTIONS_WALLET:
       return <WalletTransactions id={id} />;
     case WALLET_PAGE_STATE.TRANSFER_WALLET:

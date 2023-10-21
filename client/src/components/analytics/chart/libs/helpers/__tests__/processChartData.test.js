@@ -1,4 +1,5 @@
 import { mockTransactions } from '../../../../../../../setupTests';
+import { negateNumber } from '../../../../../../utils/constants';
 import { processChartData } from '../processChartData';
 
 jest.mock('../../../../../../store');
@@ -47,7 +48,7 @@ describe('processChartData.js', () => {
       datasets: [
         {
           label: mockTransactions[0].description,
-          data: [Number(mockTransactions[0].sum)],
+          data: [Number(negateNumber(mockTransactions[0].sum))],
           backgroundColor: '#FFFFFF'
         }
       ]
@@ -59,7 +60,10 @@ describe('processChartData.js', () => {
   });
 
   it('processes chart data correctly for multiple transactions', () => {
-    const result = processChartData(mockTransactions, chartRange);
+    const result = processChartData(
+      mockTransactions.filter((transaction) => transaction.sum < 0),
+      chartRange
+    );
 
     expect(result).toStrictEqual(expectedResult);
   });

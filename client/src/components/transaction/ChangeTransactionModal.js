@@ -2,7 +2,9 @@ import { getHours, getMinutes } from 'date-fns';
 import { observer } from 'mobx-react-lite';
 import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
+import toast from 'react-hot-toast';
 import { useStore } from '../../store';
+import { negateNumber } from '../../utils/constants';
 import MenuProvider from '../MenuProvider';
 import Modal from '../modal/modal';
 
@@ -16,19 +18,28 @@ const ChangeTransactionModal = observer(({ changeTransactionModal, setChangeTran
   };
 
   const handleCommit = () => {
-    category.changeTransaction(id, newSum, newDescription);
+    category.changeTransaction(id, negateNumber(newSum), newDescription);
     handleClose();
   };
 
   const selectedTransaction = category.getTransactionById(id);
 
   const handleDescriptionChange = (e) => setNewDescription(e.target.value);
-  const handleSumChange = (e) => setNewSum(e.target.value);
+  const handleSumChange = (event) => {
+    const { value } = event.target;
+
+    if (value < 0) {
+      toast.error("New spent can't be negative.");
+      return setNewSum(negateNumber(value));
+    }
+
+    setNewSum(value);
+  };
 
   return (
     <Modal active={changeTransactionModal} setActive={setChangeTransactionModal}>
       <MenuProvider>
-        <MenuProvider.Actions close={handleClose} commit={handleCommit}>
+        <MenuProvider.Actions onClose={handleClose} onCommit={handleCommit}>
           <h4>Change transaction</h4>
           <h6>Description: {selectedTransaction?.description}</h6>
           <h6>Id: {selectedTransaction?.id}</h6>

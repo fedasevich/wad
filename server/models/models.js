@@ -18,6 +18,7 @@ const Category = sequelize.define('category', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     name: { type: DataTypes.STRING, allowNull: false },
     iconId: { type: DataTypes.INTEGER, defaultValue: 1, allowNull: false },
+    isIncome: { type: DataTypes.BOOLEAN, defaultValue: false, allowNull: false },
     deletedAt: { type: DataTypes.DATE, allowNull: true, defaultValue: null }
 }, {
     paranoid: true

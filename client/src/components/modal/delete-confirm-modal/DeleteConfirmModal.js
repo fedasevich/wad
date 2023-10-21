@@ -4,23 +4,23 @@ import MenuProvider from '../../MenuProvider';
 import Modal from '../modal';
 
 function DeleteConfirmModal({ deleteConfirmModal, setDeleteConfirmModal, nameToCheck, onDelete }) {
-  const [nameConfirm, setNameConfirm] = useState('');
+  const [nameToConfirm, setNameToConfirm] = useState('');
 
   const handleModalClose = () => {
     setDeleteConfirmModal(false);
   };
 
   const handleNameConfirmChange = (event) => {
-    setNameConfirm(event.target.value);
+    setNameToConfirm(event.target.value);
   };
 
-  const isButtonDisabled = nameConfirm !== nameToCheck;
+  const isButtonDisabled = nameToConfirm !== String(nameToCheck);
 
   const handleDeleteConfirmClick = () => onDelete();
 
   return (
     <Modal active={deleteConfirmModal} setActive={setDeleteConfirmModal} id="wallet">
-      <MenuProvider.Actions close={handleModalClose}>
+      <MenuProvider.Actions onClose={handleModalClose}>
         <h4>Delete &quot;{nameToCheck}&quot;</h4>
       </MenuProvider.Actions>
       <MenuProvider.Container>
@@ -34,7 +34,7 @@ function DeleteConfirmModal({ deleteConfirmModal, setDeleteConfirmModal, nameToC
               type="text"
               id="nameConfirm"
               name="nameConfirm"
-              value={nameConfirm}
+              value={nameToConfirm}
               onChange={handleNameConfirmChange}
             />
             <Button variant="danger" disabled={isButtonDisabled} className="w-100" onClick={handleDeleteConfirmClick}>

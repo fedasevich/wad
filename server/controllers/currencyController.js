@@ -15,9 +15,6 @@ class CurrencyController {
     return res.json(exchangeRates);
   }
 
-  async getCurrencies(req, res, next) {
-
-  }
 
 }
 

@@ -106,8 +106,9 @@ const Transaction = observer(({ transaction, index, setChangeTransactionModal })
                 <Icons iconId={categoryIconId} />
                 <h5 className="ms-3 mb-0">{transaction.description}</h5>
               </div>
-              <h5>
-                -{transaction.sum.toFixed(2)} {currency.userCurrency.symbol}
+              <h5 className={transaction.sum > 0 ? 'positive' : ''}>
+                {transaction.sum.toFixed(2)}
+                {currency.userCurrency.symbol}
               </h5>
             </div>
           </TransactionToggle>

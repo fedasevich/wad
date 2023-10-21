@@ -129,8 +129,8 @@ export default class CategoryStore {
       ).then((data) => {
         runInAction(() => {
           this.transactions.unshift(data);
-          selectedWallet.balance -= currentOperand;
-          this.getCategoryById(selectedCategory.id).spent += currentOperand;
+          selectedWallet.balance += currentOperand;
+          this.getCategoryById(selectedCategory.id).spent -= currentOperand;
         });
       });
     } catch (e) {
@@ -144,9 +144,11 @@ export default class CategoryStore {
         runInAction(() => {
           const transaction = this.getTransactionById(transactionId);
           const wallet = this.rootStore.wallet.getWalletById(walletId);
+
           if (wallet) {
-            wallet.balance += parseFloat(transaction.sum);
+            wallet.balance -= parseFloat(transaction.sum);
           }
+
           this.transactions.splice(this.transactions.indexOf(transaction), 1);
         });
       });
@@ -200,7 +202,7 @@ export default class CategoryStore {
 
           if (newSum) {
             if (walletToChange) {
-              walletToChange.balance = walletToChange.balance + transaction.sum - parsedNewSum;
+              walletToChange.balance = walletToChange.balance - transaction.sum + parsedNewSum;
             }
 
             transaction.sum = parsedNewSum;
@@ -251,20 +253,18 @@ export default class CategoryStore {
 
   parseCategories(data) {
     runInAction(() => {
-      this._parsedCategories = this._categories.map((category) => {
-        const { id } = category;
-        const spent = data.rows.reduce((total, row) => {
-          if (row.categoryId === id) {
-            return total + parseFloat(row.sum);
-          }
-          return total;
-        }, 0);
+      const categorySums = data.rows.reduce((result, row) => {
+        if (result[row.categoryId] === undefined) {
+          result[row.categoryId] = 0;
+        }
+        result[row.categoryId] -= parseFloat(row.sum);
+        return result;
+      }, {});
 
-        return {
-          ...category,
-          spent
-        };
-      });
+      this._parsedCategories = this._categories.map((category) => ({
+        ...category,
+        spent: categorySums[category.id] || 0
+      }));
     });
   }
 

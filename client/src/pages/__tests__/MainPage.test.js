@@ -9,7 +9,7 @@ import MainPage from '../MainPage';
 
 jest.mock('../../components/transaction/TransactionsColumn', () => () => <div>Recent activity</div>);
 jest.mock('../../components/wallet/EditWallet', () => () => <div>Edit Wallet Component Mock</div>);
-jest.mock('../../components/wallet/WalletWithdraw', () => () => <div>Withdraw Wallet Component Mock</div>);
+jest.mock('../../components/wallet/WalletRecharge', () => () => <div>Recharge Wallet Component Mock</div>);
 jest.mock('../../components/wallet/WalletTransactions', () => () => <div>Transactions Wallet Component Mock</div>);
 jest.mock('../../components/wallet/CreateWallet', () => () => <div>Create Wallet Component Mock</div>);
 jest.mock('../../components/wallet/WalletTransfer', () => () => <div>Transfer Wallet Component Mock</div>);
