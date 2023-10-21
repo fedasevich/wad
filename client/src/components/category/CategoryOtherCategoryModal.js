@@ -17,7 +17,7 @@ const CategoryOtherCategoryModal = observer(function CategoryOtherCategoryModal(
 }) {
   const { currency } = useStore();
   const handleCategoryClick = (categoryMap) => {
-    setCalculatorModal({ active: true, categoryId: categoryMap.id });
+    setCalculatorModal({ active: true, selectedCategory: categoryMap });
     setOtherCategoriesModal(false);
   };
 
