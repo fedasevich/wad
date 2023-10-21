@@ -36,10 +36,10 @@ exports[`TransactionProvider.js Transaction component matches snapshot 1`] = `
                 Leisure
               </h5>
             </div>
-            <h5>
-              -
-              1.00
-               
+            <h5
+              class=""
+            >
+              -1.00
               ₴
             </h5>
           </div>

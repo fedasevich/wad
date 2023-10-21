@@ -47,10 +47,10 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
                     Leisure
                   </h5>
                 </div>
-                <h5>
-                  -
-                  1.00
-                   
+                <h5
+                  class=""
+                >
+                  -1.00
                   ₴
                 </h5>
               </div>
@@ -128,10 +128,10 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
                     Mock Transaction
                   </h5>
                 </div>
-                <h5>
-                  -
-                  1.00
-                   
+                <h5
+                  class=""
+                >
+                  -1.00
                   ₴
                 </h5>
               </div>
@@ -222,10 +222,10 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
                     Family
                   </h5>
                 </div>
-                <h5>
-                  -
-                  1.00
-                   
+                <h5
+                  class=""
+                >
+                  -1.00
                   ₴
                 </h5>
               </div>
@@ -316,10 +316,10 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
                     Groceries
                   </h5>
                 </div>
-                <h5>
-                  -
-                  2.00
-                   
+                <h5
+                  class=""
+                >
+                  -2.00
                   ₴
                 </h5>
               </div>
@@ -410,10 +410,10 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
                     Gifts
                   </h5>
                 </div>
-                <h5>
-                  -
-                  3.00
-                   
+                <h5
+                  class=""
+                >
+                  -3.00
                   ₴
                 </h5>
               </div>
@@ -491,10 +491,10 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
                     Groceries
                   </h5>
                 </div>
-                <h5>
-                  -
-                  10.00
-                   
+                <h5
+                  class=""
+                >
+                  -10.00
                   ₴
                 </h5>
               </div>
@@ -585,10 +585,10 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
                     Groceries
                   </h5>
                 </div>
-                <h5>
-                  -
-                  2.00
-                   
+                <h5
+                  class=""
+                >
+                  -2.00
                   ₴
                 </h5>
               </div>
@@ -666,10 +666,10 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
                     Groceries
                   </h5>
                 </div>
-                <h5>
-                  -
-                  1.00
-                   
+                <h5
+                  class=""
+                >
+                  -1.00
                   ₴
                 </h5>
               </div>
@@ -760,10 +760,10 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
                     фыв
                   </h5>
                 </div>
-                <h5>
-                  -
-                  20.00
-                   
+                <h5
+                  class=""
+                >
+                  -20.00
                   ₴
                 </h5>
               </div>
@@ -854,10 +854,172 @@ exports[`Transactions.js renders transactions according to snapshot 1`] = `
                     Family
                   </h5>
                 </div>
-                <h5>
-                  -
+                <h5
+                  class=""
+                >
+                  -20.00
+                  ₴
+                </h5>
+              </div>
+            </div>
+          </div>
+          <div
+            class="accordion-collapse collapse"
+          >
+            <div
+              class="d-flex justify-content-evenly bg-light-blue text-light component-one-third-border-radius-bottom card-body"
+            >
+              <button
+                class="cursor-pointer"
+                tabindex="0"
+                type="button"
+              >
+                <svg>
+                  TrashCircle.svg
+                </svg>
+                <span
+                  class="ms-2"
+                >
+                  Delete
+                </span>
+              </button>
+              <button
+                class="cursor-pointer"
+                tabindex="0"
+                type="button"
+              >
+                <svg>
+                  Icon-1.svg
+                </svg>
+                <span
+                  class="ms-2"
+                >
+                  Change
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="d-inline-flex justify-content-between my-1 w-100 col-md-12"
+      >
+        <div
+          class="border-0 w-100  card"
+        >
+          <div
+            class="bg-none px-0 px-sm-3 d-flex w-100 justify-content-between border-0 card-header"
+          >
+            <div
+              class="w-100 cursor-pointer"
+              role="button"
+              tabindex="0"
+            >
+              <div
+                class="d-flex flex-row align-items-center justify-content-between"
+              >
+                <div
+                  class="d-flex flex-row align-items-center"
+                >
+                  <div
+                    class="bg-main-blue component-one-third-border-radius categoryIcon"
+                    style="background-color: rgb(250, 8, 52);"
+                  >
+                    <svg>
+                      palette.svg
+                    </svg>
+                  </div>
+                  <h5
+                    class="ms-3 mb-0"
+                  >
+                    Income
+                  </h5>
+                </div>
+                <h5
+                  class="positive"
+                >
                   20.00
-                   
+                  ₴
+                </h5>
+              </div>
+            </div>
+          </div>
+          <div
+            class="accordion-collapse collapse"
+          >
+            <div
+              class="d-flex justify-content-evenly bg-light-blue text-light component-one-third-border-radius-bottom card-body"
+            >
+              <button
+                class="cursor-pointer"
+                tabindex="0"
+                type="button"
+              >
+                <svg>
+                  TrashCircle.svg
+                </svg>
+                <span
+                  class="ms-2"
+                >
+                  Delete
+                </span>
+              </button>
+              <button
+                class="cursor-pointer"
+                tabindex="0"
+                type="button"
+              >
+                <svg>
+                  Icon-1.svg
+                </svg>
+                <span
+                  class="ms-2"
+                >
+                  Change
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="d-inline-flex justify-content-between my-1 w-100 col-md-12"
+      >
+        <div
+          class="border-0 w-100  card"
+        >
+          <div
+            class="bg-none px-0 px-sm-3 d-flex w-100 justify-content-between border-0 card-header"
+          >
+            <div
+              class="w-100 cursor-pointer"
+              role="button"
+              tabindex="0"
+            >
+              <div
+                class="d-flex flex-row align-items-center justify-content-between"
+              >
+                <div
+                  class="d-flex flex-row align-items-center"
+                >
+                  <div
+                    class="bg-main-blue component-one-third-border-radius categoryIcon"
+                    style="background-color: rgb(250, 8, 52);"
+                  >
+                    <svg>
+                      palette.svg
+                    </svg>
+                  </div>
+                  <h5
+                    class="ms-3 mb-0"
+                  >
+                    Income
+                  </h5>
+                </div>
+                <h5
+                  class="positive"
+                >
+                  2.00
                   ₴
                 </h5>
               </div>

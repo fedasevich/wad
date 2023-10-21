@@ -96,7 +96,64 @@ exports[`Analytics.js matches snapshot 1`] = `
               class="analytics-chart "
               data-testid="analytics-chart"
             >
-              <canvas />
+              <ul
+                class="mb-3 nav nav-tabs"
+                role="tablist"
+              >
+                <li
+                  class="nav-item"
+                  role="presentation"
+                >
+                  <button
+                    aria-controls="controlled-tab-example-tabpane-expense"
+                    aria-selected="true"
+                    class="nav-link active"
+                    data-rr-ui-event-key="expense"
+                    id="controlled-tab-example-tab-expense"
+                    role="tab"
+                    type="button"
+                  >
+                    Expense
+                  </button>
+                </li>
+                <li
+                  class="nav-item"
+                  role="presentation"
+                >
+                  <button
+                    aria-controls="controlled-tab-example-tabpane-income"
+                    aria-selected="false"
+                    class="nav-link"
+                    data-rr-ui-event-key="income"
+                    id="controlled-tab-example-tab-income"
+                    role="tab"
+                    tabindex="-1"
+                    type="button"
+                  >
+                    Income
+                  </button>
+                </li>
+              </ul>
+              <div
+                class="tab-content"
+              >
+                <div
+                  aria-labelledby="controlled-tab-example-tab-expense"
+                  class="fade tab-pane active show"
+                  id="controlled-tab-example-tabpane-expense"
+                  role="tabpanel"
+                >
+                  <canvas />
+                </div>
+                <div
+                  aria-labelledby="controlled-tab-example-tab-income"
+                  class="fade tab-pane"
+                  id="controlled-tab-example-tabpane-income"
+                  role="tabpanel"
+                >
+                  <canvas />
+                </div>
+              </div>
             </div>
             <div
               class="d-flex d-md-none justify-content-end expand-button"
@@ -333,7 +390,7 @@ exports[`Analytics.js matches snapshot 1`] = `
             ₴
           </p>
           <p>
-            Total Spent: 
+            Total: 
             60.00
             ₴
           </p>
