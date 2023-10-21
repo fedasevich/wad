@@ -1,12 +1,12 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { Col, Row } from 'react-bootstrap';
-import { EditIcon, TransactionsIcon, TransferIcon, WithdrawIcon } from '../../ui/Icons/WalletIcons/WalletIcons';
+import { EditIcon, RechargeIcon, TransactionsIcon, TransferIcon } from '../../ui/Icons/WalletIcons/WalletIcons';
 import { WALLET_PAGE_STATE } from '../../utils/constants';
 
 export const WALLET_ACTIONS_AND_ICONS = [
   { id: 1, icon: <EditIcon />, action: WALLET_PAGE_STATE.EDIT_WALLET, name: 'Edit' },
-  { id: 2, icon: <WithdrawIcon />, action: WALLET_PAGE_STATE.WITHDRAW_WALLET, name: 'Withdraw' },
+  { id: 2, icon: <RechargeIcon />, action: WALLET_PAGE_STATE.RECHARGE_WALLET, name: 'Recharge' },
   { id: 3, icon: <TransactionsIcon />, action: WALLET_PAGE_STATE.TRANSACTIONS_WALLET, name: 'Transactions' },
   { id: 4, icon: <TransferIcon />, action: WALLET_PAGE_STATE.TRANSFER_WALLET, name: 'Transfer' }
 ];
