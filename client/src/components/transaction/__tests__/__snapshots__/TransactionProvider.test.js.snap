@@ -49,7 +49,7 @@ exports[`TransactionProvider.js Transaction component matches snapshot 1`] = `
         class="accordion-collapse collapse"
       >
         <div
-          class="d-flex justify-content-evenly bg-light-blue text-light component-one-third-border-radius-bottom card-body"
+          class="d-flex mx-sm-3 justify-content-evenly bg-light-blue text-light component-one-third-border-radius-bottom card-body"
         >
           <button
             class="cursor-pointer"
@@ -60,7 +60,7 @@ exports[`TransactionProvider.js Transaction component matches snapshot 1`] = `
               TrashCircle.svg
             </svg>
             <span
-              class="ms-2"
+              class="ms-2 text-light"
             >
               Delete
             </span>
@@ -74,7 +74,7 @@ exports[`TransactionProvider.js Transaction component matches snapshot 1`] = `
               Icon-1.svg
             </svg>
             <span
-              class="ms-2"
+              class="ms-2 text-light"
             >
               Change
             </span>
