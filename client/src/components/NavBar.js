@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { observer } from 'mobx-react-lite';
 import React, { useMemo } from 'react';
 import { Nav } from 'react-bootstrap';

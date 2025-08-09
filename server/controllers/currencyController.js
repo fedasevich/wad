@@ -15,8 +15,8 @@ class CurrencyController {
     return res.json(exchangeRates);
   }
 
-
 }
+
 
 const getCorrectDateForCurrencyService = () => {
   const now = new Date();
@@ -66,7 +66,6 @@ class PrivatCurrencyService {
 
       return result;
     } catch (error) {
-      console.error(error);
       throw error;
     }
   }
