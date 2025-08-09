@@ -10,6 +10,7 @@ import {
 } from '../http/categoryApi';
 
 import { changeTransaction, createTransaction, deleteTransaction } from '../http/transactionApi';
+import { negateNumber } from '../utils/constants';
 
 export default class CategoryStore {
   constructor(rootStore) {
@@ -33,6 +34,53 @@ export default class CategoryStore {
       },
       { fireImmediately: true }
     );
+  }
+
+  get categories() {
+    return this._categories;
+  }
+
+  get parsedCategories() {
+    return this._parsedCategories;
+  }
+
+  get selectedTransaction() {
+    return this._selectedTransaction;
+  }
+
+  get transactions() {
+    return this._transactions;
+  }
+
+  get selectedCategory() {
+    return this._selectedCategory;
+  }
+
+  get transactionsPage() {
+    return this._transactionsPage;
+  }
+
+  get transactionsLimit() {
+    return this._transactionsLimit;
+  }
+
+  get transactionsSort() {
+    return this._transactionsSort;
+  }
+
+  static fetchCategoryPeriod(dateRange) {
+    if (!dateRange || !dateRange[0].startDate || !dateRange[0].endDate) return;
+
+    const startDate = dateRange[0].startDate.toISOString();
+    const endDate = dateRange[0].endDate.toISOString();
+
+    return fetchCategoryPeriod(startDate, endDate)
+      .then((data) => {
+        return data;
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
   }
 
   setCategories(categories) {
@@ -87,38 +135,6 @@ export default class CategoryStore {
     this.setTransactionsSort(sort);
   }
 
-  get categories() {
-    return this._categories;
-  }
-
-  get parsedCategories() {
-    return this._parsedCategories;
-  }
-
-  get selectedTransaction() {
-    return this._selectedTransaction;
-  }
-
-  get transactions() {
-    return this._transactions;
-  }
-
-  get selectedCategory() {
-    return this._selectedCategory;
-  }
-
-  get transactionsPage() {
-    return this._transactionsPage;
-  }
-
-  get transactionsLimit() {
-    return this._transactionsLimit;
-  }
-
-  get transactionsSort() {
-    return this._transactionsSort;
-  }
-
   createTransaction(currentOperand, selectedCategory, selectedWallet, description) {
     try {
       createTransaction(
@@ -129,8 +145,16 @@ export default class CategoryStore {
       ).then((data) => {
         runInAction(() => {
           this.transactions.unshift(data);
+
           selectedWallet.balance += currentOperand;
-          this.getCategoryById(selectedCategory.id).spent -= currentOperand;
+
+          if (selectedCategory) {
+            const foundCategory = this.getCategoryById(selectedCategory.id);
+
+            if (foundCategory) {
+              foundCategory.spent -= currentOperand;
+            }
+          }
         });
       });
     } catch (e) {
@@ -195,17 +219,20 @@ export default class CategoryStore {
     const transaction = this.getTransactionById(id);
     const parsedNewSum = parseFloat(newSum);
 
+    const isIncomeTransaction = this.getRegularCategoryById(transaction.categoryId).isIncome;
+    const correctedNewSum = isIncomeTransaction ? negateNumber(parsedNewSum) : parsedNewSum;
+
     try {
-      changeTransaction(transaction.id, parsedNewSum, newDescription).then(() => {
+      changeTransaction(transaction.id, correctedNewSum, newDescription).then(() => {
         runInAction(() => {
           const walletToChange = this.rootStore.wallet.getWalletById(transaction.walletId);
 
           if (newSum) {
             if (walletToChange) {
-              walletToChange.balance = walletToChange.balance - transaction.sum + parsedNewSum;
+              walletToChange.balance = walletToChange.balance - transaction.sum + correctedNewSum;
             }
 
-            transaction.sum = parsedNewSum;
+            transaction.sum = correctedNewSum;
           }
 
           if (newDescription) {
@@ -236,31 +263,18 @@ export default class CategoryStore {
     }
   }
 
-  static fetchCategoryPeriod(dateRange) {
-    if (!dateRange || !dateRange[0].startDate || !dateRange[0].endDate) return;
-
-    const startDate = dateRange[0].startDate.toISOString();
-    const endDate = dateRange[0].endDate.toISOString();
-
-    return fetchCategoryPeriod(startDate, endDate)
-      .then((data) => {
-        return data;
-      })
-      .catch((error) => {
-        toast.error(error.message);
-      });
-  }
-
   parseCategories(data) {
     runInAction(() => {
       const categorySums = data.rows.reduce((result, row) => {
         if (result[row.categoryId] === undefined) {
           result[row.categoryId] = 0;
         }
+
         result[row.categoryId] -= parseFloat(row.sum);
+
         return result;
       }, {});
-
+      console.log(categorySums);
       this._parsedCategories = this._categories.map((category) => ({
         ...category,
         spent: categorySums[category.id] || 0

@@ -1,6 +1,6 @@
 import { format } from 'date-fns';
 import { observer } from 'mobx-react-lite';
-import React, { Suspense, lazy, useContext } from 'react';
+import React, { lazy, Suspense, useContext } from 'react';
 import { DispatchContext } from '../../pages/MainPage';
 import { useStore } from '../../store';
 import { getCategoryBackgroundColorByIconId } from '../../ui/Icons/CategoryIcons/CategoryIcons';

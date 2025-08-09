@@ -115,16 +115,16 @@ const Transaction = observer(({ transaction, index, setChangeTransactionModal })
         </Card.Header>
 
         <Accordion.Collapse eventKey={index}>
-          <Card.Body className="d-flex justify-content-evenly bg-light-blue text-light component-one-third-border-radius-bottom">
+          <Card.Body className="d-flex mx-sm-3 justify-content-evenly bg-light-blue text-light component-one-third-border-radius-bottom">
             <button type="button" tabIndex={0} className="cursor-pointer" onClick={handleDeleteClick}>
               <DeleteCircleIcon />
-              <span className="ms-2">Delete</span>
+              <span className="ms-2 text-light">Delete</span>
             </button>
 
             {setChangeTransactionModal && (
               <button type="button" tabIndex={0} className="cursor-pointer" onClick={handleChangeClick}>
                 <EditIcon />
-                <span className="ms-2">Change</span>
+                <span className="ms-2 text-light">Change</span>
               </button>
             )}
           </Card.Body>

@@ -20,9 +20,8 @@
 }
 
 body {
-  font-family:
-    Segoe UI Variable,
-    sans-serif;
+  font-family: Segoe UI Variable,
+  sans-serif;
   color: var(--black);
 }
 
@@ -208,6 +207,7 @@ button {
 .auth-container #logo {
   width: 220px;
 }
+
 .auth-form {
   width: clamp(250px, 100%, 350px);
 }
@@ -353,8 +353,8 @@ button {
   box-shadow: var(--component-shadow);
 }
 
-.menu-container input,
-.menu-container input:focus {
+body.dark .menu-container input,
+body.dark .menu-container input:focus {
   color: black;
   background-color: var(--menu-bg-color);
 }
@@ -362,6 +362,7 @@ button {
 .menu-container input[type='radio']:focus {
   background-color: white;
 }
+
 .menu-container input[type='radio']:checked {
   background-color: #0d6efd;
 }
@@ -491,13 +492,11 @@ body.dark .menu-container input[type='checkbox'] {
   }
 
   /* Auth */
-
   .auth-form-container {
     padding-bottom: 0;
   }
 
   /* arrow-select */
-
   .arrow-select h3 {
     font-size: 28px;
   }
@@ -509,7 +508,6 @@ body.dark .menu-container input[type='checkbox'] {
   }
 
   /* arrow-select */
-
   .arrow-select h3 {
     font-size: calc(1.3rem + 0.6vw);
   }
