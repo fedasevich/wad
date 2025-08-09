@@ -1,7 +1,7 @@
 const sequelize = require('../db')
 const ApiError = require('../error/ApiError')
 
-const {Category, Transaction} = require('../models/models')
+const {Category} = require('../models/models')
 
 const MAX_CATEGORY_NAME_LENGTH = 8
 
@@ -21,7 +21,7 @@ class CategoryController {
 
         try {
             const category = await Category.create({name, userId, iconId})
-            
+
             return res.json(category)
         } catch (error) {
             return next(ApiError.badRequest(error.message))
