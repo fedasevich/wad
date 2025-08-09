@@ -98,6 +98,10 @@ class WalletController {
 
         const {amount} = req.body;
 
+        if (fromId === toId) {
+            return next(ApiError.badRequest('Cannot transfer to the same wallet'));
+        }
+
         if (typeof amount !== 'number' || !toId || !fromId) {
             return next(ApiError.badRequest("All fields must be filled"));
         }
@@ -114,17 +118,19 @@ class WalletController {
 
         try {
             const [updatedFromWalletCount, updatedToWalletCount] = await Promise.all([
-                Wallet.update({balance: sequelize.literal(`balance - ${amount}`)}, {
+                Wallet.decrement('balance', {
+                    by: amount,
                     where: {userId, id: fromId},
                     ...transactionOptions
                 }),
-                Wallet.update({balance: sequelize.literal(`balance + ${amount}`)}, {
+                Wallet.increment('balance', {
+                    by: amount,
                     where: {userId, id: toId},
                     ...transactionOptions
                 }),
             ]);
 
-            if (updatedFromWalletCount[0] !== 1 || updatedToWalletCount[0] !== 1) {
+            if (updatedFromWalletCount[0][1] !== 1 || updatedToWalletCount[0][1] !== 1) {
                 await transactionOptions.transaction.rollback();
                 return next(ApiError.badRequest('Failed to update wallets'));
             }
@@ -133,11 +139,11 @@ class WalletController {
 
             return res.json([1]);
         } catch (error) {
+            console.log(error);
             await transactionOptions.transaction.rollback();
             return next(ApiError.badRequest('Failed to update wallets'));
         }
     }
-
 }
 
 module.exports = new WalletController()
