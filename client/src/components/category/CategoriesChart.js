@@ -53,12 +53,13 @@ const CategoriesChart = observer(() => {
     }
   };
 
+  const filteredParsedCategories = category.parsedCategories.filter((item) => item.isIncome === false);
   const data = {
-    labels: category.parsedCategories.map((category) => `${category.name} spent`),
+    labels: filteredParsedCategories.map((category) => `${category.name} spent`),
     datasets: [
       {
-        data: category.parsedCategories.filter((item) => item.isIncome === false).map((item) => item.spent),
-        backgroundColor: parseCategoriesIcons(category.parsedCategories),
+        data: filteredParsedCategories.filter((item) => item.isIncome === false).map((item) => item.spent),
+        backgroundColor: parseCategoriesIcons(filteredParsedCategories),
         borderWidth: 0,
         borderRadius: 10
       }

@@ -1,6 +1,7 @@
 {
   "short_name": "WAD app",
   "name": "WAD - finance tracking app",
+  "description": "Track your finances and manage your budget",
   "icons": [
     {
       "src": "favicon.ico",
@@ -20,6 +21,14 @@
   ],
   "start_url": ".",
   "display": "standalone",
+  "orientation": "portrait-primary",
   "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "background_color": "#ffffff",
+  "categories": [
+    "finance",
+    "productivity"
+  ],
+  "lang": "en",
+  "scope": "/",
+  "prefer_related_applications": false
 }

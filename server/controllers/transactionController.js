@@ -1,11 +1,11 @@
 const sequelize = require('../db')
 const ApiError = require('../error/ApiError')
-const { Op } = require("sequelize");
-const { Transaction, Category, Wallet } = require('../models/models')
+const {Op} = require("sequelize");
+const {Transaction, Category, Wallet} = require('../models/models')
 
 class TransactionController {
   async create(req, res, next) {
-    const { description, sum, categoryId, walletId } = req.body;
+    const {description, sum, categoryId, walletId} = req.body;
     const userId = req.user.id;
 
     if (!description || typeof sum !== 'number' || !userId || !categoryId || !walletId) {
@@ -17,20 +17,41 @@ class TransactionController {
     };
 
     try {
-      const [updatedWalletCount, newTransaction] = await Promise.all([
+      const wallet = await Wallet.findOne({
+        where: {userId, id: walletId},
+        ...transactionOptions
+      });
 
+      if (!wallet) {
+        await transactionOptions.transaction.rollback();
+        return next(ApiError.notFound('Wallet not found or access denied'));
+      }
+
+      const category = await Category.findOne({
+        where: {userId, id: categoryId},
+        ...transactionOptions
+      });
+
+      if (!category) {
+        await transactionOptions.transaction.rollback();
+        return next(ApiError.notFound('Category not found or access denied'));
+      }
+
+      const negatedSum = -sum;
+      const [updatedWalletCount, newTransaction] = await Promise.all([
         Wallet.decrement(
-          { balance: sum },
+          {balance: negatedSum},
           {
-            where: { userId, id: walletId },
+            where: {userId, id: walletId},
             ...transactionOptions
           }
         ),
-        Transaction.create({ description, sum, categoryId, walletId, userId }, transactionOptions)
+        Transaction.create({description, sum, categoryId, walletId, userId}, transactionOptions)
       ]);
 
       if (!newTransaction || updatedWalletCount[0][1] !== 1) {
         await transactionOptions.transaction.rollback();
+
         return next(ApiError.badRequest('Failed to update category or wallet'));
       }
 
@@ -39,6 +60,7 @@ class TransactionController {
       return res.json(newTransaction);
     } catch (error) {
       await transactionOptions.transaction.rollback();
+
       return next(ApiError.badRequest('Failed to create transaction'));
     }
   }
@@ -96,26 +118,34 @@ class TransactionController {
     }
   }
 
-
-
   async change(req, res, next) {
-    const { newSum, newDescription } = req.body;
+    const {newSum, newDescription} = req.body;
     const id = req.params.id;
+
     if ((!newSum && !newDescription) || !id) {
       return next(ApiError.badRequest('Wrong data'));
+    }
+
+    if (newSum && (typeof newSum !== 'number')) {
+      return next(ApiError.badRequest('Invalid sum value'));
     }
 
     const userId = req.user.id;
 
     try {
       await sequelize.transaction(async (transaction) => {
-        const oldTransaction = await Transaction.findOne({ where: { id, userId } });
+        const oldTransaction = await Transaction.findOne({
+          where: {id, userId}, include: [{
+            model: Category,
+            attributes: ['id', 'isIncome'],
+          }], transaction
+        });
 
         if (!oldTransaction) {
           return next(ApiError.notFound('Transaction not found'));
         }
 
-        const { walletId, sum: oldSum } = oldTransaction;
+        const {walletId, sum: oldSum} = oldTransaction;
 
         let update = {};
 
@@ -132,7 +162,7 @@ class TransactionController {
         }
 
         const updatedTransaction = await Transaction.update(update, {
-          where: { id, userId },
+          where: {id, userId},
           transaction
         });
 
@@ -140,12 +170,22 @@ class TransactionController {
           return res.json(updatedTransaction);
         }
 
-        const wallet = await Wallet.findOne({ where: { userId, id: walletId } });
+        const wallet = await Wallet.findOne({where: {userId, id: walletId}});
 
         if (wallet) {
-          const walletSpent = parseFloat(wallet.balance) - parseFloat(oldSum) + parseFloat(newSum);
-          await Wallet.update({ balance: walletSpent }, {
-            where: { userId, id: walletId },
+          const wallet = await Wallet.findOne({
+            where: {userId, id: walletId},
+            transaction
+          });
+
+          if (!wallet) {
+            throw new Error('Wallet not found or access denied');
+          }
+
+          const newBalance = parseFloat(wallet.balance) - parseFloat(oldSum) + parseFloat(newSum);
+
+          await Wallet.update({balance: newBalance}, {
+            where: {userId, id: walletId},
             transaction
           });
         }
@@ -157,7 +197,6 @@ class TransactionController {
       return next(ApiError.internal('Failed to update transaction'));
     }
   }
-
 
 
   async delete(req, res, next) {
@@ -174,7 +213,7 @@ class TransactionController {
 
     try {
       const transaction = await Transaction.findOne({
-        where: { id, userId },
+        where: {id, userId},
         ...transactionOptions
       });
 
@@ -183,27 +222,24 @@ class TransactionController {
         return next(ApiError.notFound('Transaction not found'));
       }
 
+      const {walletId, sum} = transaction
 
-      const { walletId, sum } = transaction
-
-
-      const deletePromises = []
-
-
-      deletePromises.push(Wallet.update({ balance: sequelize.literal(`balance - ${sum}`) }, {
-        where: { userId, id: walletId },
-        ...transactionOptions
-      }))
-
-
-
-      deletePromises.push(transaction.destroy(transactionOptions))
+      const deletePromises = [
+        Wallet.decrement(
+          {balance: sum},
+          {
+            where: {userId, id: walletId},
+            ...transactionOptions
+          }
+        ),
+        transaction.destroy(transactionOptions)
+      ]
 
       await Promise.all(deletePromises);
 
-
       await transactionOptions.transaction.commit();
-      return res.json({ message: 'Transaction deleted successfully' });
+
+      return res.json({message: 'Transaction deleted successfully'});
     } catch (error) {
       await transactionOptions.transaction.rollback();
       return next(ApiError.badRequest('Failed to delete transaction'));

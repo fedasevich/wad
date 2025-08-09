@@ -1,75 +1,70 @@
-const ApiError = require('../error/ApiError')
-const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
-const { User, Category, Wallet, Currency } = require('../models/models')
+const {User, Currency} = require('../models/models')
 const axios = require('axios');
 
 class CurrencyController {
-  constructor(currencyService) {
-    this.currencyService = currencyService;
-  }
+    constructor(currencyService) {
+        this.currencyService = currencyService;
+    }
 
-  getExchangeRates = async (req, res, next) => {
-    const userId = req.user.id
-    const exchangeRates = await this.currencyService.getExchangeRates(userId)
-    return res.json(exchangeRates);
-  }
+    getExchangeRates = async (req, res, next) => {
+        const userId = req.user.id
 
+        const exchangeRates = await this.currencyService.getExchangeRates(userId)
 
+        return res.json(exchangeRates);
+    }
 }
 
+
 const getCorrectDateForCurrencyService = () => {
-  const now = new Date();
-  if (now.getHours() < 12) {
-    now.setDate(now.getDate() - 1);
-  }
+    const now = new Date();
 
-  const day = String(now.getDate()).padStart(2, '0');
-  const month = String(now.getMonth() + 1).padStart(2, '0');
-  const year = now.getFullYear();
+    if (now.getHours() < 12) {
+        now.setDate(now.getDate() - 1);
+    }
 
-  return `${day}.${month}.${year}`;
+    const day = String(now.getDate()).padStart(2, '0');
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const year = now.getFullYear();
+
+    return `${day}.${month}.${year}`;
 }
 
 class PrivatCurrencyService {
-  _apiUrl = "https://api.privatbank.ua/p24api/exchange_rates"
+    _apiUrl = "https://api.privatbank.ua/p24api/exchange_rates"
 
+    async getExchangeRates(userId) {
+        try {
 
-  getExchangeRate() { }
+            const [currencies, exchangeRates] = await Promise.all([
+                Currency.findAll(),
+                axios.get(this._apiUrl, {params: {date: getCorrectDateForCurrencyService()}})
+            ]);
 
-  async getExchangeRates(userId) {
-    try {
+            const currencyMap = new Map(currencies.map(currency => [currency.id, currency]));
+            const exchangeRateMap = new Map(exchangeRates.data.exchangeRate.map(rate => [rate.currency, rate]));
 
-      const [currencies, exchangeRates] = await Promise.all([
-        Currency.findAll(),
-        axios.get(this._apiUrl, { params: { date: getCorrectDateForCurrencyService() } })
-      ]);
+            Object.assign(exchangeRateMap.get("UAH"), {
+                saleRate: 1
+            })
 
-      const currencyMap = new Map(currencies.map(currency => [currency.id, currency]));
-      const exchangeRateMap = new Map(exchangeRates.data.exchangeRate.map(rate => [rate.currency, rate]));
+            const {currencyId: userCurrencyId} = await User.findOne({where: {id: userId}});
+            const userCurrency = currencyMap.get(userCurrencyId);
 
-      Object.assign(exchangeRateMap.get("UAH"), {
-        saleRate: 1
-      })
+            const userCurrencySaleRate = exchangeRateMap.get(userCurrency.code)?.saleRateNB;
 
-      const { currencyId: userCurrencyId } = await User.findOne({ where: { id: userId } });
-      const userCurrency = currencyMap.get(userCurrencyId);
+            const result = currencies
+                .filter(currency => exchangeRateMap.has(currency.code))
+                .map(currency => {
+                    const rate = exchangeRateMap.get(currency.code);
+                    return {...currency.get(), rate: userCurrencySaleRate / rate.saleRateNB};
+                });
 
-      const userCurrencySaleRate = exchangeRateMap.get(userCurrency.code)?.saleRateNB;
-
-      const result = currencies
-        .filter(currency => exchangeRateMap.has(currency.code))
-        .map(currency => {
-          const rate = exchangeRateMap.get(currency.code);
-          return { ...currency.get(), rate: userCurrencySaleRate / rate.saleRateNB };
-        });
-
-      return result;
-    } catch (error) {
-      console.error(error);
-      throw error;
+            return result;
+        } catch (error) {
+            throw error;
+        }
     }
-  }
 
 }
 

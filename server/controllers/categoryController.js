@@ -1,40 +1,52 @@
 const sequelize = require('../db')
 const ApiError = require('../error/ApiError')
 
-const { Category, Transaction } = require('../models/models')
+const {Category} = require('../models/models')
 
 const MAX_CATEGORY_NAME_LENGTH = 8
 
 class CategoryController {
     async create(req, res, next) {
-        const { name, iconId } = req.body
+        const {name, iconId} = req.body
+
         const userId = req.user.id
+
         if (!name || !iconId) {
             return next(ApiError.badRequest('Wrong data'))
         }
+
         if (name.length > MAX_CATEGORY_NAME_LENGTH) {
-            `Category name can't be longer than ${MAX_CATEGORY_NAME_LENGTH} symbols`
+            return next(ApiError.badRequest(`Category name can't be longer than ${MAX_CATEGORY_NAME_LENGTH} symbols`))
         }
-        const category = await Category.create({ name, userId, iconId })
-        return res.json(category)
+
+        try {
+            const category = await Category.create({name, userId, iconId})
+
+            return res.json(category)
+        } catch (error) {
+            return next(ApiError.badRequest(error.message))
+        }
     }
 
     async get(req, res, next) {
         const userId = req.user.id
+
         if (!userId) {
             return next(ApiError.badRequest('Wrong data'))
         }
+
         const categories = await Category.findAll({
-            where: { userId },
+            where: {userId},
             order: [
                 ['id', "ASC"]
             ]
         })
+
         return res.json(categories)
     }
 
     async change(req, res, next) {
-        const { newName, newIconId } = req.body;
+        const {newName, newIconId} = req.body;
         const id = req.params.id;
 
         if ((!newName && !newIconId) || !id) {
@@ -54,24 +66,25 @@ class CategoryController {
         let transaction;
 
         try {
-            transaction = await sequelize.transaction();
+            transaction = await sequelize.transaction()
 
-            await Category.update(update, { where: { id, userId }, transaction });
+            await Category.update(update, {where: {id, userId}, transaction})
+            const updatedCategory = await Category.findOne({where: {id, userId}, transaction})
 
-            const updatedCategory = await Category.findOne({ where: { id, userId }, transaction });
-
+            if (!updatedCategory) {
+                throw new Error('Category not found')
+            }
             if (updatedCategory.isIncome) {
-                throw "Can't change income category"
+                throw new Error("Can't change income category")
             }
 
-            await transaction.commit();
-
-            return res.json(updatedCategory);
+            await transaction.commit()
+            return res.json(updatedCategory)
         } catch (error) {
             if (transaction) {
-                await transaction.rollback();
+                await transaction.rollback()
             }
-            return next(ApiError.badRequest(error));
+            return next(ApiError.badRequest(error.message))
         }
     }
 
@@ -85,21 +98,27 @@ class CategoryController {
 
         const userId = req.user.id
 
+        let transaction
         try {
-            await sequelize.transaction(async (transaction) => {
-                const deletedCategory = await Category.destroy({ where: { userId, id, isIncome: false }, transaction })
-                if (deletedCategory === 0) {
-                    throw "Can't delete income category"
-                }
+            transaction = await sequelize.transaction()
 
-                return res.json(deletedCategory)
-            })
+            const deletedCount = await Category.destroy({where: {userId, id, isIncome: false}, transaction})
+
+            if (deletedCount === 0) {
+                throw new Error("Can't delete income category")
+            }
+
+            await transaction.commit()
+
+            return res.json(deletedCount)
         } catch (error) {
-            return next(ApiError.badRequest(error))
+            if (transaction) {
+                await transaction.rollback()
+            }
+
+            return next(ApiError.badRequest(error.message))
         }
     }
-
 }
 
 module.exports = new CategoryController()
-
