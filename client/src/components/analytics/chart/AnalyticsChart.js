@@ -45,7 +45,7 @@ export const AnalyticsChart = observer(({ transactions, chartRange, selectedTab,
   return (
     <div className="analytics-chart-container">
       <div className={`analytics-chart ${expanded ? 'expanded' : ''}`} data-testid="analytics-chart">
-        <Tabs id="controlled-tab-example" activeKey={selectedTab} onSelect={handleTabClick} className="mb-3">
+        <Tabs id="analytics-tabs" activeKey={selectedTab} onSelect={handleTabClick} className="mb-3">
           <Tab eventKey={ANALYTICS_CHART_TABS.EXPENSE} title="Expense">
             <Bar options={options} data={processedData} />
           </Tab>

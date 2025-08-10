@@ -45,6 +45,10 @@ p {
   height: 61vh;
 }
 
+#analytics-tabs .nav-link:focus, .nav-link:hover {
+  color: #ffffff;
+}
+
 /*responsive*/
 @media screen and (min-width: 768px) {
   .analytics-chart {

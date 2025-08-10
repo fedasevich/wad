@@ -42,6 +42,18 @@ export function AuthForm({ isLogin }) {
     }
   };
 
+  const handleTestAccount = async () => {
+    const testUuid = crypto.randomUUID();
+    const testEmail = `${testUuid}@test.com`;
+    const testPassword = testUuid;
+    try {
+      const data = await registration(testEmail, testPassword);
+      await handleSuccessfulAuth(data);
+    } catch (error) {
+      handleAuthError(error);
+    }
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     if (isLogin) {
@@ -80,6 +92,11 @@ export function AuthForm({ isLogin }) {
       <Button className="bg-light-blue border-0 mt-3 w-100" type="submit">
         {isLogin ? 'Login' : 'Register'}
       </Button>
+      {isLogin && (
+        <Button variant="secondary" className="mt-2 w-100" type="button" onClick={handleTestAccount}>
+          Use Test Account
+        </Button>
+      )}
     </Form>
   );
 }
