@@ -105,11 +105,11 @@ exports[`Analytics.js matches snapshot 1`] = `
                   role="presentation"
                 >
                   <button
-                    aria-controls="controlled-tab-example-tabpane-expense"
+                    aria-controls="analytics-tabs-tabpane-expense"
                     aria-selected="true"
                     class="nav-link active"
                     data-rr-ui-event-key="expense"
-                    id="controlled-tab-example-tab-expense"
+                    id="analytics-tabs-tab-expense"
                     role="tab"
                     type="button"
                   >
@@ -121,11 +121,11 @@ exports[`Analytics.js matches snapshot 1`] = `
                   role="presentation"
                 >
                   <button
-                    aria-controls="controlled-tab-example-tabpane-income"
+                    aria-controls="analytics-tabs-tabpane-income"
                     aria-selected="false"
                     class="nav-link"
                     data-rr-ui-event-key="income"
-                    id="controlled-tab-example-tab-income"
+                    id="analytics-tabs-tab-income"
                     role="tab"
                     tabindex="-1"
                     type="button"
@@ -138,17 +138,17 @@ exports[`Analytics.js matches snapshot 1`] = `
                 class="tab-content"
               >
                 <div
-                  aria-labelledby="controlled-tab-example-tab-expense"
+                  aria-labelledby="analytics-tabs-tab-expense"
                   class="fade tab-pane active show"
-                  id="controlled-tab-example-tabpane-expense"
+                  id="analytics-tabs-tabpane-expense"
                   role="tabpanel"
                 >
                   <canvas />
                 </div>
                 <div
-                  aria-labelledby="controlled-tab-example-tab-income"
+                  aria-labelledby="analytics-tabs-tab-income"
                   class="fade tab-pane"
-                  id="controlled-tab-example-tabpane-income"
+                  id="analytics-tabs-tabpane-income"
                   role="tabpanel"
                 >
                   <canvas />

@@ -11,13 +11,7 @@ function WalletToggle({ children, eventKey }) {
   const decoratedOnClick = useAccordionButton(eventKey);
 
   return (
-    <div
-      className="d-flex flex-row justify-content-between align-items-center"
-      role="button"
-      onKeyDown={decoratedOnClick}
-      tabIndex={0}
-      onClick={decoratedOnClick}
-    >
+    <div role="button" onKeyDown={decoratedOnClick} tabIndex={0} onClick={decoratedOnClick}>
       {children}
     </div>
   );
@@ -37,11 +31,11 @@ const Wallets = observer(() => {
         {wallet.wallets.map((walletsMap, index) => (
           <Col md="12" className="mb-4 wallet" key={walletsMap.id}>
             <Card className="component-shadow">
-              <Card.Header>
-                <WalletToggle eventKey={index}>
+              <WalletToggle eventKey={index}>
+                <Card.Header className="w-100 d-flex flex-row justify-content-between align-items-center">
                   <WalletItem wallet={walletsMap} />
-                </WalletToggle>
-              </Card.Header>
+                </Card.Header>
+              </WalletToggle>
               <Accordion.Collapse eventKey={index}>
                 <Card.Body>
                   <WalletActions dispatch={dispatch} id={walletsMap.id} />
