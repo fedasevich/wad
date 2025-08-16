@@ -44,7 +44,7 @@
 <img width="600" height="400" alt="Слой 3" src="https://github.com/user-attachments/assets/4564c4ef-3812-45e7-bfd9-4d199fa46cbe" />
 
 * Responsive layout for all possible screen sizes;
-<img width="400" height="600" alt="image" src="https://github.com/user-attachments/assets/749e4a8b-3e42-49d6-8909-cc3701c67eda" />
+<img width="250" height="400" alt="image" src="https://github.com/user-attachments/assets/749e4a8b-3e42-49d6-8909-cc3701c67eda" />
 
 
 ## Live Demo
