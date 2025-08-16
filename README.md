@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
- <img src="" alt="WAD" width="200">
+ <img width="192" height="192"  alt="WAD" src="https://github.com/user-attachments/assets/e2ba4b66-e551-471d-a9f9-d20c8665564f" />
   <br>
   WAD
   <br>
@@ -8,7 +8,7 @@
 
 <h4 align="center">Finance tracking application</h4>
 
-> **Personal Milestone:** This is my very first React application, built when I was just starting my journey as a
+> **Note:** This is my very first React application, built when I was just starting my journey as a
 > developer. Despite its architectural imperfections, it has been running in production and serving me and my friends
 > daily for several years. I'm keeping the original code structure intact as a time capsule - a way to look back and see
 > how far I've come in my software development journey.
@@ -17,7 +17,7 @@
   <a href="#key-features">Key Features</a> • 
   <a href="#live-demo">Live Demo</a> •
   <a href="#technologies-used">Technologies used</a> •  
-  <a href="#how-to-use">How To Install</a> •
+  <a href="#how-to-install">How To Install</a>
 </p> 
 
 ## Key Features
@@ -25,29 +25,38 @@
 * Authentication (registration, login, hashed passwords);
 * Authorization (account-based access control);
 * Multi-wallet management;
+<img width="600" height="400" alt="image" src="https://github.com/user-attachments/assets/fd6cd13a-4412-404e-b67e-4d31beb4dd24" />
+
 * Recent transaction activity panel;
 * Categorized expense tracking with set of default categories (Groceries, Entertainment, Utilities, Transportation,
   Others) and customizable names/icons;
-* Calculator-driven transaction entry supporting description, integer & decimal values, and primary operations;
+<img width="600" height="400" alt="image" src="https://github.com/user-attachments/assets/2a216d0b-5715-4140-9d4d-22bf33b1732f" />
+
+* Calculator-driven transaction entry supporting description, integer & decimal values, and primary operations;  
+<img width="600" height="400" alt="image" src="https://github.com/user-attachments/assets/68ebbb77-c41f-420d-8383-f2e3ed6a4b13" />
+
 * Multi-currency support (UAH, USD, EUR, PLN, CZK, cryptocurrencies);
 * Interactive visual analytics: doughnut chart for category distribution; stacked bar chart plus daily/weekly/monthly
   stats;
 * Date range filtering for categories and analytics to see historical transaction data;
 * Settings page with UX enhancements;
 * Light dark theme selection;
+<img width="600" height="400" alt="Слой 3" src="https://github.com/user-attachments/assets/4564c4ef-3812-45e7-bfd9-4d199fa46cbe" />
+
 * Responsive layout for all possible screen sizes;
+<img width="400" height="600" alt="image" src="https://github.com/user-attachments/assets/749e4a8b-3e42-49d6-8909-cc3701c67eda" />
+
 
 ## Live Demo
 
 You can try the application live without installing anything:
 
 1. Visit [wad-two.vercel.app](https://wad-two.vercel.app/)
-2. Click the **Test Account** button to log in with demo data
-3. Explore all features with pre-populated transactions and wallets
+2. Click the **Use Test Account** button to log in with demo account
+3. Explore all features with pre-populated categories and walets
 
-![Live Demo Screenshot](screenshot-placeholder.png)
+<img width="600" height="400" alt="Group 34468" src="https://github.com/user-attachments/assets/a778f17e-0975-493d-93a6-ffc152440be5" />
 
-*Screenshot showing the live demo interface*
 
 ## Technologies Used
 
