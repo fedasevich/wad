@@ -274,7 +274,6 @@ export default class CategoryStore {
 
         return result;
       }, {});
-      console.log(categorySums);
       this._parsedCategories = this._categories.map((category) => ({
         ...category,
         spent: categorySums[category.id] || 0
